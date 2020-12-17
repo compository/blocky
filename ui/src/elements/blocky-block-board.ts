@@ -10,7 +10,7 @@ import { CellId } from '@holochain/conductor-api';
 import { Scoped } from 'scoped-elements';
 import { CircularProgress } from '@material/mwc-circular-progress';
 
-export class BlockBlockBoard extends membraneContext(Scoped(LitElement)) {
+export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
   @property()
   compositoryCellId!: CellId;
 
