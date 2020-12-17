@@ -2,7 +2,7 @@ import { LitElement } from 'lit-element';
 import { Block, BlockBoard } from 'block-board';
 import { CellId } from '@holochain/conductor-api';
 import { CircularProgress } from '@material/mwc-circular-progress';
-declare const BlockBlockBoard_base: typeof LitElement & import("lit-element").Constructor<HTMLElement> & {
+declare const BlockyBlockBoard_base: typeof LitElement & import("lit-element").Constructor<HTMLElement> & {
     readonly scopedElements: import("scoped-elements").Dictionary<{
         new (): HTMLElement;
         prototype: HTMLElement;
@@ -15,7 +15,7 @@ declare const BlockBlockBoard_base: typeof LitElement & import("lit-element").Co
     appWebsocket: import("@holochain/conductor-api").AppWebsocket;
     adminWebsocket: import("@holochain/conductor-api").AdminWebsocket;
 }>;
-export declare class BlockBlockBoard extends BlockBlockBoard_base {
+export declare class BlockyBlockBoard extends BlockyBlockBoard_base {
     compositoryCellId: CellId;
     static get scopedElements(): {
         'block-board': typeof BlockBoard;

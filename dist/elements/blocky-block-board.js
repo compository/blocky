@@ -5,7 +5,7 @@ import { BlockBoard } from 'block-board';
 import { membraneContext } from 'holochain-membrane-context';
 import { Scoped } from 'scoped-elements';
 import { CircularProgress } from '@material/mwc-circular-progress';
-export class BlockBlockBoard extends membraneContext(Scoped(LitElement)) {
+export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
     constructor() {
         super(...arguments);
         this._blocks = undefined;
@@ -31,8 +31,8 @@ export class BlockBlockBoard extends membraneContext(Scoped(LitElement)) {
 }
 __decorate([
     property()
-], BlockBlockBoard.prototype, "compositoryCellId", void 0);
+], BlockyBlockBoard.prototype, "compositoryCellId", void 0);
 __decorate([
     property({ type: Array })
-], BlockBlockBoard.prototype, "_blocks", void 0);
+], BlockyBlockBoard.prototype, "_blocks", void 0);
 //# sourceMappingURL=blocky-block-board.js.map
