@@ -4,8 +4,8 @@
   "description": "TODO: change description",
   "author": "guillem.cordoba@gmail.com",
   "license": "MIT",
-  "main": "index.js",
-  "module": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "scripts": {
     "start": "concurrently --kill-others \"npm:start-ui\" \"npm:start-holochain\"",
     "start-ui": "CONDUCTOR_URL=ws://localhost:8888 concurrently -k --names tsc,dev-server \"npm run build-watch\" \"web-dev-server --config demo/web-dev-server.config.mjs\"",
@@ -23,7 +23,7 @@
     "build-storybook": "npm run analyze && build-storybook",
     "publish-storybook": "npm run lint && npm run analyze && npm run build&& npm run build-storybook && gh-pages -d storybook-static",
     "publish-npm": "npm run lint && npm run build && cp ../README.md dist/  && cp ../LICENSE dist/ && cp package.json dist/ && cd dist/ && npm publish --access public && rimraf dist/",
-    "publish-to-branch": "npm run lint && npm run build && cp package.json dist && gh-pages -d dist -b ui-build"
+    "publish-to-branch": "npm run lint && npm run build && gh-pages -d . -b ui-build"
   },
   "dependencies": {
     "@holochain/conductor-api": "0.0.1-dev.14",

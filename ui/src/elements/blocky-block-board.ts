@@ -1,5 +1,4 @@
 import { html, LitElement, property } from 'lit-element';
-import { BlockyService } from '../blocky.service';
 import {
   CompositoryService,
   fetchRenderersForAllZomes,
@@ -39,7 +38,6 @@ export class BlockBlockBoard extends membraneContext(Scoped(LitElement)) {
     );
 
     this._blocks = flattened;
-
   }
 
   render() {
