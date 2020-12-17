@@ -4,7 +4,7 @@ import { CompositoryService, fetchRenderersForAllZomes, } from 'compository';
 import { BlockBoard } from 'block-board';
 import { membraneContext } from 'holochain-membrane-context';
 import { Scoped } from 'scoped-elements';
-import { CircularProgress } from '@material/mwc-circular-progress';
+import { CircularProgress } from 'scoped-material-components/dist/mwc-circular-progress';
 export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
     constructor() {
         super(...arguments);

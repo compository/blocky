@@ -1,7 +1,7 @@
 import { LitElement } from 'lit-element';
 import { Block, BlockBoard } from 'block-board';
 import { CellId } from '@holochain/conductor-api';
-import { CircularProgress } from '@material/mwc-circular-progress';
+import { CircularProgress } from 'scoped-material-components/dist/mwc-circular-progress';
 declare const BlockyBlockBoard_base: typeof LitElement & import("lit-element").Constructor<HTMLElement> & {
     readonly scopedElements: import("scoped-elements").Dictionary<{
         new (): HTMLElement;
