@@ -50,9 +50,11 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
         }));
         const layouts = await this.blockyService.getAllBoardLayouts();
         this._blockLayout = layouts[0];
+        setTimeout(() => (this.board.editing = !this._blockLayout));
     }
     async createBoard(layout) {
         this._blockLayout = layout;
+        this.board.editing = false;
         return this.blockyService.createBoardLayout(layout);
     }
     render() {
