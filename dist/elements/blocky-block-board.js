@@ -56,7 +56,6 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
         return this.blockyService.createBoardLayout(layout);
     }
     render() {
-        var _a;
         if (this._blockSets === undefined)
             return html `<mwc-circular-progress></mwc-circular-progress>`;
         return html `<block-board
@@ -67,16 +66,17 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
         @board-saved=${(e) => this.createBoard(e.detail.blockLayout)}
       ></block-board>
 
-      ${((_a = this.board) === null || _a === void 0 ? void 0 : _a.editing) ? html ``
-            : html `
+      ${this.board && !this.board.editing
+            ? html `
             <mwc-fab label="edit" class="fab">
               <mwc-icon-button
                 slot="icon"
                 @click=${() => (this.board.editing = true)}
-                >edit</mwc-icon-button
-              >
+                icon="edit"
+              ></mwc-icon-button>
             </mwc-fab>
-          `} `;
+          `
+            : html ``} `;
     }
 }
 __decorate([

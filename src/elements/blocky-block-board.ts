@@ -58,10 +58,13 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
 
     this._blockSets = zomeRenderers
       .filter(([def, renderers]) => renderers !== undefined)
-      .map(([def, renderers]) => ({
-        name: def.name,
-        blocks: renderers?.standalone,
-      }) as BlockSet);
+      .map(
+        ([def, renderers]) =>
+          ({
+            name: def.name,
+            blocks: renderers?.standalone,
+          } as BlockSet)
+      );
 
     const layouts = await this.blockyService.getAllBoardLayouts();
     this._blockLayout = layouts[0];
@@ -84,16 +87,16 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
           this.createBoard(e.detail.blockLayout)}
       ></block-board>
 
-      ${this.board?.editing
-        ? html``
-        : html`
+      ${this.board && !this.board.editing
+        ? html`
             <mwc-fab label="edit" class="fab">
               <mwc-icon-button
                 slot="icon"
                 @click=${() => (this.board.editing = true)}
-                >edit</mwc-icon-button
-              >
+                icon="edit"
+              ></mwc-icon-button>
             </mwc-fab>
-          `} `;
+          `
+        : html``} `;
   }
 }
