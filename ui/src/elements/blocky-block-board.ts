@@ -4,7 +4,7 @@ import {
   fetchRenderersForAllZomes,
   StandaloneRenderer,
 } from 'compository';
-import { Block, BlockBoard, BlockLayoutNode } from 'block-board';
+import { Block, BlockBoard, BlockLayoutNode, BlockSet } from 'block-board';
 import { membraneContext } from 'holochain-membrane-context';
 import { CellId } from '@holochain/conductor-api';
 import { Scoped } from 'scoped-elements';
@@ -38,7 +38,7 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
   }
 
   @property({ type: Array })
-  _blocks: Array<Block> | undefined = undefined;
+  _blockSets: Array<BlockSet> | undefined = undefined;
   @property({ type: Array })
   _blockLayout: BlockLayoutNode | undefined = undefined;
 
@@ -56,13 +56,12 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
       this.cellId
     );
 
-    const standaloneRenderers = zomeRenderers.map(r => r.renderers.standalone);
-
-    const flattened = ([] as StandaloneRenderer[]).concat(
-      ...standaloneRenderers
-    );
-
-    this._blocks = flattened;
+    this._blockSets = zomeRenderers
+      .filter(([def, renderers]) => renderers !== undefined)
+      .map(([def, renderers]) => ({
+        name: def.name,
+        blocks: renderers?.standalone,
+      }) as BlockSet);
 
     const layouts = await this.blockyService.getAllBoardLayouts();
     this._blockLayout = layouts[0];
@@ -74,17 +73,17 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
   }
 
   render() {
-    if (this._blocks === undefined)
+    if (this._blockSets === undefined)
       return html`<mwc-circular-progress></mwc-circular-progress>`;
     return html`<block-board
         id="board"
         style="flex: 1;"
-        .availableBlocks=${this._blocks}
+        .blockSets=${this._blockSets}
         .blockLayout=${this._blockLayout}
         @board-saved=${(e: CustomEvent) =>
           this.createBoard(e.detail.blockLayout)}
       ></block-board>
-      
+
       ${this.board?.editing
         ? html``
         : html`
