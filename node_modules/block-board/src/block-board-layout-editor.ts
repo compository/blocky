@@ -1,7 +1,7 @@
 import { LitElement, html, property, TemplateResult } from "lit-element";
 import { SplitLayoutElement } from "@vaadin/vaadin-split-layout/vaadin-split-layout.js";
 
-import { Block, BlockLayoutNode } from "./block";
+import { Block, BlockLayoutNode } from "./types";
 import { sharedStyles } from "./sharedStyles";
 import { Scoped } from "scoped-elements";
 import { IconButton } from "scoped-material-components/dist/mwc-icon-button";

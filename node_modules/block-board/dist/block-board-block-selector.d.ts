@@ -1,5 +1,5 @@
 import { LitElement } from "lit-element";
-import { Block, BlockSet } from "./block";
+import { Block, BlockSet } from "./types";
 export declare class BlockBoardBlockSelector extends LitElement {
     static styles: import("lit-element").CSSResult;
     blockSets: Array<BlockSet>;

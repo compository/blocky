@@ -68,12 +68,12 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
 
       ${this.board && !this.board.editing
             ? html `
-            <mwc-fab label="edit" class="fab">
-              <mwc-icon-button
-                slot="icon"
-                @click=${() => (this.board.editing = true)}
-                icon="edit"
-              ></mwc-icon-button>
+            <mwc-fab
+              label="edit"
+              class="fab"
+              @click=${() => (this.board.editing = true)}
+              icon="edit"
+            >
             </mwc-fab>
           `
             : html ``} `;

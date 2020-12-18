@@ -45,6 +45,10 @@ export class BlockBoard extends Scoped(LitElement) {
             detail: { blockLayout: this.blockLayout },
         }));
     }
+    firstUpdated() {
+        if (this.blockLayout)
+            this.editing = false;
+    }
     renderLayout() {
         return html `
       <block-board-layout-renderer

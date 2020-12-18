@@ -1,3 +1,3 @@
 export { BlockBoard } from "./block-board";
-export * from "./block";
+export * from "./types";
 //# sourceMappingURL=index.js.map

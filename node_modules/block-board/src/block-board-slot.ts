@@ -1,6 +1,6 @@
 import { html, LitElement, property, query } from "lit-element";
 import { Scoped } from "scoped-elements";
-import { Block } from "./block";
+import { Block } from "./types";
 
 export class BlockBoardSlot extends Scoped(LitElement) {
   @property({ type: Object })

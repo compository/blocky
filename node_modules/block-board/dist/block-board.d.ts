@@ -1,5 +1,5 @@
 import { LitElement } from "lit-element";
-import { Block, BlockLayoutNode, BlockSet } from "./block";
+import { Block, BlockLayoutNode, BlockSet } from "./types";
 import "./block-board-block-selector";
 import "./block-board-layout-editor";
 import "./block-board-layout-renderer";
@@ -30,6 +30,7 @@ export declare class BlockBoard extends BlockBoard_base {
         "block-board-block-selector": typeof BlockBoardBlockSelector;
     };
     saveLayout(): void;
+    firstUpdated(): void;
     renderLayout(): import("lit-element").TemplateResult;
     renderEditingMode(): import("lit-element").TemplateResult;
     render(): import("lit-element").TemplateResult;

@@ -1,6 +1,6 @@
 import { LitElement, TemplateResult } from "lit-element";
 import { SplitLayoutElement } from "@vaadin/vaadin-split-layout/vaadin-split-layout.js";
-import { Block, BlockLayoutNode } from "./block";
+import { Block, BlockLayoutNode } from "./types";
 import { IconButton } from "scoped-material-components/dist/mwc-icon-button";
 import { CircularProgress } from "scoped-material-components/dist/mwc-circular-progress";
 import { BlockBoardSlot } from "./block-board-slot";

@@ -1,5 +1,5 @@
 import { LitElement, TemplateResult } from "lit-element";
-import { BlockLayoutNode, Block, BlockSlot } from "./block";
+import { BlockLayoutNode, Block, BlockSlot } from "./types";
 import { BlockBoardSlot } from "./block-board-slot";
 declare const BlockBoardLayoutRenderer_base: typeof LitElement & import("lit-element").Constructor<HTMLElement> & {
     readonly scopedElements: import("scoped-elements").Dictionary<{

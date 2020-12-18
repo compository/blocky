@@ -1,1 +1,1 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,eAAe,CAAC;AAC3C,cAAc,SAAS,CAAC","sourcesContent":["export { BlockBoard } from \"./block-board\";\nexport * from \"./block\";\n"]}
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,eAAe,CAAC;AAC3C,cAAc,SAAS,CAAC","sourcesContent":["export { BlockBoard } from \"./block-board\";\nexport * from \"./types\";\n"]}

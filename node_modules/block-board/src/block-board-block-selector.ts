@@ -1,5 +1,5 @@
 import { LitElement, html, property } from "lit-element";
-import { Block, BlockSet } from "./block";
+import { Block, BlockSet } from "./types";
 import { sharedStyles } from "./sharedStyles";
 
 export class BlockBoardBlockSelector extends LitElement {

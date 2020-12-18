@@ -1,5 +1,5 @@
 import { html, css, LitElement, property } from "lit-element";
-import { Block, BlockLayoutNode, BlockSet } from "./block";
+import { Block, BlockLayoutNode, BlockSet } from "./types";
 import "./block-board-block-selector";
 import "./block-board-layout-editor";
 import "./block-board-layout-renderer";
@@ -64,6 +64,10 @@ export class BlockBoard extends Scoped(LitElement) {
         detail: { blockLayout: this.blockLayout },
       })
     );
+  }
+
+  firstUpdated() {
+    if (this.blockLayout) this.editing = false;
   }
 
   renderLayout() {
