@@ -1,9 +1,5 @@
 import { css, html, LitElement, property } from 'lit-element';
-import {
-  CompositoryService,
-  fetchRenderersForAllZomes,
-  StandaloneRenderer,
-} from 'compository';
+import { CompositoryService, fetchRenderersForAllZomes } from 'compository';
 import { Block, BlockBoard, BlockLayoutNode, BlockSet } from 'block-board';
 import { membraneContext } from 'holochain-membrane-context';
 import { CellId } from '@holochain/conductor-api';
@@ -68,11 +64,22 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
 
     const layouts = await this.blockyService.getAllBoardLayouts();
     this._blockLayout = layouts[0];
+
+    setTimeout(() => {
+      this.board.editing = !this._blockLayout;
+      this.requestUpdate();
+    });
   }
 
   async createBoard(layout: BlockLayoutNode) {
-    this._blockLayout = layout;
-    return this.blockyService.createBoardLayout(layout);
+    this.board.editing = false;
+
+    this.requestUpdate();
+
+    if (JSON.stringify(this._blockLayout) !== JSON.stringify(layout)) {
+      this._blockLayout = layout;
+      await this.blockyService.createBoardLayout(layout);
+    }
   }
 
   render() {
@@ -89,12 +96,15 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
 
       ${this.board && !this.board.editing
         ? html`
-            <mwc-fab label="edit" class="fab">
-              <mwc-icon-button
-                slot="icon"
-                @click=${() => (this.board.editing = true)}
-                icon="edit"
-              ></mwc-icon-button>
+            <mwc-fab
+              label="edit"
+              class="fab"
+              @click=${() => {
+                this.board.editing = true;
+                this.requestUpdate();
+              }}
+              icon="edit"
+            >
             </mwc-fab>
           `
         : html``} `;
