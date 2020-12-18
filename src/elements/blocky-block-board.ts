@@ -1,4 +1,4 @@
-import { html, LitElement, property } from 'lit-element';
+import { css, html, LitElement, property } from 'lit-element';
 import {
   CompositoryService,
   fetchRenderersForAllZomes,
@@ -19,6 +19,14 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
       'block-board': BlockBoard,
       'mwc-circular-progress': CircularProgress,
     };
+  }
+
+  static get styles() {
+    return css`
+      :host {
+        display: flex;
+      }
+    `;
   }
 
   @property({ type: Array })
@@ -43,6 +51,9 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
   render() {
     if (this._blocks === undefined)
       return html`<mwc-circular-progress></mwc-circular-progress>`;
-    return html`<block-board .availableBlocks=${this._blocks}></block-board>`;
+    return html`<block-board
+      style="flex: 1;"
+      .availableBlocks=${this._blocks}
+    ></block-board>`;
   }
 }

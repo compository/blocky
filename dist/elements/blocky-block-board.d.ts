@@ -21,6 +21,7 @@ export declare class BlockyBlockBoard extends BlockyBlockBoard_base {
         'block-board': typeof BlockBoard;
         'mwc-circular-progress': typeof CircularProgress;
     };
+    static get styles(): import("lit-element").CSSResult;
     _blocks: Array<Block> | undefined;
     firstUpdated(): Promise<void>;
     render(): import("lit-element").TemplateResult;

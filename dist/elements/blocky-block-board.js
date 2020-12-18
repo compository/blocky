@@ -1,5 +1,5 @@
 import { __decorate } from "tslib";
-import { html, LitElement, property } from 'lit-element';
+import { css, html, LitElement, property } from 'lit-element';
 import { CompositoryService, fetchRenderersForAllZomes, } from 'compository';
 import { BlockBoard } from 'block-board';
 import { membraneContext } from 'holochain-membrane-context';
@@ -16,6 +16,13 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
             'mwc-circular-progress': CircularProgress,
         };
     }
+    static get styles() {
+        return css `
+      :host {
+        display: flex;
+      }
+    `;
+    }
     async firstUpdated() {
         // Get the renderers for each of the zomes
         const zomeRenderers = await fetchRenderersForAllZomes(new CompositoryService(this.appWebsocket, this.compositoryCellId), this.cellId);
@@ -26,7 +33,10 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
     render() {
         if (this._blocks === undefined)
             return html `<mwc-circular-progress></mwc-circular-progress>`;
-        return html `<block-board .availableBlocks=${this._blocks}></block-board>`;
+        return html `<block-board
+      style="flex: 1;"
+      .availableBlocks=${this._blocks}
+    ></block-board>`;
     }
 }
 __decorate([
