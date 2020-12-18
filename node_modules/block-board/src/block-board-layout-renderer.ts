@@ -30,7 +30,7 @@ export class BlockBoardLayoutRenderer extends Scoped(LitElement) {
       const block = this.availableBlocks.find((block) => block.name === slot);
       if (!block) throw new Error(`Tried to render an unexisting block`);
       return html`<block-board-slot .block=${block}></block-board-slot>`;
-    } else if (slot !== undefined) {
+    } else if (slot) {
       return this.renderNode(slot);
     } else {
       return html``;

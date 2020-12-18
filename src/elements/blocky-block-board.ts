@@ -1,9 +1,5 @@
 import { css, html, LitElement, property } from 'lit-element';
-import {
-  CompositoryService,
-  fetchRenderersForAllZomes,
-  StandaloneRenderer,
-} from 'compository';
+import { CompositoryService, fetchRenderersForAllZomes } from 'compository';
 import { Block, BlockBoard, BlockLayoutNode, BlockSet } from 'block-board';
 import { membraneContext } from 'holochain-membrane-context';
 import { CellId } from '@holochain/conductor-api';
@@ -69,14 +65,21 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
     const layouts = await this.blockyService.getAllBoardLayouts();
     this._blockLayout = layouts[0];
 
-    setTimeout(() => (this.board.editing = !this._blockLayout));
+    setTimeout(() => {
+      this.board.editing = !this._blockLayout;
+      this.requestUpdate();
+    });
   }
 
   async createBoard(layout: BlockLayoutNode) {
-    this._blockLayout = layout;
-
     this.board.editing = false;
-    return this.blockyService.createBoardLayout(layout);
+
+    this.requestUpdate();
+
+    if (JSON.stringify(this._blockLayout) !== JSON.stringify(layout)) {
+      this._blockLayout = layout;
+      await this.blockyService.createBoardLayout(layout);
+    }
   }
 
   render() {

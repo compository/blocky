@@ -1,6 +1,6 @@
 import { __decorate } from "tslib";
 import { css, html, LitElement, property } from 'lit-element';
-import { CompositoryService, fetchRenderersForAllZomes, } from 'compository';
+import { CompositoryService, fetchRenderersForAllZomes } from 'compository';
 import { BlockBoard } from 'block-board';
 import { membraneContext } from 'holochain-membrane-context';
 import { Scoped } from 'scoped-elements';
@@ -50,12 +50,18 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
         }));
         const layouts = await this.blockyService.getAllBoardLayouts();
         this._blockLayout = layouts[0];
-        setTimeout(() => (this.board.editing = !this._blockLayout));
+        setTimeout(() => {
+            this.board.editing = !this._blockLayout;
+            this.requestUpdate();
+        });
     }
     async createBoard(layout) {
-        this._blockLayout = layout;
         this.board.editing = false;
-        return this.blockyService.createBoardLayout(layout);
+        this.requestUpdate();
+        if (JSON.stringify(this._blockLayout) !== JSON.stringify(layout)) {
+            this._blockLayout = layout;
+            await this.blockyService.createBoardLayout(layout);
+        }
     }
     render() {
         if (this._blockSets === undefined)

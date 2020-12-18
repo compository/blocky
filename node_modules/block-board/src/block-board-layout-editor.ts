@@ -65,7 +65,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
           ></mwc-icon-button>
           <mwc-icon-button
             @click=${() => {
-              parentNode.slots.splice(slotIndex, 1)
+              parentNode.slots.splice(slotIndex, 1);
               this.requestUpdate();
             }}
             icon="delete"
@@ -81,7 +81,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
           }}
           @dragover=${(e: DragEvent) => e.preventDefault()}
         >
-          ${blockName !== undefined && this.findBlock(blockName)
+          ${blockName && this.findBlock(blockName)
             ? html`<block-board-slot
                 style="pointer-events: none;"
                 .block=${this.findBlock(blockName) as Block}
@@ -117,7 +117,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
         }}
       >
         ${blockLayout.slots.map((slot, index) => {
-          if (slot === undefined || typeof slot === "string")
+          if (!slot || typeof slot === "string")
             return this.renderBlockSlot(slot, blockLayout, index);
           else return this.renderLayoutNode(slot);
         })}

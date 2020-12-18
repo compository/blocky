@@ -72,7 +72,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
         }}
           @dragover=${(e) => e.preventDefault()}
         >
-          ${blockName !== undefined && this.findBlock(blockName)
+          ${blockName && this.findBlock(blockName)
             ? html `<block-board-slot
                 style="pointer-events: none;"
                 .block=${this.findBlock(blockName)}
@@ -102,7 +102,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
         }}
       >
         ${blockLayout.slots.map((slot, index) => {
-            if (slot === undefined || typeof slot === "string")
+            if (!slot || typeof slot === "string")
                 return this.renderBlockSlot(slot, blockLayout, index);
             else
                 return this.renderLayoutNode(slot);

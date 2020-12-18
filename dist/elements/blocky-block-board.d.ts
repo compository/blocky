@@ -30,7 +30,7 @@ export declare class BlockyBlockBoard extends BlockyBlockBoard_base {
     get blockyService(): BlockyService;
     get board(): BlockBoard;
     firstUpdated(): Promise<void>;
-    createBoard(layout: BlockLayoutNode): Promise<string>;
+    createBoard(layout: BlockLayoutNode): Promise<void>;
     render(): import("lit-element").TemplateResult;
 }
 export {};
