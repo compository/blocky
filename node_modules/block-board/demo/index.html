@@ -22,15 +22,16 @@
     <script type="module">
       import { html, render } from "lit-html";
       import { BlockBoard } from "../dist/index.js";
+      import { scopeElement } from "scoped-elements/dist/scoped";
 
-      customElements.define("block-board", BlockBoard);
+      customElements.define("block-board", scopeElement(BlockBoard));
 
       const board = document.getElementById("board");
-      
+
       board.availableBlocks = [
         {
           name: "ahaha",
-          render: (_, shadowRoot) =>
+          render: (shadowRoot) =>
             render(html`<span>naiiin</span>`, shadowRoot),
         },
       ];

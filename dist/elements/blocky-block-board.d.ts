@@ -1,7 +1,9 @@
 import { LitElement } from 'lit-element';
-import { Block, BlockBoard } from 'block-board';
+import { Block, BlockBoard, BlockLayoutNode } from 'block-board';
 import { CellId } from '@holochain/conductor-api';
 import { CircularProgress } from 'scoped-material-components/dist/mwc-circular-progress';
+import { Fab } from 'scoped-material-components/dist/mwc-fab';
+import { BlockyService } from '../blocky.service';
 declare const BlockyBlockBoard_base: typeof LitElement & import("lit-element").Constructor<HTMLElement> & {
     readonly scopedElements: import("scoped-elements").Dictionary<{
         new (): HTMLElement;
@@ -20,10 +22,15 @@ export declare class BlockyBlockBoard extends BlockyBlockBoard_base {
     static get scopedElements(): {
         'block-board': typeof BlockBoard;
         'mwc-circular-progress': typeof CircularProgress;
+        'mwc-fab': typeof Fab;
     };
     static get styles(): import("lit-element").CSSResult;
     _blocks: Array<Block> | undefined;
+    _blockLayout: BlockLayoutNode | undefined;
+    get blockyService(): BlockyService;
+    get board(): BlockBoard;
     firstUpdated(): Promise<void>;
+    createBoard(layout: BlockLayoutNode): Promise<string>;
     render(): import("lit-element").TemplateResult;
 }
 export {};

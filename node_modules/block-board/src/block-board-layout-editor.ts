@@ -4,26 +4,33 @@ import { SplitLayoutElement } from "@vaadin/vaadin-split-layout/vaadin-split-lay
 import { Block, BlockLayoutNode } from "./block";
 import { sharedStyles } from "./sharedStyles";
 import { Scoped } from "scoped-elements";
-import { IconButton } from "@material/mwc-icon-button";
+import { IconButton } from "scoped-material-components/dist/mwc-icon-button";
+import { CircularProgress } from "scoped-material-components/dist/mwc-circular-progress";
 import { BlockBoardSlot } from "./block-board-slot";
 
-customElements.define('block-board-slot', BlockBoardSlot);
 export class BlockBoardLayoutEditor extends Scoped(LitElement) {
   static styles = sharedStyles;
 
   @property({ type: Array }) private availableBlocks: Array<Block> = [];
-  @property({ type: Object }) blockLayout: BlockLayoutNode = {
-    direction: "horizontal",
-    slots: [undefined, undefined],
-    firstSlotRelativeSize: 0.5,
-  };
+  @property({ type: Object }) blockLayout!: BlockLayoutNode;
 
   static get scopedElements() {
     return {
       "block-board-slot": BlockBoardSlot,
       "vaadin-split-layout": SplitLayoutElement,
       "mwc-icon-button": IconButton,
+      "mwc-circular-progress": CircularProgress,
     };
+  }
+
+  firstUpdated() {
+    if (this.blockLayout === undefined) {
+      this.blockLayout = {
+        direction: "horizontal",
+        slots: [undefined, undefined],
+        firstSlotRelativeSize: 0.5,
+      };
+    }
   }
 
   renderBlockSlot(
@@ -56,6 +63,13 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
             }}
             icon="vertical_split"
           ></mwc-icon-button>
+          <mwc-icon-button
+            @click=${() => {
+              parentNode.slots.splice(slotIndex, 1)
+              this.requestUpdate();
+            }}
+            icon="delete"
+          ></mwc-icon-button>
         </div>
         <div
           style="background-color: gray; flex: 1;"
@@ -69,6 +83,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
         >
           ${blockName !== undefined && this.findBlock(blockName)
             ? html`<block-board-slot
+                style="pointer-events: none;"
                 .block=${this.findBlock(blockName) as Block}
               ></block-board-slot>`
             : html``}
@@ -111,6 +126,8 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
   }
 
   render() {
+    if (!this.blockLayout)
+      return html`<mwc-circular-progress></mwc-circular-progress>`;
     return this.renderLayoutNode(this.blockLayout);
   }
 }
