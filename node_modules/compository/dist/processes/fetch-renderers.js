@@ -15,14 +15,12 @@ export async function fetchRenderersForAllZomes(compositoryService, cellId) {
 async function internalFetchRenderersForZome(compositoryService, cellId, zomeDefHash) {
     // Fetch the appropriate elements bundle for this zome
     const zomeDef = await compositoryService.getZomeDef(zomeDefHash);
-    if (!zomeDef.components_bundle_file)
-        throw new Error('This zome does not have any elements bundle file');
+    if (!zomeDef.components_bundle_file) {
+        return [zomeDef, undefined];
+    }
     const file = await compositoryService.downloadFile(zomeDef.components_bundle_file);
     const module = await importModuleFromFile(file);
     const renderers = await module.default(compositoryService.appWebsocket, cellId);
-    return {
-        renderers,
-        def: zomeDef,
-    };
+    return [zomeDef, renderers];
 }
 //# sourceMappingURL=fetch-renderers.js.map

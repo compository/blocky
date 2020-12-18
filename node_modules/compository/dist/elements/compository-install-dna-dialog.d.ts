@@ -1,20 +1,13 @@
 import { LitElement } from 'lit-element';
-import { Dialog } from '@material/mwc-dialog';
-import { Button } from '@material/mwc-button';
-import { TextField } from '@material/mwc-textfield';
+import { Dialog } from 'scoped-material-components/dist/mwc-dialog';
+import { Button } from 'scoped-material-components/dist/mwc-button';
+import { TextField } from 'scoped-material-components/dist/mwc-textfield';
 declare const CompositoryInstallDnaDialog_base: typeof LitElement & import("lit-element").Constructor<HTMLElement> & {
     readonly scopedElements: import("scoped-elements").Dictionary<{
         new (): HTMLElement;
         prototype: HTMLElement;
     }>;
-} & import("lit-element").Constructor<{
-    context: {
-        membrane: import("holochain-membrane-context").MembraneContext;
-    };
-    cellId: import("@holochain/conductor-api").CellId;
-    appWebsocket: import("@holochain/conductor-api").AppWebsocket;
-    adminWebsocket: import("@holochain/conductor-api").AdminWebsocket;
-}>;
+} & import("lit-element").Constructor<import("holochain-membrane-context").MembraneContext>;
 export declare class CompositoryInstallDnaDialog extends CompositoryInstallDnaDialog_base {
     _dialog: Dialog;
     _dnaPath: string;

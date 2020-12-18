@@ -38,11 +38,12 @@
  */
 export * from './elements/compository-discover-entry';
 export * from './elements/compository-scope';
-export * from './elements/compository-compose-zomes';
+export * from './elements/compository-install-dna-dialog';
 export * from './services/compository-service';
 export * from './types/scoped-renderers';
 export * from './types/dnas';
 export * from './processes/discover';
+export * from './processes/download-file';
 export * from './processes/dna-template';
 export * from './processes/fetch-renderers';
 export * from './processes/generate-dna';

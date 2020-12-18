@@ -10,7 +10,7 @@ import { BlockyService } from '../blocky.service';
 export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
     constructor() {
         super(...arguments);
-        this._blocks = undefined;
+        this._blockSets = undefined;
         this._blockLayout = undefined;
     }
     static get scopedElements() {
@@ -42,9 +42,12 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
     async firstUpdated() {
         // Get the renderers for each of the zomes
         const zomeRenderers = await fetchRenderersForAllZomes(new CompositoryService(this.appWebsocket, this.compositoryCellId), this.cellId);
-        const standaloneRenderers = zomeRenderers.map(r => r.renderers.standalone);
-        const flattened = [].concat(...standaloneRenderers);
-        this._blocks = flattened;
+        this._blockSets = zomeRenderers
+            .filter(([def, renderers]) => renderers !== undefined)
+            .map(([def, renderers]) => ({
+            name: def.name,
+            blocks: renderers === null || renderers === void 0 ? void 0 : renderers.standalone,
+        }));
         const layouts = await this.blockyService.getAllBoardLayouts();
         this._blockLayout = layouts[0];
     }
@@ -54,16 +57,16 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
     }
     render() {
         var _a;
-        if (this._blocks === undefined)
+        if (this._blockSets === undefined)
             return html `<mwc-circular-progress></mwc-circular-progress>`;
         return html `<block-board
         id="board"
         style="flex: 1;"
-        .availableBlocks=${this._blocks}
+        .blockSets=${this._blockSets}
         .blockLayout=${this._blockLayout}
         @board-saved=${(e) => this.createBoard(e.detail.blockLayout)}
       ></block-board>
-      
+
       ${((_a = this.board) === null || _a === void 0 ? void 0 : _a.editing) ? html ``
             : html `
             <mwc-fab label="edit" class="fab">
@@ -81,7 +84,7 @@ __decorate([
 ], BlockyBlockBoard.prototype, "compositoryCellId", void 0);
 __decorate([
     property({ type: Array })
-], BlockyBlockBoard.prototype, "_blocks", void 0);
+], BlockyBlockBoard.prototype, "_blockSets", void 0);
 __decorate([
     property({ type: Array })
 ], BlockyBlockBoard.prototype, "_blockLayout", void 0);

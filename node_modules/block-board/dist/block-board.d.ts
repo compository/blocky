@@ -1,5 +1,5 @@
 import { LitElement } from "lit-element";
-import { Block, BlockLayoutNode } from "./block";
+import { Block, BlockLayoutNode, BlockSet } from "./block";
 import "./block-board-block-selector";
 import "./block-board-layout-editor";
 import "./block-board-layout-renderer";
@@ -16,8 +16,9 @@ declare const BlockBoard_base: typeof LitElement & import("lit-element").Constru
 };
 export declare class BlockBoard extends BlockBoard_base {
     editing: boolean;
-    private _availableBlocks;
-    set availableBlocks(blocks: Block[]);
+    private _blockSets;
+    set blockSets(blocks: BlockSet[]);
+    get blockSets(): BlockSet[];
     get availableBlocks(): Block[];
     blockLayout: BlockLayoutNode | undefined;
     static styles: import("lit-element").CSSResult[];

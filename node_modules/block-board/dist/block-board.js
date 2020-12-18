@@ -14,14 +14,18 @@ export class BlockBoard extends Scoped(LitElement) {
     constructor() {
         super(...arguments);
         this.editing = true;
-        this._availableBlocks = [];
+        this._blockSets = [];
         this.blockLayout = undefined;
     }
-    set availableBlocks(blocks) {
-        this._availableBlocks = [...blocks];
+    set blockSets(blocks) {
+        this._blockSets = [...blocks];
+    }
+    get blockSets() {
+        return this._blockSets;
     }
     get availableBlocks() {
-        return this._availableBlocks;
+        const allBlocks = this._blockSets.map((set) => set.blocks);
+        return [].concat(...allBlocks);
     }
     static get scopedElements() {
         return {
@@ -61,7 +65,7 @@ export class BlockBoard extends Scoped(LitElement) {
             ></mwc-icon-button>
           </div>
           <block-board-block-selector
-            .availableBlocks=${this.availableBlocks}
+            .blockSets=${this.blockSets}
           ></block-board-block-selector>
         </div>
 
@@ -97,7 +101,7 @@ __decorate([
 ], BlockBoard.prototype, "editing", void 0);
 __decorate([
     property({ type: Array })
-], BlockBoard.prototype, "_availableBlocks", void 0);
+], BlockBoard.prototype, "_blockSets", void 0);
 __decorate([
     property({ type: Array })
 ], BlockBoard.prototype, "blockLayout", void 0);

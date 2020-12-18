@@ -41,8 +41,3 @@ export interface AttachmentRenderer extends Renderer {
 }
 
 export type ScopeHost = LitElement & ScopedElementsHost;
-
-export interface ZomeRenderers {
-  renderers: ScopedRenderers;
-  def: ZomeDef;
-}

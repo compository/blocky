@@ -1,4 +1,3 @@
-import * as msgpack from '@msgpack/msgpack';
 import { FileStorageService } from '@holochain-open-dev/file-storage';
 export class CompositoryService extends FileStorageService {
     constructor(appWebsocket, compositoryCellId) {
@@ -9,7 +8,7 @@ export class CompositoryService extends FileStorageService {
     /** Getters */
     async getTemplateForDna(dnaHash) {
         const result = await this.callZome('compository', 'get_template_for_dna', dnaHash);
-        result.properties = msgpack.decode(result.properties);
+        // result.properties = msgpack.decode(result.properties);
         return result;
     }
     async getZomeDef(zomeDefHash) {

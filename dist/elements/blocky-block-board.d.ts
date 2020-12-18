@@ -1,5 +1,5 @@
 import { LitElement } from 'lit-element';
-import { Block, BlockBoard, BlockLayoutNode } from 'block-board';
+import { BlockBoard, BlockLayoutNode, BlockSet } from 'block-board';
 import { CellId } from '@holochain/conductor-api';
 import { CircularProgress } from 'scoped-material-components/dist/mwc-circular-progress';
 import { Fab } from 'scoped-material-components/dist/mwc-fab';
@@ -25,7 +25,7 @@ export declare class BlockyBlockBoard extends BlockyBlockBoard_base {
         'mwc-fab': typeof Fab;
     };
     static get styles(): import("lit-element").CSSResult;
-    _blocks: Array<Block> | undefined;
+    _blockSets: Array<BlockSet> | undefined;
     _blockLayout: BlockLayoutNode | undefined;
     get blockyService(): BlockyService;
     get board(): BlockBoard;

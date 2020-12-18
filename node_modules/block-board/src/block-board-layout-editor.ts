@@ -72,7 +72,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
           ></mwc-icon-button>
         </div>
         <div
-          style="background-color: gray; flex: 1;"
+          style="background-color: rgba(0, 0, 0, 0.1); flex: 1;"
           @drop=${(e: DragEvent) => {
             const blockName = e.dataTransfer?.getData("blockName");
 

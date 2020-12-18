@@ -12,9 +12,11 @@ export class CompositoryDiscoverEntry extends membraneContext(LitElement) {
     async firstUpdated() {
         const compositoryService = new CompositoryService(this.appWebsocket, this.cellId);
         const { cellId, zomeIndex, entryDefIndex, entryHash, } = await discoverEntryDetails(this.adminWebsocket, compositoryService, this.entryUri);
-        const { renderers, def } = await fetchRenderersForZome(compositoryService, cellId, zomeIndex);
-        const entryIdStr = def.entry_defs[entryDefIndex];
-        renderers.entryRenderers[entryIdStr].render(this._scope.shadowRoot, this._scope.shadowRoot.customElements, entryHash);
+        const [def, renderers] = await fetchRenderersForZome(compositoryService, cellId, zomeIndex);
+        if (renderers) {
+            const entryIdStr = def.entry_defs[entryDefIndex];
+            renderers.entryRenderers[entryIdStr].render(this._scope.shadowRoot, this._scope.shadowRoot.customElements, entryHash);
+        }
         this._loading = false;
     }
     render() {

@@ -6,8 +6,7 @@ export default {
   nodeResolve: {
     browser: true,
   },
-  rootDir: '../../',
-  appIndex: 'lib/demo/index.html',
+  appIndex: 'demo/index.html',
   open: true,
   plugins,
 };

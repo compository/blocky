@@ -1,5 +1,5 @@
 import { html, css, LitElement, property } from "lit-element";
-import { Block, BlockLayoutNode } from "./block";
+import { Block, BlockLayoutNode, BlockSet } from "./block";
 import "./block-board-block-selector";
 import "./block-board-layout-editor";
 import "./block-board-layout-renderer";
@@ -13,13 +13,18 @@ import { IconButton } from "scoped-material-components/dist/mwc-icon-button";
 
 export class BlockBoard extends Scoped(LitElement) {
   @property({ type: Boolean }) public editing: boolean = true;
-  @property({ type: Array }) private _availableBlocks: Array<Block> = [];
+  @property({ type: Array }) private _blockSets: Array<BlockSet> = [];
 
-  set availableBlocks(blocks: Block[]) {
-    this._availableBlocks = [...blocks];
+  set blockSets(blocks: BlockSet[]) {
+    this._blockSets = [...blocks];
   }
+  get blockSets() {
+    return this._blockSets;
+  }
+
   get availableBlocks() {
-    return this._availableBlocks;
+    const allBlocks = this._blockSets.map((set) => set.blocks);
+    return ([] as Array<Block>).concat(...allBlocks);
   }
 
   @property({ type: Array }) blockLayout:
@@ -82,7 +87,7 @@ export class BlockBoard extends Scoped(LitElement) {
             ></mwc-icon-button>
           </div>
           <block-board-block-selector
-            .availableBlocks=${this.availableBlocks}
+            .blockSets=${this.blockSets}
           ></block-board-block-selector>
         </div>
 

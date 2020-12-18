@@ -4,6 +4,11 @@ export interface Block {
   render: (root: ShadowRoot, registry: CustomElementRegistry) => void;
 }
 
+export interface BlockSet {
+  name: string;
+  blocks: Block[];
+}
+
 export interface BlockLayoutNode {
   direction: "vertical" | "horizontal";
   slots: [BlockSlot, BlockSlot]; // if it's a string, it's the block name, if it's undefined, a void block slot

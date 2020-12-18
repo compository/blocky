@@ -25,7 +25,7 @@ export class CompositoryService extends FileStorageService {
       'get_template_for_dna',
       dnaHash
     );
-    result.properties = msgpack.decode(result.properties);
+    // result.properties = msgpack.decode(result.properties);
     return result;
   }
 
