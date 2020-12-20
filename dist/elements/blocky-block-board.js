@@ -1,11 +1,11 @@
 import { __decorate } from "tslib";
-import { css, html, LitElement, property } from 'lit-element';
-import { CompositoryService, fetchRenderersForAllZomes } from 'compository';
+import { css, html, LitElement, property, } from 'lit-element';
+import { CompositoryService, fetchRenderersForAllZomes, } from '@compository/lib';
 import { BlockBoard } from 'block-board';
-import { membraneContext } from 'holochain-membrane-context';
-import { Scoped } from 'scoped-elements';
-import { CircularProgress } from 'scoped-material-components/dist/mwc-circular-progress';
-import { Fab } from 'scoped-material-components/dist/mwc-fab';
+import { membraneContext } from '@holochain-open-dev/membrane-context';
+import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
+import { CircularProgress } from 'scoped-material-components/mwc-circular-progress';
+import { Fab } from 'scoped-material-components/mwc-fab';
 import { BlockyService } from '../blocky.service';
 export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
     constructor() {
@@ -33,15 +33,21 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
     `;
     }
     get blockyService() {
-        return new BlockyService(this.appWebsocket, this.cellId);
+        return new BlockyService(this.membraneContext.appWebsocket, this.membraneContext.cellId);
     }
     get board() {
         var _a;
         return (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.getElementById('board');
     }
-    async firstUpdated() {
+    updated(changedValues) {
+        super.updated(changedValues);
+        if (changedValues.has('membraneContext') && this.membraneContext) {
+            this.loadRenderers();
+        }
+    }
+    async loadRenderers() {
         // Get the renderers for each of the zomes
-        const zomeRenderers = await fetchRenderersForAllZomes(new CompositoryService(this.appWebsocket, this.compositoryCellId), this.cellId);
+        const zomeRenderers = await fetchRenderersForAllZomes(new CompositoryService(this.membraneContext.appWebsocket, this.compositoryCellId), this.membraneContext.cellId);
         this._blockSets = zomeRenderers
             .filter(([def, renderers]) => renderers !== undefined)
             .map(([def, renderers]) => ({

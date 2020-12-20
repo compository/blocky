@@ -1,21 +1,11 @@
-import { LitElement } from 'lit-element';
+import { Constructor, LitElement, PropertyValues } from 'lit-element';
 import { BlockBoard, BlockLayoutNode, BlockSet } from 'block-board';
 import { CellId } from '@holochain/conductor-api';
-import { CircularProgress } from 'scoped-material-components/dist/mwc-circular-progress';
-import { Fab } from 'scoped-material-components/dist/mwc-fab';
+import { CircularProgress } from 'scoped-material-components/mwc-circular-progress';
+import { Fab } from 'scoped-material-components/mwc-fab';
 import { BlockyService } from '../blocky.service';
-declare const BlockyBlockBoard_base: typeof LitElement & import("lit-element").Constructor<HTMLElement> & {
-    readonly scopedElements: import("scoped-elements").Dictionary<{
-        new (): HTMLElement;
-        prototype: HTMLElement;
-    }>;
-} & import("lit-element").Constructor<{
-    context: {
-        membrane: import("holochain-membrane-context").MembraneContext;
-    };
-    cellId: CellId;
-    appWebsocket: import("@holochain/conductor-api").AppWebsocket;
-    adminWebsocket: import("@holochain/conductor-api").AdminWebsocket;
+declare const BlockyBlockBoard_base: Constructor<LitElement> & Constructor<{
+    membraneContext: import("@holochain-open-dev/membrane-context").MembraneContext;
 }>;
 export declare class BlockyBlockBoard extends BlockyBlockBoard_base {
     compositoryCellId: CellId;
@@ -29,7 +19,8 @@ export declare class BlockyBlockBoard extends BlockyBlockBoard_base {
     _blockLayout: BlockLayoutNode | undefined;
     get blockyService(): BlockyService;
     get board(): BlockBoard;
-    firstUpdated(): Promise<void>;
+    updated(changedValues: PropertyValues): void;
+    loadRenderers(): Promise<void>;
     createBoard(layout: BlockLayoutNode): Promise<void>;
     render(): import("lit-element").TemplateResult;
 }

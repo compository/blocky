@@ -1,19 +1,11 @@
-import { LitElement } from "lit-element";
+import { LitElement, Constructor } from "lit-element";
 import { Block, BlockLayoutNode, BlockSet } from "./types";
-import "./block-board-block-selector";
-import "./block-board-layout-editor";
-import "./block-board-layout-renderer";
 import { BlockBoardLayoutEditor } from "./block-board-layout-editor";
 import { BlockBoardLayoutRenderer } from "./block-board-layout-renderer";
 import { BlockBoardBlockSelector } from "./block-board-block-selector";
-import { Drawer } from "scoped-material-components/dist/mwc-drawer";
-import { IconButton } from "scoped-material-components/dist/mwc-icon-button";
-declare const BlockBoard_base: typeof LitElement & import("lit-element").Constructor<HTMLElement> & {
-    readonly scopedElements: import("scoped-elements").Dictionary<{
-        new (): HTMLElement;
-        prototype: HTMLElement;
-    }>;
-};
+import { Drawer } from "scoped-material-components/mwc-drawer";
+import { IconButton } from "scoped-material-components/mwc-icon-button";
+declare const BlockBoard_base: Constructor<LitElement>;
 export declare class BlockBoard extends BlockBoard_base {
     editing: boolean;
     private _blockSets;

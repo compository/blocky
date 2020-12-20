@@ -1,17 +1,16 @@
-import { html, css, LitElement, property } from "lit-element";
+import { html, css, LitElement, property, Constructor } from "lit-element";
 import { Block, BlockLayoutNode, BlockSet } from "./types";
-import "./block-board-block-selector";
-import "./block-board-layout-editor";
-import "./block-board-layout-renderer";
 import { sharedStyles } from "./sharedStyles";
 import { BlockBoardLayoutEditor } from "./block-board-layout-editor";
-import { Scoped } from "scoped-elements";
+import { ScopedElementsMixin as Scoped } from "@open-wc/scoped-elements";
 import { BlockBoardLayoutRenderer } from "./block-board-layout-renderer";
 import { BlockBoardBlockSelector } from "./block-board-block-selector";
-import { Drawer } from "scoped-material-components/dist/mwc-drawer";
-import { IconButton } from "scoped-material-components/dist/mwc-icon-button";
+import { Drawer } from "scoped-material-components/mwc-drawer";
+import { IconButton } from "scoped-material-components/mwc-icon-button";
 
-export class BlockBoard extends Scoped(LitElement) {
+export class BlockBoard extends (Scoped(
+  LitElement
+) as Constructor<LitElement>) {
   @property({ type: Boolean }) public editing: boolean = true;
   @property({ type: Array }) private _blockSets: Array<BlockSet> = [];
 
@@ -65,7 +64,7 @@ export class BlockBoard extends Scoped(LitElement) {
       })
     );
   }
-  
+
   renderLayout() {
     return html`
       <block-board-layout-renderer

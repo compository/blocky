@@ -1,12 +1,21 @@
-import { LitElement, html, property, TemplateResult, css } from "lit-element";
+import {
+  LitElement,
+  html,
+  property,
+  TemplateResult,
+  css,
+  Constructor,
+} from "lit-element";
 import { classMap } from "lit-html/directives/class-map";
 import { styleMap } from "lit-html/directives/style-map";
-import { Scoped } from "scoped-elements";
+import { ScopedElementsMixin as Scoped } from "@open-wc/scoped-elements";
 import { BlockLayoutNode, Block, BlockSlot } from "./types";
 import { BlockBoardSlot } from "./block-board-slot";
 import { sharedStyles } from "./sharedStyles";
 
-export class BlockBoardLayoutRenderer extends Scoped(LitElement) {
+export class BlockBoardLayoutRenderer extends (Scoped(
+  LitElement
+) as Constructor<LitElement>) {
   static styles = [
     sharedStyles,
     css`
@@ -18,8 +27,8 @@ export class BlockBoardLayoutRenderer extends Scoped(LitElement) {
 
   static get scopedElements() {
     return {
-      'block-board-slot': BlockBoardSlot
-    }
+      "block-board-slot": BlockBoardSlot,
+    };
   }
 
   @property({ type: Array }) availableBlocks!: Array<Block>;

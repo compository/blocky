@@ -1,6 +1,6 @@
 export interface Block {
     name: string;
-    render: (root: ShadowRoot, registry: CustomElementRegistry) => void;
+    render: (root: ShadowRoot) => void;
 }
 export interface BlockSet {
     name: string;

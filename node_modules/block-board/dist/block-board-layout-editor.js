@@ -1,10 +1,10 @@
 import { __decorate } from "tslib";
-import { LitElement, html, property } from "lit-element";
+import { LitElement, html, property, } from "lit-element";
 import { SplitLayoutElement } from "@vaadin/vaadin-split-layout/vaadin-split-layout.js";
 import { sharedStyles } from "./sharedStyles";
-import { Scoped } from "scoped-elements";
-import { IconButton } from "scoped-material-components/dist/mwc-icon-button";
-import { CircularProgress } from "scoped-material-components/dist/mwc-circular-progress";
+import { ScopedElementsMixin as Scoped } from "@open-wc/scoped-elements";
+import { IconButton } from "scoped-material-components/mwc-icon-button";
+import { CircularProgress } from "scoped-material-components/mwc-circular-progress";
 import { BlockBoardSlot } from "./block-board-slot";
 export class BlockBoardLayoutEditor extends Scoped(LitElement) {
     constructor() {

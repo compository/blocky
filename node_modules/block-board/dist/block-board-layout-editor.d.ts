@@ -1,15 +1,10 @@
-import { LitElement, TemplateResult } from "lit-element";
+import { LitElement, TemplateResult, Constructor } from "lit-element";
 import { SplitLayoutElement } from "@vaadin/vaadin-split-layout/vaadin-split-layout.js";
 import { Block, BlockLayoutNode } from "./types";
-import { IconButton } from "scoped-material-components/dist/mwc-icon-button";
-import { CircularProgress } from "scoped-material-components/dist/mwc-circular-progress";
+import { IconButton } from "scoped-material-components/mwc-icon-button";
+import { CircularProgress } from "scoped-material-components/mwc-circular-progress";
 import { BlockBoardSlot } from "./block-board-slot";
-declare const BlockBoardLayoutEditor_base: typeof LitElement & import("lit-element").Constructor<HTMLElement> & {
-    readonly scopedElements: import("scoped-elements").Dictionary<{
-        new (): HTMLElement;
-        prototype: HTMLElement;
-    }>;
-};
+declare const BlockBoardLayoutEditor_base: Constructor<LitElement>;
 export declare class BlockBoardLayoutEditor extends BlockBoardLayoutEditor_base {
     static styles: import("lit-element").CSSResult;
     private availableBlocks;
