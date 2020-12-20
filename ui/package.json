@@ -26,13 +26,13 @@
     "publish-to-branch": "npm run lint && npm run build && gh-pages -d . -b ui-build"
   },
   "dependencies": {
+    "@holochain-open-dev/membrane-context": "^0.1.0",
     "@holochain/conductor-api": "0.0.1-dev.14",
+    "@open-wc/scoped-elements": "^1.3.2",
     "block-board": "git+https://github.com/guillemcordoba/block-board.git#build",
-    "compository": "git+https://github.com/guillemcordoba/compository.git#ui-lib-build",
-    "holochain-membrane-context": "git+https://github.com/guillemcordoba/holochain-membrane-context.git",
+    "@compository/lib": "git+https://github.com/compository/lib.git#build",
     "lit-element": "^2.4.0",
     "lit-html": "^1.3.0",
-    "scoped-elements": "git+https://github.com/guillemcordoba/scoped-elements.git",
     "scoped-material-components": "git+https://github.com/guillemcordoba/scoped-material-components.git#build"
   },
   "devDependencies": {

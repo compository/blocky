@@ -1,14 +1,26 @@
-import { css, html, LitElement, property } from 'lit-element';
-import { CompositoryService, fetchRenderersForAllZomes } from 'compository';
+import {
+  Constructor,
+  css,
+  html,
+  LitElement,
+  property,
+  PropertyValues,
+} from 'lit-element';
+import {
+  CompositoryService,
+  fetchRenderersForAllZomes,
+} from '@compository/lib';
 import { Block, BlockBoard, BlockLayoutNode, BlockSet } from 'block-board';
-import { membraneContext } from 'holochain-membrane-context';
-import { CellId } from '@holochain/conductor-api';
-import { Scoped } from 'scoped-elements';
-import { CircularProgress } from 'scoped-material-components/dist/mwc-circular-progress';
-import { Fab } from 'scoped-material-components/dist/mwc-fab';
+import { membraneContext } from '@holochain-open-dev/membrane-context';
+import { AppWebsocket, CellId } from '@holochain/conductor-api';
+import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
+import { CircularProgress } from 'scoped-material-components/mwc-circular-progress';
+import { Fab } from 'scoped-material-components/mwc-fab';
 import { BlockyService } from '../blocky.service';
 
-export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
+export class BlockyBlockBoard extends membraneContext(
+  Scoped(LitElement) as Constructor<LitElement>
+) {
   @property()
   compositoryCellId!: CellId;
 
@@ -39,17 +51,30 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
   _blockLayout: BlockLayoutNode | undefined = undefined;
 
   get blockyService(): BlockyService {
-    return new BlockyService(this.appWebsocket, this.cellId);
+    return new BlockyService(
+      this.membraneContext.appWebsocket as AppWebsocket,
+      this.membraneContext.cellId as CellId
+    );
   }
   get board(): BlockBoard {
     return this.shadowRoot?.getElementById('board') as BlockBoard;
   }
 
-  async firstUpdated() {
+  updated(changedValues: PropertyValues) {
+    super.updated(changedValues);
+    if (changedValues.has('membraneContext') && this.membraneContext) {
+      this.loadRenderers();
+    }
+  }
+
+  async loadRenderers() {
     // Get the renderers for each of the zomes
     const zomeRenderers = await fetchRenderersForAllZomes(
-      new CompositoryService(this.appWebsocket, this.compositoryCellId),
-      this.cellId
+      new CompositoryService(
+        this.membraneContext.appWebsocket as AppWebsocket,
+        this.compositoryCellId
+      ),
+      this.membraneContext.cellId as CellId
     );
 
     this._blockSets = zomeRenderers
