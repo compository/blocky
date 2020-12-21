@@ -59,7 +59,7 @@ export class BlockyBlockBoard extends membraneContext(
 
   updated(changedValues: PropertyValues) {
     super.updated(changedValues);
-    if (changedValues.has('membraneContext') && this.membraneContext) {
+    if (changedValues.has('membraneContext') && this.membraneContext.appWebsocket) {
       this.loadRenderers();
     }
   }
