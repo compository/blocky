@@ -2,17 +2,17 @@ import { AppWebsocket, CellId } from '@holochain/conductor-api';
 
 export type Dictionary<T> = { [key: string]: T };
 
-export interface ScopedRenderers {
-  standalone: Array<StandaloneRenderer>;
+export interface Lenses {
+  standalone: Array<StandaloneLens>;
   // Key is the entry id
-  entry: Dictionary<EntryRenderer>;
-  entryAttachments: Array<AttachmentRenderer>;
+  entryLenses: Dictionary<EntryLens>;
+  attachmentsLenses: Array<AttachmentLens>;
 }
 
-export interface Renderer {
+export interface Lens {
   name: string;
 }
-export interface StandaloneRenderer extends Renderer {
+export interface StandaloneLens extends Lens {
   render: (
     root: ShadowRoot,
     appWebsocket: AppWebsocket,
@@ -20,7 +20,7 @@ export interface StandaloneRenderer extends Renderer {
   ) => void;
 }
 
-export interface EntryRenderer extends Renderer {
+export interface EntryLens extends Lens {
   render: (
     root: ShadowRoot,
     appWebsocket: AppWebsocket,
@@ -29,7 +29,7 @@ export interface EntryRenderer extends Renderer {
   ) => void;
 }
 
-export interface AttachmentRenderer extends Renderer {
+export interface AttachmentLens extends Lens {
   render: (
     root: ShadowRoot,
     appWebsocket: AppWebsocket,

@@ -1,6 +1,4 @@
-import { LitElement, Constructor } from 'lit-element';
-declare const CompositoryScope_base: Constructor<LitElement>;
-export declare class CompositoryScope extends CompositoryScope_base {
+import { LitElement } from 'lit-element';
+export declare class CompositoryScope extends LitElement {
     render(): import("lit-element").TemplateResult;
 }
-export {};

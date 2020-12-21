@@ -6,10 +6,7 @@ import {
   property,
   PropertyValues,
 } from 'lit-element';
-import {
-  CompositoryService,
-  fetchRenderersForAllZomes,
-} from '@compository/lib';
+import { CompositoryService, fetchLensesForAllZomes } from '@compository/lib';
 import { Block, BlockBoard, BlockLayoutNode, BlockSet } from 'block-board';
 import { membraneContext } from '@holochain-open-dev/membrane-context';
 import { AppWebsocket, CellId } from '@holochain/conductor-api';
@@ -69,7 +66,7 @@ export class BlockyBlockBoard extends membraneContext(
 
   async loadRenderers() {
     // Get the renderers for each of the zomes
-    const zomeRenderers = await fetchRenderersForAllZomes(
+    const zomeLenses = await fetchLensesForAllZomes(
       new CompositoryService(
         this.membraneContext.appWebsocket as AppWebsocket,
         this.compositoryCellId
@@ -77,13 +74,13 @@ export class BlockyBlockBoard extends membraneContext(
       this.membraneContext.cellId as CellId
     );
 
-    this._blockSets = zomeRenderers
-      .filter(([def, renderers]) => renderers !== undefined)
+    this._blockSets = zomeLenses
+      .filter(([def, lenses]) => lenses !== undefined)
       .map(
-        ([def, renderers]) =>
+        ([def, lenses]) =>
           ({
             name: def.name,
-            blocks: renderers?.standalone,
+            blocks: lenses?.standalone,
           } as BlockSet)
       );
 

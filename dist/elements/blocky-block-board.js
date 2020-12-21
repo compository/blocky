@@ -1,6 +1,6 @@
 import { __decorate } from "tslib";
 import { css, html, LitElement, property, } from 'lit-element';
-import { CompositoryService, fetchRenderersForAllZomes, } from '@compository/lib';
+import { CompositoryService, fetchLensesForAllZomes } from '@compository/lib';
 import { BlockBoard } from 'block-board';
 import { membraneContext } from '@holochain-open-dev/membrane-context';
 import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
@@ -47,12 +47,12 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
     }
     async loadRenderers() {
         // Get the renderers for each of the zomes
-        const zomeRenderers = await fetchRenderersForAllZomes(new CompositoryService(this.membraneContext.appWebsocket, this.compositoryCellId), this.membraneContext.cellId);
-        this._blockSets = zomeRenderers
-            .filter(([def, renderers]) => renderers !== undefined)
-            .map(([def, renderers]) => ({
+        const zomeLenses = await fetchLensesForAllZomes(new CompositoryService(this.membraneContext.appWebsocket, this.compositoryCellId), this.membraneContext.cellId);
+        this._blockSets = zomeLenses
+            .filter(([def, lenses]) => lenses !== undefined)
+            .map(([def, lenses]) => ({
             name: def.name,
-            blocks: renderers === null || renderers === void 0 ? void 0 : renderers.standalone,
+            blocks: lenses === null || lenses === void 0 ? void 0 : lenses.standalone,
         }));
         const layouts = await this.blockyService.getAllBoardLayouts();
         this._blockLayout = layouts[0];

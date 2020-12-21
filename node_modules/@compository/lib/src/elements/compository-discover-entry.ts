@@ -1,7 +1,7 @@
 import { Constructor, html, LitElement, property, PropertyValues, query } from 'lit-element';
 import { discoverEntryDetails } from '../processes/discover';
 import { CompositoryScope } from './compository-scope';
-import { fetchRenderersForZome } from '../processes/fetch-renderers';
+import { fetchLensesForZome } from '../processes/fetch-lenses';
 import { membraneContext } from '@holochain-open-dev/membrane-context';
 import { CompositoryService } from '../services/compository-service';
 import { AdminWebsocket, AppWebsocket, CellId } from '@holochain/conductor-api';
@@ -49,7 +49,7 @@ export class CompositoryDiscoverEntry extends membraneContext(
       this.entryUri
     );
 
-    const [def, renderers] = await fetchRenderersForZome(
+    const [def, renderers] = await fetchLensesForZome(
       compositoryService,
       cellId,
       zomeIndex
@@ -57,7 +57,7 @@ export class CompositoryDiscoverEntry extends membraneContext(
 
     if (renderers) {
       const entryIdStr = def.entry_defs[entryDefIndex];
-      renderers.entry[entryIdStr].render(
+      renderers.entryLenses[entryIdStr].render(
         this._scope.shadowRoot as ShadowRoot,
         this.membraneContext.appWebsocket as AppWebsocket,
         cellId,

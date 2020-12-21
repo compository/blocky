@@ -2,32 +2,32 @@ import { serializeHash } from '@holochain-open-dev/common';
 import { CellId } from '@holochain/conductor-api';
 import { CompositoryService } from '../services/compository-service';
 import { ZomeDef } from '../types/dnas';
-import { ScopedRenderers } from '../types/scoped-renderers';
+import { Lenses } from '../types/lenses';
 import { importModuleFromFile } from './import-module-from-file';
 
-export async function fetchRenderersForZome(
+export async function fetchLensesForZome(
   compositoryService: CompositoryService,
   cellId: CellId,
   zomeIndex: number
-): Promise<[ZomeDef, ScopedRenderers?]> {
+): Promise<[ZomeDef, Lenses?]> {
   const dnaHash = serializeHash(cellId[0]);
 
   const template = await compositoryService.getTemplateForDna(dnaHash);
 
   const zomeDefHash = template.dnaTemplate.zome_defs[zomeIndex].zome_def_hash;
-  return internalFetchRenderersForZome(compositoryService, cellId, zomeDefHash);
+  return internalFetchLensesForZome(compositoryService, cellId, zomeDefHash);
 }
 
-export async function fetchRenderersForAllZomes(
+export async function fetchLensesForAllZomes(
   compositoryService: CompositoryService,
   cellId: CellId
-): Promise<Array<[ZomeDef, ScopedRenderers?]>> {
+): Promise<Array<[ZomeDef, Lenses?]>> {
   const dnaHash = serializeHash(cellId[0]);
 
   const template = await compositoryService.getTemplateForDna(dnaHash);
 
   const promises = template.dnaTemplate.zome_defs.map(zome_def =>
-    internalFetchRenderersForZome(
+    internalFetchLensesForZome(
       compositoryService,
       cellId,
       zome_def.zome_def_hash
@@ -36,11 +36,11 @@ export async function fetchRenderersForAllZomes(
   return await Promise.all(promises);
 }
 
-async function internalFetchRenderersForZome(
+async function internalFetchLensesForZome(
   compositoryService: CompositoryService,
   cellId: CellId,
   zomeDefHash: string
-): Promise<[ZomeDef, ScopedRenderers?]> {
+): Promise<[ZomeDef, Lenses?]> {
   // Fetch the appropriate elements bundle for this zome
   const zomeDef = await compositoryService.getZomeDef(zomeDefHash);
 
@@ -53,6 +53,6 @@ async function internalFetchRenderersForZome(
   );
 
   const module = await importModuleFromFile(file);
-  const renderers = module.default as ScopedRenderers;
+  const renderers = module.default as Lenses;
   return [zomeDef, renderers];
 }

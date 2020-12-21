@@ -1,9 +1,6 @@
-import { html, LitElement, Constructor } from 'lit-element';
-import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
+import { html, LitElement } from 'lit-element';
 
-export class CompositoryScope extends (Scoped(
-  LitElement
-) as Constructor<LitElement>) {
+export class CompositoryScope extends LitElement {
   render() {
     return html``;
   }
