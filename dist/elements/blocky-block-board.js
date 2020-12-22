@@ -41,7 +41,8 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
     }
     updated(changedValues) {
         super.updated(changedValues);
-        if (changedValues.has('membraneContext') && this.membraneContext.appWebsocket) {
+        if (changedValues.has('membraneContext') &&
+            this.membraneContext.appWebsocket) {
             this.loadRenderers();
         }
     }
@@ -52,7 +53,10 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
             .filter(([def, lenses]) => lenses !== undefined)
             .map(([def, lenses]) => ({
             name: def.name,
-            blocks: lenses === null || lenses === void 0 ? void 0 : lenses.standalone,
+            blocks: lenses === null || lenses === void 0 ? void 0 : lenses.standalone.map(s => ({
+                name: s.name,
+                render: (root) => s.render(root, this.membraneContext.appWebsocket, this.membraneContext.cellId),
+            })),
         }));
         const layouts = await this.blockyService.getAllBoardLayouts();
         this._blockLayout = layouts[0];
