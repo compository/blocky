@@ -32,7 +32,7 @@ export class BlockBoardLayoutRenderer extends (Scoped(
   }
 
   @property({ type: Array }) availableBlocks!: Array<Block>;
-  @property({ type: Object }) blockLayout!: BlockLayoutNode;
+  @property({ type: Object }) blockLayout!: BlockSlot;
 
   renderSlot(slot: BlockSlot): TemplateResult {
     if (typeof slot === "string") {
@@ -40,13 +40,13 @@ export class BlockBoardLayoutRenderer extends (Scoped(
       if (!block) throw new Error(`Tried to render an unexisting block`);
       return html`<block-board-slot .block=${block}></block-board-slot>`;
     } else if (slot) {
-      return this.renderNode(slot);
+      return this.renderLayout(slot);
     } else {
       return html``;
     }
   }
 
-  renderNode(blockLayout: BlockLayoutNode): TemplateResult {
+  renderLayout(blockLayout: BlockLayoutNode): TemplateResult {
     return html`
       <div
         class=${classMap({
@@ -75,6 +75,6 @@ export class BlockBoardLayoutRenderer extends (Scoped(
   }
 
   render() {
-    return this.renderNode(this.blockLayout);
+    return this.renderSlot(this.blockLayout);
   }
 }

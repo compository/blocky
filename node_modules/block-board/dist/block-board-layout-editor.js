@@ -4,7 +4,6 @@ import { SplitLayoutElement } from "@vaadin/vaadin-split-layout/vaadin-split-lay
 import { sharedStyles } from "./sharedStyles";
 import { ScopedElementsMixin as Scoped } from "@open-wc/scoped-elements";
 import { IconButton } from "scoped-material-components/mwc-icon-button";
-import { CircularProgress } from "scoped-material-components/mwc-circular-progress";
 import { BlockBoardSlot } from "./block-board-slot";
 export class BlockBoardLayoutEditor extends Scoped(LitElement) {
     constructor() {
@@ -16,47 +15,65 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
             "block-board-slot": BlockBoardSlot,
             "vaadin-split-layout": SplitLayoutElement,
             "mwc-icon-button": IconButton,
-            "mwc-circular-progress": CircularProgress,
         };
     }
-    firstUpdated() {
-        if (this.blockLayout === undefined) {
-            this.blockLayout = {
-                direction: "horizontal",
-                slots: [undefined, undefined],
-                firstSlotRelativeSize: 0.5,
-            };
-        }
-    }
-    renderBlockSlot(blockName, parentNode, slotIndex) {
+    renderBlockSlot(blockName, parent, grandparent) {
         return html `
-      <div class="column">
+      <div class="column" style="flex: 1;">
         <div class="row" style="justify-content: flex-end;">
           <mwc-icon-button
             @click=${() => {
-            parentNode.slots[slotIndex] = {
-                direction: "vertical",
-                firstSlotRelativeSize: 0.5,
-                slots: [blockName, undefined],
-            };
+            if (parent) {
+                parent.node.slots[parent.slotIndex] = {
+                    direction: "vertical",
+                    firstSlotRelativeSize: 0.5,
+                    slots: [blockName, undefined],
+                };
+            }
+            else {
+                this.blockLayout = {
+                    direction: "vertical",
+                    firstSlotRelativeSize: 0.5,
+                    slots: [blockName, undefined],
+                };
+            }
             this.requestUpdate();
         }}
             icon="horizontal_split"
           ></mwc-icon-button>
           <mwc-icon-button
             @click=${() => {
-            parentNode.slots[slotIndex] = {
-                direction: "horizontal",
-                firstSlotRelativeSize: 0.5,
-                slots: [blockName, undefined],
-            };
+            if (parent) {
+                parent.node.slots[parent.slotIndex] = {
+                    direction: "horizontal",
+                    firstSlotRelativeSize: 0.5,
+                    slots: [blockName, undefined],
+                };
+            }
+            else {
+                this.blockLayout = {
+                    direction: "horizontal",
+                    firstSlotRelativeSize: 0.5,
+                    slots: [blockName, undefined],
+                };
+            }
             this.requestUpdate();
         }}
             icon="vertical_split"
           ></mwc-icon-button>
           <mwc-icon-button
+            .disabled=${!parent}
             @click=${() => {
-            parentNode.slots.splice(slotIndex, 1);
+            if (parent) {
+                const otherIndex = parent.slotIndex === 0 ? 1 : 0;
+                const blockName = parent.node.slots[otherIndex];
+                if (grandparent) {
+                    grandparent.node.slots[grandparent.slotIndex] = blockName;
+                }
+                else {
+                    this.blockLayout = blockName;
+                }
+            }
             this.requestUpdate();
         }}
             icon="delete"
@@ -67,7 +84,12 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
           @drop=${(e) => {
             var _a;
             const blockName = (_a = e.dataTransfer) === null || _a === void 0 ? void 0 : _a.getData("blockName");
-            parentNode.slots[slotIndex] = blockName;
+            if (parent) {
+                parent.node.slots[parent.slotIndex] = blockName;
+            }
+            else {
+                this.blockLayout = blockName;
+            }
             this.requestUpdate();
         }}
           @dragover=${(e) => e.preventDefault()}
@@ -85,7 +107,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
     findBlock(blockName) {
         return this.availableBlocks.find((b) => b.name === blockName);
     }
-    renderLayoutNode(blockLayout) {
+    renderLayoutNode(blockLayout, parentNode) {
         return html `
       <vaadin-split-layout
         .orientation=${blockLayout.direction}
@@ -103,17 +125,21 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
       >
         ${blockLayout.slots.map((slot, index) => {
             if (!slot || typeof slot === "string")
-                return this.renderBlockSlot(slot, blockLayout, index);
+                return this.renderBlockSlot(slot, { node: blockLayout, slotIndex: index }, parentNode);
             else
-                return this.renderLayoutNode(slot);
+                return this.renderLayoutNode(slot, {
+                    node: blockLayout,
+                    slotIndex: index,
+                });
         })}
       </vaadin-split-layout>
     `;
     }
     render() {
-        if (!this.blockLayout)
-            return html `<mwc-circular-progress></mwc-circular-progress>`;
-        return this.renderLayoutNode(this.blockLayout);
+        if (!this.blockLayout || typeof this.blockLayout === "string")
+            return this.renderBlockSlot(this.blockLayout, undefined, undefined);
+        else
+            return this.renderLayoutNode(this.blockLayout, undefined);
     }
 }
 BlockBoardLayoutEditor.styles = sharedStyles;

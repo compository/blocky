@@ -19,13 +19,13 @@ export class BlockBoardLayoutRenderer extends Scoped(LitElement) {
             return html `<block-board-slot .block=${block}></block-board-slot>`;
         }
         else if (slot) {
-            return this.renderNode(slot);
+            return this.renderLayout(slot);
         }
         else {
             return html ``;
         }
     }
-    renderNode(blockLayout) {
+    renderLayout(blockLayout) {
         return html `
       <div
         class=${classMap({
@@ -53,7 +53,7 @@ export class BlockBoardLayoutRenderer extends Scoped(LitElement) {
     `;
     }
     render() {
-        return this.renderNode(this.blockLayout);
+        return this.renderSlot(this.blockLayout);
     }
 }
 BlockBoardLayoutRenderer.styles = [

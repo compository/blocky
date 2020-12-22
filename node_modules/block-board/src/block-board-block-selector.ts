@@ -19,7 +19,7 @@ export class BlockBoardBlockSelector extends LitElement {
           ${set.blocks.map(
             (block) =>
               html`<span
-                style="margin-bottom: 2px;"
+                style="margin-bottom: 4px;"
                 draggable="true"
                 @dragstart=${(e: DragEvent) => this.onDragStart(e, block)}
                 >${block.name}

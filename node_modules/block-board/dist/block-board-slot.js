@@ -1,8 +1,11 @@
 import { __decorate } from "tslib";
 import { html, LitElement, property, query } from "lit-element";
 export class BlockBoardSlot extends LitElement {
-    firstUpdated() {
-        this.block.render(this.shadowRoot);
+    updated(changedValues) {
+        super.updated(changedValues);
+        if (changedValues.has("block")) {
+            this.block.render(this.shadowRoot);
+        }
     }
     render() {
         return html ``;

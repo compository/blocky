@@ -8,9 +8,9 @@ export declare class BlockBoardLayoutRenderer extends BlockBoardLayoutRenderer_b
         "block-board-slot": typeof BlockBoardSlot;
     };
     availableBlocks: Array<Block>;
-    blockLayout: BlockLayoutNode;
+    blockLayout: BlockSlot;
     renderSlot(slot: BlockSlot): TemplateResult;
-    renderNode(blockLayout: BlockLayoutNode): TemplateResult;
+    renderLayout(blockLayout: BlockLayoutNode): TemplateResult;
     render(): TemplateResult;
 }
 export {};

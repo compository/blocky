@@ -1,5 +1,5 @@
 import { LitElement, Constructor } from "lit-element";
-import { Block, BlockLayoutNode, BlockSet } from "./types";
+import { Block, BlockSet, BlockSlot } from "./types";
 import { BlockBoardLayoutEditor } from "./block-board-layout-editor";
 import { BlockBoardLayoutRenderer } from "./block-board-layout-renderer";
 import { BlockBoardBlockSelector } from "./block-board-block-selector";
@@ -12,7 +12,7 @@ export declare class BlockBoard extends BlockBoard_base {
     set blockSets(blocks: BlockSet[]);
     get blockSets(): BlockSet[];
     get availableBlocks(): Block[];
-    blockLayout: BlockLayoutNode | undefined;
+    blockLayout: BlockSlot;
     static styles: import("lit-element").CSSResult[];
     static get scopedElements(): {
         "mwc-drawer": typeof Drawer;

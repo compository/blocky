@@ -1,5 +1,5 @@
 import { html, css, LitElement, property, Constructor } from "lit-element";
-import { Block, BlockLayoutNode, BlockSet } from "./types";
+import { Block, BlockLayoutNode, BlockSet, BlockSlot } from "./types";
 import { sharedStyles } from "./sharedStyles";
 import { BlockBoardLayoutEditor } from "./block-board-layout-editor";
 import { ScopedElementsMixin as Scoped } from "@open-wc/scoped-elements";
@@ -26,9 +26,11 @@ export class BlockBoard extends (Scoped(
     return ([] as Array<Block>).concat(...allBlocks);
   }
 
-  @property({ type: Array }) blockLayout:
-    | BlockLayoutNode
-    | undefined = undefined;
+  @property({ type: Array }) blockLayout: BlockSlot = {
+    direction: "horizontal",
+    slots: [undefined, undefined],
+    firstSlotRelativeSize: 0.5,
+  };
 
   static styles = [
     sharedStyles,

@@ -23,14 +23,13 @@
     <script type="module">
       import { html, render } from "lit-html";
       import { BlockBoard } from "../dist/index.js";
-      import { scopeElement } from "scoped-elements/dist/scoped";
 
-      customElements.define("block-board", scopeElement(BlockBoard));
+      customElements.define("block-board", BlockBoard);
 
       const board = document.getElementById("board");
 
       board.blockSets = [
-      {
+        {
           name: "Block1",
           blocks: [
             {
@@ -41,12 +40,12 @@
           ],
         },
         {
-          name: "Block1",
+          name: "Block2",
           blocks: [
             {
-              name: "ahaha",
+              name: "ahaha2",
               render: (shadowRoot) =>
-                render(html`<span>naiiin</span>`, shadowRoot),
+                render(html`<span>naiiin2</span>`, shadowRoot),
             },
           ],
         },

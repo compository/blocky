@@ -1,4 +1,4 @@
-import { html, LitElement, property, query } from "lit-element";
+import { html, LitElement, property, PropertyValues, query } from "lit-element";
 import { Block } from "./types";
 
 export class BlockBoardSlot extends LitElement {
@@ -8,8 +8,11 @@ export class BlockBoardSlot extends LitElement {
   @query("#slot")
   _slot!: HTMLElement;
 
-  firstUpdated() {
-    this.block.render(this.shadowRoot as ShadowRoot);
+  updated(changedValues: PropertyValues) {
+    super.updated(changedValues);
+    if (changedValues.has("block")) {
+      this.block.render(this.shadowRoot as ShadowRoot);
+    }
   }
 
   render() {
