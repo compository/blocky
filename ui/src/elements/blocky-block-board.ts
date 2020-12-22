@@ -59,7 +59,10 @@ export class BlockyBlockBoard extends membraneContext(
 
   updated(changedValues: PropertyValues) {
     super.updated(changedValues);
-    if (changedValues.has('membraneContext') && this.membraneContext) {
+    if (
+      changedValues.has('membraneContext') &&
+      this.membraneContext.appWebsocket
+    ) {
       this.loadRenderers();
     }
   }
@@ -80,7 +83,15 @@ export class BlockyBlockBoard extends membraneContext(
         ([def, lenses]) =>
           ({
             name: def.name,
-            blocks: lenses?.standalone,
+            blocks: lenses?.standalone.map(s => ({
+              name: s.name,
+              render: (root: ShadowRoot) =>
+                s.render(
+                  root,
+                  this.membraneContext.appWebsocket as AppWebsocket,
+                  this.membraneContext.cellId as CellId
+                ),
+            })),
           } as BlockSet)
       );
 
