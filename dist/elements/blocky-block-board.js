@@ -5,11 +5,11 @@ import { BlockBoard } from 'block-board';
 import { membraneContext } from '@holochain-open-dev/membrane-context';
 import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
 import { CircularProgress } from 'scoped-material-components/mwc-circular-progress';
-import { Fab } from 'scoped-material-components/mwc-fab';
 import { BlockyService } from '../blocky.service';
 export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
     constructor() {
         super(...arguments);
+        this.editing = false;
         this._blockSets = undefined;
         this._blockLayout = undefined;
     }
@@ -17,18 +17,12 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
         return {
             'block-board': BlockBoard,
             'mwc-circular-progress': CircularProgress,
-            'mwc-fab': Fab,
         };
     }
     static get styles() {
         return css `
       :host {
         display: flex;
-      }
-      .fab {
-        position: fixed;
-        right: 40px;
-        bottom: 40px;
       }
     `;
     }
@@ -60,13 +54,10 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
         }));
         const layouts = await this.blockyService.getAllBoardLayouts();
         this._blockLayout = layouts[0];
-        setTimeout(() => {
-            this.board.editing = !this._blockLayout;
-            this.requestUpdate();
-        });
+        this.editing = !this._blockLayout;
     }
     async createBoard(layout) {
-        this.board.editing = false;
+        this.editing = false;
         this.requestUpdate();
         if (JSON.stringify(this._blockLayout) !== JSON.stringify(layout)) {
             this._blockLayout = layout;
@@ -77,32 +68,21 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
         if (this._blockSets === undefined)
             return html `<mwc-circular-progress></mwc-circular-progress>`;
         return html `<block-board
-        id="board"
-        style="flex: 1;"
-        .blockSets=${this._blockSets}
-        .blockLayout=${this._blockLayout}
-        @board-saved=${(e) => this.createBoard(e.detail.blockLayout)}
-      ></block-board>
-
-      ${this.board && !this.board.editing
-            ? html `
-            <mwc-fab
-              label="edit"
-              class="fab"
-              @click=${() => {
-                this.board.editing = true;
-                this.requestUpdate();
-            }}
-              icon="edit"
-            >
-            </mwc-fab>
-          `
-            : html ``} `;
+      id="board"
+      style="flex: 1;"
+      .editing=${this.editing}
+      .blockSets=${this._blockSets}
+      .blockLayout=${this._blockLayout}
+      @board-saved=${(e) => this.createBoard(e.detail.blockLayout)}
+    ></block-board> `;
     }
 }
 __decorate([
     property()
 ], BlockyBlockBoard.prototype, "compositoryCellId", void 0);
+__decorate([
+    property({ type: Boolean })
+], BlockyBlockBoard.prototype, "editing", void 0);
 __decorate([
     property({ type: Array })
 ], BlockyBlockBoard.prototype, "_blockSets", void 0);
