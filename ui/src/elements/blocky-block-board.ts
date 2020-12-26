@@ -7,12 +7,12 @@ import {
   PropertyValues,
 } from 'lit-element';
 import { CompositoryService, fetchLensesForAllZomes } from '@compository/lib';
-import { Block, BlockBoard, BlockLayoutNode, BlockSet } from 'block-board';
+import { BlockBoard, BlockLayoutNode, BlockSet } from 'block-board';
 import { membraneContext } from '@holochain-open-dev/membrane-context';
 import { AppWebsocket, CellId } from '@holochain/conductor-api';
 import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
 import { CircularProgress } from 'scoped-material-components/mwc-circular-progress';
-import { Fab } from 'scoped-material-components/mwc-fab';
+
 import { BlockyService } from '../blocky.service';
 
 export class BlockyBlockBoard extends membraneContext(
@@ -21,11 +21,13 @@ export class BlockyBlockBoard extends membraneContext(
   @property()
   compositoryCellId!: CellId;
 
+  @property({ type: Boolean })
+  editing: boolean = false;
+
   static get scopedElements() {
     return {
       'block-board': BlockBoard,
       'mwc-circular-progress': CircularProgress,
-      'mwc-fab': Fab,
     };
   }
 
@@ -33,11 +35,6 @@ export class BlockyBlockBoard extends membraneContext(
     return css`
       :host {
         display: flex;
-      }
-      .fab {
-        position: fixed;
-        right: 40px;
-        bottom: 40px;
       }
     `;
   }
@@ -98,14 +95,11 @@ export class BlockyBlockBoard extends membraneContext(
     const layouts = await this.blockyService.getAllBoardLayouts();
     this._blockLayout = layouts[0];
 
-    setTimeout(() => {
-      this.board.editing = !this._blockLayout;
-      this.requestUpdate();
-    });
+    this.editing = !this._blockLayout;
   }
 
   async createBoard(layout: BlockLayoutNode) {
-    this.board.editing = false;
+    this.editing = false;
 
     this.requestUpdate();
 
@@ -119,27 +113,12 @@ export class BlockyBlockBoard extends membraneContext(
     if (this._blockSets === undefined)
       return html`<mwc-circular-progress></mwc-circular-progress>`;
     return html`<block-board
-        id="board"
-        style="flex: 1;"
-        .blockSets=${this._blockSets}
-        .blockLayout=${this._blockLayout}
-        @board-saved=${(e: CustomEvent) =>
-          this.createBoard(e.detail.blockLayout)}
-      ></block-board>
-
-      ${this.board && !this.board.editing
-        ? html`
-            <mwc-fab
-              label="edit"
-              class="fab"
-              @click=${() => {
-                this.board.editing = true;
-                this.requestUpdate();
-              }}
-              icon="edit"
-            >
-            </mwc-fab>
-          `
-        : html``} `;
+      id="board"
+      style="flex: 1;"
+      .editing=${this.editing}
+      .blockSets=${this._blockSets}
+      .blockLayout=${this._blockLayout}
+      @board-saved=${(e: CustomEvent) => this.createBoard(e.detail.blockLayout)}
+    ></block-board> `;
   }
 }
