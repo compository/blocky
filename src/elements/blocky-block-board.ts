@@ -111,7 +111,9 @@ export class BlockyBlockBoard extends membraneContext(
 
   render() {
     if (this._blockSets === undefined)
-      return html`<mwc-circular-progress></mwc-circular-progress>`;
+      return html`<div class="fill center-content">
+        <mwc-circular-progress indeterminate></mwc-circular-progress>
+      </div>`;
     return html`<block-board
       id="board"
       style="flex: 1;"
