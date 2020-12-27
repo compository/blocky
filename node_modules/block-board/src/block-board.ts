@@ -63,6 +63,8 @@ export class BlockBoard extends (Scoped(
     this.dispatchEvent(
       new CustomEvent("board-saved", {
         detail: { blockLayout: this.blockLayout },
+        composed: true,
+        bubbles: true,
       })
     );
   }

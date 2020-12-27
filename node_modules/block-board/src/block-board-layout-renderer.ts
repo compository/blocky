@@ -38,7 +38,10 @@ export class BlockBoardLayoutRenderer extends (Scoped(
     if (typeof slot === "string") {
       const block = this.availableBlocks.find((block) => block.name === slot);
       if (!block) throw new Error(`Tried to render an unexisting block`);
-      return html`<block-board-slot .block=${block}></block-board-slot>`;
+      return html`<block-board-slot
+        .block=${block}
+        style="flex: 1;"
+      ></block-board-slot>`;
     } else if (slot) {
       return this.renderLayout(slot);
     } else {
@@ -66,6 +69,7 @@ export class BlockBoardLayoutRenderer extends (Scoped(
         <div
           style=${styleMap({
             flex: (1 - blockLayout.firstSlotRelativeSize) * 100 + "%",
+            display: "flex",
           })}
         >
           ${this.renderSlot(blockLayout.slots[1])}
