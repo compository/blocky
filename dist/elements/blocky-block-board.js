@@ -43,6 +43,9 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
             this.membraneContext.appWebsocket) {
             this.loadRenderers();
         }
+        if (changedValues.has('editing')) {
+            this.dispatchEvent(new CustomEvent('toggle-editing', { detail: { editing: this.editing } }));
+        }
     }
     async loadRenderers() {
         // Get the renderers for each of the zomes

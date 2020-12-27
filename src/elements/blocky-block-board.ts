@@ -66,6 +66,11 @@ export class BlockyBlockBoard extends membraneContext(
     ) {
       this.loadRenderers();
     }
+    if (changedValues.has('editing')) {
+      this.dispatchEvent(
+        new CustomEvent('toggle-editing', { detail: { editing: this.editing } })
+      );
+    }
   }
 
   async loadRenderers() {
