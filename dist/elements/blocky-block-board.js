@@ -6,6 +6,7 @@ import { membraneContext } from '@holochain-open-dev/membrane-context';
 import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
 import { CircularProgress } from 'scoped-material-components/mwc-circular-progress';
 import { BlockyService } from '../blocky.service';
+import { sharedStyles } from '../sharedStyles';
 export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
     constructor() {
         super(...arguments);
@@ -20,11 +21,14 @@ export class BlockyBlockBoard extends membraneContext(Scoped(LitElement)) {
         };
     }
     static get styles() {
-        return css `
-      :host {
-        display: flex;
-      }
-    `;
+        return [
+            css `
+        :host {
+          display: flex;
+        }
+      `,
+            sharedStyles,
+        ];
     }
     get blockyService() {
         return new BlockyService(this.membraneContext.appWebsocket, this.membraneContext.cellId);

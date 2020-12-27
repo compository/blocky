@@ -14,6 +14,7 @@ import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
 import { CircularProgress } from 'scoped-material-components/mwc-circular-progress';
 
 import { BlockyService } from '../blocky.service';
+import { sharedStyles } from '../sharedStyles';
 
 export class BlockyBlockBoard extends membraneContext(
   Scoped(LitElement) as Constructor<LitElement>
@@ -32,11 +33,14 @@ export class BlockyBlockBoard extends membraneContext(
   }
 
   static get styles() {
-    return css`
-      :host {
-        display: flex;
-      }
-    `;
+    return [
+      css`
+        :host {
+          display: flex;
+        }
+      `,
+      sharedStyles,
+    ];
   }
 
   @property({ type: Array })

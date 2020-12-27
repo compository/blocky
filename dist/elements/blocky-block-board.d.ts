@@ -13,7 +13,7 @@ export declare class BlockyBlockBoard extends BlockyBlockBoard_base {
         'block-board': typeof BlockBoard;
         'mwc-circular-progress': typeof CircularProgress;
     };
-    static get styles(): import("lit-element").CSSResult;
+    static get styles(): import("lit-element").CSSResult[];
     _blockSets: Array<BlockSet> | undefined;
     _blockLayout: BlockLayoutNode | undefined;
     get blockyService(): BlockyService;
