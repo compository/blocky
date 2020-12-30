@@ -17,6 +17,7 @@ import { CompositoryService, fetchLensesForAllZomes } from '@compository/lib';
 import { sharedStyles } from '../sharedStyles';
 import { BlockyService } from '../blocky.service';
 import { BlockBoard, BlockNode, BlockSet } from 'block-board';
+import { CircularProgress } from 'scoped-material-components/mwc-circular-progress';
 
 export class BlockyDnaBoard extends membraneContext(
   Scoped(LitElement) as Constructor<LitElement>
@@ -124,6 +125,14 @@ export class BlockyDnaBoard extends membraneContext(
     }
   }
 
+  showProfilePromt() {
+    return (
+      !this._loading &&
+      this._profilesZomeExistsInDna &&
+      !this._profileAlreadyCreated
+    );
+  }
+
   renderBarItems() {
     if (this._loading || this.showProfilePromt()) return html``;
     if (!this._editing)
@@ -155,12 +164,31 @@ export class BlockyDnaBoard extends membraneContext(
         >`;
   }
 
-  showProfilePromt() {
-    return (
-      !this._loading &&
-      this._profilesZomeExistsInDna &&
-      !this._profileAlreadyCreated
-    );
+  renderContent() {
+    if (this._loading)
+      return html`<div class="fill center-content">
+        <mwc-circular-progress indeterminate></mwc-circular-progress>
+      </div>`;
+    if (this.showProfilePromt())
+      return html`
+        <div
+          style="flex: 1; display: flex; align-items: center; justify-content: center;"
+        >
+          <hod-create-profile-form
+            @profile-created=${() => (this._profileAlreadyCreated = true)}
+          ></hod-create-profile-form>
+        </div>
+      `;
+    else
+      return html`
+        <block-board
+          id="board"
+          style="flex: 1;"
+          .editing=${this._editing}
+          .blockSets=${this._blockSets}
+          ?blockLayout=${this._blockNode}
+        ></block-board>
+      `;
   }
 
   render() {
@@ -179,28 +207,7 @@ export class BlockyDnaBoard extends membraneContext(
           ${this.renderBarItems()}
 
           <div style="width: 100vw; height: 100%; display: flex;">
-            ${
-              this.showProfilePromt()
-                ? html`
-                    <div
-                      style="flex: 1; display: flex; align-items: center; justify-content: center;"
-                    >
-                      <hod-create-profile-form
-                        @profile-created=${() =>
-                          (this._profileAlreadyCreated = true)}
-                      ></hod-create-profile-form>
-                    </div>
-                  `
-                : html`
-                    <block-board
-                      id="board"
-                      style="flex: 1;"
-                      .editing=${this._editing}
-                      .blockSets=${this._blockSets}
-                      ?blockLayout=${this._blockNode}
-                    ></block-board>
-                  `
-            }
+            ${this.renderContent()}
               </div>
           </div>
         </mwc-top-app-bar>
@@ -213,6 +220,7 @@ export class BlockyDnaBoard extends membraneContext(
       'block-board': BlockBoard,
       'mwc-top-app-bar': TopAppBar,
       'mwc-icon-button': IconButton,
+      'mwc-circular-progress': CircularProgress,
       'hod-create-profile-form': HodCreateProfileForm,
     };
   }
