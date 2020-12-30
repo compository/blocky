@@ -82,6 +82,7 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
         icon="edit"
         slot="actionItems"
         label="Edit Layout"
+        class="white-button"
         @click=${() => {
                 this._editing = true;
             }}
@@ -92,8 +93,8 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
           slot="actionItems"
           label="Save Layout"
           .disabled=${!this.board || this.board.isEditingLayoutEmpty()}
-          style="--mdc-button-disabled-ink-color: rgba(255,255,255,0.5);"
-          @click=${() => {
+        class="white-button"
+        @click=${() => {
                 const newLayout = this.board.save();
                 this.createBoard(newLayout);
             }}
@@ -101,8 +102,9 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
         ${this._blockNode
                 ? html `
               <mwc-button
-                icon="close"
-                slot="actionItems"
+              icon="close"
+              slot="actionItems"
+              class="white-button"
                 label="Cancel"
                 @click=${() => {
                     this._editing = false;
@@ -147,6 +149,7 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
         <mwc-icon-button
           icon="arrow_back"
           slot="navigationIcon"
+        class="white-button"
           @click=${() => this.dispatchEvent(new CustomEvent('navigate-back'))}
         ></mwc-icon-button>
         <div slot="title">${serializeHash(this.cellIdToDisplay[0])}</div>
@@ -176,6 +179,10 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
             css `
         :host {
           display: flex;
+        }
+        .white-button {
+          --mdc-button-disabled-ink-color: rgba(255,255,255,0.5);
+          color: white;
         }
       `,
         ];

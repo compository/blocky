@@ -141,27 +141,29 @@ export class BlockyDnaBoard extends membraneContext(
         icon="edit"
         slot="actionItems"
         label="Edit Layout"
+        class="white-button"
         @click=${() => {
           this._editing = true;
         }}
       ></mwc-button>`;
     else
-      return html`<mwc-button
+    return html`<mwc-button
           icon="save"
           slot="actionItems"
           label="Save Layout"
           .disabled=${!this.board || this.board.isEditingLayoutEmpty()}
-          style="--mdc-button-disabled-ink-color: rgba(255,255,255,0.5);"
-          @click=${() => {
-            const newLayout = this.board.save();
-            this.createBoard(newLayout);
-          }}
+        class="white-button"
+        @click=${() => {
+          const newLayout = this.board.save();
+          this.createBoard(newLayout);
+        }}
         ></mwc-button>
         ${this._blockNode
           ? html`
               <mwc-button
-                icon="close"
-                slot="actionItems"
+              icon="close"
+              slot="actionItems"
+              class="white-button"
                 label="Cancel"
                 @click=${() => {
                   this._editing = false;
@@ -208,6 +210,7 @@ export class BlockyDnaBoard extends membraneContext(
         <mwc-icon-button
           icon="arrow_back"
           slot="navigationIcon"
+        class="white-button"
           @click=${() => this.dispatchEvent(new CustomEvent('navigate-back'))}
         ></mwc-icon-button>
         <div slot="title">${serializeHash(this.cellIdToDisplay[0])}</div>
@@ -239,6 +242,10 @@ export class BlockyDnaBoard extends membraneContext(
       css`
         :host {
           display: flex;
+        }
+        .white-button {
+          --mdc-button-disabled-ink-color: rgba(255,255,255,0.5);
+          color: white;
         }
       `,
     ];
