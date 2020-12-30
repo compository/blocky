@@ -27,7 +27,8 @@
   },
   "dependencies": {
     "@compository/lib": "git+https://github.com/compository/lib.git#build",
-    "@holochain-open-dev/membrane-context": "^0.1.0",
+    "@holochain-open-dev/membrane-context": "^0.1.1",
+    "@holochain-open-dev/profiles": "git+https://github.com/holochain-open-dev/profiles.git#ui-build",
     "@holochain/conductor-api": "0.0.1-dev.14",
     "@open-wc/scoped-elements": "^1.3.2",
     "block-board": "git+https://github.com/guillemcordoba/block-board.git#build",
@@ -36,7 +37,7 @@
     "scoped-material-components": "git+https://github.com/guillemcordoba/scoped-material-components.git#build"
   },
   "devDependencies": {
-    "@holochain-open-dev/holochain-run-dna": "^0.2.5",
+    "@holochain-open-dev/holochain-run-dna": "^0.2.11",
     "@open-wc/demoing-storybook": "^2.0.0",
     "@open-wc/eslint-config": "^2.0.0",
     "@open-wc/testing": "^2.0.0",

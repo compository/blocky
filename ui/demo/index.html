@@ -10,17 +10,13 @@
   </head>
   <body>
     <!-- TODO: change the element -->
-    <hod-calendar-event></hod-calendar-event>
+    <blocky-dna-board></blocky-dna-board>
 
     <script type="module">
       import { html, render } from 'lit-html';
-      import { CalendarEventsModule } from '../dist';
-      import { setupApolloClient } from '../test/mocks/setupApolloClient';
+      import { BlockDnaBoard } from '../dist';
 
-      // TODO: change the module name
-      setupApolloClient().then(client =>
-        new CalendarEventsModule({ apolloClient: client }).install()
-      );
+      
     </script>
   </body>
 </html>
