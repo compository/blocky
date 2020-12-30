@@ -226,6 +226,7 @@ export class BlockyDnaBoard extends membraneContext(
       'block-board': BlockBoard,
       'mwc-top-app-bar': TopAppBar,
       'mwc-button': Button,
+      'mwc-icon-button': IconButton,
       'mwc-circular-progress': CircularProgress,
       'hod-create-profile-form': HodCreateProfileForm,
     };

@@ -4,6 +4,7 @@ import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
 import { membraneContext, MembraneContextProvider, } from '@holochain-open-dev/membrane-context';
 import { serializeHash } from '@holochain-open-dev/common';
 import { TopAppBar } from 'scoped-material-components/mwc-top-app-bar';
+import { IconButton } from 'scoped-material-components/mwc-icon-button';
 import { HodCreateProfileForm, ProfilesService, } from '@holochain-open-dev/profiles';
 import { CompositoryService, fetchLensesForAllZomes } from '@compository/lib';
 import { sharedStyles } from '../sharedStyles';
@@ -163,6 +164,7 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
             'block-board': BlockBoard,
             'mwc-top-app-bar': TopAppBar,
             'mwc-button': Button,
+            'mwc-icon-button': IconButton,
             'mwc-circular-progress': CircularProgress,
             'hod-create-profile-form': HodCreateProfileForm,
         };
