@@ -99,7 +99,7 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
         ${this._blockNode
                 ? html `
               <mwc-button
-                icon="cancel"
+                icon="close"
                 slot="actionItems"
                 label="Cancel"
                 @click=${() => {
