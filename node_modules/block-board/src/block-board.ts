@@ -50,12 +50,16 @@ export class BlockBoard extends (Scoped(
     };
   }
 
-  save(): BlockNode {
+  getEditingLayout() {
     const editor: BlockBoardLayoutEditor = this.shadowRoot?.getElementById(
       "layout-editor"
     ) as BlockBoardLayoutEditor;
 
-    this.blockLayout = editor.blockLayout;
+    return editor.blockLayout;
+  }
+
+  save(): BlockNode {
+    this.blockLayout = this.getEditingLayout();
 
     this.editing = false;
 

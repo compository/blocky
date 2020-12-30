@@ -140,29 +140,34 @@ export class BlockyDnaBoard extends membraneContext(
       return html` <mwc-button
         icon="edit"
         slot="actionItems"
+        label="Edit Layout"
         @click=${() => {
           this._editing = true;
         }}
-        >Edit</mwc-button
-      >`;
+      ></mwc-button>`;
     else
       return html`<mwc-button
           icon="save"
           slot="actionItems"
+          label="Save Layout"
+          .disabled=${!this.board.getEditingLayout()}
           @click=${() => {
             const newLayout = this.board.save();
             this.createBoard(newLayout);
           }}
-          >Save</mwc-button
-        >
-        <mwc-button
-          icon="cancel"
-          slot="actionItems"
-          @click=${() => {
-            this._editing = false;
-          }}
-          >Cancel</mwc-button
-        >`;
+        ></mwc-button>
+        ${this._blockNode
+          ? html`
+              <mwc-button
+                icon="cancel"
+                slot="actionItems"
+                label="Cancel"
+                @click=${() => {
+                  this._editing = false;
+                }}
+              ></mwc-button>
+            `
+          : html``} `;
   }
 
   renderContent() {

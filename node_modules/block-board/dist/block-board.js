@@ -35,10 +35,13 @@ export class BlockBoard extends Scoped(LitElement) {
             "block-board-block-selector": BlockBoardBlockSelector,
         };
     }
-    save() {
+    getEditingLayout() {
         var _a;
         const editor = (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.getElementById("layout-editor");
-        this.blockLayout = editor.blockLayout;
+        return editor.blockLayout;
+    }
+    save() {
+        this.blockLayout = this.getEditingLayout();
         this.editing = false;
         this.dispatchEvent(new CustomEvent("board-saved", {
             detail: { blockLayout: this.blockLayout },
