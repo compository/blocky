@@ -50,13 +50,13 @@ export class BlockyDnaBoard extends membraneContext(
   get blockyService(): BlockyService {
     return new BlockyService(
       this.membraneContext.appWebsocket as AppWebsocket,
-      this.membraneContext.cellId as CellId
+      this.cellIdToDisplay as CellId
     );
   }
   get compositoryService(): CompositoryService {
     return new CompositoryService(
       this.membraneContext.appWebsocket as AppWebsocket,
-      this.membraneContext.cellId as CellId
+      this.compositoryCellId as CellId
     );
   }
 

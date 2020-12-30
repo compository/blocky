@@ -26,10 +26,10 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
         return (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.getElementById('board');
     }
     get blockyService() {
-        return new BlockyService(this.membraneContext.appWebsocket, this.membraneContext.cellId);
+        return new BlockyService(this.membraneContext.appWebsocket, this.cellIdToDisplay);
     }
     get compositoryService() {
-        return new CompositoryService(this.membraneContext.appWebsocket, this.membraneContext.cellId);
+        return new CompositoryService(this.membraneContext.appWebsocket, this.compositoryCellId);
     }
     async firstUpdated() {
         await this.loadProfilesExists();
