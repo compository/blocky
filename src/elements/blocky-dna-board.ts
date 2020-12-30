@@ -93,7 +93,7 @@ export class BlockyDnaBoard extends membraneContext(
     // Get the renderers for each of the zomes
     const zomeLenses = await fetchLensesForAllZomes(
       this.compositoryService,
-      this.membraneContext.cellId as CellId
+      this.cellIdToDisplay
     );
 
     this._blockSets = zomeLenses
@@ -108,7 +108,7 @@ export class BlockyDnaBoard extends membraneContext(
                 s.render(
                   root,
                   this.membraneContext.appWebsocket as AppWebsocket,
-                  this.membraneContext.cellId as CellId
+                  this.cellIdToDisplay as CellId
                 ),
             })),
           } as BlockSet)
@@ -169,7 +169,7 @@ export class BlockyDnaBoard extends membraneContext(
       return html`<div class="fill center-content">
         <mwc-circular-progress indeterminate></mwc-circular-progress>
       </div>`;
-    if (this.showProfilePromt())
+    else if (this.showProfilePromt())
       return html`
         <div
           style="flex: 1; display: flex; align-items: center; justify-content: center;"

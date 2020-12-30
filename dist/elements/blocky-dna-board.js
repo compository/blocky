@@ -49,14 +49,14 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
     }
     async loadRenderers() {
         // Get the renderers for each of the zomes
-        const zomeLenses = await fetchLensesForAllZomes(this.compositoryService, this.membraneContext.cellId);
+        const zomeLenses = await fetchLensesForAllZomes(this.compositoryService, this.cellIdToDisplay);
         this._blockSets = zomeLenses
             .filter(([def, lenses]) => lenses !== undefined)
             .map(([def, lenses]) => ({
             name: def.name,
             blocks: lenses === null || lenses === void 0 ? void 0 : lenses.standalone.map(s => ({
                 name: s.name,
-                render: (root) => s.render(root, this.membraneContext.appWebsocket, this.membraneContext.cellId),
+                render: (root) => s.render(root, this.membraneContext.appWebsocket, this.cellIdToDisplay),
             })),
         }));
         this._editing = !this._blockNode;
@@ -109,7 +109,7 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
             return html `<div class="fill center-content">
         <mwc-circular-progress indeterminate></mwc-circular-progress>
       </div>`;
-        if (this.showProfilePromt())
+        else if (this.showProfilePromt())
             return html `
         <div
           style="flex: 1; display: flex; align-items: center; justify-content: center;"
