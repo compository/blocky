@@ -151,6 +151,7 @@ export class BlockyDnaBoard extends membraneContext(
           slot="actionItems"
           label="Save Layout"
           .disabled=${!this.board || this.board.isEditingLayoutEmpty()}
+          style="--mdc-button-disabled-ink-color: rgba(255,255,255,0.5);"
           @click=${() => {
             const newLayout = this.board.save();
             this.createBoard(newLayout);
