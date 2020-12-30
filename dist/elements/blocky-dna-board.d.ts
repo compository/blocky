@@ -2,12 +2,12 @@ import { Constructor, LitElement } from 'lit-element';
 import { MembraneContextProvider } from '@holochain-open-dev/membrane-context';
 import { CellId } from '@holochain/conductor-api';
 import { TopAppBar } from 'scoped-material-components/mwc-top-app-bar';
-import { IconButton } from 'scoped-material-components/mwc-icon-button';
 import { HodCreateProfileForm } from '@holochain-open-dev/profiles';
 import { CompositoryService } from '@compository/lib';
 import { BlockyService } from '../blocky.service';
 import { BlockBoard, BlockNode, BlockSet } from 'block-board';
 import { CircularProgress } from 'scoped-material-components/mwc-circular-progress';
+import { Button } from 'scoped-material-components/mwc-button';
 declare const BlockyDnaBoard_base: Constructor<LitElement> & Constructor<{
     membraneContext: import("@holochain-open-dev/membrane-context").MembraneContext;
 }>;
@@ -35,7 +35,7 @@ export declare class BlockyDnaBoard extends BlockyDnaBoard_base {
         'membrane-context-provider': typeof MembraneContextProvider;
         'block-board': typeof BlockBoard;
         'mwc-top-app-bar': typeof TopAppBar;
-        'mwc-icon-button': typeof IconButton;
+        'mwc-button': typeof Button;
         'mwc-circular-progress': typeof CircularProgress;
         'hod-create-profile-form': typeof HodCreateProfileForm;
     };

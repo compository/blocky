@@ -18,6 +18,7 @@ import { sharedStyles } from '../sharedStyles';
 import { BlockyService } from '../blocky.service';
 import { BlockBoard, BlockNode, BlockSet } from 'block-board';
 import { CircularProgress } from 'scoped-material-components/mwc-circular-progress';
+import { Button } from 'scoped-material-components/mwc-button';
 
 export class BlockyDnaBoard extends membraneContext(
   Scoped(LitElement) as Constructor<LitElement>
@@ -219,7 +220,7 @@ export class BlockyDnaBoard extends membraneContext(
       'membrane-context-provider': MembraneContextProvider,
       'block-board': BlockBoard,
       'mwc-top-app-bar': TopAppBar,
-      'mwc-icon-button': IconButton,
+      'mwc-button': Button,
       'mwc-circular-progress': CircularProgress,
       'hod-create-profile-form': HodCreateProfileForm,
     };
