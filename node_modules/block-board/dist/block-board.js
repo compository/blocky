@@ -35,13 +35,23 @@ export class BlockBoard extends Scoped(LitElement) {
             "block-board-block-selector": BlockBoardBlockSelector,
         };
     }
-    getEditingLayout() {
+    internalIsLayoutEmpty(blockNode) {
+        if (blockNode === undefined)
+            return true;
+        else if (blockNode.direction)
+            return (this.internalIsLayoutEmpty(blockNode.slots[0]) &&
+                this.internalIsLayoutEmpty(blockNode.slots[1]));
+        return false;
+    }
+    isEditingLayoutEmpty() {
+        return this.internalIsLayoutEmpty(this.editor.blockLayout);
+    }
+    get editor() {
         var _a;
-        const editor = (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.getElementById("layout-editor");
-        return editor.blockLayout;
+        return (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.getElementById("layout-editor");
     }
     save() {
-        this.blockLayout = this.getEditingLayout();
+        this.blockLayout = this.editor.blockLayout;
         this.editing = false;
         this.dispatchEvent(new CustomEvent("board-saved", {
             detail: { blockLayout: this.blockLayout },

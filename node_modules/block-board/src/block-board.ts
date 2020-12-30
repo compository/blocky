@@ -50,16 +50,28 @@ export class BlockBoard extends (Scoped(
     };
   }
 
-  getEditingLayout() {
-    const editor: BlockBoardLayoutEditor = this.shadowRoot?.getElementById(
+  internalIsLayoutEmpty(blockNode: BlockNode): boolean {
+    if (blockNode === undefined) return true;
+    else if ((blockNode as BlockLayout).direction)
+      return (
+        this.internalIsLayoutEmpty((blockNode as BlockLayout).slots[0]) &&
+        this.internalIsLayoutEmpty((blockNode as BlockLayout).slots[1])
+      );
+    return false;
+  }
+
+  isEditingLayoutEmpty() {
+    return this.internalIsLayoutEmpty(this.editor.blockLayout);
+  }
+
+  get editor(): BlockBoardLayoutEditor {
+    return this.shadowRoot?.getElementById(
       "layout-editor"
     ) as BlockBoardLayoutEditor;
-
-    return editor.blockLayout;
   }
 
   save(): BlockNode {
-    this.blockLayout = this.getEditingLayout();
+    this.blockLayout = this.editor.blockLayout;
 
     this.editing = false;
 

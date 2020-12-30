@@ -90,6 +90,10 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
             else {
                 this.blockLayout = blockName;
             }
+            this.dispatchEvent(new CustomEvent("layout-updated", {
+                bubbles: true,
+                composed: true,
+            }));
             this.requestUpdate();
         }}
           @dragover=${(e) => e.preventDefault()}

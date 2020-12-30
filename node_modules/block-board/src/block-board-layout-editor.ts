@@ -111,6 +111,12 @@ export class BlockBoardLayoutEditor extends (Scoped(
             } else {
               this.blockLayout = blockName;
             }
+            this.dispatchEvent(
+              new CustomEvent("layout-updated", {
+                bubbles: true,
+                composed: true,
+              })
+            );
             this.requestUpdate();
           }}
           @dragover=${(e: DragEvent) => e.preventDefault()}
@@ -181,9 +187,6 @@ export class BlockBoardLayoutEditor extends (Scoped(
         undefined
       );
     else
-      return this.renderLayoutNode(
-        this.blockLayout as BlockLayout,
-        undefined
-      );
+      return this.renderLayoutNode(this.blockLayout as BlockLayout, undefined);
   }
 }

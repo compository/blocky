@@ -19,7 +19,9 @@ export declare class BlockBoard extends BlockBoard_base {
         "block-board-layout-editor": typeof BlockBoardLayoutEditor;
         "block-board-block-selector": typeof BlockBoardBlockSelector;
     };
-    getEditingLayout(): BlockNode;
+    internalIsLayoutEmpty(blockNode: BlockNode): boolean;
+    isEditingLayoutEmpty(): boolean;
+    get editor(): BlockBoardLayoutEditor;
     save(): BlockNode;
     renderLayout(): import("lit-element").TemplateResult;
     renderEditingMode(): import("lit-element").TemplateResult;
