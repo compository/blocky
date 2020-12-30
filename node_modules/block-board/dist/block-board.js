@@ -44,6 +44,8 @@ export class BlockBoard extends Scoped(LitElement) {
         return false;
     }
     isEditingLayoutEmpty() {
+        if (!this.editor)
+            return false;
         return this.internalIsLayoutEmpty(this.editor.blockLayout);
     }
     get editor() {

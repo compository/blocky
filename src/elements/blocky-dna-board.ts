@@ -65,7 +65,11 @@ export class BlockyDnaBoard extends membraneContext(
     await this.loadProfilesExists();
 
     const layouts = await this.blockyService.getAllBoardLayouts();
-    this._blockNode = layouts[0];
+    this._blockNode = layouts[0] || {
+      direction: 'horizontal',
+      firstSlotRelativeSize: 0.5,
+      slots: [undefined, undefined],
+    };
     await this.loadRenderers();
 
     this._loading = false;
@@ -147,23 +151,23 @@ export class BlockyDnaBoard extends membraneContext(
         }}
       ></mwc-button>`;
     else
-    return html`<mwc-button
+      return html`<mwc-button
           icon="save"
           slot="actionItems"
           label="Save Layout"
           .disabled=${!this.board || this.board.isEditingLayoutEmpty()}
-        class="white-button"
-        @click=${() => {
-          const newLayout = this.board.save();
-          this.createBoard(newLayout);
-        }}
+          class="white-button"
+          @click=${() => {
+            const newLayout = this.board.save();
+            this.createBoard(newLayout);
+          }}
         ></mwc-button>
         ${this._blockNode
           ? html`
               <mwc-button
-              icon="close"
-              slot="actionItems"
-              class="white-button"
+                icon="close"
+                slot="actionItems"
+                class="white-button"
                 label="Cancel"
                 @click=${() => {
                   this._editing = false;
@@ -195,7 +199,7 @@ export class BlockyDnaBoard extends membraneContext(
           style="flex: 1;"
           .editing=${this._editing}
           .blockSets=${this._blockSets}
-          ?blockLayout=${this._blockNode}
+          .blockLayout=${this._blockNode}
           @layout-updated=${() => this.requestUpdate()}
         ></block-board>
       `;
@@ -210,7 +214,7 @@ export class BlockyDnaBoard extends membraneContext(
         <mwc-icon-button
           icon="arrow_back"
           slot="navigationIcon"
-        class="white-button"
+          class="white-button"
           @click=${() => this.dispatchEvent(new CustomEvent('navigate-back'))}
         ></mwc-icon-button>
         <div slot="title">${serializeHash(this.cellIdToDisplay[0])}</div>
@@ -244,7 +248,7 @@ export class BlockyDnaBoard extends membraneContext(
           display: flex;
         }
         .white-button {
-          --mdc-button-disabled-ink-color: rgba(255,255,255,0.5);
+          --mdc-button-disabled-ink-color: rgba(255, 255, 255, 0.5);
           --mdc-theme-primary: white;
           color: white;
         }
