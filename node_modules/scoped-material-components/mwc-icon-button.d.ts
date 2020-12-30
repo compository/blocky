@@ -8,5 +8,7 @@ export declare class IconButton extends IconButton_base {
     static get scopedElements(): {
         'mwc-ripple': typeof Ripple;
     };
+    renderRipple(): import("lit-element").TemplateResult | "";
+    ripple: Promise<Ripple | null>;
 }
 export {};

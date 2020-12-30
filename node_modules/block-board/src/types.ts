@@ -9,10 +9,10 @@ export interface BlockSet {
   blocks: Block[];
 }
 
-export interface BlockLayoutNode {
+export interface BlockLayout {
   direction: "vertical" | "horizontal";
-  slots: [BlockSlot, BlockSlot]; // if it's a string, it's the block name, if it's undefined, a void block slot
+  slots: [BlockNode, BlockNode]; // if it's a string, it's the block name, if it's undefined, a void block slot
   firstSlotRelativeSize: number;
 }
 
-export type BlockSlot = string | undefined | BlockLayoutNode;
+export type BlockNode = string | undefined | BlockLayout;

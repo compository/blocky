@@ -1,4 +1,4 @@
-import { _ as __decorate } from './tslib.es6-2abbead4.js';
+import { __decorate } from 'tslib';
 import { query, property, internalProperty, LitElement, html, css } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import { styleMap } from 'lit-html/directives/style-map';

@@ -1,7 +1,8 @@
 import { AppWebsocket, CellId } from '@holochain/conductor-api';
 import * as msgpack from '@msgpack/msgpack';
 import { FileStorageService } from '@holochain-open-dev/file-storage';
-import { DnaTemplate, Hashed, PublishInstantiatedDnaInput, ZomeDef } from '../types/dnas';
+import { DnaTemplate, PublishInstantiatedDnaInput, ZomeDef } from '../types/dnas';
+import { Hashed } from '@holochain-open-dev/common';
 
 export interface GetTemplateForDnaOutput {
   dnaTemplate: DnaTemplate;

@@ -6,9 +6,9 @@ export interface BlockSet {
     name: string;
     blocks: Block[];
 }
-export interface BlockLayoutNode {
+export interface BlockLayout {
     direction: "vertical" | "horizontal";
-    slots: [BlockSlot, BlockSlot];
+    slots: [BlockNode, BlockNode];
     firstSlotRelativeSize: number;
 }
-export declare type BlockSlot = string | undefined | BlockLayoutNode;
+export declare type BlockNode = string | undefined | BlockLayout;

@@ -1,5 +1,4 @@
 import { serializeHash } from '@holochain-open-dev/common';
-import { installDna } from './install-dna';
 async function fetchZomeAndEntryIndexes(appWebsocket, cellId, entryHash) {
     const details = await appWebsocket.callZome({
         cap: null,
@@ -27,7 +26,8 @@ export async function discoverEntryDetails(adminWebsocket, compositoryService, e
     let cellId = cellIds.find(cellId => serializeHash(cellId[0]) === dnaHash);
     // If we don't have the dna installed, install it
     if (!cellId) {
-        cellId = await installDna(adminWebsocket, compositoryService, dnaHash);
+        // TODO: Fix this
+        // cellId = await installDna(adminWebsocket, compositoryService, dnaHash);
     }
     // Fetch information about the entry from its header
     return fetchZomeAndEntryIndexes(compositoryService.appWebsocket, cellId, entryHash);

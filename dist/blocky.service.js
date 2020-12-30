@@ -4,7 +4,7 @@ export class BlockyService {
         this.cellId = cellId;
         this.zomeName = zomeName;
     }
-    createBoardLayout(layout) {
+    createBoardNode(layout) {
         return this.callZome('create_block_layout', JSON.stringify(layout));
     }
     async getAllBoardLayouts() {

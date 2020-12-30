@@ -1,7 +1,6 @@
 import { AdminWebsocket, AppWebsocket, CellId } from '@holochain/conductor-api';
 import { CompositoryService } from '../services/compository-service';
 import { serializeHash, HolochainCoreTypes } from '@holochain-open-dev/common';
-import { installDna } from './install-dna';
 import { EntryDefLocator } from '../types/dnas';
 
 async function fetchZomeAndEntryIndexes(
@@ -48,13 +47,14 @@ export async function discoverEntryDetails(
 
   // If we don't have the dna installed, install it
   if (!cellId) {
-    cellId = await installDna(adminWebsocket, compositoryService, dnaHash);
+    // TODO: Fix this
+    // cellId = await installDna(adminWebsocket, compositoryService, dnaHash);
   }
 
   // Fetch information about the entry from its header
   return fetchZomeAndEntryIndexes(
     compositoryService.appWebsocket,
-    cellId,
+    cellId as CellId,
     entryHash
   );
 }

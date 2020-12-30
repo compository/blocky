@@ -17,7 +17,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
             "mwc-icon-button": IconButton,
         };
     }
-    renderBlockSlot(blockName, parent, grandparent) {
+    renderBlockNode(blockName, parent, grandparent) {
         return html `
       <div class="column" style="flex: 1;">
         <div class="row" style="justify-content: flex-end;">
@@ -125,7 +125,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
       >
         ${blockLayout.slots.map((slot, index) => {
             if (!slot || typeof slot === "string")
-                return this.renderBlockSlot(slot, { node: blockLayout, slotIndex: index }, parentNode);
+                return this.renderBlockNode(slot, { node: blockLayout, slotIndex: index }, parentNode);
             else
                 return this.renderLayoutNode(slot, {
                     node: blockLayout,
@@ -137,7 +137,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
     }
     render() {
         if (!this.blockLayout || typeof this.blockLayout === "string")
-            return this.renderBlockSlot(this.blockLayout, undefined, undefined);
+            return this.renderBlockNode(this.blockLayout, undefined, undefined);
         else
             return this.renderLayoutNode(this.blockLayout, undefined);
     }

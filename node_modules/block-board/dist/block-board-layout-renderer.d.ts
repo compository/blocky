@@ -1,5 +1,5 @@
 import { LitElement, TemplateResult, Constructor } from "lit-element";
-import { BlockLayoutNode, Block, BlockSlot } from "./types";
+import { BlockLayout, Block, BlockNode } from "./types";
 import { BlockBoardSlot } from "./block-board-slot";
 declare const BlockBoardLayoutRenderer_base: Constructor<LitElement>;
 export declare class BlockBoardLayoutRenderer extends BlockBoardLayoutRenderer_base {
@@ -8,9 +8,9 @@ export declare class BlockBoardLayoutRenderer extends BlockBoardLayoutRenderer_b
         "block-board-slot": typeof BlockBoardSlot;
     };
     availableBlocks: Array<Block>;
-    blockLayout: BlockSlot;
-    renderSlot(slot: BlockSlot): TemplateResult;
-    renderLayout(blockLayout: BlockLayoutNode): TemplateResult;
+    blockLayout: BlockNode;
+    renderSlot(slot: BlockNode): TemplateResult;
+    renderLayout(blockLayout: BlockLayout): TemplateResult;
     render(): TemplateResult;
 }
 export {};

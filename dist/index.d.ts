@@ -1,1 +1,1 @@
-export * from './elements/blocky-block-board';
+export * from './elements/blocky-dna-board';

@@ -7,11 +7,10 @@ import {
 } from "lit-element";
 import { SplitLayoutElement } from "@vaadin/vaadin-split-layout/vaadin-split-layout.js";
 
-import { Block, BlockLayoutNode, BlockSlot } from "./types";
+import { Block, BlockLayout, BlockNode } from "./types";
 import { sharedStyles } from "./sharedStyles";
 import { ScopedElementsMixin as Scoped } from "@open-wc/scoped-elements";
 import { IconButton } from "scoped-material-components/mwc-icon-button";
-import { CircularProgress } from "scoped-material-components/mwc-circular-progress";
 import { BlockBoardSlot } from "./block-board-slot";
 
 export class BlockBoardLayoutEditor extends (Scoped(
@@ -20,7 +19,7 @@ export class BlockBoardLayoutEditor extends (Scoped(
   static styles = sharedStyles;
 
   @property({ type: Array }) private availableBlocks: Array<Block> = [];
-  @property({ type: Object }) blockLayout!: BlockSlot;
+  @property({ type: Object }) blockLayout!: BlockNode;
 
   static get scopedElements() {
     return {
@@ -30,14 +29,14 @@ export class BlockBoardLayoutEditor extends (Scoped(
     };
   }
 
-  renderBlockSlot(
+  renderBlockNode(
     blockName: string | undefined,
     parent?: {
-      node: BlockLayoutNode;
+      node: BlockLayout;
       slotIndex: number;
     },
     grandparent?: {
-      node: BlockLayoutNode;
+      node: BlockLayout;
       slotIndex: number;
     }
   ) {
@@ -132,9 +131,9 @@ export class BlockBoardLayoutEditor extends (Scoped(
   }
 
   renderLayoutNode(
-    blockLayout: BlockLayoutNode,
+    blockLayout: BlockLayout,
     parentNode?: {
-      node: BlockLayoutNode;
+      node: BlockLayout;
       slotIndex: number;
     }
   ): TemplateResult {
@@ -159,7 +158,7 @@ export class BlockBoardLayoutEditor extends (Scoped(
       >
         ${blockLayout.slots.map((slot, index) => {
           if (!slot || typeof slot === "string")
-            return this.renderBlockSlot(
+            return this.renderBlockNode(
               slot,
               { node: blockLayout, slotIndex: index },
               parentNode
@@ -176,14 +175,14 @@ export class BlockBoardLayoutEditor extends (Scoped(
 
   render() {
     if (!this.blockLayout || typeof this.blockLayout === "string")
-      return this.renderBlockSlot(
+      return this.renderBlockNode(
         this.blockLayout as string | undefined,
         undefined,
         undefined
       );
     else
       return this.renderLayoutNode(
-        this.blockLayout as BlockLayoutNode,
+        this.blockLayout as BlockLayout,
         undefined
       );
   }

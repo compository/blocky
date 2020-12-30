@@ -1,9 +1,9 @@
-import './tslib.es6-2abbead4.js';
+import 'tslib';
 import { html, css } from 'lit-element';
 import 'lit-html/directives/class-map';
 import 'lit-html/directives/style-map';
 import 'lit-html/directives/if-defined';
-import { C as CircularProgressBase } from './mwc-circular-progress-base-8a959938.js';
+import { C as CircularProgressBase } from './mwc-circular-progress-base-b3ad2a02.js';
 
 /**
 @license

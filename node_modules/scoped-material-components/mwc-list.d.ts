@@ -1,5 +1,5 @@
 import type { List as L } from '@material/mwc-list';
-import { ListItem } from '@material/mwc-list/mwc-list-item';
+import { ListItem } from './mwc-list-item';
 import { Constructor } from 'lit-element';
 import { ScopedElementsHost } from '@open-wc/scoped-elements/types/src/types';
 declare const List_base: Constructor<L & ScopedElementsHost>;

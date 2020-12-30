@@ -9,11 +9,7 @@ export class MembraneContextProvider extends ProviderMixin(LitElement) {
   }
 
   @property({ type: Object })
-  membraneContext: MembraneContext = {
-    adminWebsocket: undefined,
-    appWebsocket: undefined as any,
-    cellId: undefined as any,
-  };
+  membraneContext!: MembraneContext;
 
   @property({ type: Array })
   cellId!: CellId;
@@ -21,7 +17,7 @@ export class MembraneContextProvider extends ProviderMixin(LitElement) {
   appWebsocket!: AppWebsocket;
   @property({ type: Object })
   adminWebsocket!: AdminWebsocket;
-
+  
   updated(changedValues: PropertyValues) {
     super.updated();
     if (

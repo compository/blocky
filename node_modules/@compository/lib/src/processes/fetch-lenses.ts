@@ -15,7 +15,7 @@ export async function fetchLensesForZome(
   const template = await compositoryService.getTemplateForDna(dnaHash);
 
   const zomeDefHash = template.dnaTemplate.zome_defs[zomeIndex].zome_def_hash;
-  return internalFetchLensesForZome(compositoryService, cellId, zomeDefHash);
+  return internalFetchLensesForZome(compositoryService, zomeDefHash);
 }
 
 export async function fetchLensesForAllZomes(
@@ -29,7 +29,6 @@ export async function fetchLensesForAllZomes(
   const promises = template.dnaTemplate.zome_defs.map(zome_def =>
     internalFetchLensesForZome(
       compositoryService,
-      cellId,
       zome_def.zome_def_hash
     )
   );
@@ -38,7 +37,6 @@ export async function fetchLensesForAllZomes(
 
 async function internalFetchLensesForZome(
   compositoryService: CompositoryService,
-  cellId: CellId,
   zomeDefHash: string
 ): Promise<[ZomeDef, Lenses?]> {
   // Fetch the appropriate elements bundle for this zome

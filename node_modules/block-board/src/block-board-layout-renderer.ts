@@ -9,7 +9,7 @@ import {
 import { classMap } from "lit-html/directives/class-map";
 import { styleMap } from "lit-html/directives/style-map";
 import { ScopedElementsMixin as Scoped } from "@open-wc/scoped-elements";
-import { BlockLayoutNode, Block, BlockSlot } from "./types";
+import { BlockLayout, Block, BlockNode } from "./types";
 import { BlockBoardSlot } from "./block-board-slot";
 import { sharedStyles } from "./sharedStyles";
 
@@ -32,9 +32,9 @@ export class BlockBoardLayoutRenderer extends (Scoped(
   }
 
   @property({ type: Array }) availableBlocks!: Array<Block>;
-  @property({ type: Object }) blockLayout!: BlockSlot;
+  @property({ type: Object }) blockLayout!: BlockNode;
 
-  renderSlot(slot: BlockSlot): TemplateResult {
+  renderSlot(slot: BlockNode): TemplateResult {
     if (typeof slot === "string") {
       const block = this.availableBlocks.find((block) => block.name === slot);
       if (!block) throw new Error(`Tried to render an unexisting block`);
@@ -49,7 +49,7 @@ export class BlockBoardLayoutRenderer extends (Scoped(
     }
   }
 
-  renderLayout(blockLayout: BlockLayoutNode): TemplateResult {
+  renderLayout(blockLayout: BlockLayout): TemplateResult {
     return html`
       <div
         class=${classMap({

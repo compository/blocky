@@ -9,19 +9,13 @@
     </style>
   </head>
   <body>
-    <holochain-membrane-context id="context">
-      <compository-compose-zomes></compository-compose-zomes>
-    </holochain-membrane-context>
-    
+    <holochain-membrane-context id="context"> </holochain-membrane-context>
+
     <script type="module">
-      import {
-        CompositoryComposeZomes,
-        CompositoryService,
-        CompositoryScope,
-      } from '../dist';
+      import { CompositoryService, CompositoryScope } from '../dist';
       import ConductorApi from '@holochain/conductor-api';
-      import { deserializeHash } from '@holochain-open-dev/common';
-      import { HolochainMembraneContext } from 'holochain-membrane-context';
+      import { serializeHash } from '@holochain-open-dev/common';
+      import { MembraneContextProvider } from '@holochain-open-dev/membrane-context';
 
       (async function () {
         const admin = await ConductorApi.AdminWebsocket.connect(
@@ -31,14 +25,13 @@
           'ws://localhost:8888'
         );
 
-        const compositoryCellId = [
-          deserializeHash(
-            'uhC0k17jxt5BaQRkGTk2pNbPD7vjL9NPQZwiMTLL5TGWWp2znhbyf'
-          ),
-          deserializeHash(
-            'uhCAkDH5zRtzbDDcpH9oXnL3rTuMTD499speN3gOu96aZj8JDxdBw'
-          ),
-        ];
+        const cellIds = await admin.listCellIds();
+
+        const compositoryHash =
+          'uhC0k3d_GWtAki1I9l6DTAoLnwfWlVR74MHrndcVmhILLREaNX-VN';
+        const compositoryCellId = cellIds.find(
+          cellId => serializeHash(cellId[0]) === compositoryHash
+        );
 
         customElements.define(
           'compository-compose-zomes',
