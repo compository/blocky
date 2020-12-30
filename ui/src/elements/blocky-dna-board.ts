@@ -150,7 +150,7 @@ export class BlockyDnaBoard extends membraneContext(
           icon="save"
           slot="actionItems"
           label="Save Layout"
-          .disabled=${!this.board.getEditingLayout()}
+          .disabled=${!this.board || this.board.isEditingLayoutEmpty()}
           @click=${() => {
             const newLayout = this.board.save();
             this.createBoard(newLayout);
@@ -193,31 +193,31 @@ export class BlockyDnaBoard extends membraneContext(
           .editing=${this._editing}
           .blockSets=${this._blockSets}
           ?blockLayout=${this._blockNode}
+          @layout-updated=${() => this.requestUpdate()}
         ></block-board>
       `;
   }
 
   render() {
     return html`<membrane-context-provider
-        .appWebsocket=${this.membraneContext.appWebsocket}
-        .cellId=${this.cellIdToDisplay}
-      >
-        <mwc-top-app-bar style="flex: 1; display: flex;">
-          <mwc-icon-button
-            icon="arrow_back"
-            slot="navigationIcon"
-            @click=${() => this.dispatchEvent(new CustomEvent('navigate-back'))}
-          ></mwc-icon-button>
-          <div slot="title">${serializeHash(this.cellIdToDisplay[0])}</div>
-  
-          ${this.renderBarItems()}
+      .appWebsocket=${this.membraneContext.appWebsocket}
+      .cellId=${this.cellIdToDisplay}
+    >
+      <mwc-top-app-bar style="flex: 1; display: flex;">
+        <mwc-icon-button
+          icon="arrow_back"
+          slot="navigationIcon"
+          @click=${() => this.dispatchEvent(new CustomEvent('navigate-back'))}
+        ></mwc-icon-button>
+        <div slot="title">${serializeHash(this.cellIdToDisplay[0])}</div>
 
-          <div style="width: 100vw; height: 100%; display: flex;">
-            ${this.renderContent()}
-              </div>
-          </div>
-        </mwc-top-app-bar>
-      </membrane-context-provider>`;
+        ${this.renderBarItems()}
+
+        <div style="width: 100vw; height: 100%; display: flex;">
+          ${this.renderContent()}
+        </div>
+      </mwc-top-app-bar>
+    </membrane-context-provider>`;
   }
 
   static get scopedElements() {
@@ -226,6 +226,7 @@ export class BlockyDnaBoard extends membraneContext(
       'block-board': BlockBoard,
       'mwc-top-app-bar': TopAppBar,
       'mwc-button': Button,
+      'mwc-icon-button': IconButton,
       'mwc-circular-progress': CircularProgress,
       'hod-create-profile-form': HodCreateProfileForm,
     };
