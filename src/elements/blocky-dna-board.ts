@@ -245,6 +245,7 @@ export class BlockyDnaBoard extends membraneContext(
         }
         .white-button {
           --mdc-button-disabled-ink-color: rgba(255,255,255,0.5);
+          --mdc-theme-primary: white;
           color: white;
         }
       `,
