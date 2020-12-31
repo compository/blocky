@@ -9,11 +9,17 @@ export class BlockyService {
   ) {}
 
   createBoardNode(layout: BlockNode): Promise<string> {
-    return this.callZome('create_block_layout', JSON.stringify(layout));
+    return this.callZome('create_block_node', JSON.stringify(layout));
   }
 
-  async getAllBoardLayouts(): Promise<Array<BlockNode>> {
-    const layouts = await this.callZome('get_all_block_layouts', null);
+  async getAllBoardNodes(): Promise<Array<BlockNode>> {
+    const layouts = await this.callZome('get_all_block_nodes', null);
+
+    return layouts.map(([_, l]: [string, string]) => JSON.parse(l));
+  }
+
+  async getMyBoardNodes(): Promise<Array<BlockNode>> {
+    const layouts = await this.callZome('get_my_block_nodes', null);
 
     return layouts.map(([_, l]: [string, string]) => JSON.parse(l));
   }
