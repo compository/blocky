@@ -76,8 +76,7 @@ export class BlockyDnaBoard extends membraneContext(
 
     if (myNodes.length === 0) {
       const allNodes = await this.blockyService.getAllBoardNodes();
-      this._savedBlockNode =
-        allNodes.length === 0 ? undefined : allNodes[allNodes.length - 1];
+      this._savedBlockNode = allNodes[0];
     } else {
       this._savedBlockNode = myNodes[0];
     }
