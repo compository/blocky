@@ -33,7 +33,7 @@ export class BlockyDnaBoard extends membraneContext(
   @property({ type: Boolean })
   _profileAlreadyCreated = false;
   @property({ type: Object })
-  _blockNode: BlockNode | undefined = undefined;
+  _savedBlockNode: BlockNode | undefined = undefined;
 
   @property({ type: Array })
   _blockSets: Array<BlockSet> | undefined = undefined;
@@ -65,7 +65,9 @@ export class BlockyDnaBoard extends membraneContext(
     await this.loadProfilesExists();
 
     const layouts = await this.blockyService.getAllBoardLayouts();
-    this._blockNode = layouts[0];
+    this._savedBlockNode = layouts[0];
+    this._editing = !this._savedBlockNode;
+
     await this.loadRenderers();
 
     this._loading = false;
@@ -114,14 +116,12 @@ export class BlockyDnaBoard extends membraneContext(
             })),
           } as BlockSet)
       );
-
-    this._editing = !this._blockNode;
   }
 
   async createBoard(layout: BlockNode) {
     this._editing = false;
-    if (JSON.stringify(this._blockNode) !== JSON.stringify(layout)) {
-      this._blockNode = layout;
+    if (JSON.stringify(this._savedBlockNode) !== JSON.stringify(layout)) {
+      this._savedBlockNode = layout;
       await this.blockyService.createBoardNode(layout);
     }
   }
@@ -146,24 +146,24 @@ export class BlockyDnaBoard extends membraneContext(
           this._editing = true;
         }}
       ></mwc-button>`;
-    else
-    return html`<mwc-button
+    else {
+      return html`<mwc-button
           icon="save"
           slot="actionItems"
           label="Save Layout"
           .disabled=${!this.board || this.board.isEditingLayoutEmpty()}
-        class="white-button"
-        @click=${() => {
-          const newLayout = this.board.save();
-          this.createBoard(newLayout);
-        }}
+          class="white-button"
+          @click=${() => {
+            const newLayout = this.board.save();
+            this.createBoard(newLayout);
+          }}
         ></mwc-button>
-        ${this._blockNode
+        ${this._savedBlockNode
           ? html`
               <mwc-button
-              icon="close"
-              slot="actionItems"
-              class="white-button"
+                icon="close"
+                slot="actionItems"
+                class="white-button"
                 label="Cancel"
                 @click=${() => {
                   this._editing = false;
@@ -171,6 +171,7 @@ export class BlockyDnaBoard extends membraneContext(
               ></mwc-button>
             `
           : html``} `;
+    }
   }
 
   renderContent() {
@@ -195,7 +196,7 @@ export class BlockyDnaBoard extends membraneContext(
           style="flex: 1;"
           .editing=${this._editing}
           .blockSets=${this._blockSets}
-          ?blockLayout=${this._blockNode}
+          .initialBlockLayout=${this._savedBlockNode}
           @layout-updated=${() => this.requestUpdate()}
         ></block-board>
       `;
@@ -210,7 +211,7 @@ export class BlockyDnaBoard extends membraneContext(
         <mwc-icon-button
           icon="arrow_back"
           slot="navigationIcon"
-        class="white-button"
+          class="white-button"
           @click=${() => this.dispatchEvent(new CustomEvent('navigate-back'))}
         ></mwc-icon-button>
         <div slot="title">${serializeHash(this.cellIdToDisplay[0])}</div>
@@ -244,9 +245,8 @@ export class BlockyDnaBoard extends membraneContext(
           display: flex;
         }
         .white-button {
-          --mdc-button-disabled-ink-color: rgba(255,255,255,0.5);
+          --mdc-button-disabled-ink-color: rgba(255, 255, 255, 0.5);
           --mdc-theme-primary: white;
-          color: white;
         }
       `,
     ];
