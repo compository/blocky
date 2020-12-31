@@ -12,7 +12,6 @@ export class BlockBoard extends Scoped(LitElement) {
         this.editing = true;
         this._blockSets = [];
         this.initialBlockLayout = undefined;
-        this._blockLayout = this.initialBlockLayout;
     }
     set blockSets(blocks) {
         this._blockSets = [...blocks];
@@ -23,6 +22,10 @@ export class BlockBoard extends Scoped(LitElement) {
     get availableBlocks() {
         const allBlocks = this._blockSets.map((set) => set.blocks);
         return [].concat(...allBlocks);
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this._blockLayout = this.initialBlockLayout;
     }
     internalIsLayoutEmpty(blockNode) {
         if (!blockNode)

@@ -31,7 +31,12 @@ export class BlockBoard extends (Scoped(
   public initialBlockLayout: BlockNode | undefined = undefined;
 
   @property({ type: Array })
-  private _blockLayout: BlockNode = this.initialBlockLayout;
+  private _blockLayout!: BlockNode;
+
+  connectedCallback() {
+    super.connectedCallback();
+    this._blockLayout = this.initialBlockLayout;
+  }
 
   internalIsLayoutEmpty(blockNode: BlockNode): boolean {
     if (!blockNode) return true;

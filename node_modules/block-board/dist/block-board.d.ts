@@ -13,6 +13,7 @@ export declare class BlockBoard extends BlockBoard_base {
     get availableBlocks(): Block[];
     initialBlockLayout: BlockNode | undefined;
     private _blockLayout;
+    connectedCallback(): void;
     internalIsLayoutEmpty(blockNode: BlockNode): boolean;
     isEditingLayoutEmpty(): boolean;
     get editor(): BlockBoardLayoutEditor;
