@@ -20,6 +20,7 @@ export declare class BlockBoardLayoutEditor extends BlockBoardLayoutEditor_base 
         node: BlockLayout;
         slotIndex: number;
     }): TemplateResult;
+    updateLayout(): void;
     findBlock(blockName: string): Block | undefined;
     renderLayoutNode(blockLayout: BlockLayout, parentNode?: {
         node: BlockLayout;

@@ -1,8 +1,13 @@
-import { LitElement, html, property } from "lit-element";
+import { LitElement, html, property, Constructor } from "lit-element";
+import { ScopedElementsMixin as Scoped } from "@open-wc/scoped-elements";
+import { ListItem } from "scoped-material-components/mwc-list-item";
+import { List } from "scoped-material-components/mwc-list";
 import { Block, BlockSet } from "./types";
 import { sharedStyles } from "./sharedStyles";
 
-export class BlockBoardBlockSelector extends LitElement {
+export class BlockBoardBlockSelector extends (Scoped(
+  LitElement
+) as Constructor<LitElement>) {
   static styles = sharedStyles;
 
   @property({ type: Array }) blockSets: Array<BlockSet> = [];
@@ -15,17 +20,16 @@ export class BlockBoardBlockSelector extends LitElement {
     return html`
       <div class="column" style="margin: 8px;">
         <span style="margin-bottom: 4px; font-weight: bold;">${set.name}</span>
-        <div class="column" style="margin: 8px;">
+        <mwc-list class="column">
           ${set.blocks.map(
             (block) =>
-              html`<span
-                style="margin-bottom: 4px;"
+              html` <mwc-list-item
                 draggable="true"
                 @dragstart=${(e: DragEvent) => this.onDragStart(e, block)}
                 >${block.name}
-              </span>`
+              </mwc-list-item>`
           )}
-        </div>
+        </mwc-list>
       </div>
     `;
   }
@@ -36,5 +40,12 @@ export class BlockBoardBlockSelector extends LitElement {
         ${this.blockSets.map((set) => this.renderBlockSet(set))}
       </div>
     `;
+  }
+
+  static get scopedElements() {
+    return {
+      "mwc-list": List,
+      "mwc-list-item": ListItem,
+    };
   }
 }

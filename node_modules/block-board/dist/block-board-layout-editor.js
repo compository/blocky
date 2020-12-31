@@ -37,7 +37,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
                     slots: [blockName, undefined],
                 };
             }
-            this.requestUpdate();
+            this.updateLayout();
         }}
             icon="horizontal_split"
           ></mwc-icon-button>
@@ -57,7 +57,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
                     slots: [blockName, undefined],
                 };
             }
-            this.requestUpdate();
+            this.updateLayout();
         }}
             icon="vertical_split"
           ></mwc-icon-button>
@@ -74,7 +74,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
                     this.blockLayout = blockName;
                 }
             }
-            this.requestUpdate();
+            this.updateLayout();
         }}
             icon="delete"
           ></mwc-icon-button>
@@ -90,11 +90,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
             else {
                 this.blockLayout = blockName;
             }
-            this.dispatchEvent(new CustomEvent("layout-updated", {
-                bubbles: true,
-                composed: true,
-            }));
-            this.requestUpdate();
+            this.updateLayout();
         }}
           @dragover=${(e) => e.preventDefault()}
         >
@@ -107,6 +103,13 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
         </div>
       </div>
     `;
+    }
+    updateLayout() {
+        this.dispatchEvent(new CustomEvent("layout-updated", {
+            bubbles: true,
+            composed: true,
+        }));
+        this.requestUpdate();
     }
     findBlock(blockName) {
         return this.availableBlocks.find((b) => b.name === blockName);

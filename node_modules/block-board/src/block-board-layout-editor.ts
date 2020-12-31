@@ -58,7 +58,7 @@ export class BlockBoardLayoutEditor extends (Scoped(
                   slots: [blockName, undefined],
                 };
               }
-              this.requestUpdate();
+              this.updateLayout();
             }}
             icon="horizontal_split"
           ></mwc-icon-button>
@@ -78,7 +78,7 @@ export class BlockBoardLayoutEditor extends (Scoped(
                 };
               }
 
-              this.requestUpdate();
+              this.updateLayout();
             }}
             icon="vertical_split"
           ></mwc-icon-button>
@@ -96,7 +96,7 @@ export class BlockBoardLayoutEditor extends (Scoped(
                 }
               }
 
-              this.requestUpdate();
+              this.updateLayout();
             }}
             icon="delete"
           ></mwc-icon-button>
@@ -111,13 +111,7 @@ export class BlockBoardLayoutEditor extends (Scoped(
             } else {
               this.blockLayout = blockName;
             }
-            this.dispatchEvent(
-              new CustomEvent("layout-updated", {
-                bubbles: true,
-                composed: true,
-              })
-            );
-            this.requestUpdate();
+            this.updateLayout();
           }}
           @dragover=${(e: DragEvent) => e.preventDefault()}
         >
@@ -130,6 +124,16 @@ export class BlockBoardLayoutEditor extends (Scoped(
         </div>
       </div>
     `;
+  }
+
+  updateLayout() {
+    this.dispatchEvent(
+      new CustomEvent("layout-updated", {
+        bubbles: true,
+        composed: true,
+      })
+    );
+    this.requestUpdate();
   }
 
   findBlock(blockName: string): Block | undefined {
