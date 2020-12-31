@@ -51,7 +51,7 @@ pub fn get_all_block_nodes(_: ()) -> ExternResult<GetBlockNodesOutput> {
 }
 
 #[hdk_extern]
-pub fn get_my_block_layouts(_: ()) -> ExternResult<GetBlockNodesOutput> {
+pub fn get_my_block_nodes(_: ()) -> ExternResult<GetBlockNodesOutput> {
     let entry_defs = match entry_defs(())? {
         EntryDefsCallbackResult::Defs(entry_defs) => Ok(entry_defs),
         _ => Err(crate::err("Could not find entry defs")),
