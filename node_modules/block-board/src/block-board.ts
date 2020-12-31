@@ -51,7 +51,7 @@ export class BlockBoard extends (Scoped(
   }
 
   internalIsLayoutEmpty(blockNode: BlockNode): boolean {
-    if (blockNode === undefined) return true;
+    if (!blockNode) return true;
     else if ((blockNode as BlockLayout).direction)
       return (
         this.internalIsLayoutEmpty((blockNode as BlockLayout).slots[0]) &&

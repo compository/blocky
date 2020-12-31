@@ -36,7 +36,7 @@ export class BlockBoard extends Scoped(LitElement) {
         };
     }
     internalIsLayoutEmpty(blockNode) {
-        if (blockNode === undefined)
+        if (!blockNode)
             return true;
         else if (blockNode.direction)
             return (this.internalIsLayoutEmpty(blockNode.slots[0]) &&

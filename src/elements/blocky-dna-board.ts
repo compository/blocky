@@ -150,8 +150,7 @@ export class BlockyDnaBoard extends membraneContext(
           this._editing = true;
         }}
       ></mwc-button>`;
-    else{ 
-      console.log(this.board && this.board.isEditingLayoutEmpty())
+    else {
       return html`<mwc-button
           icon="save"
           slot="actionItems"
@@ -166,17 +165,17 @@ export class BlockyDnaBoard extends membraneContext(
         ${this._blockNode
           ? html`
               <mwc-button
-              icon="close"
-              slot="actionItems"
-              class="white-button"
-              label="Cancel"
-              @click=${() => {
-                this._editing = false;
-              }}
+                icon="close"
+                slot="actionItems"
+                class="white-button"
+                label="Cancel"
+                @click=${() => {
+                  this._editing = false;
+                }}
               ></mwc-button>
-              `
+            `
           : html``} `;
-        }
+    }
   }
 
   renderContent() {
