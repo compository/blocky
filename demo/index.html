@@ -10,13 +10,25 @@
   </head>
   <body>
     <!-- TODO: change the element -->
-    <blocky-dna-board></blocky-dna-board>
+    <blocky-dna-board id="board"></blocky-dna-board>
 
     <script type="module">
       import { html, render } from 'lit-html';
       import { BlockDnaBoard } from '../dist';
+      import ConductorApi from '@holochain/conductor-api';
 
-      
+      customElements.define('block-dna-board', BlockDnaBoard);
+
+      (async function() {
+        const app = await ConductorApi.AppWebsocket.connect('ws://localhost:8888');
+
+        const appInfo = await app.appInfo({installed_app_id: 'test-app'})
+
+        const cellId = appInfo.cell_data[0][0];
+        
+        const board = document.getElementById('board');
+        board.cellIdToDisplay = cellId;
+      })()
     </script>
   </body>
 </html>

@@ -5,10 +5,14 @@ export class BlockyService {
         this.zomeName = zomeName;
     }
     createBoardNode(layout) {
-        return this.callZome('create_block_layout', JSON.stringify(layout));
+        return this.callZome('create_block_node', JSON.stringify(layout));
     }
-    async getAllBoardLayouts() {
-        const layouts = await this.callZome('get_all_block_layouts', null);
+    async getAllBoardNodes() {
+        const layouts = await this.callZome('get_all_block_nodes', null);
+        return layouts.map(([_, l]) => JSON.parse(l));
+    }
+    async getMyBoardNodes() {
+        const layouts = await this.callZome('get_my_block_nodes', null);
         return layouts.map(([_, l]) => JSON.parse(l));
     }
     callZome(fnName, payload) {

@@ -34,11 +34,20 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
     }
     async firstUpdated() {
         await this.loadProfilesExists();
-        const layouts = await this.blockyService.getAllBoardLayouts();
-        this._savedBlockNode = layouts[0];
-        this._editing = !this._savedBlockNode;
+        await this.loadSavedNodes();
         await this.loadRenderers();
         this._loading = false;
+    }
+    async loadSavedNodes() {
+        const myNodes = await this.blockyService.getMyBoardNodes();
+        if (myNodes.length === 0) {
+            const allNodes = await this.blockyService.getAllBoardNodes();
+            this._savedBlockNode = allNodes[0];
+        }
+        else {
+            this._savedBlockNode = myNodes[0];
+        }
+        this._editing = !this._savedBlockNode;
     }
     async loadProfilesExists() {
         const dnaTemplate = await this.compositoryService.getTemplateForDna(serializeHash(this.cellIdToDisplay[0]));

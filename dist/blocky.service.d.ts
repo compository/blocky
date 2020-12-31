@@ -6,6 +6,7 @@ export declare class BlockyService {
     zomeName: string;
     constructor(appWebsocket: AppWebsocket, cellId: CellId, zomeName?: string);
     createBoardNode(layout: BlockNode): Promise<string>;
-    getAllBoardLayouts(): Promise<Array<BlockNode>>;
+    getAllBoardNodes(): Promise<Array<BlockNode>>;
+    getMyBoardNodes(): Promise<Array<BlockNode>>;
     private callZome;
 }

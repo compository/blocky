@@ -25,6 +25,7 @@ export declare class BlockyDnaBoard extends BlockyDnaBoard_base {
     get blockyService(): BlockyService;
     get compositoryService(): CompositoryService;
     firstUpdated(): Promise<void>;
+    loadSavedNodes(): Promise<void>;
     loadProfilesExists(): Promise<void>;
     loadRenderers(): Promise<void>;
     createBoard(layout: BlockNode): Promise<void>;
