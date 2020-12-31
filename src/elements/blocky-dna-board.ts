@@ -33,7 +33,7 @@ export class BlockyDnaBoard extends membraneContext(
   @property({ type: Boolean })
   _profileAlreadyCreated = false;
   @property({ type: Object })
-  _blockNode: BlockNode | undefined = undefined;
+  _savedBlockNode: BlockNode | undefined = undefined;
 
   @property({ type: Array })
   _blockSets: Array<BlockSet> | undefined = undefined;
@@ -65,11 +65,9 @@ export class BlockyDnaBoard extends membraneContext(
     await this.loadProfilesExists();
 
     const layouts = await this.blockyService.getAllBoardLayouts();
-    this._blockNode = layouts[0] || {
-      direction: 'horizontal',
-      firstSlotRelativeSize: 0.5,
-      slots: [undefined, undefined],
-    };
+    this._savedBlockNode = layouts[0];
+    this._editing = !this._savedBlockNode;
+
     await this.loadRenderers();
 
     this._loading = false;
@@ -118,14 +116,12 @@ export class BlockyDnaBoard extends membraneContext(
             })),
           } as BlockSet)
       );
-
-    this._editing = !this._blockNode;
   }
 
   async createBoard(layout: BlockNode) {
     this._editing = false;
-    if (JSON.stringify(this._blockNode) !== JSON.stringify(layout)) {
-      this._blockNode = layout;
+    if (JSON.stringify(this._savedBlockNode) !== JSON.stringify(layout)) {
+      this._savedBlockNode = layout;
       await this.blockyService.createBoardNode(layout);
     }
   }
@@ -162,7 +158,7 @@ export class BlockyDnaBoard extends membraneContext(
             this.createBoard(newLayout);
           }}
         ></mwc-button>
-        ${this._blockNode
+        ${this._savedBlockNode
           ? html`
               <mwc-button
                 icon="close"
@@ -200,7 +196,7 @@ export class BlockyDnaBoard extends membraneContext(
           style="flex: 1;"
           .editing=${this._editing}
           .blockSets=${this._blockSets}
-          .blockLayout=${this._blockNode}
+          .initialBlockLayout=${this._savedBlockNode}
           @layout-updated=${() => this.requestUpdate()}
         ></block-board>
       `;
@@ -251,7 +247,6 @@ export class BlockyDnaBoard extends membraneContext(
         .white-button {
           --mdc-button-disabled-ink-color: rgba(255, 255, 255, 0.5);
           --mdc-theme-primary: white;
-          color: white;
         }
       `,
     ];

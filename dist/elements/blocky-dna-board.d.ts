@@ -17,7 +17,7 @@ export declare class BlockyDnaBoard extends BlockyDnaBoard_base {
     compositoryCellId: CellId;
     _profilesZomeExistsInDna: boolean;
     _profileAlreadyCreated: boolean;
-    _blockNode: BlockNode | undefined;
+    _savedBlockNode: BlockNode | undefined;
     _blockSets: Array<BlockSet> | undefined;
     _editing: boolean;
     _loading: boolean;

@@ -11,7 +11,8 @@ export class BlockBoard extends Scoped(LitElement) {
         super(...arguments);
         this.editing = true;
         this._blockSets = [];
-        this.blockLayout = {
+        this.initialBlockLayout = undefined;
+        this._blockLayout = this.initialBlockLayout || {
             direction: "horizontal",
             slots: [undefined, undefined],
             firstSlotRelativeSize: 0.5,
@@ -26,14 +27,6 @@ export class BlockBoard extends Scoped(LitElement) {
     get availableBlocks() {
         const allBlocks = this._blockSets.map((set) => set.blocks);
         return [].concat(...allBlocks);
-    }
-    static get scopedElements() {
-        return {
-            "mwc-drawer": Drawer,
-            "block-board-layout-renderer": BlockBoardLayoutRenderer,
-            "block-board-layout-editor": BlockBoardLayoutEditor,
-            "block-board-block-selector": BlockBoardBlockSelector,
-        };
     }
     internalIsLayoutEmpty(blockNode) {
         if (!blockNode)
@@ -53,20 +46,20 @@ export class BlockBoard extends Scoped(LitElement) {
         return (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.getElementById("layout-editor");
     }
     save() {
-        this.blockLayout = this.editor.blockLayout;
+        this._blockLayout = this.editor.blockLayout;
         this.editing = false;
         this.dispatchEvent(new CustomEvent("board-saved", {
-            detail: { blockLayout: this.blockLayout },
+            detail: { blockLayout: this._blockLayout },
             composed: true,
             bubbles: true,
         }));
-        return this.blockLayout;
+        return this._blockLayout;
     }
     renderLayout() {
         return html `
       <block-board-layout-renderer
         style="flex: 1;"
-        .blockLayout=${this.blockLayout}
+        .blockLayout=${this._blockLayout}
         .availableBlocks=${this.availableBlocks}
       ></block-board-layout-renderer>
     `;
@@ -88,7 +81,7 @@ export class BlockBoard extends Scoped(LitElement) {
             id="layout-editor"
             style="flex: 1;"
             class="column"
-            .blockLayout=${this.blockLayout}
+            .blockLayout=${this._blockLayout}
             .availableBlocks=${this.availableBlocks}
           ></block-board-layout-editor>
         </div>
@@ -100,6 +93,14 @@ export class BlockBoard extends Scoped(LitElement) {
             return this.renderEditingMode();
         else
             return this.renderLayout();
+    }
+    static get scopedElements() {
+        return {
+            "mwc-drawer": Drawer,
+            "block-board-layout-renderer": BlockBoardLayoutRenderer,
+            "block-board-layout-editor": BlockBoardLayoutEditor,
+            "block-board-block-selector": BlockBoardBlockSelector,
+        };
     }
 }
 BlockBoard.styles = [
@@ -118,5 +119,5 @@ __decorate([
 ], BlockBoard.prototype, "_blockSets", void 0);
 __decorate([
     property({ type: Array })
-], BlockBoard.prototype, "blockLayout", void 0);
+], BlockBoard.prototype, "_blockLayout", void 0);
 //# sourceMappingURL=block-board.js.map

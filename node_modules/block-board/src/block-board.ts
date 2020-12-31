@@ -12,8 +12,10 @@ export class BlockBoard extends (Scoped(
   LitElement
 ) as Constructor<LitElement>) {
   @property({ type: Boolean }) public editing: boolean = true;
-  @property({ type: Array }) private _blockSets: Array<BlockSet> = [];
 
+  @property({ type: Array })
+  private _blockSets: Array<BlockSet> = [];
+  
   set blockSets(blocks: BlockSet[]) {
     this._blockSets = [...blocks];
   }
@@ -26,29 +28,14 @@ export class BlockBoard extends (Scoped(
     return ([] as Array<Block>).concat(...allBlocks);
   }
 
-  @property({ type: Array }) blockLayout: BlockNode = {
+  public initialBlockLayout: BlockNode | undefined = undefined;
+
+  @property({ type: Array })
+  private _blockLayout: BlockNode = this.initialBlockLayout || {
     direction: "horizontal",
     slots: [undefined, undefined],
     firstSlotRelativeSize: 0.5,
   };
-
-  static styles = [
-    sharedStyles,
-    css`
-      :host {
-        display: flex;
-      }
-    `,
-  ];
-
-  static get scopedElements() {
-    return {
-      "mwc-drawer": Drawer,
-      "block-board-layout-renderer": BlockBoardLayoutRenderer,
-      "block-board-layout-editor": BlockBoardLayoutEditor,
-      "block-board-block-selector": BlockBoardBlockSelector,
-    };
-  }
 
   internalIsLayoutEmpty(blockNode: BlockNode): boolean {
     if (!blockNode) return true;
@@ -72,26 +59,26 @@ export class BlockBoard extends (Scoped(
   }
 
   save(): BlockNode {
-    this.blockLayout = this.editor.blockLayout;
+    this._blockLayout = this.editor.blockLayout;
 
     this.editing = false;
 
     this.dispatchEvent(
       new CustomEvent("board-saved", {
-        detail: { blockLayout: this.blockLayout },
+        detail: { blockLayout: this._blockLayout },
         composed: true,
         bubbles: true,
       })
     );
 
-    return this.blockLayout;
+    return this._blockLayout;
   }
 
   renderLayout() {
     return html`
       <block-board-layout-renderer
         style="flex: 1;"
-        .blockLayout=${this.blockLayout}
+        .blockLayout=${this._blockLayout}
         .availableBlocks=${this.availableBlocks}
       ></block-board-layout-renderer>
     `;
@@ -114,7 +101,7 @@ export class BlockBoard extends (Scoped(
             id="layout-editor"
             style="flex: 1;"
             class="column"
-            .blockLayout=${this.blockLayout}
+            .blockLayout=${this._blockLayout}
             .availableBlocks=${this.availableBlocks}
           ></block-board-layout-editor>
         </div>
@@ -125,5 +112,23 @@ export class BlockBoard extends (Scoped(
   render() {
     if (this.editing) return this.renderEditingMode();
     else return this.renderLayout();
+  }
+
+  static styles = [
+    sharedStyles,
+    css`
+      :host {
+        display: flex;
+      }
+    `,
+  ];
+
+  static get scopedElements() {
+    return {
+      "mwc-drawer": Drawer,
+      "block-board-layout-renderer": BlockBoardLayoutRenderer,
+      "block-board-layout-editor": BlockBoardLayoutEditor,
+      "block-board-block-selector": BlockBoardBlockSelector,
+    };
   }
 }

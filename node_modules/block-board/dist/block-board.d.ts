@@ -11,14 +11,8 @@ export declare class BlockBoard extends BlockBoard_base {
     set blockSets(blocks: BlockSet[]);
     get blockSets(): BlockSet[];
     get availableBlocks(): Block[];
-    blockLayout: BlockNode;
-    static styles: import("lit-element").CSSResult[];
-    static get scopedElements(): {
-        "mwc-drawer": typeof Drawer;
-        "block-board-layout-renderer": typeof BlockBoardLayoutRenderer;
-        "block-board-layout-editor": typeof BlockBoardLayoutEditor;
-        "block-board-block-selector": typeof BlockBoardBlockSelector;
-    };
+    initialBlockLayout: BlockNode | undefined;
+    private _blockLayout;
     internalIsLayoutEmpty(blockNode: BlockNode): boolean;
     isEditingLayoutEmpty(): boolean;
     get editor(): BlockBoardLayoutEditor;
@@ -26,5 +20,12 @@ export declare class BlockBoard extends BlockBoard_base {
     renderLayout(): import("lit-element").TemplateResult;
     renderEditingMode(): import("lit-element").TemplateResult;
     render(): import("lit-element").TemplateResult;
+    static styles: import("lit-element").CSSResult[];
+    static get scopedElements(): {
+        "mwc-drawer": typeof Drawer;
+        "block-board-layout-renderer": typeof BlockBoardLayoutRenderer;
+        "block-board-layout-editor": typeof BlockBoardLayoutEditor;
+        "block-board-block-selector": typeof BlockBoardBlockSelector;
+    };
 }
 export {};

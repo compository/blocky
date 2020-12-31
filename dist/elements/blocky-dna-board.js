@@ -17,7 +17,7 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
         super(...arguments);
         this._profilesZomeExistsInDna = false;
         this._profileAlreadyCreated = false;
-        this._blockNode = undefined;
+        this._savedBlockNode = undefined;
         this._blockSets = undefined;
         this._editing = false;
         this._loading = true;
@@ -35,11 +35,8 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
     async firstUpdated() {
         await this.loadProfilesExists();
         const layouts = await this.blockyService.getAllBoardLayouts();
-        this._blockNode = layouts[0] || {
-            direction: 'horizontal',
-            firstSlotRelativeSize: 0.5,
-            slots: [undefined, undefined],
-        };
+        this._savedBlockNode = layouts[0];
+        this._editing = !this._savedBlockNode;
         await this.loadRenderers();
         this._loading = false;
     }
@@ -64,12 +61,11 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
                 render: (root) => s.render(root, this.membraneContext.appWebsocket, this.cellIdToDisplay),
             })),
         }));
-        this._editing = !this._blockNode;
     }
     async createBoard(layout) {
         this._editing = false;
-        if (JSON.stringify(this._blockNode) !== JSON.stringify(layout)) {
-            this._blockNode = layout;
+        if (JSON.stringify(this._savedBlockNode) !== JSON.stringify(layout)) {
+            this._savedBlockNode = layout;
             await this.blockyService.createBoardNode(layout);
         }
     }
@@ -103,7 +99,7 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
                 this.createBoard(newLayout);
             }}
         ></mwc-button>
-        ${this._blockNode
+        ${this._savedBlockNode
                 ? html `
               <mwc-button
                 icon="close"
@@ -140,7 +136,7 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
           style="flex: 1;"
           .editing=${this._editing}
           .blockSets=${this._blockSets}
-          .blockLayout=${this._blockNode}
+          .initialBlockLayout=${this._savedBlockNode}
           @layout-updated=${() => this.requestUpdate()}
         ></block-board>
       `;
@@ -188,7 +184,6 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
         .white-button {
           --mdc-button-disabled-ink-color: rgba(255, 255, 255, 0.5);
           --mdc-theme-primary: white;
-          color: white;
         }
       `,
         ];
@@ -208,7 +203,7 @@ __decorate([
 ], BlockyDnaBoard.prototype, "_profileAlreadyCreated", void 0);
 __decorate([
     property({ type: Object })
-], BlockyDnaBoard.prototype, "_blockNode", void 0);
+], BlockyDnaBoard.prototype, "_savedBlockNode", void 0);
 __decorate([
     property({ type: Array })
 ], BlockyDnaBoard.prototype, "_blockSets", void 0);
