@@ -16,7 +16,7 @@ export class BlockBoardBlockSelector extends Scoped(LitElement) {
     renderBlockSet(set) {
         return html `
       <div class="column" style="margin: 8px;">
-        <span style="margin-bottom: 4px; font-weight: bold;">${set.name}</span>
+        <span style="font-weight: bold;">${set.name}</span>
         <mwc-list class="column">
           ${set.blocks.map((block) => html ` <mwc-list-item
                 draggable="true"

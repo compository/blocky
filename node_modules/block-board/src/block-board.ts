@@ -15,7 +15,7 @@ export class BlockBoard extends (Scoped(
 
   @property({ type: Array })
   private _blockSets: Array<BlockSet> = [];
-  
+
   set blockSets(blocks: BlockSet[]) {
     this._blockSets = [...blocks];
   }
@@ -31,11 +31,7 @@ export class BlockBoard extends (Scoped(
   public initialBlockLayout: BlockNode | undefined = undefined;
 
   @property({ type: Array })
-  private _blockLayout: BlockNode = this.initialBlockLayout || {
-    direction: "horizontal",
-    slots: [undefined, undefined],
-    firstSlotRelativeSize: 0.5,
-  };
+  private _blockLayout: BlockNode = this.initialBlockLayout;
 
   internalIsLayoutEmpty(blockNode: BlockNode): boolean {
     if (!blockNode) return true;

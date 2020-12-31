@@ -27,6 +27,7 @@
       customElements.define("block-board", BlockBoard);
 
       const board = document.getElementById("board");
+      board.initialBlockLayout = undefined;
 
       board.blockSets = [
         {

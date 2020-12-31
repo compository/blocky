@@ -12,11 +12,7 @@ export class BlockBoard extends Scoped(LitElement) {
         this.editing = true;
         this._blockSets = [];
         this.initialBlockLayout = undefined;
-        this._blockLayout = this.initialBlockLayout || {
-            direction: "horizontal",
-            slots: [undefined, undefined],
-            firstSlotRelativeSize: 0.5,
-        };
+        this._blockLayout = this.initialBlockLayout;
     }
     set blockSets(blocks) {
         this._blockSets = [...blocks];
