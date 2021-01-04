@@ -6,7 +6,6 @@ import { ScopedElementsMixin as Scoped } from "@open-wc/scoped-elements";
 import { BlockBoardLayoutRenderer } from "./block-board-layout-renderer";
 import { BlockBoardBlockSelector } from "./block-board-block-selector";
 import { Drawer } from "scoped-material-components/mwc-drawer";
-import { IconButton } from "scoped-material-components/mwc-icon-button";
 
 export class BlockBoard extends (Scoped(
   LitElement
@@ -50,7 +49,7 @@ export class BlockBoard extends (Scoped(
 
   isEditingLayoutEmpty() {
     if (!this.editor) return false;
-    return this.internalIsLayoutEmpty(this.editor.blockLayout);
+    return this.internalIsLayoutEmpty(this.editor.getEditingBlockLayout());
   }
 
   get editor(): BlockBoardLayoutEditor {
@@ -60,7 +59,7 @@ export class BlockBoard extends (Scoped(
   }
 
   save(): BlockNode {
-    this._blockLayout = this.editor.blockLayout;
+    this._blockLayout = this.editor.getEditingBlockLayout();
 
     this.editing = false;
 
@@ -102,7 +101,7 @@ export class BlockBoard extends (Scoped(
             id="layout-editor"
             style="flex: 1;"
             class="column"
-            .blockLayout=${this._blockLayout}
+            .initialBlockLayout=${this._blockLayout}
             .availableBlocks=${this.availableBlocks}
           ></block-board-layout-editor>
         </div>

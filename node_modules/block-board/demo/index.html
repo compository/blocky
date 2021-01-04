@@ -18,18 +18,17 @@
     />
   </head>
   <body>
-    <block-board id="board" style="width: 100%; height: 100%"></block-board>
+    <block-board-app
+      id="board"
+      style="width: 100%; height: 100%; display: flex; flex-direction: column"
+    ></block-board-app>
 
     <script type="module">
       import { html, render } from "lit-html";
+      import { LitElement } from "lit-element";
       import { BlockBoard } from "../dist/index.js";
 
-      customElements.define("block-board", BlockBoard);
-
-      const board = document.getElementById("board");
-      board.initialBlockLayout = undefined;
-
-      board.blockSets = [
+      const blockSets = [
         {
           name: "Block1",
           blocks: [
@@ -51,6 +50,44 @@
           ],
         },
       ];
+
+      customElements.define("block-board", BlockBoard);
+      customElements.define(
+        "block-board-app",
+        class extends LitElement {
+          static get properties() {
+            return { editing: { type: Boolean } };
+          }
+          firstUpdated() {
+            this.editing = true;
+          }
+          render() {
+            return html`
+              ${this.editing
+                ? html`<button
+                    @click=${() => {
+                      this.shadowRoot.getElementById("board").save();
+                      this.editing = false;
+                    }}
+                  >
+                    Save
+                  </button>`
+                : html`<button @click=${() => (this.editing = true)}>
+                    Edit
+                  </button>`}
+              <block-board
+                id="board"
+                .editing=${this.editing}
+                .blockSets=${blockSets}
+                style="flex: 1;"
+              ></block-board>
+            `;
+          }
+        }
+      );
+
+      const board = document.getElementById("board");
+      board.initialBlockLayout = undefined;
     </script>
   </body>
 </html>

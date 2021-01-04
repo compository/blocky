@@ -10,6 +10,13 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
         super(...arguments);
         this.availableBlocks = [];
     }
+    connectedCallback() {
+        super.connectedCallback();
+        this._blockLayout = this.initialBlockLayout;
+    }
+    getEditingBlockLayout() {
+        return this._blockLayout;
+    }
     static get scopedElements() {
         return {
             "block-board-slot": BlockBoardSlot,
@@ -31,7 +38,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
                 };
             }
             else {
-                this.blockLayout = {
+                this._blockLayout = {
                     direction: "vertical",
                     firstSlotRelativeSize: 0.5,
                     slots: [blockName, undefined],
@@ -51,7 +58,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
                 };
             }
             else {
-                this.blockLayout = {
+                this._blockLayout = {
                     direction: "horizontal",
                     firstSlotRelativeSize: 0.5,
                     slots: [blockName, undefined],
@@ -71,7 +78,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
                     grandparent.node.slots[grandparent.slotIndex] = blockName;
                 }
                 else {
-                    this.blockLayout = blockName;
+                    this._blockLayout = blockName;
                 }
             }
             this.updateLayout();
@@ -88,7 +95,7 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
                 parent.node.slots[parent.slotIndex] = blockName;
             }
             else {
-                this.blockLayout = blockName;
+                this._blockLayout = blockName;
             }
             this.updateLayout();
         }}
@@ -143,10 +150,10 @@ export class BlockBoardLayoutEditor extends Scoped(LitElement) {
     `;
     }
     render() {
-        if (!this.blockLayout || typeof this.blockLayout === "string")
-            return this.renderBlockNode(this.blockLayout, undefined, undefined);
+        if (!this._blockLayout || typeof this._blockLayout === "string")
+            return this.renderBlockNode(this._blockLayout, undefined, undefined);
         else
-            return this.renderLayoutNode(this.blockLayout, undefined);
+            return this.renderLayoutNode(this._blockLayout, undefined);
     }
 }
 BlockBoardLayoutEditor.styles = sharedStyles;
@@ -155,5 +162,8 @@ __decorate([
 ], BlockBoardLayoutEditor.prototype, "availableBlocks", void 0);
 __decorate([
     property({ type: Object })
-], BlockBoardLayoutEditor.prototype, "blockLayout", void 0);
+], BlockBoardLayoutEditor.prototype, "initialBlockLayout", void 0);
+__decorate([
+    property({ type: Object })
+], BlockBoardLayoutEditor.prototype, "_blockLayout", void 0);
 //# sourceMappingURL=block-board-layout-editor.js.map

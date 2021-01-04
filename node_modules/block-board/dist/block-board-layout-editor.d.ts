@@ -7,7 +7,10 @@ declare const BlockBoardLayoutEditor_base: Constructor<LitElement>;
 export declare class BlockBoardLayoutEditor extends BlockBoardLayoutEditor_base {
     static styles: import("lit-element").CSSResult;
     private availableBlocks;
-    blockLayout: BlockNode;
+    initialBlockLayout: BlockNode;
+    protected _blockLayout: BlockNode;
+    connectedCallback(): void;
+    getEditingBlockLayout(): BlockNode;
     static get scopedElements(): {
         "block-board-slot": typeof BlockBoardSlot;
         "vaadin-split-layout": typeof SplitLayoutElement;

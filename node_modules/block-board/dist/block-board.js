@@ -38,14 +38,14 @@ export class BlockBoard extends Scoped(LitElement) {
     isEditingLayoutEmpty() {
         if (!this.editor)
             return false;
-        return this.internalIsLayoutEmpty(this.editor.blockLayout);
+        return this.internalIsLayoutEmpty(this.editor.getEditingBlockLayout());
     }
     get editor() {
         var _a;
         return (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.getElementById("layout-editor");
     }
     save() {
-        this._blockLayout = this.editor.blockLayout;
+        this._blockLayout = this.editor.getEditingBlockLayout();
         this.editing = false;
         this.dispatchEvent(new CustomEvent("board-saved", {
             detail: { blockLayout: this._blockLayout },
@@ -80,7 +80,7 @@ export class BlockBoard extends Scoped(LitElement) {
             id="layout-editor"
             style="flex: 1;"
             class="column"
-            .blockLayout=${this._blockLayout}
+            .initialBlockLayout=${this._blockLayout}
             .availableBlocks=${this.availableBlocks}
           ></block-board-layout-editor>
         </div>

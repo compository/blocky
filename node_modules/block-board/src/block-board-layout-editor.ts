@@ -19,7 +19,17 @@ export class BlockBoardLayoutEditor extends (Scoped(
   static styles = sharedStyles;
 
   @property({ type: Array }) private availableBlocks: Array<Block> = [];
-  @property({ type: Object }) blockLayout!: BlockNode;
+  @property({ type: Object }) public initialBlockLayout!: BlockNode;
+  @property({ type: Object }) protected _blockLayout!: BlockNode;
+
+  connectedCallback() {
+    super.connectedCallback();
+    this._blockLayout = this.initialBlockLayout;
+  }
+
+  getEditingBlockLayout() {
+    return this._blockLayout;
+  }
 
   static get scopedElements() {
     return {
@@ -52,7 +62,7 @@ export class BlockBoardLayoutEditor extends (Scoped(
                   slots: [blockName, undefined],
                 };
               } else {
-                this.blockLayout = {
+                this._blockLayout = {
                   direction: "vertical",
                   firstSlotRelativeSize: 0.5,
                   slots: [blockName, undefined],
@@ -71,7 +81,7 @@ export class BlockBoardLayoutEditor extends (Scoped(
                   slots: [blockName, undefined],
                 };
               } else {
-                this.blockLayout = {
+                this._blockLayout = {
                   direction: "horizontal",
                   firstSlotRelativeSize: 0.5,
                   slots: [blockName, undefined],
@@ -92,7 +102,7 @@ export class BlockBoardLayoutEditor extends (Scoped(
                 if (grandparent) {
                   grandparent.node.slots[grandparent.slotIndex] = blockName;
                 } else {
-                  this.blockLayout = blockName;
+                  this._blockLayout = blockName;
                 }
               }
 
@@ -109,7 +119,7 @@ export class BlockBoardLayoutEditor extends (Scoped(
             if (parent) {
               parent.node.slots[parent.slotIndex] = blockName;
             } else {
-              this.blockLayout = blockName;
+              this._blockLayout = blockName;
             }
             this.updateLayout();
           }}
@@ -184,13 +194,13 @@ export class BlockBoardLayoutEditor extends (Scoped(
   }
 
   render() {
-    if (!this.blockLayout || typeof this.blockLayout === "string")
+    if (!this._blockLayout || typeof this._blockLayout === "string")
       return this.renderBlockNode(
-        this.blockLayout as string | undefined,
+        this._blockLayout as string | undefined,
         undefined,
         undefined
       );
     else
-      return this.renderLayoutNode(this.blockLayout as BlockLayout, undefined);
+      return this.renderLayoutNode(this._blockLayout as BlockLayout, undefined);
   }
 }
