@@ -2,14 +2,14 @@ import { serializeHash } from '@holochain-open-dev/common';
 import { CellId } from '@holochain/conductor-api';
 import { CompositoryService } from '../services/compository-service';
 import { ZomeDef } from '../types/dnas';
-import { Lenses } from '../types/lenses';
+import { Lenses, SetupLenses } from '../types/lenses';
 import { importModuleFromFile } from './import-module-from-file';
 
 export async function fetchLensesForZome(
   compositoryService: CompositoryService,
   cellId: CellId,
   zomeIndex: number
-): Promise<[ZomeDef, Lenses?]> {
+): Promise<[ZomeDef, SetupLenses?]> {
   const dnaHash = serializeHash(cellId[0]);
 
   const template = await compositoryService.getTemplateForDna(dnaHash);
@@ -21,7 +21,7 @@ export async function fetchLensesForZome(
 export async function fetchLensesForAllZomes(
   compositoryService: CompositoryService,
   cellId: CellId
-): Promise<Array<[ZomeDef, Lenses?]>> {
+): Promise<Array<[ZomeDef, SetupLenses?]>> {
   const dnaHash = serializeHash(cellId[0]);
 
   const template = await compositoryService.getTemplateForDna(dnaHash);
@@ -38,7 +38,7 @@ export async function fetchLensesForAllZomes(
 async function internalFetchLensesForZome(
   compositoryService: CompositoryService,
   zomeDefHash: string
-): Promise<[ZomeDef, Lenses?]> {
+): Promise<[ZomeDef, SetupLenses?]> {
   // Fetch the appropriate elements bundle for this zome
   const zomeDef = await compositoryService.getZomeDef(zomeDefHash);
 
@@ -51,6 +51,6 @@ async function internalFetchLensesForZome(
   );
 
   const module = await importModuleFromFile(file);
-  const renderers = module.default as Lenses;
+  const renderers = module.default as SetupLenses;
   return [zomeDef, renderers];
 }

@@ -6,7 +6,7 @@ import { serializeHash } from '@holochain-open-dev/common';
 import { TopAppBar } from 'scoped-material-components/mwc-top-app-bar';
 import { IconButton } from 'scoped-material-components/mwc-icon-button';
 import { HodCreateProfileForm, ProfilesService, } from '@holochain-open-dev/profiles';
-import { CompositoryService, fetchLensesForAllZomes } from '@compository/lib';
+import { CompositoryService, fetchLensesForAllZomes, } from '@compository/lib';
 import { sharedStyles } from '../sharedStyles';
 import { BlockyService } from '../blocky.service';
 import { BlockBoard } from 'block-board';
@@ -61,13 +61,12 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
     async loadRenderers() {
         // Get the renderers for each of the zomes
         const zomeLenses = await fetchLensesForAllZomes(this.compositoryService, this.cellIdToDisplay);
-        this._blockSets = zomeLenses
-            .filter(([def, lenses]) => lenses !== undefined)
-            .map(([def, lenses]) => ({
+        const blocks = zomeLenses.filter(([def, setupLenses]) => setupLenses !== undefined);
+        this._blockSets = blocks.map(([def, setupLenses]) => ({
             name: def.name,
-            blocks: lenses === null || lenses === void 0 ? void 0 : lenses.standalone.map(s => ({
+            blocks: setupLenses(this.membraneContext.appWebsocket, this.cellIdToDisplay).standalone.map(s => ({
                 name: s.name,
-                render: (root) => s.render(root, this.membraneContext.appWebsocket, this.cellIdToDisplay),
+                render: (root) => s.render(root),
             })),
         }));
     }

@@ -1,5 +1,5 @@
 import { __decorate } from "tslib";
-import { html, LitElement, property, query } from 'lit-element';
+import { html, LitElement, property, query, } from 'lit-element';
 import { discoverEntryDetails } from '../processes/discover';
 import { fetchLensesForZome } from '../processes/fetch-lenses';
 import { membraneContext } from '@holochain-open-dev/membrane-context';
@@ -28,7 +28,7 @@ export class CompositoryDiscoverEntry extends membraneContext(Scoped(LitElement)
         const [def, renderers] = await fetchLensesForZome(compositoryService, cellId, zomeIndex);
         if (renderers) {
             const entryIdStr = def.entry_defs[entryDefIndex];
-            renderers.entryLenses[entryIdStr].render(this._scope.shadowRoot, this.membraneContext.appWebsocket, cellId, entryHash);
+            renderers(this.membraneContext.appWebsocket, cellId).entryLenses[entryIdStr].render(this._scope.shadowRoot, entryHash);
         }
         this._loading = false;
     }

@@ -1,4 +1,11 @@
-import { Constructor, html, LitElement, property, PropertyValues, query } from 'lit-element';
+import {
+  Constructor,
+  html,
+  LitElement,
+  property,
+  PropertyValues,
+  query,
+} from 'lit-element';
 import { discoverEntryDetails } from '../processes/discover';
 import { CompositoryScope } from './compository-scope';
 import { fetchLensesForZome } from '../processes/fetch-lenses';
@@ -57,10 +64,11 @@ export class CompositoryDiscoverEntry extends membraneContext(
 
     if (renderers) {
       const entryIdStr = def.entry_defs[entryDefIndex];
-      renderers.entryLenses[entryIdStr].render(
-        this._scope.shadowRoot as ShadowRoot,
+      renderers(
         this.membraneContext.appWebsocket as AppWebsocket,
-        cellId,
+        cellId
+      ).entryLenses[entryIdStr].render(
+        this._scope.shadowRoot as ShadowRoot,
         entryHash
       );
     }

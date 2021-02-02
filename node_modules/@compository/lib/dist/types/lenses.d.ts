@@ -11,11 +11,12 @@ export interface Lens {
     name: string;
 }
 export interface StandaloneLens extends Lens {
-    render: (root: ShadowRoot, appWebsocket: AppWebsocket, cellId: CellId) => void;
+    render: (root: ShadowRoot) => void;
 }
 export interface EntryLens extends Lens {
-    render: (root: ShadowRoot, appWebsocket: AppWebsocket, cellId: CellId, entryHash: string) => void;
+    render: (root: ShadowRoot, entryHash: string) => void;
 }
 export interface AttachmentLens extends Lens {
-    render: (root: ShadowRoot, appWebsocket: AppWebsocket, cellId: CellId, entryHash: string) => void;
+    render: (root: ShadowRoot, entryHash: string) => void;
 }
+export declare type SetupLenses = (appWebsocket: AppWebsocket, cellId: CellId) => Lenses;
