@@ -13,7 +13,12 @@ import {
   HodCreateProfileForm,
   ProfilesService,
 } from '@holochain-open-dev/profiles';
-import { CompositoryService, fetchLensesForAllZomes } from '@compository/lib';
+import {
+  CompositoryService,
+  fetchLensesForAllZomes,
+  SetupLenses,
+  ZomeDef,
+} from '@compository/lib';
 import { sharedStyles } from '../sharedStyles';
 import { BlockyService } from '../blocky.service';
 import { BlockBoard, BlockNode, BlockSet } from 'block-board';
@@ -110,23 +115,23 @@ export class BlockyDnaBoard extends membraneContext(
       this.cellIdToDisplay
     );
 
-    this._blockSets = zomeLenses
-      .filter(([def, lenses]) => lenses !== undefined)
-      .map(
-        ([def, lenses]) =>
-          ({
-            name: def.name,
-            blocks: lenses?.standalone.map(s => ({
-              name: s.name,
-              render: (root: ShadowRoot) =>
-                s.render(
-                  root,
-                  this.membraneContext.appWebsocket as AppWebsocket,
-                  this.cellIdToDisplay as CellId
-                ),
-            })),
-          } as BlockSet)
-      );
+    const blocks = zomeLenses.filter(
+      ([def, setupLenses]) => setupLenses !== undefined
+    ) as [ZomeDef, SetupLenses][];
+
+    this._blockSets = blocks.map(
+      ([def, setupLenses]) =>
+        ({
+          name: def.name,
+          blocks: setupLenses(
+            this.membraneContext.appWebsocket as AppWebsocket,
+            this.cellIdToDisplay as CellId
+          ).standalone.map(s => ({
+            name: s.name,
+            render: (root: ShadowRoot) => s.render(root),
+          })),
+        } as BlockSet)
+    );
   }
 
   async createBoard(layout: BlockNode) {
