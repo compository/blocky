@@ -61,7 +61,7 @@ export class BlockyDnaBoard extends membraneContext(
   }
   get compositoryService(): CompositoryService {
     return new CompositoryService(
-      this.membraneContext.appWebsocket as AppWebsocket,
+      this.membraneContext.appWebsocket as any,
       this.compositoryCellId as CellId
     );
   }
