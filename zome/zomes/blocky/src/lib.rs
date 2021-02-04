@@ -30,7 +30,7 @@ pub fn create_block_node(board: BlockNode) -> ExternResult<WrappedEntryHash> {
     Ok(WrappedEntryHash(board_hash))
 }
 
-#[derive(Clone, Serialize, Deserialize, SerializedBytes)]
+#[derive(Clone, Serialize, Deserialize, SerializedBytes, Debug)]
 pub struct GetBlockNodesOutput(Vec<(WrappedEntryHash, BlockNode)>);
 #[hdk_extern]
 pub fn get_all_block_nodes(_: ()) -> ExternResult<GetBlockNodesOutput> {
