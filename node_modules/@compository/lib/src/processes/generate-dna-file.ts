@@ -1,6 +1,7 @@
-import { bundle_dna, DnaFile } from 'bundle-dna';
+import { bundle_dna } from 'bundle-dna';
 import { CompositoryService } from '../services/compository-service';
 import { DnaTemplate, ZomeDef, ZomeDefReference } from '../types/dnas';
+import { DnaFile } from '@holochain/conductor-api';
 
 export async function generateDnaFile(
   compositoryService: CompositoryService,

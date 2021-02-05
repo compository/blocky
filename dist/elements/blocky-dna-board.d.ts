@@ -1,15 +1,14 @@
-import { Constructor, LitElement } from 'lit-element';
-import { MembraneContextProvider } from '@holochain-open-dev/membrane-context';
+import { Constructor } from 'lit-element';
 import { CellId } from '@holochain/conductor-api';
 import { TopAppBar } from 'scoped-material-components/mwc-top-app-bar';
 import { IconButton } from 'scoped-material-components/mwc-icon-button';
-import { HodCreateProfileForm } from '@holochain-open-dev/profiles';
+import { BaseElement } from '@holochain-open-dev/common';
 import { CompositoryService } from '@compository/lib';
 import { BlockyService } from '../blocky.service';
 import { BlockBoard, BlockNode, BlockSet } from 'block-board';
 import { CircularProgress } from 'scoped-material-components/mwc-circular-progress';
 import { Button } from 'scoped-material-components/mwc-button';
-declare const BlockyDnaBoard_base: Constructor<LitElement> & Constructor<{
+declare const BlockyDnaBoard_base: typeof BaseElement & Constructor<{
     membraneContext: import("@holochain-open-dev/membrane-context").MembraneContext;
 }>;
 export declare class BlockyDnaBoard extends BlockyDnaBoard_base {
@@ -33,14 +32,17 @@ export declare class BlockyDnaBoard extends BlockyDnaBoard_base {
     renderBarItems(): import("lit-element").TemplateResult;
     renderContent(): import("lit-element").TemplateResult;
     render(): import("lit-element").TemplateResult;
-    static get scopedElements(): {
-        'membrane-context-provider': typeof MembraneContextProvider;
+    getScopedElements(): {
+        'membrane-context-provider': {
+            new (): HTMLElement;
+            prototype: HTMLElement;
+        };
         'block-board': typeof BlockBoard;
         'mwc-top-app-bar': typeof TopAppBar;
         'mwc-button': typeof Button;
         'mwc-icon-button': typeof IconButton;
         'mwc-circular-progress': typeof CircularProgress;
-        'hod-create-profile-form': typeof HodCreateProfileForm;
+        'create-profile-form': Constructor<HTMLElement>;
     };
     static get styles(): import("lit-element").CSSResult[];
 }

@@ -6,7 +6,7 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import '@material/mwc-base/base-element';
 import '@material/ripple/foundation';
 import 'lit-html/directives/style-map';
-import { R as Ripple } from './mwc-ripple-7ae37c3f.js';
+import { Ripple } from './mwc-ripple.js';
 import { FormElement, addHasRemoveClass } from '@material/mwc-base/form-element';
 import { observer } from '@material/mwc-base/observer';
 import MDCSwitchFoundation from '@material/switch/foundation';

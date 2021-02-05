@@ -1,18 +1,18 @@
 import { __decorate } from "tslib";
-import { css, html, LitElement, property } from 'lit-element';
-import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
+import { css, html, property } from 'lit-element';
 import { membraneContext, MembraneContextProvider, } from '@holochain-open-dev/membrane-context';
 import { serializeHash } from '@holochain-open-dev/common';
 import { TopAppBar } from 'scoped-material-components/mwc-top-app-bar';
 import { IconButton } from 'scoped-material-components/mwc-icon-button';
-import { HodCreateProfileForm, ProfilesService, } from '@holochain-open-dev/profiles';
+import { CreateProfileForm, ProfilesService, ProfilesStore, } from '@holochain-open-dev/profiles';
+import { BaseElement, connectStore } from '@holochain-open-dev/common';
 import { CompositoryService, fetchLensesForAllZomes, } from '@compository/lib';
 import { sharedStyles } from '../sharedStyles';
 import { BlockyService } from '../blocky.service';
 import { BlockBoard } from 'block-board';
 import { CircularProgress } from 'scoped-material-components/mwc-circular-progress';
 import { Button } from 'scoped-material-components/mwc-button';
-export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
+export class BlockyDnaBoard extends membraneContext(BaseElement) {
     constructor() {
         super(...arguments);
         this._profilesZomeExistsInDna = false;
@@ -132,9 +132,9 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
         <div
           style="flex: 1; display: flex; align-items: center; justify-content: center;"
         >
-          <hod-create-profile-form
+          <create-profile-form
             @profile-created=${() => (this._profileAlreadyCreated = true)}
-          ></hod-create-profile-form>
+          ></create-profile-form>
         </div>
       `;
         else
@@ -171,7 +171,7 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
       </mwc-top-app-bar>
     </membrane-context-provider>`;
     }
-    static get scopedElements() {
+    getScopedElements() {
         return {
             'membrane-context-provider': MembraneContextProvider,
             'block-board': BlockBoard,
@@ -179,7 +179,7 @@ export class BlockyDnaBoard extends membraneContext(Scoped(LitElement)) {
             'mwc-button': Button,
             'mwc-icon-button': IconButton,
             'mwc-circular-progress': CircularProgress,
-            'hod-create-profile-form': HodCreateProfileForm,
+            'create-profile-form': connectStore(CreateProfileForm, new ProfilesStore(new ProfilesService(this.membraneContext.appWebsocket, this.membraneContext.cellId))),
         };
     }
     static get styles() {

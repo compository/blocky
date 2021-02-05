@@ -10,7 +10,6 @@ import { L as ListItemBase, s as style$1 } from './mwc-list-item-css-626f0dc6.js
 import { s as style$2 } from './mwc-control-list-item-css-b817c11e.js';
 import { s as style, R as RadioBase, a as Radio$1 } from './mwc-radio-e5d10d1f.js';
 import '@material/radio/foundation';
-import '../node_modules/@material/mwc-radio/single-selection-controller';
 
 let Radio = class Radio extends RadioBase {
 };

@@ -1,14 +1,19 @@
 import { AdminWebsocket, AppWebsocket, CellId } from '@holochain/conductor-api';
 import { CompositoryService } from '../services/compository-service';
-import { serializeHash, HolochainCoreTypes } from '@holochain-open-dev/common';
+import { serializeHash } from '@holochain-open-dev/common';
 import { EntryDefLocator } from '../types/dnas';
+import {
+  AppEntryType,
+  Create,
+  EntryDetails,
+} from '@holochain-open-dev/core-types';
 
 async function fetchZomeAndEntryIndexes(
   appWebsocket: AppWebsocket,
   cellId: CellId,
   entryHash: string
 ): Promise<EntryDefLocator> {
-  const details: HolochainCoreTypes.EntryDetails = await appWebsocket.callZome({
+  const details: EntryDetails = await appWebsocket.callZome({
     cap: null,
     cell_id: cellId,
     provenance: cellId[1],
@@ -19,10 +24,10 @@ async function fetchZomeAndEntryIndexes(
 
   const header = details.headers[0].header;
 
-  const create = header.content as HolochainCoreTypes.Create;
+  const create = header.content as Create;
 
   const appEntryType = (create.entry_type as {
-    App: HolochainCoreTypes.AppEntryType;
+    App: AppEntryType;
   }).App;
 
   return {

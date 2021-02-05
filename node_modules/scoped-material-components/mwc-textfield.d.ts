@@ -8,5 +8,6 @@ export declare class TextField extends TextField_base {
     static get scopedElements(): {
         'mwc-notched-outline': typeof NotchedOutline;
     };
+    protected outlineElement: NotchedOutline | null;
 }
 export {};

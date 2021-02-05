@@ -1,5 +1,4 @@
 import { Constructor, css, html, LitElement, property } from 'lit-element';
-import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
 import {
   membraneContext,
   MembraneContextProvider,
@@ -10,9 +9,11 @@ import { serializeHash } from '@holochain-open-dev/common';
 import { TopAppBar } from 'scoped-material-components/mwc-top-app-bar';
 import { IconButton } from 'scoped-material-components/mwc-icon-button';
 import {
-  HodCreateProfileForm,
+  CreateProfileForm,
   ProfilesService,
+  ProfilesStore,
 } from '@holochain-open-dev/profiles';
+import { BaseElement, connectStore } from '@holochain-open-dev/common';
 import {
   CompositoryService,
   fetchLensesForAllZomes,
@@ -25,9 +26,7 @@ import { BlockBoard, BlockNode, BlockSet } from 'block-board';
 import { CircularProgress } from 'scoped-material-components/mwc-circular-progress';
 import { Button } from 'scoped-material-components/mwc-button';
 
-export class BlockyDnaBoard extends membraneContext(
-  Scoped(LitElement) as Constructor<LitElement>
-) {
+export class BlockyDnaBoard extends membraneContext(BaseElement) {
   @property({ type: Array })
   cellIdToDisplay!: CellId;
   @property({ type: Array })
@@ -61,7 +60,7 @@ export class BlockyDnaBoard extends membraneContext(
   }
   get compositoryService(): CompositoryService {
     return new CompositoryService(
-      this.membraneContext.appWebsocket as AppWebsocket,
+      this.membraneContext.appWebsocket as any,
       this.compositoryCellId as CellId
     );
   }
@@ -200,9 +199,9 @@ export class BlockyDnaBoard extends membraneContext(
         <div
           style="flex: 1; display: flex; align-items: center; justify-content: center;"
         >
-          <hod-create-profile-form
+          <create-profile-form
             @profile-created=${() => (this._profileAlreadyCreated = true)}
-          ></hod-create-profile-form>
+          ></create-profile-form>
         </div>
       `;
     else
@@ -241,15 +240,23 @@ export class BlockyDnaBoard extends membraneContext(
     </membrane-context-provider>`;
   }
 
-  static get scopedElements() {
+  getScopedElements() {
     return {
-      'membrane-context-provider': MembraneContextProvider,
+      'membrane-context-provider': MembraneContextProvider as unknown as typeof HTMLElement,
       'block-board': BlockBoard,
       'mwc-top-app-bar': TopAppBar,
       'mwc-button': Button,
       'mwc-icon-button': IconButton,
       'mwc-circular-progress': CircularProgress,
-      'hod-create-profile-form': HodCreateProfileForm,
+      'create-profile-form': connectStore(
+        CreateProfileForm,
+        new ProfilesStore(
+          new ProfilesService(
+            this.membraneContext.appWebsocket as AppWebsocket,
+            this.membraneContext.cellId as CellId
+          )
+        )
+      ),
     };
   }
 

@@ -1,5 +1,5 @@
-import 'tslib';
-import { css } from 'lit-element';
+import { __decorate } from 'tslib';
+import { css, query } from 'lit-element';
 import 'lit-html/directives/class-map';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import '@material/mwc-base/base-element';
@@ -43,6 +43,9 @@ class TextField extends ScopedElementsMixin(TextFieldBase) {
     }
 }
 TextField.styles = style;
+__decorate([
+    query('.mdc-notched-outline')
+], TextField.prototype, "outlineElement", void 0);
 
 export { TextField };
 //# sourceMappingURL=mwc-textfield.js.map

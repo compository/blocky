@@ -7,7 +7,7 @@ import { I as Icon } from './mwc-icon-b3dc012a.js';
 import '@material/mwc-base/base-element';
 import '@material/ripple/foundation';
 import 'lit-html/directives/style-map';
-import { R as Ripple } from './mwc-ripple-7ae37c3f.js';
+import { Ripple } from './mwc-ripple.js';
 
 /** @soyCompatible */
 class ButtonBase extends LitElement {

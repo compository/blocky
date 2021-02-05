@@ -15,12 +15,17 @@ export class CompositoryInstallDnaDialog extends membraneContext(Scoped(LitEleme
         const adminWs = this.membraneContext.adminWebsocket;
         const agentKey = await adminWs.generateAgentPubKey();
         const installed_app_id = `generated-app-${Date.now() % 1000}`;
-        const dnaProps = this.dnaFile
-            ? { nick: '', file: this.dnaFile }
-            : { nick: '', path: this._dnaPath };
+        const dnaHash = await adminWs.registerDna({
+            source: { dna_file: this.dnaFile },
+        });
         const result = await adminWs.installApp({
             agent_key: agentKey,
-            dnas: [dnaProps],
+            dnas: [
+                {
+                    hash: dnaHash,
+                    nick: installed_app_id,
+                },
+            ],
             installed_app_id,
         });
         await adminWs.activateApp({ installed_app_id });

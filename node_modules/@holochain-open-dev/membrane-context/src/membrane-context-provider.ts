@@ -17,14 +17,14 @@ export class MembraneContextProvider extends ProviderMixin(LitElement) {
   appWebsocket!: AppWebsocket;
   @property({ type: Object })
   adminWebsocket!: AdminWebsocket;
-  
+
   updated(changedValues: PropertyValues) {
-    super.updated();
+    super.updated(changedValues);
+
     if (
-      !(
-        changedValues.size === 1 &&
-        changedValues.has('membraneContext')
-      )
+      changedValues.has('cellId') ||
+      changedValues.has('appWebsocket') ||
+      changedValues.has('adminWebsocket')
     ) {
       this.membraneContext = {
         cellId: this.cellId,

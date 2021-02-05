@@ -20,6 +20,9 @@ export class CompositoryService extends FileStorageService {
     async getAllZomeDefs() {
         return this.callZome('compository', 'get_all_zome_defs', null);
     }
+    async getAllInstantiatedDnas() {
+        return this.callZome('compository', 'get_all_instantiated_dnas', null);
+    }
     /** Creators */
     async publishDnaTemplate(dnaTemplate) {
         return this.callZome('compository', 'publish_dna_template', dnaTemplate);

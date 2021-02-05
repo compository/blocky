@@ -16,6 +16,7 @@ export declare class CompositoryService extends FileStorageService {
     getZomeDef(zomeDefHash: string): Promise<ZomeDef>;
     getDnaTemplate(dnaTemplateHash: string): Promise<DnaTemplate>;
     getAllZomeDefs(): Promise<Array<Hashed<ZomeDef>>>;
+    getAllInstantiatedDnas(): Promise<Array<string>>;
     /** Creators */
     publishDnaTemplate(dnaTemplate: DnaTemplate): Promise<string>;
     publishInstantiatedDna(input: PublishInstantiatedDnaInput): Promise<string>;

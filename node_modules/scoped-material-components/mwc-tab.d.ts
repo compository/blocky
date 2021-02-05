@@ -10,5 +10,9 @@ export declare class Tab extends Tab_base {
         'mwc-tab-indicator': typeof TabIndicator;
         'mwc-ripple': typeof Ripple;
     };
+    ripple: Promise<Ripple | null>;
+    protected tabIndicator: TabIndicator;
+    protected renderRipple(): import("lit-element").TemplateResult | "";
+    protected renderIndicator(): import("lit-element").TemplateResult;
 }
 export {};
