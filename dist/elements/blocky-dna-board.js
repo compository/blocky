@@ -33,6 +33,7 @@ export class BlockyDnaBoard extends membraneContext(BaseElement) {
         return new CompositoryService(this.membraneContext.appWebsocket, this.compositoryCellId);
     }
     async firstUpdated() {
+        this.defineScopedElement('create-profile-form', connectStore(CreateProfileForm, new ProfilesStore(new ProfilesService(this.membraneContext.appWebsocket, this.membraneContext.cellId))));
         await this.loadProfilesExists();
         await this.loadSavedNodes();
         await this.loadRenderers();
@@ -179,7 +180,6 @@ export class BlockyDnaBoard extends membraneContext(BaseElement) {
             'mwc-button': Button,
             'mwc-icon-button': IconButton,
             'mwc-circular-progress': CircularProgress,
-            'create-profile-form': connectStore(CreateProfileForm, new ProfilesStore(new ProfilesService(this.membraneContext.appWebsocket, this.membraneContext.cellId))),
         };
     }
     static get styles() {

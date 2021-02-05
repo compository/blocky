@@ -66,6 +66,18 @@ export class BlockyDnaBoard extends membraneContext(BaseElement) {
   }
 
   async firstUpdated() {
+    this.defineScopedElement(
+      'create-profile-form',
+      connectStore(
+        CreateProfileForm,
+        new ProfilesStore(
+          new ProfilesService(
+            this.membraneContext.appWebsocket as AppWebsocket,
+            this.membraneContext.cellId as CellId
+          )
+        )
+      )
+    );
     await this.loadProfilesExists();
 
     await this.loadSavedNodes();
@@ -242,21 +254,12 @@ export class BlockyDnaBoard extends membraneContext(BaseElement) {
 
   getScopedElements() {
     return {
-      'membrane-context-provider': MembraneContextProvider as unknown as typeof HTMLElement,
+      'membrane-context-provider': (MembraneContextProvider as unknown) as typeof HTMLElement,
       'block-board': BlockBoard,
       'mwc-top-app-bar': TopAppBar,
       'mwc-button': Button,
       'mwc-icon-button': IconButton,
       'mwc-circular-progress': CircularProgress,
-      'create-profile-form': connectStore(
-        CreateProfileForm,
-        new ProfilesStore(
-          new ProfilesService(
-            this.membraneContext.appWebsocket as AppWebsocket,
-            this.membraneContext.cellId as CellId
-          )
-        )
-      ),
     };
   }
 

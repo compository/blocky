@@ -42,7 +42,6 @@ export declare class BlockyDnaBoard extends BlockyDnaBoard_base {
         'mwc-button': typeof Button;
         'mwc-icon-button': typeof IconButton;
         'mwc-circular-progress': typeof CircularProgress;
-        'create-profile-form': Constructor<HTMLElement>;
     };
     static get styles(): import("lit-element").CSSResult[];
 }
