@@ -73,7 +73,7 @@ export class BlockyDnaBoard extends membraneContext(BaseElement) {
         new ProfilesStore(
           new ProfilesService(
             this.membraneContext.appWebsocket as AppWebsocket,
-            this.membraneContext.cellId as CellId
+            this.cellIdToDisplay as CellId
           )
         )
       )

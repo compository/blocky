@@ -33,7 +33,7 @@ export class BlockyDnaBoard extends membraneContext(BaseElement) {
         return new CompositoryService(this.membraneContext.appWebsocket, this.compositoryCellId);
     }
     async firstUpdated() {
-        this.defineScopedElement('create-profile-form', connectStore(CreateProfileForm, new ProfilesStore(new ProfilesService(this.membraneContext.appWebsocket, this.membraneContext.cellId))));
+        this.defineScopedElement('create-profile-form', connectStore(CreateProfileForm, new ProfilesStore(new ProfilesService(this.membraneContext.appWebsocket, this.cellIdToDisplay))));
         await this.loadProfilesExists();
         await this.loadSavedNodes();
         await this.loadRenderers();
