@@ -1,13 +1,12 @@
 import { AppWebsocket, CellId } from '@holochain/conductor-api';
-import { BlockNode } from 'block-board';
 
-export class BlockyService {
+export class GrapesService {
   constructor(
     public appWebsocket: AppWebsocket,
     public cellId: CellId,
-    public zomeName: string = 'blocky'
+    public zomeName: string = 'grapes'
   ) {}
-
+/* 
   createBoardNode(layout: BlockNode): Promise<string> {
     return this.callZome('create_block_node', JSON.stringify(layout));
   }
@@ -22,7 +21,7 @@ export class BlockyService {
     const layouts = await this.callZome('get_my_block_nodes', null);
 
     return layouts.map(([_, l]: [string, string]) => JSON.parse(l));
-  }
+  } */
 
   private callZome(fnName: string, payload: any) {
     return this.appWebsocket.callZome({

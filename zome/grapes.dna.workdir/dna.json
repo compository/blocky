@@ -1,0 +1,10 @@
+{
+  "name": "grapes",
+  "uuid": "",
+  "properties": null,
+  "zomes": {
+    "grapes": {
+      "wasm_path": "../target/wasm32-unknown-unknown/release/grapes.wasm"
+    }
+  }
+}

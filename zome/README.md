@@ -1,6 +1,6 @@
 # Zome Developer Setup
 
-This folder has an example DNA for the `blocky` zome. The actual code for the zome is in `zomes/blocky`.
+This folder has an example DNA for the `grapes` zome. The actual code for the zome is in `zomes/grapes`.
 
 To change the code, you can work either opening VSCode inside the root folder of the repo or in this folder, you should have rust intellisense either way.
 
@@ -14,7 +14,7 @@ To change the code, you can work either opening VSCode inside the root folder of
 
 ```bash
 CARGO_TARGET_DIR=target cargo build --release --target wasm32-unknown-unknown
-dna-util -c blocky.dna.workdir/
+dna-util -c grapes.dna.workdir/
 ```
 
 ## Testing
@@ -32,7 +32,7 @@ npm test
 After having built the DNA:
 
 ```bash
-holochain-run-dna blocky.dna.gz
+holochain-run-dna grapes.dna.gz
 ```
 
 Now `holochain` will be listening at port `8888`;

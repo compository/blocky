@@ -1,7 +1,5 @@
 use hc_utils::WrappedEntryHash;
-use hdk3::prelude::*;
-
-mod utils;
+use hdk::prelude::*;
 
 pub fn err(reason: &str) -> WasmError {
     WasmError::Zome(String::from(reason))
@@ -42,6 +40,7 @@ pub fn get_all_block_nodes(_: ()) -> ExternResult<GetBlockNodesOutput> {
         .into_inner()
         .iter()
         .map(|link| {
+            let element = 
             let event: BlockNode = utils::try_get_and_convert(link.target.clone())?;
             Ok((WrappedEntryHash(link.target.clone()), event))
         })

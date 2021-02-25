@@ -10,7 +10,7 @@ import path from "path";
 const conductorConfig = Config.gen({});
 
 // Construct proper paths for your DNAs
-const calendarEvents = path.join(__dirname, "../../blocky.dna.gz");
+const calendarEvents = path.join(__dirname, "../../grapes.dna.gz");
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(() => resolve(), ms));
 
@@ -47,7 +47,7 @@ orchestrator.registerScenario(
     const bob_calendar = bob_happ.cells[0];
 
     let calendarEvent = await alice_calendar.call(
-      "blocky",
+      "grapes",
       "create_calendar_event",
       {
         title: "Event 1",
@@ -62,7 +62,7 @@ orchestrator.registerScenario(
     await sleep(10);
 
     let calendarEvents = await alice_calendar.call(
-      "blocky",
+      "grapes",
       "get_all_calendar_events",
       null
     );

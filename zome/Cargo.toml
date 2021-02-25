@@ -1,6 +1,6 @@
 [workspace]
 members = [
-  "zomes/blocky",
+  "zomes/grapes",
 ]
 
 [profile.dev]
