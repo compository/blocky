@@ -17900,6 +17900,7 @@ class DnaGrapes extends ScopedElementsMixin(LitElement) {
         const innerWindow = this._editor.Canvas.getWindow();
         innerWindow.appWebsocket = this._compositoryService.appWebsocket;
         innerWindow.cellId = this.cellId;
+        innerWindow.codes = {};
         const promises = renderers.map(([zomeDef, setupLensesFile]) => this.addZomeLenses(zomeDef, setupLensesFile));
         await Promise.all(promises);
     }
@@ -17915,6 +17916,7 @@ class DnaGrapes extends ScopedElementsMixin(LitElement) {
         const lenses = lensesModule.default(this._compositoryService.appWebsocket, this.cellId);
         for (let i = 0; i < lenses.standalone.length; i++) {
             const lens = lenses.standalone[i];
+            this._editor.Canvas.getWindow().codes[zomeDef.name] = text;
             // prettier-ignore
             const script = await import(this.esm("export default function render() {" +
                 "      function esm(js) {" +
@@ -17926,7 +17928,7 @@ class DnaGrapes extends ScopedElementsMixin(LitElement) {
                 "      async function setupLenses() {" +
                 "        if (window." + zomeDef.name + ") return;" +
                 //eslint-disable-next-line
-                "        const mod = await import(esm(`" + text.replace(/\`/g, '\\`') + "`));" +
+                "        const mod = await import(esm(window.codes." + zomeDef.name + "));" +
                 "        window." + zomeDef.name + " = mod.default(window.appWebsocket, window.cellId);" +
                 "      }" +
                 "      " +
