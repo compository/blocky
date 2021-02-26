@@ -26,7 +26,7 @@ export class CompositoryServiceMock {
       export default function lenses(app, cellId) {
           return {
               standalone: [{
-                  name: 'sample element',
+                  name: \`sample element\`,
                   render: (root) => {
                     root.innerHTML = 'haha'
                   }
