@@ -3,32 +3,43 @@
   <head>
     <meta charset="utf-8" />
     <style>
-      body {
+      body,
+      html {
         background: #fafafa;
+        width: 100%;
+        height: 100%;
+        margin: 0;
       }
     </style>
   </head>
   <body>
-    <!-- TODO: change the element -->
-    <blocky-dna-board id="board"></blocky-dna-board>
+    <dna-grapes id="grapes" style="height: 100%"></dna-grapes>
 
     <script type="module">
       import { html, render } from 'lit-html';
-      import { BlockDnaBoard } from '../dist';
+      import { DnaGrapes } from '../dist';
+      import { CompositoryService } from '@compository/lib';
       import ConductorApi from '@holochain/conductor-api';
 
-      customElements.define('block-dna-board', BlockDnaBoard);
+      (async function () {
+        const app = await ConductorApi.AppWebsocket.connect(
+          'ws://localhost:8888'
+        );
 
-      (async function() {
-        const app = await ConductorApi.AppWebsocket.connect('ws://localhost:8888');
-
-        const appInfo = await app.appInfo({installed_app_id: 'test-app'})
+        const appInfo = await app.appInfo({ installed_app_id: 'test-app' });
 
         const cellId = appInfo.cell_data[0][0];
-        
-        const board = document.getElementById('board');
-        board.cellIdToDisplay = cellId;
-      })()
+
+        customElements.define(
+          'dna-grapes',
+          class extends DnaGrapes {
+            get _compositoryService() {
+              return new CompositoryService(app, cellId);
+            }
+          }
+        );
+        document.getElementById('grapes').cellId = cellId;
+      })();
     </script>
   </body>
 </html>

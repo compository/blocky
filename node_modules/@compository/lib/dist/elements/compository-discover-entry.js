@@ -6,6 +6,7 @@ import { membraneContext } from '@holochain-open-dev/membrane-context';
 import { CompositoryService } from '../services/compository-service';
 import { CircularProgress } from 'scoped-material-components/mwc-circular-progress';
 import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
+import { importModuleFromFile } from '../processes/import-module-from-file';
 export class CompositoryDiscoverEntry extends membraneContext(Scoped(LitElement)) {
     constructor() {
         super(...arguments);
@@ -25,10 +26,13 @@ export class CompositoryDiscoverEntry extends membraneContext(Scoped(LitElement)
     async loadRenderers() {
         const compositoryService = new CompositoryService(this.membraneContext.appWebsocket, this.membraneContext.cellId);
         const { cellId, zomeIndex, entryDefIndex, entryHash, } = await discoverEntryDetails(this.membraneContext.adminWebsocket, compositoryService, this.entryUri);
-        const [def, renderers] = await fetchLensesForZome(compositoryService, cellId, zomeIndex);
-        if (renderers) {
+        const [def, renderersFile] = await fetchLensesForZome(compositoryService, cellId, zomeIndex);
+        if (renderersFile) {
+            const renderers = await importModuleFromFile(renderersFile);
             const entryIdStr = def.entry_defs[entryDefIndex];
-            renderers(this.membraneContext.appWebsocket, cellId).entryLenses[entryIdStr].render(this._scope.shadowRoot, entryHash);
+            renderers
+                .default(this.membraneContext.appWebsocket, cellId)
+                .entryLenses[entryIdStr].render(this._scope.shadowRoot, entryHash);
         }
         this._loading = false;
     }

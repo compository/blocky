@@ -1,0 +1,41 @@
+import { LitElement } from 'lit-element';
+import { CellId } from '@holochain/conductor-api';
+import { TopAppBar } from 'scoped-material-components/mwc-top-app-bar';
+import { IconButton } from 'scoped-material-components/mwc-icon-button';
+import { CompositoryService, ZomeDef } from '@compository/lib';
+import { CircularProgress } from 'scoped-material-components/mwc-circular-progress';
+declare const DnaGrapes_base: typeof LitElement & import("@open-wc/dedupe-mixin").Constructor<import("@open-wc/scoped-elements/types/src/types").ScopedElementsHost> & typeof import("@open-wc/scoped-elements/types/src/types").ScopedElementsHost;
+export declare abstract class DnaGrapes extends DnaGrapes_base {
+    cellId: CellId;
+    _profilesZomeExistsInDna: boolean;
+    _profileAlreadyCreated: boolean;
+    _editing: boolean;
+    _loading: boolean;
+    _grapesContainer: HTMLElement;
+    _blockManager: HTMLElement;
+    _panelTop: HTMLElement;
+    _panelSwitcher: HTMLElement;
+    _stylesContainer: HTMLElement;
+    _editorRow: HTMLElement;
+    _editor: any;
+    _activePanel: 'styles' | 'blocks';
+    abstract get _compositoryService(): CompositoryService;
+    firstUpdated(): Promise<void>;
+    addZomeLenses(zomeDef: ZomeDef, setupLensesFile: File): Promise<void>;
+    loadSavedNodes(): Promise<void>;
+    loadProfilesExists(): Promise<void>;
+    loadRenderers(): Promise<[ZomeDef, File][]>;
+    createBoard(): Promise<void>;
+    showProfilePromt(): boolean;
+    renderBarItems(): import("lit-element").TemplateResult;
+    renderActivePanel(): import("lit-element").TemplateResult;
+    renderContent(): import("lit-element").TemplateResult;
+    render(): import("lit-element").TemplateResult;
+    static get scopedElements(): {
+        'mwc-top-app-bar': typeof TopAppBar;
+        'mwc-icon-button': typeof IconButton;
+        'mwc-circular-progress': typeof CircularProgress;
+    };
+    static get styles(): any[];
+}
+export {};

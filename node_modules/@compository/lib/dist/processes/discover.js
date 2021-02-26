@@ -1,4 +1,4 @@
-import { serializeHash } from '@holochain-open-dev/common';
+import { serializeHash } from '@holochain-open-dev/core-types';
 async function fetchZomeAndEntryIndexes(appWebsocket, cellId, entryHash) {
     const details = await appWebsocket.callZome({
         cap: null,

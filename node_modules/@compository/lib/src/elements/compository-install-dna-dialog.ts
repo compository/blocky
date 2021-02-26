@@ -6,7 +6,7 @@ import { membraneContext } from '@holochain-open-dev/membrane-context';
 import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
 import { AdminWebsocket, DnaFile } from '@holochain/conductor-api';
 import { sharedStyles } from './sharedStyles';
-import { serializeHash } from '@holochain-open-dev/common';
+import { serializeHash } from '@holochain-open-dev/core-types';
 
 export class CompositoryInstallDnaDialog extends membraneContext(
   Scoped(LitElement) as Constructor<LitElement>

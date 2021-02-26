@@ -1,4 +1,4 @@
-function esm(templateStrings: any, ...substitutions: any) {
+export function esm(templateStrings: any, ...substitutions: any) {
   let js = templateStrings.raw[0];
   for (let i = 0; i < substitutions.length; i++) {
     js += substitutions[i] + templateStrings.raw[i + 1];

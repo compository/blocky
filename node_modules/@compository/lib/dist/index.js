@@ -7,4 +7,5 @@ export * from './types/dnas';
 export * from './processes/discover';
 export * from './processes/fetch-lenses';
 export * from './processes/generate-dna-file';
+export * from './processes/import-module-from-file';
 //# sourceMappingURL=index.js.map

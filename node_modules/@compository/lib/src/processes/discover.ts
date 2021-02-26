@@ -1,6 +1,6 @@
 import { AdminWebsocket, AppWebsocket, CellId } from '@holochain/conductor-api';
 import { CompositoryService } from '../services/compository-service';
-import { serializeHash } from '@holochain-open-dev/common';
+import { serializeHash } from '@holochain-open-dev/core-types';
 import { EntryDefLocator } from '../types/dnas';
 import {
   AppEntryType,

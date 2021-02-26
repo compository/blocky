@@ -6,7 +6,7 @@ import { TextField } from 'scoped-material-components/mwc-textfield';
 import { membraneContext } from '@holochain-open-dev/membrane-context';
 import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
 import { sharedStyles } from './sharedStyles';
-import { serializeHash } from '@holochain-open-dev/common';
+import { serializeHash } from '@holochain-open-dev/core-types';
 export class CompositoryInstallDnaDialog extends membraneContext(Scoped(LitElement)) {
     open(opened = true) {
         this._dialog.open = opened;
