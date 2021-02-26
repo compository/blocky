@@ -228,14 +228,15 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
 "  "+
 "      async function setupLenses() {"+
 "        if (window."+zomeDef.name+") return;"+
-"        const mod = await import(esm("+text+"}));"+
+    //eslint-disable-next-line
+    "        const mod = await import(esm(`"+text.replace(/\`/g, '\\`')+"`));"+
 "        window."+zomeDef.name+" = mod.default(window.appWebsocket, window.cellId);"+
 "      }"+
 "      "+
 "      setupLenses().then(()=> {"+
 "        window."+zomeDef.name+".standalone["+i+"].render(this)"+
 "      });"+
-"  }"
+"  }" 
 ));
 
       const componentName = `${zomeDef.name}: ${lens.name}`;
