@@ -17904,7 +17904,9 @@ class DnaGrapes extends ScopedElementsMixin(LitElement) {
         await Promise.all(promises);
     }
     async addZomeLenses(zomeDef, setupLensesFile) {
-        const text = await setupLensesFile.text();
+        // prettier-ignore
+        //eslint-disable-next-line
+        const text = (await setupLensesFile.text()).replace('`', '\`');
         // prettier-ignore
         const lensesModule = await import(esm `${text}`);
         const lenses = lensesModule.default(this._compositoryService.appWebsocket, this.cellId);

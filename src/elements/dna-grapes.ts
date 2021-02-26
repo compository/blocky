@@ -199,7 +199,9 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
   }
 
   async addZomeLenses(zomeDef: ZomeDef, setupLensesFile: File) {
-    const text = await setupLensesFile.text();
+    // prettier-ignore
+    //eslint-disable-next-line
+    const text = (await setupLensesFile.text()).replace('`', '\`');
 
     // prettier-ignore
     const lensesModule = await import(esm`${text}`);
