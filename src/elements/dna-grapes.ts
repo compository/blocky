@@ -198,13 +198,18 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
     await Promise.all(promises);
   }
 
+  esm(js: string) {
+    return (
+      'data:text/javascript;base64,' + btoa(unescape(encodeURIComponent(js)))
+    );
+  }
   async addZomeLenses(zomeDef: ZomeDef, setupLensesFile: File) {
     // prettier-ignore
     //eslint-disable-next-line
-    const text = (await setupLensesFile.text()).replace('`', '\`');
+    const text = await setupLensesFile.text();
 
     // prettier-ignore
-    const lensesModule = await import(esm`${text}`);
+    const lensesModule = await import(this.esm(text));
     const lenses: Lenses = lensesModule.default(
       this._compositoryService.appWebsocket,
       this.cellId
@@ -216,11 +221,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
       const script = await import(esm`
 
     export default function render() {
-      function esm(templateStrings, ...substitutions) {
-        let js = templateStrings.raw[0];
-        for (let i = 0; i < substitutions.length; i++) {
-          js += substitutions[i] + templateStrings.raw[i + 1];
-        }
+      function esm(js) {
         return (
           'data:text/javascript;base64,' + btoa(unescape(encodeURIComponent(js)))
         );
@@ -228,7 +229,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
   
       async function setupLenses() {
         if (window.${zomeDef.name}) return;
-        const mod = await import(esm${'`'+ text + '`'});
+        const mod = await import(esm(${text}));
         window.${zomeDef.name} = mod.default(window.appWebsocket, window.cellId);
       }
       

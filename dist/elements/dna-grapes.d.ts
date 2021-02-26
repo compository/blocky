@@ -21,6 +21,7 @@ export declare abstract class DnaGrapes extends DnaGrapes_base {
     _activePanel: 'styles' | 'blocks';
     abstract get _compositoryService(): CompositoryService;
     firstUpdated(): Promise<void>;
+    esm(js: string): string;
     addZomeLenses(zomeDef: ZomeDef, setupLensesFile: File): Promise<void>;
     loadSavedNodes(): Promise<void>;
     loadProfilesExists(): Promise<void>;
