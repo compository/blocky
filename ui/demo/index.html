@@ -13,25 +13,50 @@
     </style>
   </head>
   <body>
-    <dna-grapes id="grapes" style="height: 100%;"></dna-grapes>
+    <dna-grapes id="grapes" style="height: 100%"></dna-grapes>
 
     <script type="module">
       import { html, render } from 'lit-html';
       import { DnaGrapes } from '../dist';
+      import { CompositoryServiceMock } from '../test/compository-service.mock';
       import ConductorApi from '@holochain/conductor-api';
 
-      customElements.define('dna-grapes', DnaGrapes);
-      /* 
-      (async function() {
-        const app = await ConductorApi.AppWebsocket.connect('ws://localhost:8888');
+      (async function () {
+        /* 
+        const app = await ConductorApi.AppWebsocket.connect(
+          'ws://localhost:8888'
+        );
 
-        const appInfo = await app.appInfo({installed_app_id: 'test-app'})
+        const appInfo = await app.appInfo({ installed_app_id: 'test-app' });
 
         const cellId = appInfo.cell_data[0][0];
-        
-        const board = document.getElementById('board');
-        board.cellIdToDisplay = cellId;
-      })() */
+ */
+
+        customElements.define(
+          'dna-grapes',
+          class extends DnaGrapes {
+            get _compositoryService() {
+              return new CompositoryServiceMock();
+            }
+          }
+        );
+        document.getElementById('grapes').cellId = [
+          Uint8Array.from(
+            [0x84, 0x20, 0x24].concat(
+              '000000000000000000000000000000000000'
+                .split('')
+                .map(x => parseInt(x, 10))
+            )
+          ),
+          Uint8Array.from(
+            [0x84, 0x20, 0x24].concat(
+              '000000000000000000000000000000000000'
+                .split('')
+                .map(x => parseInt(x, 10))
+            )
+          ),
+        ];
+      })();
     </script>
   </body>
 </html>

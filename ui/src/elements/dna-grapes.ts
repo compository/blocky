@@ -14,14 +14,15 @@ import { styleMap } from 'lit-html/directives/style-map';
 import { TopAppBar } from 'scoped-material-components/mwc-top-app-bar';
 import { IconButton } from 'scoped-material-components/mwc-icon-button';
 import { CreateProfileForm } from '@holochain-open-dev/profiles';
- import {
+import {
   CompositoryService,
-   esm,
+  esm,
   fetchLensesForAllZomes,
+  Lenses,
   SetupLenses,
   ZomeDef,
 } from '@compository/lib';
-  import { sharedStyles } from '../sharedStyles';
+import { sharedStyles } from '../sharedStyles';
 import { GrapesService } from '../grapes.service';
 import { CircularProgress } from 'scoped-material-components/mwc-circular-progress';
 import { Button } from 'scoped-material-components/mwc-button';
@@ -30,11 +31,9 @@ import grapesjs from 'grapesjs';
 // @ts-ignore
 import grapesCss from 'grapesjs/dist/css/grapes.min.css';
 
-export class DnaGrapes extends Scoped(LitElement) {
+export abstract class DnaGrapes extends Scoped(LitElement) {
   @property({ type: Array })
-  cellIdToDisplay!: CellId;
-  @property({ type: Array })
-  compositoryCellId!: CellId;
+  cellId!: CellId;
 
   @property({ type: Boolean })
   _profilesZomeExistsInDna = false;
@@ -47,6 +46,7 @@ export class DnaGrapes extends Scoped(LitElement) {
   @property({ type: Boolean })
   _loading = true;
 
+  // Grapes sub-elements
   @query('#grapes-container')
   _grapesContainer!: HTMLElement;
   @query('#block-manager')
@@ -65,12 +65,14 @@ export class DnaGrapes extends Scoped(LitElement) {
   @property({ type: String })
   _activePanel: 'styles' | 'blocks' = 'blocks';
 
+  abstract get _compositoryService(): CompositoryService;
+
   async firstUpdated() {
     await this.loadProfilesExists();
 
     await this.loadSavedNodes();
 
-    await this.loadRenderers();
+    const renderers = await this.loadRenderers();
 
     this._loading = false;
 
@@ -185,41 +187,71 @@ export class DnaGrapes extends Scoped(LitElement) {
       },
     });
 
-    const addIframe = ()=> {
-      const iframe = document.createElement('iframe');
-      iframe.contentDocument?.createElement('script')
-    }
+    const innerWindow = this._editor.Canvas.getWindow();
+    innerWindow.appWebsocket = this._compositoryService.appWebsocket;
+    innerWindow.cellId = this.cellId;
 
-    const s = 'asdfasdfsadfsdaf'
-    const script = await import(esm(`export default function() {
-      // @ts-ignore
-      window.customElements.define('aha-aha', class extends window.HTMLElement { 
-        constructor() {
-          super();
-          console.log(${s})
+    const promises = renderers.map(([zomeDef, setupLensesFile]) =>
+      this.addZomeLenses(zomeDef, setupLensesFile)
+    );
+
+    await Promise.all(promises);
+  }
+
+  async addZomeLenses(zomeDef: ZomeDef, setupLensesFile: File) {
+    const text = await setupLensesFile.text();
+
+    // prettier-ignore
+    const lensesModule = await import(esm`${text}`);
+    const lenses: Lenses = lensesModule.default(
+      this._compositoryService.appWebsocket,
+      this.cellId
+    );
+
+    for (let i = 0; i < lenses.standalone.length; i++) {
+      const lens = lenses.standalone[i];
+      // prettier-ignore
+      const script = await import(esm`
+
+    export default function render() {
+      function esm(templateStrings, ...substitutions) {
+        let js = templateStrings.raw[0];
+        for (let i = 0; i < substitutions.length; i++) {
+          js += substitutions[i] + templateStrings.raw[i + 1];
         }
-        connectedCallback() {this.innerHTML  = 'asñldkf'}});
-      console.log(customElements)
-      // @ts-ignore
-      this.innerHTML = '<aha-aha></aha-aha>';
-    }`));
-    console.log(script)
-    
-    this._editor.Components.addType('my-test', {
-      model: {
-        defaults: {
-          script: script.default,
-        },
-      },
-    });
-
-    this._editor.BlockManager.add('my-map-block', {
-      label: 'Simple map block',
-      content: {
-        type: 'my-test'
+        return (
+          'data:text/javascript;base64,' + btoa(unescape(encodeURIComponent(js)))
+        );
       }
-    });
+  
+      async function setupLenses() {
+        if (window.${zomeDef.name}) return;
+        const mod = await import(esm${'`'+ text + '`'});
+        window.${zomeDef.name} = mod.default(window.appWebsocket, window.cellId);
+      }
+      
+      setupLenses().then(()=> {
+        window.${zomeDef.name}.standalone[${i}].render(this)
+      });
+  }`);
 
+      const componentName = `${zomeDef.name}: ${lens.name}`;
+
+      this._editor.Components.addType(componentName, {
+        model: {
+          defaults: {
+            script: script.default,
+          },
+        },
+      });
+
+      this._editor.BlockManager.add(`block-${zomeDef.name}-${lens.name}`, {
+        label: lens.name,
+        content: {
+          type: componentName,
+        },
+      });
+    }
   }
 
   async loadSavedNodes() {
@@ -258,29 +290,16 @@ export class DnaGrapes extends Scoped(LitElement) {
 
   async loadRenderers() {
     // Get the renderers for each of the zomes
-    /*     const zomeLenses = await fetchLensesForAllZomes(
-      this.compositoryService,
-      this.cellIdToDisplay
+    const zomeLenses = await fetchLensesForAllZomes(
+      this._compositoryService,
+      this.cellId
     );
 
     const blocks = zomeLenses.filter(
       ([def, setupLenses]) => setupLenses !== undefined
-    ) as [ZomeDef, SetupLenses][];
+    ) as [ZomeDef, File][];
 
-    this._blockSets = blocks.map(
-      ([def, setupLenses]) =>
-        ({
-          name: def.name,
-          blocks: setupLenses(
-            this.membraneContext.appWebsocket as AppWebsocket,
-            this.cellIdToDisplay as CellId
-          ).standalone.map(s => ({
-            name: s.name,
-            render: (root: ShadowRoot) => s.render(root),
-          })),
-        } as BlockSet)
-    );
- */
+    return blocks;
   }
 
   async createBoard() {
