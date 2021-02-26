@@ -190,7 +190,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
     const innerWindow = this._editor.Canvas.getWindow();
     innerWindow.appWebsocket = this._compositoryService.appWebsocket;
     innerWindow.cellId = this.cellId;
-    innerWindow.codes = {}
+    innerWindow.zomes = {};
 
     const promises = renderers.map(([zomeDef, setupLensesFile]) =>
       this.addZomeLenses(zomeDef, setupLensesFile)
@@ -200,9 +200,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
   }
 
   esm(js: string) {
-    return (
-      'data:text/javascript;base64,' + btoa(unescape(encodeURIComponent(js)))
-    );
+    return 'data:text/javascript;charset=utf-8,' + encodeURIComponent(js);
   }
   async addZomeLenses(zomeDef: ZomeDef, setupLensesFile: File) {
     // prettier-ignore
@@ -219,28 +217,25 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
     for (let i = 0; i < lenses.standalone.length; i++) {
       const lens = lenses.standalone[i];
 
-      this._editor.Canvas.getWindow().codes[zomeDef.name] = text
+      this._editor.Canvas.getWindow().zomes[zomeDef.name].code = text;
       // prettier-ignore
-      const script = await import(this.esm(
-"export default function render() {"+
-"      function esm(js) {"+
-"        return ("+
-"          'data:text/javascript;base64,' + btoa(unescape(encodeURIComponent(js)))"+
-"        );"+
-"      }"+
-"  "+
-"      async function setupLenses() {"+
-"        if (window."+zomeDef.name+") return;"+
-    //eslint-disable-next-line
-    "        const mod = await import(esm(window.codes."+zomeDef.name+"));"+
-"        window."+zomeDef.name+" = mod.default(window.appWebsocket, window.cellId);"+
-"      }"+
-"      "+
-"      setupLenses().then(()=> {"+
-"        window."+zomeDef.name+".standalone["+i+"].render(this)"+
-"      });"+
-"  }" 
-));
+      const script = await import(this.esm(`
+        export default function render() {
+          function esm(js) {
+            return 'data:text/javascript;charset=utf-8,' + encodeURIComponent(js);
+          }
+      
+          async function setupLenses() {
+            if (window.zomes.${zomeDef.name}.lenses) return;
+            const mod = await import(esm(window.zomes.${zomeDef.name}.code));
+            window.zomes.${zomeDef.name}.lenses = mod.default(window.appWebsocket, window.cellId);
+          }
+          
+          setupLenses().then(()=> {
+            window.zomes.${zomeDef.name}.lenses.standalone[${i}].render(this)
+          });
+        }`
+      ));
 
       const componentName = `${zomeDef.name}: ${lens.name}`;
 
