@@ -28,6 +28,8 @@ import { CircularProgress } from 'scoped-material-components/mwc-circular-progre
 import { Button } from 'scoped-material-components/mwc-button';
 //@ts-ignore
 import grapesjs from 'grapesjs';
+//@ts-ignore
+import webpagePreset from 'grapesjs-preset-webpage';
 // @ts-ignore
 import grapesCss from 'grapesjs/dist/css/grapes.min.css';
 
@@ -46,24 +48,10 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
   @property({ type: Boolean })
   _loading = true;
 
-  // Grapes sub-elements
   @query('#grapes-container')
   _grapesContainer!: HTMLElement;
-  @query('#block-manager')
-  _blockManager!: HTMLElement;
-  @query('#panel-top')
-  _panelTop!: HTMLElement;
-  @query('#panel-switcher')
-  _panelSwitcher!: HTMLElement;
-  @query('#styles-container')
-  _stylesContainer!: HTMLElement;
-  @query('#editor-row')
-  _editorRow!: HTMLElement;
-
+  
   _editor!: any;
-
-  @property({ type: String })
-  _activePanel: 'styles' | 'blocks' = 'blocks';
 
   abstract get _compositoryService(): CompositoryService;
 
@@ -86,107 +74,18 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
       height: 'auto',
       /*
       width: 'auto', */
-      panels: {
-        defaults: [
-          {
-            id: 'panel-switcher',
-            el: this._panelSwitcher,
-            buttons: [
-              {
-                id: 'show-style',
-                label: 'Styles',
-                command: 'show-styles',
-                togglable: false,
-              },
-              {
-                id: 'show-blocks',
-                active: true,
-                label: 'Blocks',
-                command: 'show-blocks',
-                togglable: false,
-              },
-            ],
-          },
-        ],
-      },
-      blockManager: {
-        appendTo: this._blockManager,
-        blocks: [
-          {
-            id: 'section', // id is mandatory
-            label: '<b>Section</b>', // You can use HTML/SVG inside labels
-            attributes: { class: 'gjs-block-section' },
-            content: `<section>
-              <h1>This is a simple title</h1>
-              <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
-            </section>`,
-          },
-        ],
-      },
-      selectorManager: {
-        appendTo: this._stylesContainer,
-      },
-      styleManager: {
-        appendTo: this._stylesContainer,
-        sectors: [
-          {
-            name: 'Dimension',
-            open: false,
-            // Use built-in properties
-            buildProps: ['width', 'min-height', 'padding'],
-            // Use `properties` to define/override single property
-            properties: [
-              {
-                // Type of the input,
-                // options: integer | radio | select | color | slider | file | composite | stack
-                type: 'integer',
-                name: 'The width', // Label for the property
-                property: 'width', // CSS property (if buildProps contains it will be extended)
-                units: ['px', '%'], // Units, available only for 'integer' types
-                defaults: 'auto', // Default value
-                min: 0, // Min value, available only for 'integer' types
-              },
-            ],
-          },
-          {
-            name: 'Extra',
-            open: false,
-            buildProps: ['background-color', 'box-shadow', 'custom-prop'],
-            properties: [
-              {
-                id: 'custom-prop',
-                name: 'Custom Label',
-                property: 'font-size',
-                type: 'select',
-                defaults: '32px',
-                // List of options, available only for 'select' and 'radio'  types
-                options: [
-                  { value: '12px', name: 'Tiny' },
-                  { value: '18px', name: 'Medium' },
-                  { value: '32px', name: 'Big' },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    });
 
-    this._editor.Panels.addPanel({
-      id: 'panel-top',
-      el: this._panelTop,
-    });
-    this._editor.Commands.add('show-styles', {
-      run: (editor: any, sender: any) => {
-        this._activePanel = 'styles';
+      plugins: [webpagePreset],
+      pluginsOpts: {
+        [webpagePreset]: {
+          navbarOpts: false,
+          formsOpts: false,
+          exportOpts: false,
+          countdownOpts: false
+        },
       },
     });
-    this._editor.Commands.add('show-blocks', {
-      run: (editor: any, sender: any) => {
-        this._activePanel = 'blocks';
-      },
-    });
-
+    
     const innerWindow = this._editor.Canvas.getWindow();
     innerWindow.appWebsocket = this._compositoryService.appWebsocket;
     innerWindow.cellId = this.cellId;
@@ -217,7 +116,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
     for (let i = 0; i < lenses.standalone.length; i++) {
       const lens = lenses.standalone[i];
 
-      this._editor.Canvas.getWindow().zomes[zomeDef.name].code = text;
+      this._editor.Canvas.getWindow().zomes[zomeDef.name] = { code: text };
       // prettier-ignore
       const script = await import(this.esm(`
         export default function render() {
@@ -249,6 +148,10 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
 
       this._editor.BlockManager.add(`block-${zomeDef.name}-${lens.name}`, {
         label: lens.name,
+        attributes: {
+          class: 'gjs-block fa fa-slideshare',
+        },
+        category: zomeDef.name,
         content: {
           type: componentName,
         },
@@ -362,36 +265,8 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
  */
   }
 
-  renderActivePanel() {
-    return html` <div
-        id="styles-container"
-        style=${styleMap({
-          display: this._activePanel === 'styles' ? 'block' : 'none',
-        })}
-      ></div>
-      <div
-        id="block-manager"
-        style=${styleMap({
-          display: this._activePanel === 'blocks' ? 'block' : 'none',
-        })}
-      ></div>`;
-  }
-
   renderContent() {
-    return html`
-      <div class="column" style="flex: 1;">
-        <div class="panel__top" id="panel-top">
-          <div class="panel__basic-actions"></div>
-          <div class="panel__switcher" id="panel-switcher"></div>
-        </div>
-        <div id="editor-row">
-          <div id="editor-canvas">
-            <div id="grapes-container"></div>
-          </div>
-          <div class="panel__right">${this.renderActivePanel()}</div>
-        </div>
-      </div>
-    `;
+    return html` <div id="grapes-container"></div> `;
 
     /*     if (this._loading)
       return html`<div class="fill center-content">
@@ -457,6 +332,9 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
       css`
         :host {
           display: flex;
+          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+            sans-serif;
         }
         .white-button {
           --mdc-button-disabled-ink-color: rgba(255, 255, 255, 0.5);
@@ -464,53 +342,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
         }
         /* Let's highlight canvas boundaries */
         #grapes-container {
-          border: 3px solid #444;
           flex: 1;
-        }
-        #editor-row {
-          display: flex;
-          justify-content: flex-start;
-          align-items: stretch;
-          flex-wrap: nowrap;
-          flex: 1;
-        }
-
-        #editor-canvas {
-          flex-grow: 1;
-          display: flex;
-        }
-
-        /* Reset some default styling */
-        .gjs-cv-canvas {
-          top: 0;
-          width: 100%;
-          height: 100%;
-        }
-
-        .gjs-block {
-          width: auto;
-          height: auto;
-          min-height: auto;
-        }
-        .panel__switcher {
-          position: initial;
-        }
-        .panel__right {
-          flex-basis: 230px;
-          position: relative;
-          overflow-y: auto;
-        }
-
-        .panel__top {
-          padding: 0;
-          width: 100%;
-          display: flex;
-          position: initial;
-          justify-content: center;
-          justify-content: space-between;
-        }
-        .panel__basic-actions {
-          position: initial;
         }
       `,
     ];

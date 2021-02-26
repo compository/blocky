@@ -19,6 +19,7 @@ export default [
   commonjs({
     include: [
       'node_modules/grapesjs/**/*',
+      'node_modules/grapesjs-blocks-basic/**/*',
       'node_modules/isomorphic-ws/**/*',
       'node_modules/@msgpack/**/*',
       'node_modules/@holochain/conductor-api/**/*',

@@ -34,6 +34,8 @@ export default {
     commonjs({
       include: [
         'node_modules/grapesjs/**/*',
+        'node_modules/grapesjs-preset-webpage/**/*',
+
         'node_modules/isomorphic-ws/**/*',
         'node_modules/@msgpack/**/*',
         'node_modules/@holochain/conductor-api/**/*',
