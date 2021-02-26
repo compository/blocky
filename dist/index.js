@@ -17912,27 +17912,29 @@ class DnaGrapes extends ScopedElementsMixin(LitElement) {
             const lens = lenses.standalone[i];
             // prettier-ignore
             const script = await import(esm `
-    function esm(templateStrings, ...substitutions) {
-      let js = templateStrings.raw[0];
-      for (let i = 0; i < substitutions.length; i++) {
-        js += substitutions[i] + templateStrings.raw[i + 1];
-      }
-      return (
-        'data:text/javascript;base64,' + btoa(unescape(encodeURIComponent(js)))
-      );
-    }
 
-    export async function setupLenses() {
-      if (window.${zomeDef.name}) return;
-      window.${zomeDef.name} = (await import(esm\`${text}\`).default);
-    }
-    
-    export default async function() {
-      await setupLenses();
-      window.${zomeDef.name}.standalone[${i}].render(this)
+    export default function render() {
+      function esm(templateStrings, ...substitutions) {
+        let js = templateStrings.raw[0];
+        for (let i = 0; i < substitutions.length; i++) {
+          js += substitutions[i] + templateStrings.raw[i + 1];
+        }
+        return (
+          'data:text/javascript;base64,' + btoa(unescape(encodeURIComponent(js)))
+        );
+      }
+  
+      async function setupLenses() {
+        if (window.${zomeDef.name}) return;
+        const mod = await import(esm${'`' + text + '`'});
+        window.${zomeDef.name} = mod.default(window.appWebsocket, window.cellId);
+      }
+      
+      setupLenses().then(()=> {
+        window.${zomeDef.name}.standalone[${i}].render(this)
+      });
   }`);
-            console.log(script);
-            const componentName = `component-${zomeDef.name}-${lens.name}`;
+            const componentName = `${zomeDef.name}: ${lens.name}`;
             this._editor.Components.addType(componentName, {
                 model: {
                     defaults: {

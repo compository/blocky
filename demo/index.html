@@ -18,10 +18,11 @@
     <script type="module">
       import { html, render } from 'lit-html';
       import { DnaGrapes } from '../dist';
-      import { CompositoryService } from '@compository/lib';
+      import { CompositoryServiceMock } from '../test/compository-service.mock';
       import ConductorApi from '@holochain/conductor-api';
 
       (async function () {
+        /* 
         const app = await ConductorApi.AppWebsocket.connect(
           'ws://localhost:8888'
         );
@@ -29,16 +30,32 @@
         const appInfo = await app.appInfo({ installed_app_id: 'test-app' });
 
         const cellId = appInfo.cell_data[0][0];
+ */
 
         customElements.define(
           'dna-grapes',
           class extends DnaGrapes {
             get _compositoryService() {
-              return new CompositoryService(app, cellId);
+              return new CompositoryServiceMock();
             }
           }
         );
-        document.getElementById('grapes').cellId = cellId;
+        document.getElementById('grapes').cellId = [
+          Uint8Array.from(
+            [0x84, 0x20, 0x24].concat(
+              '000000000000000000000000000000000000'
+                .split('')
+                .map(x => parseInt(x, 10))
+            )
+          ),
+          Uint8Array.from(
+            [0x84, 0x20, 0x24].concat(
+              '000000000000000000000000000000000000'
+                .split('')
+                .map(x => parseInt(x, 10))
+            )
+          ),
+        ];
       })();
     </script>
   </body>
