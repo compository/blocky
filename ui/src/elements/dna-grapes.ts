@@ -4,6 +4,7 @@ import {
   html,
   LitElement,
   property,
+  PropertyValues,
   query,
 } from 'lit-element';
 import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
@@ -16,7 +17,6 @@ import { IconButton } from 'scoped-material-components/mwc-icon-button';
 import { CreateProfileForm } from '@holochain-open-dev/profiles';
 import {
   CompositoryService,
-  esm,
   fetchLensesForAllZomes,
   Lenses,
   SetupLenses,
@@ -32,6 +32,8 @@ import grapesjs from 'grapesjs';
 import webpagePreset from 'grapesjs-preset-webpage';
 // @ts-ignore
 import grapesCss from 'grapesjs/dist/css/grapes.min.css';
+import { RenderTemplate } from '../types';
+import { esm } from '../utils';
 
 export abstract class DnaGrapes extends Scoped(LitElement) {
   @property({ type: Array })
@@ -43,7 +45,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
   _profileAlreadyCreated = false;
 
   @property({ type: Boolean })
-  _editing = false;
+  _editing = true;
 
   @property({ type: Boolean })
   _loading = true;
@@ -51,63 +53,80 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
   @query('#grapes-container')
   _grapesContainer!: HTMLElement;
 
-  _editor!: any;
+  _zomeLenses!: [ZomeDef, File][];
+  _templateToRender: RenderTemplate | undefined = undefined;
 
   abstract get _compositoryService(): CompositoryService;
+  abstract get _grapesService(): GrapesService;
+
+  _editor: any | undefined = undefined;
+
+  updated(changedValues: PropertyValues) {
+    super.updated(changedValues);
+
+    if (
+      (this._loading === false && changedValues.has('_editing')) ||
+      (changedValues.has('_loading') && this._loading === false)
+    ) {
+      if (this._editing) {
+        this.setupGrapes();
+      } else {
+        this.setupRenderIframe();
+      }
+    }
+  }
 
   async firstUpdated() {
-    await this.loadProfilesExists();
-
-    await this.loadSavedNodes();
-
-    const renderers = await this.loadRenderers();
+    await Promise.all([
+      this.loadProfilesExists(),
+      this.loadRenderTemplate(),
+      this.loadRenderers(),
+    ]);
 
     this._loading = false;
+  }
 
+  async setupRenderIframe() {
+    const iframe = this.shadowRoot?.getElementById(
+      'render-iframe'
+    ) as HTMLIFrameElement;
+
+    this.setupIframe(iframe);
+
+    const promises = this._zomeLenses.map(
+      async ([zomeDef, setupLensesFile]) => {
+        const text = await setupLensesFile.text();
+
+        this.addZomeLensesToIframe(zomeDef, text, iframe);
+      }
+    );
+
+    await Promise.all(promises);
+
+    if (this._templateToRender) {
+      const innerDocument = iframe.contentDocument as Document;
+
+      const styleEl = innerDocument.createElement('style');
+
+      styleEl.innerHTML = this._templateToRender.css;
+      innerDocument.body.innerHTML = this._templateToRender.html;
+      innerDocument.body.appendChild(styleEl);
+      setTimeout(() => this.addRenderTemplateJs(iframe));
+    }
+  }
+
+  async setupGrapes() {
     this._editor = grapesjs.init({
-      container: this._grapesContainer,
-      components: `<div class="row"><div class="cell"><div id="i8f3"></div></div><div class="cell"><div id="ivml"></div></div></div><script>var items = document.querySelectorAll('#i8f3');
-      console.log('asfd')
-      for (var i = 0, len = items.length; i < len; i++) {
-        (function(){function esm(js) {
-        return 'data:text/javascript;charset=utf-8,' + encodeURIComponent(js);
-      }
-  
-      async function setupLenses() {
-        if (window.zomes.sample_zome.lenses) return;
-        const mod = await import(esm(window.zomes.sample_zome.code));
-        window.zomes.sample_zome.lenses = mod.default(window.appWebsocket, window.cellId);
-      }
-      
-      setupLenses().then(()=> {
-        window.zomes.sample_zome.lenses.standalone[0].render(this)
-      });}.bind(items[i]))();
-      }
-      var items = document.querySelectorAll('#ivml');
-      for (var i = 0, len = items.length; i < len; i++) {
-        (function(){function esm(js) {
-        return 'data:text/javascript;charset=utf-8,' + encodeURIComponent(js);
-      }
-  
-      async function setupLenses() {
-        if (window.zomes.sample_zome.lenses) return;
-        const mod = await import(esm(window.zomes.sample_zome.code));
-        window.zomes.sample_zome.lenses = mod.default(window.appWebsocket, window.cellId);
-      }
-      
-      setupLenses().then(()=> {
-        window.zomes.sample_zome.lenses.standalone[1].render(this)
-      });}.bind(items[i]))();
-      }</script>`,
+      container: this.shadowRoot?.getElementById('grapes-container'),
+      components: this._templateToRender ? this._templateToRender.html : null,
+      style: this._templateToRender ? this._templateToRender.css : null,
       // Get the content for the canvas directly from the element
       // As an alternative we could use: `components: '<h1>Hello World Component!</h1>'`,
       fromElement: false,
       // Disable the storage manager for the moment
       storageManager: false,
       height: 'auto',
-      allowScripts: true,
-      /*
-      width: 'auto', */
+      jsInHtml: false,
 
       plugins: [webpagePreset],
       pluginsOpts: {
@@ -120,32 +139,47 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
       },
     });
 
-    const innerWindow = this._editor.Canvas.getWindow();
-    innerWindow.appWebsocket = this._compositoryService.appWebsocket;
-    innerWindow.cellId = this.cellId;
-    innerWindow.zomes = {};
+    this._editor.Canvas.getFrameEl().addEventListener('load', async () => {
+      const iframe = this._editor.Canvas.getFrameEl();
+      this.setupIframe(iframe);
 
-    const promises = renderers.map(([zomeDef, setupLensesFile]) =>
-      this.addZomeLenses(zomeDef, setupLensesFile)
-    );
+      const promises = this._zomeLenses.map(([zomeDef, setupLensesFile]) =>
+        this.addZomeLensesToGrapes(zomeDef, setupLensesFile, this._editor)
+      );
+      await Promise.all(promises);
 
-    await Promise.all(promises);
-
-    setInterval(()=>{
-      console.log(this._editor.getHtml(), this._editor.getJs());
-    }, 1000)
+      this.addRenderTemplateJs(iframe);
+    });
   }
 
-  esm(js: string) {
-    return 'data:text/javascript;charset=utf-8,' + encodeURIComponent(js);
+  setupIframe(iframe: HTMLIFrameElement) {
+    const innerWindow = iframe.contentWindow as Window;
+    (innerWindow as any).appWebsocket = this._compositoryService.appWebsocket;
+    (innerWindow as any).cellId = this.cellId;
+    (innerWindow as any).zomes = {};
   }
-  async addZomeLenses(zomeDef: ZomeDef, setupLensesFile: File) {
-    // prettier-ignore
-    //eslint-disable-next-line
+
+  addRenderTemplateJs(iframe: HTMLIFrameElement) {
+    const innerWindow = iframe.contentWindow as Window;
+
+    if (this._templateToRender) {
+      const s = innerWindow.document.createElement('script');
+      s.innerHTML = this._templateToRender.js;
+      innerWindow.document.body.appendChild(s);
+    }
+  }
+
+  async addZomeLensesToGrapes(
+    zomeDef: ZomeDef,
+    setupLensesFile: File,
+    editor: any
+  ) {
     const text = await setupLensesFile.text();
 
-    // prettier-ignore
-    const lensesModule = await import(this.esm(text));
+    const iframeEl = editor.Canvas.getFrameEl();
+    await this.addZomeLensesToIframe(zomeDef, text, iframeEl);
+
+    const lensesModule = await import(esm(text));
     const lenses: Lenses = lensesModule.default(
       this._compositoryService.appWebsocket,
       this.cellId
@@ -154,29 +188,16 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
     for (let i = 0; i < lenses.standalone.length; i++) {
       const lens = lenses.standalone[i];
 
-      this._editor.Canvas.getWindow().zomes[zomeDef.name] = { code: text };
       // prettier-ignore
-      const script = await import(this.esm(`
+      const script = await import(esm(`
         export default function render() {
-          function esm(js) {
-            return 'data:text/javascript;charset=utf-8,' + encodeURIComponent(js);
-          }
-      
-          async function setupLenses() {
-            if (window.zomes.${zomeDef.name}.lenses) return;
-            const mod = await import(esm(window.zomes.${zomeDef.name}.code));
-            window.zomes.${zomeDef.name}.lenses = mod.default(window.appWebsocket, window.cellId);
-          }
-          
-          setupLenses().then(()=> {
             window.zomes.${zomeDef.name}.lenses.standalone[${i}].render(this)
-          });
         }`
       ));
 
       const componentName = `${zomeDef.name}: ${lens.name}`;
 
-      this._editor.Components.addType(componentName, {
+      editor.Components.addType(componentName, {
         model: {
           defaults: {
             script: script.default,
@@ -184,7 +205,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
         },
       });
 
-      this._editor.BlockManager.add(`block-${zomeDef.name}-${lens.name}`, {
+      editor.BlockManager.add(`block-${zomeDef.name}-${lens.name}`, {
         label: lens.name,
         attributes: {
           class: 'gjs-block fa fa-slideshare',
@@ -197,18 +218,36 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
     }
   }
 
-  async loadSavedNodes() {
-    /*     const myNodes = await this.grapesService.getMyBoardNodes();
+  async addZomeLensesToIframe(
+    zomeDef: ZomeDef,
+    setupLensesFileText: string,
+    iframe: HTMLIFrameElement
+  ) {
+    const innerWindow = iframe.contentWindow as Window;
+    const innerDocument = iframe.contentDocument as Document;
+    (innerWindow as any).zomes[zomeDef.name] = { code: setupLensesFileText };
 
-    if (myNodes.length === 0) {
-      const allNodes = await this.grapesService.getAllBoardNodes();
-      this._savedBlockNode = allNodes[0];
-    } else {
-      this._savedBlockNode = myNodes[0];
+    const s = innerDocument.createElement('script');
+    s.innerHTML = `function esm(js) {
+      return 'data:text/javascript;charset=utf-8,' + encodeURIComponent(js);
+    }
+    async function setupLenses() {
+      if (window.zomes.${zomeDef.name}.lenses) return;
+      const mod = await import(esm(window.zomes.${zomeDef.name}.code));
+      window.zomes.${zomeDef.name}.lenses = mod.default(window.appWebsocket, window.cellId);
+    }
+    setupLenses()`;
+    innerDocument.body.appendChild(s);
+  }
+
+  async loadRenderTemplate() {
+    const templates = await this._grapesService.getAllRenderTemplates();
+
+    if (templates.length > 0) {
+      this._templateToRender = templates[0];
     }
 
-    this._editing = !this._savedBlockNode;
- */
+    this._editing = !this._templateToRender;
   }
 
   async loadProfilesExists() {
@@ -238,20 +277,9 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
       this.cellId
     );
 
-    const blocks = zomeLenses.filter(
+    this._zomeLenses = zomeLenses.filter(
       ([def, setupLenses]) => setupLenses !== undefined
     ) as [ZomeDef, File][];
-
-    return blocks;
-  }
-
-  async createBoard() {
-    /*     this._editing = false;
-    if (JSON.stringify(this._savedBlockNode) !== JSON.stringify(layout)) {
-      this._savedBlockNode = layout;
-      await this.grapesService.createBoardNode(layout);
-    }
- */
   }
 
   showProfilePromt() {
@@ -263,8 +291,8 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
   }
 
   renderBarItems() {
-    /* if (this._loading || this.showProfilePromt()) */ return html``;
-    /*     if (!this._editing)
+    if (this._loading || this.showProfilePromt()) return html``;
+    if (!this._editing)
       return html` <mwc-button
         icon="edit"
         slot="actionItems"
@@ -279,14 +307,22 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
           icon="save"
           slot="actionItems"
           label="Save Layout"
-          .disabled=${!this.board || this.board.isEditingLayoutEmpty()}
           class="white-button"
-          @click=${() => {
-            const newLayout = this.board.save();
-            this.createBoard(newLayout);
+          @click=${async () => {
+            const editor = this._editor;
+
+            const css = editor.getCss();
+            const js = editor.getJs();
+            const html = editor.getHtml();
+
+            const template = { css, js, html };
+
+            await this._grapesService.saveRenderTemplate(template);
+            this._templateToRender = template;
+            this._editing = false;
           }}
         ></mwc-button>
-        ${this._savedBlockNode
+        ${this._templateToRender
           ? html`
               <mwc-button
                 icon="close"
@@ -300,13 +336,10 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
             `
           : html``} `;
     }
- */
   }
 
   renderContent() {
-    return html` <div id="grapes-container"></div> `;
-
-    /*     if (this._loading)
+    if (this._loading)
       return html`<div class="fill center-content">
         <mwc-circular-progress indeterminate></mwc-circular-progress>
       </div>`;
@@ -320,17 +353,8 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
           ></create-profile-form>
         </div>
       `;
-    else
-      return html`
-        <block-board
-          id="board"
-          style="flex: 1;"
-          .editing=${this._editing}
-          .blockSets=${this._blockSets}
-          .initialBlockLayout=${this._savedBlockNode}
-          @layout-updated=${() => this.requestUpdate()}
-        ></block-board>
-      `; */
+    else if (this._editing) return html` <div id="grapes-container"></div> `;
+    else return html` <iframe id="render-iframe" style="flex: 1;"></iframe> `;
   }
 
   render() {
@@ -359,6 +383,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
     return {
       'mwc-top-app-bar': TopAppBar,
       'mwc-icon-button': IconButton,
+      'mwc-button': Button,
       'mwc-circular-progress': CircularProgress,
     };
   }

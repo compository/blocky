@@ -19,6 +19,7 @@
       import { html, render } from 'lit-html';
       import { DnaGrapes } from '../dist';
       import { CompositoryServiceMock } from '../test/compository-service.mock';
+      import { GrapesServiceMock } from '../test/grapes-service.mock';
       import ConductorApi from '@holochain/conductor-api';
 
       (async function () {
@@ -37,6 +38,9 @@
           class extends DnaGrapes {
             get _compositoryService() {
               return new CompositoryServiceMock();
+            }
+            get _grapesService() {
+              return new GrapesServiceMock();
             }
           }
         );
