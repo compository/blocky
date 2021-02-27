@@ -50,7 +50,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
 
   @query('#grapes-container')
   _grapesContainer!: HTMLElement;
-  
+
   _editor!: any;
 
   abstract get _compositoryService(): CompositoryService;
@@ -66,12 +66,46 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
 
     this._editor = grapesjs.init({
       container: this._grapesContainer,
+      components: `<div class="row"><div class="cell"><div id="i8f3"></div></div><div class="cell"><div id="ivml"></div></div></div><script>var items = document.querySelectorAll('#i8f3');
+      console.log('asfd')
+      for (var i = 0, len = items.length; i < len; i++) {
+        (function(){function esm(js) {
+        return 'data:text/javascript;charset=utf-8,' + encodeURIComponent(js);
+      }
+  
+      async function setupLenses() {
+        if (window.zomes.sample_zome.lenses) return;
+        const mod = await import(esm(window.zomes.sample_zome.code));
+        window.zomes.sample_zome.lenses = mod.default(window.appWebsocket, window.cellId);
+      }
+      
+      setupLenses().then(()=> {
+        window.zomes.sample_zome.lenses.standalone[0].render(this)
+      });}.bind(items[i]))();
+      }
+      var items = document.querySelectorAll('#ivml');
+      for (var i = 0, len = items.length; i < len; i++) {
+        (function(){function esm(js) {
+        return 'data:text/javascript;charset=utf-8,' + encodeURIComponent(js);
+      }
+  
+      async function setupLenses() {
+        if (window.zomes.sample_zome.lenses) return;
+        const mod = await import(esm(window.zomes.sample_zome.code));
+        window.zomes.sample_zome.lenses = mod.default(window.appWebsocket, window.cellId);
+      }
+      
+      setupLenses().then(()=> {
+        window.zomes.sample_zome.lenses.standalone[1].render(this)
+      });}.bind(items[i]))();
+      }</script>`,
       // Get the content for the canvas directly from the element
       // As an alternative we could use: `components: '<h1>Hello World Component!</h1>'`,
       fromElement: false,
       // Disable the storage manager for the moment
       storageManager: false,
       height: 'auto',
+      allowScripts: true,
       /*
       width: 'auto', */
 
@@ -81,11 +115,11 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
           navbarOpts: false,
           formsOpts: false,
           exportOpts: false,
-          countdownOpts: false
+          countdownOpts: false,
         },
       },
     });
-    
+
     const innerWindow = this._editor.Canvas.getWindow();
     innerWindow.appWebsocket = this._compositoryService.appWebsocket;
     innerWindow.cellId = this.cellId;
@@ -96,6 +130,10 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
     );
 
     await Promise.all(promises);
+
+    setInterval(()=>{
+      console.log(this._editor.getHtml(), this._editor.getJs());
+    }, 1000)
   }
 
   esm(js: string) {
