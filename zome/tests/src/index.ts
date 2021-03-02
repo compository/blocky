@@ -10,9 +10,10 @@ import path from "path";
 const conductorConfig = Config.gen({});
 
 // Construct proper paths for your DNAs
-const calendarEvents = path.join(__dirname, "../../grapes.dna.gz");
+const calendarEvents = path.join(__dirname, "../../test-happ.happ");
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(() => resolve(), ms));
+const sleep = (ms) =>
+  new Promise((resolve) => setTimeout(() => resolve(null), ms));
 
 const orchestrator = new Orchestrator();
 
@@ -42,10 +43,10 @@ orchestrator.registerScenario(
     const [[alice_happ], [bob_happ]] = await player.installAgentsHapps(
       installation
     );
+    /* 
 
     const alice_calendar = alice_happ.cells[0];
     const bob_calendar = bob_happ.cells[0];
-
     let calendarEvent = await alice_calendar.call(
       "grapes",
       "create_calendar_event",
@@ -67,7 +68,7 @@ orchestrator.registerScenario(
       null
     );
     t.equal(calendarEvents.length, 1);
-
+ */
   }
 );
 

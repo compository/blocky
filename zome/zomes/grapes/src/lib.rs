@@ -1,25 +1,31 @@
+use std::collections::HashMap;
+
 use hc_utils::WrappedEntryHash;
-use hdk3::prelude::*;
+use hdk::prelude::*;
 
 pub fn err(reason: &str) -> WasmError {
-    WasmError::Zome(String::from(reason))
+    WasmError::Guest(String::from(reason))
 }
 
-#[hdk_entry(id = "block_node")]
+#[hdk_entry(id = "render_template")]
 #[derive(Clone)]
-pub struct BlockNode(String);
+pub struct RenderTemplate {
+    css: String,
+    js: String,
+    html: String,
+}
 
-entry_defs![Path::entry_def(), BlockNode::entry_def()];
+entry_defs![Path::entry_def(), RenderTemplate::entry_def()];
 
 /** Calendar events **/
 
 #[hdk_extern]
-pub fn create_block_node(board: BlockNode) -> ExternResult<WrappedEntryHash> {
+pub fn save_render_template(board: RenderTemplate) -> ExternResult<WrappedEntryHash> {
     create_entry(&board)?;
 
     let board_hash = hash_entry(&board)?;
 
-    let path = Path::from("block_nodes");
+    let path = all_templates_path();
 
     path.ensure()?;
 
@@ -28,59 +34,27 @@ pub fn create_block_node(board: BlockNode) -> ExternResult<WrappedEntryHash> {
     Ok(WrappedEntryHash(board_hash))
 }
 
-#[derive(Clone, Serialize, Deserialize, SerializedBytes, Debug)]
-pub struct GetBlockNodesOutput(Vec<(WrappedEntryHash, BlockNode)>);
 #[hdk_extern]
-pub fn get_all_block_nodes(_: ()) -> ExternResult<GetBlockNodesOutput> {
-    let path = Path::from("block_nodes");
+pub fn get_all_render_templates(_: ()) -> ExternResult<HashMap<WrappedEntryHash, RenderTemplate>> {
+    let links = get_links(all_templates_path().hash()?, None)?;
 
-    let links = get_links(path.hash()?, None)?;
+    let mut templates: HashMap<WrappedEntryHash, RenderTemplate> = HashMap::new();
 
-    let boards: Vec<(WrappedEntryHash, BlockNode)> = links
-        .into_inner()
-        .iter()
-        .map(|link| {
-            let element = 
-            let event: BlockNode = utils::try_get_and_convert(link.target.clone())?;
-            Ok((WrappedEntryHash(link.target.clone()), event))
-        })
-        .collect::<ExternResult<Vec<(WrappedEntryHash, BlockNode)>>>()?;
+    for link in links.into_inner() {
+        let maybe_element = get(link.target.clone(), GetOptions::default())?;
 
-    Ok(GetBlockNodesOutput(boards))
+        if let Some(element) = maybe_element {
+            let maybe_template: Option<RenderTemplate> = element.entry().to_app_option()?;
+
+            if let Some(template) = maybe_template {
+                templates.insert(WrappedEntryHash(link.target.clone()), template);
+            }
+        }
+    }
+
+    Ok(templates)
 }
 
-#[hdk_extern]
-pub fn get_my_block_nodes(_: ()) -> ExternResult<GetBlockNodesOutput> {
-    let entry_defs = match entry_defs(())? {
-        EntryDefsCallbackResult::Defs(entry_defs) => Ok(entry_defs),
-        _ => Err(crate::err("Could not find entry defs")),
-    }?;
-
-    let filter = ChainQueryFilter::default()
-        .include_entries(true)
-        .entry_type(EntryType::App(AppEntryType::new(
-            EntryDefIndex::from(
-                entry_defs
-                    .entry_def_id_position(EntryDefId::App("block_node".into()))
-                    .unwrap() as u8,
-            ),
-            zome_info()?.zome_id,
-            EntryVisibility::Public,
-        )));
-    let entries = query(filter)?;
-
-    let boards: Vec<(WrappedEntryHash, BlockNode)> = entries
-        .0
-        .into_iter()
-        .map(|element| {
-            let layout: BlockNode = utils::try_from_element(element.clone())?;
-
-            Ok((
-                WrappedEntryHash(element.header().entry_hash().unwrap().clone()),
-                layout,
-            ))
-        })
-        .collect::<ExternResult<Vec<(WrappedEntryHash, BlockNode)>>>()?;
-
-    Ok(GetBlockNodesOutput(boards))
+fn all_templates_path() -> Path {
+    Path::from("all_render_templates")
 }
