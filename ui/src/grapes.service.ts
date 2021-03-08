@@ -1,3 +1,4 @@
+import { Dictionary } from '@holochain-open-dev/profiles';
 import { AppWebsocket, CellId } from '@holochain/conductor-api';
 import { RenderTemplate } from './types';
 
@@ -12,7 +13,7 @@ export class GrapesService {
     return this.callZome('save_render_template', renderTemplate);
   }
 
-  async getAllRenderTemplates(): Promise<Array<RenderTemplate>> {
+  async getAllRenderTemplates(): Promise<Dictionary<RenderTemplate>> {
     const layouts = await this.callZome('get_all_render_templates', null);
 
     return layouts;

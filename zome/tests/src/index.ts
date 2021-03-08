@@ -10,7 +10,7 @@ import path from "path";
 const conductorConfig = Config.gen({});
 
 // Construct proper paths for your DNAs
-const calendarEvents = path.join(__dirname, "../../test-happ.happ");
+const calendarEvents = path.join(__dirname, "../../grapes.dna.workdir.dna");
 
 const sleep = (ms) =>
   new Promise((resolve) => setTimeout(() => resolve(null), ms));

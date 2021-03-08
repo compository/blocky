@@ -154,7 +154,7 @@ checksum = "d7afe4a420e3fe79967a00898cc1f4db7c8a49a9333a29f8a4bd76a253d5cd04"
 [[package]]
 name = "hc_utils"
 version = "0.2.0"
-source = "git+https://github.com/guillemcordoba/hc-utils?branch=hash-eq#c63ddd9b002248f6f412764bf542c833d1a1a79f"
+source = "git+https://github.com/holochain/hc-utils?branch=develop#f4b38f37568cc60a2d853ec1ee39c88812f5df5b"
 dependencies = [
  "hdk",
  "holo_hash",
@@ -164,9 +164,9 @@ dependencies = [
 
 [[package]]
 name = "hdk"
-version = "0.0.100-alpha.1"
+version = "0.0.100"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3c2e96acb51d89fd9dcb6d0acad04dca06ed522e62e8477e4da62eafe2ca6c61"
+checksum = "b2c7b2a32928f5116f3073d1579c6b42753aacfd7013beebd657f902a4e5e016"
 dependencies = [
  "hdk_derive",
  "holo_hash",

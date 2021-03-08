@@ -5,4 +5,4 @@ uuid: 00000000-0000-0000-0000-000000000000
 properties: ~
 zomes: 
   - name: grapes
-    path: ../target/wasm32-unknown-unknown/release/grapes.wasm
+    bundled: ../target/wasm32-unknown-unknown/release/grapes.wasm

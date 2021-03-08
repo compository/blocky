@@ -17,21 +17,20 @@
 
     <script type="module">
       import { html, render } from 'lit-html';
-      import { DnaGrapes } from '../dist';
+      import { DnaGrapes, GrapesService } from '../dist';
       import { CompositoryServiceMock } from '../test/compository-service.mock';
       import { GrapesServiceMock } from '../test/grapes-service.mock';
       import ConductorApi from '@holochain/conductor-api';
 
       (async function () {
-        /* 
+        
         const app = await ConductorApi.AppWebsocket.connect(
           'ws://localhost:8888'
         );
-
         const appInfo = await app.appInfo({ installed_app_id: 'test-app' });
 
-        const cellId = appInfo.cell_data[0][0];
- */
+        const cellId = appInfo.cell_data[0].cell_id;
+ 
 
         customElements.define(
           'dna-grapes',
@@ -40,10 +39,10 @@
               return new CompositoryServiceMock();
             }
             get _grapesService() {
-              return new GrapesServiceMock();
+              return new GrapesService(app, cellId);
             }
           }
-        );
+        );/* 
         document.getElementById('grapes').cellId = [
           Uint8Array.from(
             [0x84, 0x20, 0x24].concat(
@@ -59,7 +58,7 @@
                 .map(x => parseInt(x, 10))
             )
           ),
-        ];
+        ]; */
       })();
     </script>
   </body>

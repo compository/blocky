@@ -9,9 +9,6 @@ import {
 } from 'lit-element';
 import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
 
-import { AppWebsocket, CellId } from '@holochain/conductor-api';
-import { serializeHash } from '@holochain-open-dev/core-types';
-import { styleMap } from 'lit-html/directives/style-map';
 import { TopAppBar } from 'scoped-material-components/mwc-top-app-bar';
 import { IconButton } from 'scoped-material-components/mwc-icon-button';
 import { CreateProfileForm } from '@holochain-open-dev/profiles';
@@ -19,7 +16,6 @@ import {
   CompositoryService,
   fetchLensesForAllZomes,
   Lenses,
-  SetupLenses,
   ZomeDef,
 } from '@compository/lib';
 import { sharedStyles } from '../sharedStyles';
@@ -36,9 +32,6 @@ import { RenderTemplate } from '../types';
 import { esm } from '../utils';
 
 export abstract class DnaGrapes extends Scoped(LitElement) {
-  @property({ type: Array })
-  cellId!: CellId;
-
   @property({ type: Boolean })
   _profilesZomeExistsInDna = false;
   @property({ type: Boolean })
@@ -155,7 +148,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
   setupIframe(iframe: HTMLIFrameElement) {
     const innerWindow = iframe.contentWindow as Window;
     (innerWindow as any).appWebsocket = this._compositoryService.appWebsocket;
-    (innerWindow as any).cellId = this.cellId;
+    (innerWindow as any).cellId = this._grapesService.cellId;
     (innerWindow as any).zomes = {};
   }
 
@@ -182,7 +175,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
     const lensesModule = await import(esm(text));
     const lenses: Lenses = lensesModule.default(
       this._compositoryService.appWebsocket,
-      this.cellId
+      this._grapesService.cellId
     );
 
     for (let i = 0; i < lenses.standalone.length; i++) {
@@ -243,8 +236,8 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
   async loadRenderTemplate() {
     const templates = await this._grapesService.getAllRenderTemplates();
 
-    if (templates.length > 0) {
-      this._templateToRender = templates[0];
+    if (Object.values(templates).length > 0) {
+      this._templateToRender = Object.values(templates)[0];
     }
 
     this._editing = !this._templateToRender;
@@ -274,7 +267,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
     // Get the renderers for each of the zomes
     const zomeLenses = await fetchLensesForAllZomes(
       this._compositoryService,
-      this.cellId
+      this._grapesService.cellId
     );
 
     this._zomeLenses = zomeLenses.filter(
@@ -296,7 +289,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
       return html` <mwc-button
         icon="edit"
         slot="actionItems"
-        label="Edit Layout"
+        label="Edit App Layout"
         class="white-button"
         @click=${() => {
           this._editing = true;
@@ -306,7 +299,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
       return html`<mwc-button
           icon="save"
           slot="actionItems"
-          label="Save Layout"
+          label="Save App Layout"
           class="white-button"
           @click=${async () => {
             const editor = this._editor;
