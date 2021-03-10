@@ -14,31 +14,31 @@ PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* window Reflect, Promise */
 
-var extendStatics$1 = function(d, b) {
-    extendStatics$1 = Object.setPrototypeOf ||
+var extendStatics$2 = function(d, b) {
+    extendStatics$2 = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
         function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return extendStatics$1(d, b);
+    return extendStatics$2(d, b);
 };
 
-function __extends$1(d, b) {
-    extendStatics$1(d, b);
+function __extends$2(d, b) {
+    extendStatics$2(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-var __assign$1 = function() {
-    __assign$1 = Object.assign || function __assign(t) {
+var __assign$2 = function() {
+    __assign$2 = Object.assign || function __assign(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
             s = arguments[i];
             for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
         }
         return t;
     };
-    return __assign$1.apply(this, arguments);
+    return __assign$2.apply(this, arguments);
 };
 
-function __decorate$2(decorators, target, key, desc) {
+function __decorate$3(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -2377,44 +2377,6 @@ UpdatingElement$1[_a$1] = true;
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
  */
-const legacyCustomElement = (tagName, clazz) => {
-    window.customElements.define(tagName, clazz);
-    // Cast as any because TS doesn't recognize the return type as being a
-    // subtype of the decorated class when clazz is typed as
-    // `Constructor<HTMLElement>` for some reason.
-    // `Constructor<HTMLElement>` is helpful to make sure the decorator is
-    // applied to elements however.
-    // tslint:disable-next-line:no-any
-    return clazz;
-};
-const standardCustomElement = (tagName, descriptor) => {
-    const { kind, elements } = descriptor;
-    return {
-        kind,
-        elements,
-        // This callback is called once the class is otherwise fully defined
-        finisher(clazz) {
-            window.customElements.define(tagName, clazz);
-        }
-    };
-};
-/**
- * Class decorator factory that defines the decorated class as a custom element.
- *
- * ```
- * @customElement('my-element')
- * class MyElement {
- *   render() {
- *     return html``;
- *   }
- * }
- * ```
- * @category Decorator
- * @param tagName The name of the custom element to define.
- */
-const customElement = (tagName) => (classOrDescriptor) => (typeof classOrDescriptor === 'function') ?
-    legacyCustomElement(tagName, classOrDescriptor) :
-    standardCustomElement(tagName, classOrDescriptor);
 const standardProperty$1 = (options, element) => {
     // When decorating an accessor, pass it through and add property metadata.
     // Note, the `hasOwnProperty` check in `createProperty` ensures we don't
@@ -3608,18 +3570,18 @@ const ScopedElementsMixin$1 = dedupeMixin$1(ScopedElementsMixinImplementation$1)
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-var cssClasses$a = {
+var cssClasses$b = {
     FIXED_CLASS: 'mdc-top-app-bar--fixed',
     FIXED_SCROLLED_CLASS: 'mdc-top-app-bar--fixed-scrolled',
     SHORT_CLASS: 'mdc-top-app-bar--short',
     SHORT_COLLAPSED_CLASS: 'mdc-top-app-bar--short-collapsed',
     SHORT_HAS_ACTION_ITEM_CLASS: 'mdc-top-app-bar--short-has-action-item',
 };
-var numbers$8 = {
+var numbers$9 = {
     DEBOUNCE_THROTTLE_RESIZE_TIME_MS: 100,
     MAX_TOP_APP_BAR_HEIGHT: 128,
 };
-var strings$8 = {
+var strings$9 = {
     ACTION_ITEM_SELECTOR: '.mdc-top-app-bar__action-item',
     NAVIGATION_EVENT: 'MDCTopAppBar:nav',
     NAVIGATION_ICON_SELECTOR: '.mdc-top-app-bar__navigation-icon',
@@ -3649,7 +3611,7 @@ var strings$8 = {
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-var MDCFoundation$1 = /** @class */ (function () {
+var MDCFoundation$2 = /** @class */ (function () {
     function MDCFoundation(adapter) {
         if (adapter === void 0) { adapter = {}; }
         this.adapter = adapter;
@@ -3723,28 +3685,28 @@ var MDCFoundation$1 = /** @class */ (function () {
  * THE SOFTWARE.
  */
 var MDCTopAppBarBaseFoundation = /** @class */ (function (_super) {
-    __extends$1(MDCTopAppBarBaseFoundation, _super);
+    __extends$2(MDCTopAppBarBaseFoundation, _super);
     /* istanbul ignore next: optional argument is not a branch statement */
     function MDCTopAppBarBaseFoundation(adapter) {
-        return _super.call(this, __assign$1(__assign$1({}, MDCTopAppBarBaseFoundation.defaultAdapter), adapter)) || this;
+        return _super.call(this, __assign$2(__assign$2({}, MDCTopAppBarBaseFoundation.defaultAdapter), adapter)) || this;
     }
     Object.defineProperty(MDCTopAppBarBaseFoundation, "strings", {
         get: function () {
-            return strings$8;
+            return strings$9;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MDCTopAppBarBaseFoundation, "cssClasses", {
         get: function () {
-            return cssClasses$a;
+            return cssClasses$b;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MDCTopAppBarBaseFoundation, "numbers", {
         get: function () {
-            return numbers$8;
+            return numbers$9;
         },
         enumerable: true,
         configurable: true
@@ -3778,7 +3740,7 @@ var MDCTopAppBarBaseFoundation = /** @class */ (function (_super) {
         this.adapter.notifyNavigationIconClicked();
     };
     return MDCTopAppBarBaseFoundation;
-}(MDCFoundation$1));
+}(MDCFoundation$2));
 
 /**
  * @license
@@ -3804,7 +3766,7 @@ var MDCTopAppBarBaseFoundation = /** @class */ (function (_super) {
  */
 var INITIAL_VALUE = 0;
 var MDCTopAppBarFoundation = /** @class */ (function (_super) {
-    __extends$1(MDCTopAppBarFoundation, _super);
+    __extends$2(MDCTopAppBarFoundation, _super);
     /* istanbul ignore next: optional argument is not a branch statement */
     function MDCTopAppBarFoundation(adapter) {
         var _this = _super.call(this, adapter) || this;
@@ -3872,7 +3834,7 @@ var MDCTopAppBarFoundation = /** @class */ (function (_super) {
             this.resizeThrottleId_ = setTimeout(function () {
                 _this.resizeThrottleId_ = INITIAL_VALUE;
                 _this.throttledResizeHandler_();
-            }, numbers$8.DEBOUNCE_THROTTLE_RESIZE_TIME_MS);
+            }, numbers$9.DEBOUNCE_THROTTLE_RESIZE_TIME_MS);
         }
         this.isCurrentlyBeingResized_ = true;
         if (this.resizeDebounceId_) {
@@ -3882,7 +3844,7 @@ var MDCTopAppBarFoundation = /** @class */ (function (_super) {
             _this.handleTargetScroll();
             _this.isCurrentlyBeingResized_ = false;
             _this.resizeDebounceId_ = INITIAL_VALUE;
-        }, numbers$8.DEBOUNCE_THROTTLE_RESIZE_TIME_MS);
+        }, numbers$9.DEBOUNCE_THROTTLE_RESIZE_TIME_MS);
     };
     /**
      * Function to determine if the DOM needs to update.
@@ -3918,7 +3880,7 @@ var MDCTopAppBarFoundation = /** @class */ (function (_super) {
             // so the top app bar doesn't show if the window resizes and the new height > the old height.
             var offset = this.currentAppBarOffsetTop_;
             if (Math.abs(offset) >= this.topAppBarHeight_) {
-                offset = -numbers$8.MAX_TOP_APP_BAR_HEIGHT;
+                offset = -numbers$9.MAX_TOP_APP_BAR_HEIGHT;
             }
             this.adapter.setStyle('top', offset + 'px');
         }
@@ -3974,14 +3936,14 @@ function closest(element, selector) {
     }
     var el = element;
     while (el) {
-        if (matches$1(el, selector)) {
+        if (matches$2(el, selector)) {
             return el;
         }
         el = el.parentElement;
     }
     return null;
 }
-function matches$1(element, selector) {
+function matches$2(element, selector) {
     var nativeMatches = element.matches
         || element.webkitMatchesSelector
         || element.msMatchesSelector;
@@ -4016,7 +3978,7 @@ function findAssignedElement(slot, selector) {
     for (const node of slot.assignedNodes({ flatten: true })) {
         if (isNodeElement(node)) {
             const el = node;
-            if (matches$1(el, selector)) {
+            if (matches$2(el, selector)) {
                 return el;
             }
         }
@@ -4284,7 +4246,7 @@ class TopAppBarBaseBase extends BaseElement$1 {
     }
     createAdapter() {
         return Object.assign(Object.assign({}, addHasRemoveClass(this.mdcRoot)), { setStyle: (property, value) => this.mdcRoot.style.setProperty(property, value), getTopAppBarHeight: () => this.mdcRoot.clientHeight, notifyNavigationIconClicked: () => {
-                this.dispatchEvent(new Event(strings$8.NAVIGATION_EVENT, { bubbles: true, cancelable: true }));
+                this.dispatchEvent(new Event(strings$9.NAVIGATION_EVENT, { bubbles: true, cancelable: true }));
             }, getViewportScrollY: () => this.scrollTarget instanceof Window ?
                 this.scrollTarget.pageYOffset :
                 this.scrollTarget.scrollTop, getTotalActionItems: () => this._actionItemsSlot
@@ -4313,16 +4275,16 @@ class TopAppBarBaseBase extends BaseElement$1 {
         this.unregisterListeners();
     }
 }
-__decorate$2([
+__decorate$3([
     query$1('.mdc-top-app-bar')
 ], TopAppBarBaseBase.prototype, "mdcRoot", void 0);
-__decorate$2([
+__decorate$3([
     query$1('slot[name="actionItems"]')
 ], TopAppBarBaseBase.prototype, "_actionItemsSlot", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], TopAppBarBaseBase.prototype, "centerTitle", void 0);
-__decorate$2([
+__decorate$3([
     property$1()
 ], TopAppBarBaseBase.prototype, "scrollTarget", null);
 
@@ -4360,10 +4322,10 @@ class TopAppBarBase extends TopAppBarBaseBase {
         window.removeEventListener('resize', this.handleResize);
     }
 }
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean, reflect: true })
 ], TopAppBarBase.prototype, "prominent", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean, reflect: true })
 ], TopAppBarBase.prototype, "dense", void 0);
 
@@ -4383,11 +4345,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const style$g = css$1 `.mdc-top-app-bar{background-color:#6200ee;background-color:var(--mdc-theme-primary, #6200ee);color:white;display:flex;position:fixed;flex-direction:column;justify-content:space-between;box-sizing:border-box;width:100%;z-index:4}.mdc-top-app-bar .mdc-top-app-bar__action-item,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon{color:#fff;color:var(--mdc-theme-on-primary, #fff)}.mdc-top-app-bar .mdc-top-app-bar__action-item::before,.mdc-top-app-bar .mdc-top-app-bar__action-item::after,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon::before,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon::after{background-color:#fff;background-color:var(--mdc-ripple-color, var(--mdc-theme-on-primary, #fff))}.mdc-top-app-bar .mdc-top-app-bar__action-item:hover::before,.mdc-top-app-bar .mdc-top-app-bar__action-item.mdc-ripple-surface--hover::before,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon:hover::before,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon.mdc-ripple-surface--hover::before{opacity:0.08;opacity:var(--mdc-ripple-hover-opacity, 0.08)}.mdc-top-app-bar .mdc-top-app-bar__action-item.mdc-ripple-upgraded--background-focused::before,.mdc-top-app-bar .mdc-top-app-bar__action-item:not(.mdc-ripple-upgraded):focus::before,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded--background-focused::before,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-focus-opacity, 0.24)}.mdc-top-app-bar .mdc-top-app-bar__action-item:not(.mdc-ripple-upgraded)::after,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-top-app-bar .mdc-top-app-bar__action-item:not(.mdc-ripple-upgraded):active::after,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-press-opacity, 0.24)}.mdc-top-app-bar .mdc-top-app-bar__action-item.mdc-ripple-upgraded,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.24)}.mdc-top-app-bar__row{display:flex;position:relative;box-sizing:border-box;width:100%;height:64px}.mdc-top-app-bar__section{display:inline-flex;flex:1 1 auto;align-items:center;min-width:0;padding:8px 12px;z-index:1}.mdc-top-app-bar__section--align-start{justify-content:flex-start;order:-1}.mdc-top-app-bar__section--align-end{justify-content:flex-end;order:1}.mdc-top-app-bar__title{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-headline6-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1.25rem;font-size:var(--mdc-typography-headline6-font-size, 1.25rem);line-height:2rem;line-height:var(--mdc-typography-headline6-line-height, 2rem);font-weight:500;font-weight:var(--mdc-typography-headline6-font-weight, 500);letter-spacing:0.0125em;letter-spacing:var(--mdc-typography-headline6-letter-spacing, 0.0125em);text-decoration:inherit;text-decoration:var(--mdc-typography-headline6-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-headline6-text-transform, inherit);padding-left:20px;padding-right:0;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;z-index:1}[dir=rtl] .mdc-top-app-bar__title,.mdc-top-app-bar__title[dir=rtl]{padding-left:0;padding-right:20px}.mdc-top-app-bar--short-collapsed{border-top-left-radius:0;border-top-right-radius:0;border-bottom-right-radius:24px;border-bottom-left-radius:0}[dir=rtl] .mdc-top-app-bar--short-collapsed,.mdc-top-app-bar--short-collapsed[dir=rtl]{border-top-left-radius:0;border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:24px}.mdc-top-app-bar--short{top:0;right:auto;left:0;width:100%;transition:width 250ms cubic-bezier(0.4, 0, 0.2, 1)}[dir=rtl] .mdc-top-app-bar--short,.mdc-top-app-bar--short[dir=rtl]{right:0;left:auto}.mdc-top-app-bar--short .mdc-top-app-bar__row{height:56px}.mdc-top-app-bar--short .mdc-top-app-bar__section{padding:4px}.mdc-top-app-bar--short .mdc-top-app-bar__title{transition:opacity 200ms cubic-bezier(0.4, 0, 0.2, 1);opacity:1}.mdc-top-app-bar--short-collapsed{box-shadow:0px 2px 4px -1px rgba(0, 0, 0, 0.2),0px 4px 5px 0px rgba(0, 0, 0, 0.14),0px 1px 10px 0px rgba(0,0,0,.12);width:56px;transition:width 300ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-top-app-bar--short-collapsed .mdc-top-app-bar__title{display:none}.mdc-top-app-bar--short-collapsed .mdc-top-app-bar__action-item{transition:padding 150ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-top-app-bar--short-collapsed.mdc-top-app-bar--short-has-action-item{width:112px}.mdc-top-app-bar--short-collapsed.mdc-top-app-bar--short-has-action-item .mdc-top-app-bar__section--align-end{padding-left:0;padding-right:12px}[dir=rtl] .mdc-top-app-bar--short-collapsed.mdc-top-app-bar--short-has-action-item .mdc-top-app-bar__section--align-end,.mdc-top-app-bar--short-collapsed.mdc-top-app-bar--short-has-action-item .mdc-top-app-bar__section--align-end[dir=rtl]{padding-left:12px;padding-right:0}.mdc-top-app-bar--dense .mdc-top-app-bar__row{height:48px}.mdc-top-app-bar--dense .mdc-top-app-bar__section{padding:0 4px}.mdc-top-app-bar--dense .mdc-top-app-bar__title{padding-left:12px;padding-right:0}[dir=rtl] .mdc-top-app-bar--dense .mdc-top-app-bar__title,.mdc-top-app-bar--dense .mdc-top-app-bar__title[dir=rtl]{padding-left:0;padding-right:12px}.mdc-top-app-bar--prominent .mdc-top-app-bar__row{height:128px}.mdc-top-app-bar--prominent .mdc-top-app-bar__title{align-self:flex-end;padding-bottom:2px}.mdc-top-app-bar--prominent .mdc-top-app-bar__action-item,.mdc-top-app-bar--prominent .mdc-top-app-bar__navigation-icon{align-self:flex-start}.mdc-top-app-bar--fixed{transition:box-shadow 200ms linear}.mdc-top-app-bar--fixed-scrolled{box-shadow:0px 2px 4px -1px rgba(0, 0, 0, 0.2),0px 4px 5px 0px rgba(0, 0, 0, 0.14),0px 1px 10px 0px rgba(0,0,0,.12);transition:box-shadow 200ms linear}.mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__row{height:96px}.mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__section{padding:0 12px}.mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__title{padding-left:20px;padding-right:0;padding-bottom:9px}[dir=rtl] .mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__title,.mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__title[dir=rtl]{padding-left:0;padding-right:20px}.mdc-top-app-bar--fixed-adjust{padding-top:64px}.mdc-top-app-bar--dense-fixed-adjust{padding-top:48px}.mdc-top-app-bar--short-fixed-adjust{padding-top:56px}.mdc-top-app-bar--prominent-fixed-adjust{padding-top:128px}.mdc-top-app-bar--dense-prominent-fixed-adjust{padding-top:96px}@media(max-width: 599px){.mdc-top-app-bar__row{height:56px}.mdc-top-app-bar__section{padding:4px}.mdc-top-app-bar--short{transition:width 200ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-top-app-bar--short-collapsed{transition:width 250ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-top-app-bar--short-collapsed .mdc-top-app-bar__section--align-end{padding-left:0;padding-right:12px}[dir=rtl] .mdc-top-app-bar--short-collapsed .mdc-top-app-bar__section--align-end,.mdc-top-app-bar--short-collapsed .mdc-top-app-bar__section--align-end[dir=rtl]{padding-left:12px;padding-right:0}.mdc-top-app-bar--prominent .mdc-top-app-bar__title{padding-bottom:6px}.mdc-top-app-bar--fixed-adjust{padding-top:56px}}:host{display:block}.mdc-top-app-bar{color:#fff;color:var(--mdc-theme-on-primary, #fff);width:100%;width:var(--mdc-top-app-bar-width, 100%)}.mdc-top-app-bar--prominent #navigation ::slotted(*),.mdc-top-app-bar--prominent #actions ::slotted(*){align-self:flex-start}#navigation ::slotted(*),#actions ::slotted(*){--mdc-icon-button-ripple-opacity: 0.24}.mdc-top-app-bar--short-collapsed #actions ::slotted(*){transition:padding 150ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-top-app-bar__section--align-center{justify-content:center}.mdc-top-app-bar__section--align-center .mdc-top-app-bar__title{padding-left:0;padding-right:0}.center-title .mdc-top-app-bar__section--align-start,.center-title .mdc-top-app-bar__section--align-end{flex-basis:0}.mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__section--align-center .mdc-top-app-bar__title{padding-left:0;padding-right:0}.mdc-top-app-bar--fixed-scrolled{box-shadow:var(--mdc-top-app-bar-fixed-box-shadow, 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12))}`;
+const style$p = css$1 `.mdc-top-app-bar{background-color:#6200ee;background-color:var(--mdc-theme-primary, #6200ee);color:white;display:flex;position:fixed;flex-direction:column;justify-content:space-between;box-sizing:border-box;width:100%;z-index:4}.mdc-top-app-bar .mdc-top-app-bar__action-item,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon{color:#fff;color:var(--mdc-theme-on-primary, #fff)}.mdc-top-app-bar .mdc-top-app-bar__action-item::before,.mdc-top-app-bar .mdc-top-app-bar__action-item::after,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon::before,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon::after{background-color:#fff;background-color:var(--mdc-ripple-color, var(--mdc-theme-on-primary, #fff))}.mdc-top-app-bar .mdc-top-app-bar__action-item:hover::before,.mdc-top-app-bar .mdc-top-app-bar__action-item.mdc-ripple-surface--hover::before,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon:hover::before,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon.mdc-ripple-surface--hover::before{opacity:0.08;opacity:var(--mdc-ripple-hover-opacity, 0.08)}.mdc-top-app-bar .mdc-top-app-bar__action-item.mdc-ripple-upgraded--background-focused::before,.mdc-top-app-bar .mdc-top-app-bar__action-item:not(.mdc-ripple-upgraded):focus::before,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded--background-focused::before,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-focus-opacity, 0.24)}.mdc-top-app-bar .mdc-top-app-bar__action-item:not(.mdc-ripple-upgraded)::after,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-top-app-bar .mdc-top-app-bar__action-item:not(.mdc-ripple-upgraded):active::after,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-press-opacity, 0.24)}.mdc-top-app-bar .mdc-top-app-bar__action-item.mdc-ripple-upgraded,.mdc-top-app-bar .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.24)}.mdc-top-app-bar__row{display:flex;position:relative;box-sizing:border-box;width:100%;height:64px}.mdc-top-app-bar__section{display:inline-flex;flex:1 1 auto;align-items:center;min-width:0;padding:8px 12px;z-index:1}.mdc-top-app-bar__section--align-start{justify-content:flex-start;order:-1}.mdc-top-app-bar__section--align-end{justify-content:flex-end;order:1}.mdc-top-app-bar__title{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-headline6-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1.25rem;font-size:var(--mdc-typography-headline6-font-size, 1.25rem);line-height:2rem;line-height:var(--mdc-typography-headline6-line-height, 2rem);font-weight:500;font-weight:var(--mdc-typography-headline6-font-weight, 500);letter-spacing:0.0125em;letter-spacing:var(--mdc-typography-headline6-letter-spacing, 0.0125em);text-decoration:inherit;text-decoration:var(--mdc-typography-headline6-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-headline6-text-transform, inherit);padding-left:20px;padding-right:0;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;z-index:1}[dir=rtl] .mdc-top-app-bar__title,.mdc-top-app-bar__title[dir=rtl]{padding-left:0;padding-right:20px}.mdc-top-app-bar--short-collapsed{border-top-left-radius:0;border-top-right-radius:0;border-bottom-right-radius:24px;border-bottom-left-radius:0}[dir=rtl] .mdc-top-app-bar--short-collapsed,.mdc-top-app-bar--short-collapsed[dir=rtl]{border-top-left-radius:0;border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:24px}.mdc-top-app-bar--short{top:0;right:auto;left:0;width:100%;transition:width 250ms cubic-bezier(0.4, 0, 0.2, 1)}[dir=rtl] .mdc-top-app-bar--short,.mdc-top-app-bar--short[dir=rtl]{right:0;left:auto}.mdc-top-app-bar--short .mdc-top-app-bar__row{height:56px}.mdc-top-app-bar--short .mdc-top-app-bar__section{padding:4px}.mdc-top-app-bar--short .mdc-top-app-bar__title{transition:opacity 200ms cubic-bezier(0.4, 0, 0.2, 1);opacity:1}.mdc-top-app-bar--short-collapsed{box-shadow:0px 2px 4px -1px rgba(0, 0, 0, 0.2),0px 4px 5px 0px rgba(0, 0, 0, 0.14),0px 1px 10px 0px rgba(0,0,0,.12);width:56px;transition:width 300ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-top-app-bar--short-collapsed .mdc-top-app-bar__title{display:none}.mdc-top-app-bar--short-collapsed .mdc-top-app-bar__action-item{transition:padding 150ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-top-app-bar--short-collapsed.mdc-top-app-bar--short-has-action-item{width:112px}.mdc-top-app-bar--short-collapsed.mdc-top-app-bar--short-has-action-item .mdc-top-app-bar__section--align-end{padding-left:0;padding-right:12px}[dir=rtl] .mdc-top-app-bar--short-collapsed.mdc-top-app-bar--short-has-action-item .mdc-top-app-bar__section--align-end,.mdc-top-app-bar--short-collapsed.mdc-top-app-bar--short-has-action-item .mdc-top-app-bar__section--align-end[dir=rtl]{padding-left:12px;padding-right:0}.mdc-top-app-bar--dense .mdc-top-app-bar__row{height:48px}.mdc-top-app-bar--dense .mdc-top-app-bar__section{padding:0 4px}.mdc-top-app-bar--dense .mdc-top-app-bar__title{padding-left:12px;padding-right:0}[dir=rtl] .mdc-top-app-bar--dense .mdc-top-app-bar__title,.mdc-top-app-bar--dense .mdc-top-app-bar__title[dir=rtl]{padding-left:0;padding-right:12px}.mdc-top-app-bar--prominent .mdc-top-app-bar__row{height:128px}.mdc-top-app-bar--prominent .mdc-top-app-bar__title{align-self:flex-end;padding-bottom:2px}.mdc-top-app-bar--prominent .mdc-top-app-bar__action-item,.mdc-top-app-bar--prominent .mdc-top-app-bar__navigation-icon{align-self:flex-start}.mdc-top-app-bar--fixed{transition:box-shadow 200ms linear}.mdc-top-app-bar--fixed-scrolled{box-shadow:0px 2px 4px -1px rgba(0, 0, 0, 0.2),0px 4px 5px 0px rgba(0, 0, 0, 0.14),0px 1px 10px 0px rgba(0,0,0,.12);transition:box-shadow 200ms linear}.mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__row{height:96px}.mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__section{padding:0 12px}.mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__title{padding-left:20px;padding-right:0;padding-bottom:9px}[dir=rtl] .mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__title,.mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__title[dir=rtl]{padding-left:0;padding-right:20px}.mdc-top-app-bar--fixed-adjust{padding-top:64px}.mdc-top-app-bar--dense-fixed-adjust{padding-top:48px}.mdc-top-app-bar--short-fixed-adjust{padding-top:56px}.mdc-top-app-bar--prominent-fixed-adjust{padding-top:128px}.mdc-top-app-bar--dense-prominent-fixed-adjust{padding-top:96px}@media(max-width: 599px){.mdc-top-app-bar__row{height:56px}.mdc-top-app-bar__section{padding:4px}.mdc-top-app-bar--short{transition:width 200ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-top-app-bar--short-collapsed{transition:width 250ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-top-app-bar--short-collapsed .mdc-top-app-bar__section--align-end{padding-left:0;padding-right:12px}[dir=rtl] .mdc-top-app-bar--short-collapsed .mdc-top-app-bar__section--align-end,.mdc-top-app-bar--short-collapsed .mdc-top-app-bar__section--align-end[dir=rtl]{padding-left:12px;padding-right:0}.mdc-top-app-bar--prominent .mdc-top-app-bar__title{padding-bottom:6px}.mdc-top-app-bar--fixed-adjust{padding-top:56px}}:host{display:block}.mdc-top-app-bar{color:#fff;color:var(--mdc-theme-on-primary, #fff);width:100%;width:var(--mdc-top-app-bar-width, 100%)}.mdc-top-app-bar--prominent #navigation ::slotted(*),.mdc-top-app-bar--prominent #actions ::slotted(*){align-self:flex-start}#navigation ::slotted(*),#actions ::slotted(*){--mdc-icon-button-ripple-opacity: 0.24}.mdc-top-app-bar--short-collapsed #actions ::slotted(*){transition:padding 150ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-top-app-bar__section--align-center{justify-content:center}.mdc-top-app-bar__section--align-center .mdc-top-app-bar__title{padding-left:0;padding-right:0}.center-title .mdc-top-app-bar__section--align-start,.center-title .mdc-top-app-bar__section--align-end{flex-basis:0}.mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__section--align-center .mdc-top-app-bar__title{padding-left:0;padding-right:0}.mdc-top-app-bar--fixed-scrolled{box-shadow:var(--mdc-top-app-bar-fixed-box-shadow, 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12))}`;
 
 class TopAppBar extends TopAppBarBase {
 }
-TopAppBar.styles = style$g;
+TopAppBar.styles = style$p;
 
 /**
 @license
@@ -4428,7 +4390,7 @@ limitations under the License.
  * }
  * ```
  */
-class RippleHandlers {
+class RippleHandlers$1 {
     constructor(
     /** Function that returns a `mwc-ripple` */
     rippleFn) {
@@ -4481,7 +4443,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const style$f = css$1 `.material-icons{font-family:var(--mdc-icon-font, "Material Icons");font-weight:normal;font-style:normal;font-size:var(--mdc-icon-size, 24px);line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale;font-feature-settings:"liga"}.mdc-icon-button{display:inline-block;position:relative;box-sizing:border-box;border:none;outline:none;background-color:transparent;fill:currentColor;color:inherit;font-size:24px;text-decoration:none;cursor:pointer;user-select:none;width:48px;height:48px;padding:12px}.mdc-icon-button svg,.mdc-icon-button img{width:24px;height:24px}.mdc-icon-button:disabled{color:rgba(0, 0, 0, 0.38);color:var(--mdc-theme-text-disabled-on-light, rgba(0, 0, 0, 0.38))}.mdc-icon-button:disabled{cursor:default;pointer-events:none}.mdc-icon-button__icon{display:inline-block}.mdc-icon-button__icon.mdc-icon-button__icon--on{display:none}.mdc-icon-button--on .mdc-icon-button__icon{display:none}.mdc-icon-button--on .mdc-icon-button__icon.mdc-icon-button__icon--on{display:inline-block}:host{display:inline-block;outline:none;--mdc-ripple-color: currentcolor;-webkit-tap-highlight-color:transparent}:host([disabled]){pointer-events:none}:host,.mdc-icon-button{vertical-align:top}.mdc-icon-button{width:var(--mdc-icon-button-size, 48px);height:var(--mdc-icon-button-size, 48px);padding:calc( (var(--mdc-icon-button-size, 48px) - var(--mdc-icon-size, 24px)) / 2 )}.mdc-icon-button>i{position:absolute;top:0;padding-top:inherit}.mdc-icon-button i,.mdc-icon-button svg,.mdc-icon-button img,.mdc-icon-button ::slotted(*){display:block;width:var(--mdc-icon-size, 24px);height:var(--mdc-icon-size, 24px)}`;
+const style$o = css$1 `.material-icons{font-family:var(--mdc-icon-font, "Material Icons");font-weight:normal;font-style:normal;font-size:var(--mdc-icon-size, 24px);line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale;font-feature-settings:"liga"}.mdc-icon-button{display:inline-block;position:relative;box-sizing:border-box;border:none;outline:none;background-color:transparent;fill:currentColor;color:inherit;font-size:24px;text-decoration:none;cursor:pointer;user-select:none;width:48px;height:48px;padding:12px}.mdc-icon-button svg,.mdc-icon-button img{width:24px;height:24px}.mdc-icon-button:disabled{color:rgba(0, 0, 0, 0.38);color:var(--mdc-theme-text-disabled-on-light, rgba(0, 0, 0, 0.38))}.mdc-icon-button:disabled{cursor:default;pointer-events:none}.mdc-icon-button__icon{display:inline-block}.mdc-icon-button__icon.mdc-icon-button__icon--on{display:none}.mdc-icon-button--on .mdc-icon-button__icon{display:none}.mdc-icon-button--on .mdc-icon-button__icon.mdc-icon-button__icon--on{display:inline-block}:host{display:inline-block;outline:none;--mdc-ripple-color: currentcolor;-webkit-tap-highlight-color:transparent}:host([disabled]){pointer-events:none}:host,.mdc-icon-button{vertical-align:top}.mdc-icon-button{width:var(--mdc-icon-button-size, 48px);height:var(--mdc-icon-button-size, 48px);padding:calc( (var(--mdc-icon-button-size, 48px) - var(--mdc-icon-size, 24px)) / 2 )}.mdc-icon-button>i{position:absolute;top:0;padding-top:inherit}.mdc-icon-button i,.mdc-icon-button svg,.mdc-icon-button img,.mdc-icon-button ::slotted(*){display:block;width:var(--mdc-icon-size, 24px);height:var(--mdc-icon-size, 24px)}`;
 
 /**
  * @license
@@ -4505,7 +4467,7 @@ const style$f = css$1 `.material-icons{font-family:var(--mdc-icon-font, "Materia
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-var cssClasses$9 = {
+var cssClasses$a = {
     // Ripple is a special case where the "root" component is really a "mixin" of sorts,
     // given that it's an 'upgrade' to an existing component. That being said it is the root
     // CSS class that all other CSS classes derive from.
@@ -4515,7 +4477,7 @@ var cssClasses$9 = {
     ROOT: 'mdc-ripple-upgraded',
     UNBOUNDED: 'mdc-ripple-upgraded--unbounded',
 };
-var strings$7 = {
+var strings$8 = {
     VAR_FG_SCALE: '--mdc-ripple-fg-scale',
     VAR_FG_SIZE: '--mdc-ripple-fg-size',
     VAR_FG_TRANSLATE_END: '--mdc-ripple-fg-translate-end',
@@ -4523,7 +4485,7 @@ var strings$7 = {
     VAR_LEFT: '--mdc-ripple-left',
     VAR_TOP: '--mdc-ripple-top',
 };
-var numbers$7 = {
+var numbers$8 = {
     DEACTIVATION_TIMEOUT_MS: 225,
     FG_DEACTIVATION_MS: 150,
     INITIAL_ORIGIN_SCALE: 0.6,
@@ -4535,7 +4497,7 @@ var numbers$7 = {
  * Stores result from supportsCssVariables to avoid redundant processing to
  * detect CSS custom variable support.
  */
-function getNormalizedEventCoords$1(evt, pageOffset, clientRect) {
+function getNormalizedEventCoords$2(evt, pageOffset, clientRect) {
     if (!evt) {
         return { x: 0, y: 0 };
     }
@@ -4581,19 +4543,19 @@ function getNormalizedEventCoords$1(evt, pageOffset, clientRect) {
  * THE SOFTWARE.
  */
 // Activation events registered on the root element of each instance for activation
-var ACTIVATION_EVENT_TYPES$1 = [
+var ACTIVATION_EVENT_TYPES$2 = [
     'touchstart', 'pointerdown', 'mousedown', 'keydown',
 ];
 // Deactivation events registered on documentElement when a pointer-related down event occurs
-var POINTER_DEACTIVATION_EVENT_TYPES$1 = [
+var POINTER_DEACTIVATION_EVENT_TYPES$2 = [
     'touchend', 'pointerup', 'mouseup', 'contextmenu',
 ];
 // simultaneous nested activations
-var activatedTargets$1 = [];
-var MDCRippleFoundation$1 = /** @class */ (function (_super) {
-    __extends$1(MDCRippleFoundation, _super);
+var activatedTargets$2 = [];
+var MDCRippleFoundation$2 = /** @class */ (function (_super) {
+    __extends$2(MDCRippleFoundation, _super);
     function MDCRippleFoundation(adapter) {
-        var _this = _super.call(this, __assign$1(__assign$1({}, MDCRippleFoundation.defaultAdapter), adapter)) || this;
+        var _this = _super.call(this, __assign$2(__assign$2({}, MDCRippleFoundation.defaultAdapter), adapter)) || this;
         _this.activationAnimationHasEnded_ = false;
         _this.activationTimer_ = 0;
         _this.fgDeactivationRemovalTimer_ = 0;
@@ -4617,21 +4579,21 @@ var MDCRippleFoundation$1 = /** @class */ (function (_super) {
     }
     Object.defineProperty(MDCRippleFoundation, "cssClasses", {
         get: function () {
-            return cssClasses$9;
+            return cssClasses$a;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MDCRippleFoundation, "strings", {
         get: function () {
-            return strings$7;
+            return strings$8;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MDCRippleFoundation, "numbers", {
         get: function () {
-            return numbers$7;
+            return numbers$8;
         },
         enumerable: true,
         configurable: true
@@ -4760,7 +4722,7 @@ var MDCRippleFoundation$1 = /** @class */ (function (_super) {
     MDCRippleFoundation.prototype.registerRootHandlers_ = function (supportsPressRipple) {
         var _this = this;
         if (supportsPressRipple) {
-            ACTIVATION_EVENT_TYPES$1.forEach(function (evtType) {
+            ACTIVATION_EVENT_TYPES$2.forEach(function (evtType) {
                 _this.adapter.registerInteractionHandler(evtType, _this.activateHandler_);
             });
             if (this.adapter.isUnbounded()) {
@@ -4776,14 +4738,14 @@ var MDCRippleFoundation$1 = /** @class */ (function (_super) {
             this.adapter.registerInteractionHandler('keyup', this.deactivateHandler_);
         }
         else {
-            POINTER_DEACTIVATION_EVENT_TYPES$1.forEach(function (evtType) {
+            POINTER_DEACTIVATION_EVENT_TYPES$2.forEach(function (evtType) {
                 _this.adapter.registerDocumentInteractionHandler(evtType, _this.deactivateHandler_);
             });
         }
     };
     MDCRippleFoundation.prototype.deregisterRootHandlers_ = function () {
         var _this = this;
-        ACTIVATION_EVENT_TYPES$1.forEach(function (evtType) {
+        ACTIVATION_EVENT_TYPES$2.forEach(function (evtType) {
             _this.adapter.deregisterInteractionHandler(evtType, _this.activateHandler_);
         });
         this.adapter.deregisterInteractionHandler('focus', this.focusHandler_);
@@ -4795,7 +4757,7 @@ var MDCRippleFoundation$1 = /** @class */ (function (_super) {
     MDCRippleFoundation.prototype.deregisterDeactivationHandlers_ = function () {
         var _this = this;
         this.adapter.deregisterInteractionHandler('keyup', this.deactivateHandler_);
-        POINTER_DEACTIVATION_EVENT_TYPES$1.forEach(function (evtType) {
+        POINTER_DEACTIVATION_EVENT_TYPES$2.forEach(function (evtType) {
             _this.adapter.deregisterDocumentInteractionHandler(evtType, _this.deactivateHandler_);
         });
     };
@@ -4829,15 +4791,15 @@ var MDCRippleFoundation$1 = /** @class */ (function (_super) {
         activationState.activationEvent = evt;
         activationState.wasActivatedByPointer = activationState.isProgrammatic ? false : evt !== undefined && (evt.type === 'mousedown' || evt.type === 'touchstart' || evt.type === 'pointerdown');
         var hasActivatedChild = evt !== undefined &&
-            activatedTargets$1.length > 0 &&
-            activatedTargets$1.some(function (target) { return _this.adapter.containsEventTarget(target); });
+            activatedTargets$2.length > 0 &&
+            activatedTargets$2.some(function (target) { return _this.adapter.containsEventTarget(target); });
         if (hasActivatedChild) {
             // Immediately reset activation state, while preserving logic that prevents touch follow-on events
             this.resetActivationState_();
             return;
         }
         if (evt !== undefined) {
-            activatedTargets$1.push(evt.target);
+            activatedTargets$2.push(evt.target);
             this.registerDeactivationHandlers_(evt);
         }
         activationState.wasElementMadeActive = this.checkElementMadeActive_(evt);
@@ -4846,7 +4808,7 @@ var MDCRippleFoundation$1 = /** @class */ (function (_super) {
         }
         requestAnimationFrame(function () {
             // Reset array on next frame after the current event has had a chance to bubble to prevent ancestor ripples
-            activatedTargets$1 = [];
+            activatedTargets$2 = [];
             if (!activationState.wasElementMadeActive
                 && evt !== undefined
                 && (evt.key === ' ' || evt.keyCode === 32)) {
@@ -4901,7 +4863,7 @@ var MDCRippleFoundation$1 = /** @class */ (function (_super) {
         var _a = this.activationState_, activationEvent = _a.activationEvent, wasActivatedByPointer = _a.wasActivatedByPointer;
         var startPoint;
         if (wasActivatedByPointer) {
-            startPoint = getNormalizedEventCoords$1(activationEvent, this.adapter.getWindowPageOffset(), this.adapter.computeBoundingRect());
+            startPoint = getNormalizedEventCoords$2(activationEvent, this.adapter.getWindowPageOffset(), this.adapter.computeBoundingRect());
         }
         else {
             startPoint = {
@@ -4932,7 +4894,7 @@ var MDCRippleFoundation$1 = /** @class */ (function (_super) {
             this.adapter.addClass(FG_DEACTIVATION);
             this.fgDeactivationRemovalTimer_ = setTimeout(function () {
                 _this.adapter.removeClass(FG_DEACTIVATION);
-            }, numbers$7.FG_DEACTIVATION_MS);
+            }, numbers$8.FG_DEACTIVATION_MS);
         }
     };
     MDCRippleFoundation.prototype.rmBoundedActivationClasses_ = function () {
@@ -4956,7 +4918,7 @@ var MDCRippleFoundation$1 = /** @class */ (function (_super) {
         if (!activationState.isActivated) {
             return;
         }
-        var state = __assign$1({}, activationState);
+        var state = __assign$2({}, activationState);
         if (activationState.isProgrammatic) {
             requestAnimationFrame(function () { return _this.animateDeactivation_(state); });
             this.resetActivationState_();
@@ -5017,7 +4979,7 @@ var MDCRippleFoundation$1 = /** @class */ (function (_super) {
         }
     };
     return MDCRippleFoundation;
-}(MDCFoundation$1));
+}(MDCFoundation$2));
 
 /**
  * @license
@@ -5097,7 +5059,7 @@ const styleMap = directive$1((styleInfo) => (part) => {
 });
 
 /** @soyCompatible */
-class RippleBase extends BaseElement$1 {
+class RippleBase$1 extends BaseElement$1 {
     constructor() {
         super(...arguments);
         this.primary = false;
@@ -5116,7 +5078,7 @@ class RippleBase extends BaseElement$1 {
         this.translateEnd = '';
         this.leftPos = '';
         this.topPos = '';
-        this.mdcFoundationClass = MDCRippleFoundation$1;
+        this.mdcFoundationClass = MDCRippleFoundation$2;
     }
     get isActive() {
         return (this.parentElement || this).matches(':active');
@@ -5255,57 +5217,57 @@ class RippleBase extends BaseElement$1 {
         })}"></div>`;
     }
 }
-__decorate$2([
+__decorate$3([
     query$1('.mdc-ripple-surface')
-], RippleBase.prototype, "mdcRoot", void 0);
-__decorate$2([
+], RippleBase$1.prototype, "mdcRoot", void 0);
+__decorate$3([
     property$1({ type: Boolean })
-], RippleBase.prototype, "primary", void 0);
-__decorate$2([
+], RippleBase$1.prototype, "primary", void 0);
+__decorate$3([
     property$1({ type: Boolean })
-], RippleBase.prototype, "accent", void 0);
-__decorate$2([
+], RippleBase$1.prototype, "accent", void 0);
+__decorate$3([
     property$1({ type: Boolean })
-], RippleBase.prototype, "unbounded", void 0);
-__decorate$2([
+], RippleBase$1.prototype, "unbounded", void 0);
+__decorate$3([
     property$1({ type: Boolean })
-], RippleBase.prototype, "disabled", void 0);
-__decorate$2([
+], RippleBase$1.prototype, "disabled", void 0);
+__decorate$3([
     property$1({ type: Boolean })
-], RippleBase.prototype, "activated", void 0);
-__decorate$2([
+], RippleBase$1.prototype, "activated", void 0);
+__decorate$3([
     property$1({ type: Boolean })
-], RippleBase.prototype, "selected", void 0);
-__decorate$2([
+], RippleBase$1.prototype, "selected", void 0);
+__decorate$3([
     internalProperty()
-], RippleBase.prototype, "hovering", void 0);
-__decorate$2([
+], RippleBase$1.prototype, "hovering", void 0);
+__decorate$3([
     internalProperty()
-], RippleBase.prototype, "bgFocused", void 0);
-__decorate$2([
+], RippleBase$1.prototype, "bgFocused", void 0);
+__decorate$3([
     internalProperty()
-], RippleBase.prototype, "fgActivation", void 0);
-__decorate$2([
+], RippleBase$1.prototype, "fgActivation", void 0);
+__decorate$3([
     internalProperty()
-], RippleBase.prototype, "fgDeactivation", void 0);
-__decorate$2([
+], RippleBase$1.prototype, "fgDeactivation", void 0);
+__decorate$3([
     internalProperty()
-], RippleBase.prototype, "fgScale", void 0);
-__decorate$2([
+], RippleBase$1.prototype, "fgScale", void 0);
+__decorate$3([
     internalProperty()
-], RippleBase.prototype, "fgSize", void 0);
-__decorate$2([
+], RippleBase$1.prototype, "fgSize", void 0);
+__decorate$3([
     internalProperty()
-], RippleBase.prototype, "translateStart", void 0);
-__decorate$2([
+], RippleBase$1.prototype, "translateStart", void 0);
+__decorate$3([
     internalProperty()
-], RippleBase.prototype, "translateEnd", void 0);
-__decorate$2([
+], RippleBase$1.prototype, "translateEnd", void 0);
+__decorate$3([
     internalProperty()
-], RippleBase.prototype, "leftPos", void 0);
-__decorate$2([
+], RippleBase$1.prototype, "leftPos", void 0);
+__decorate$3([
     internalProperty()
-], RippleBase.prototype, "topPos", void 0);
+], RippleBase$1.prototype, "topPos", void 0);
 
 /**
 @license
@@ -5323,11 +5285,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const style$e = css$1 `.mdc-ripple-surface{--mdc-ripple-fg-size: 0;--mdc-ripple-left: 0;--mdc-ripple-top: 0;--mdc-ripple-fg-scale: 1;--mdc-ripple-fg-translate-end: 0;--mdc-ripple-fg-translate-start: 0;-webkit-tap-highlight-color:rgba(0,0,0,0);will-change:transform,opacity;position:relative;outline:none;overflow:hidden}.mdc-ripple-surface::before,.mdc-ripple-surface::after{position:absolute;border-radius:50%;opacity:0;pointer-events:none;content:""}.mdc-ripple-surface::before{transition:opacity 15ms linear,background-color 15ms linear;z-index:1;z-index:var(--mdc-ripple-z-index, 1)}.mdc-ripple-surface::after{z-index:0;z-index:var(--mdc-ripple-z-index, 0)}.mdc-ripple-surface.mdc-ripple-upgraded::before{transform:scale(var(--mdc-ripple-fg-scale, 1))}.mdc-ripple-surface.mdc-ripple-upgraded::after{top:0;left:0;transform:scale(0);transform-origin:center center}.mdc-ripple-surface.mdc-ripple-upgraded--unbounded::after{top:var(--mdc-ripple-top, 0);left:var(--mdc-ripple-left, 0)}.mdc-ripple-surface.mdc-ripple-upgraded--foreground-activation::after{animation:mdc-ripple-fg-radius-in 225ms forwards,mdc-ripple-fg-opacity-in 75ms forwards}.mdc-ripple-surface.mdc-ripple-upgraded--foreground-deactivation::after{animation:mdc-ripple-fg-opacity-out 150ms;transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}.mdc-ripple-surface::before,.mdc-ripple-surface::after{background-color:#000;background-color:var(--mdc-ripple-color, #000)}.mdc-ripple-surface:hover::before,.mdc-ripple-surface.mdc-ripple-surface--hover::before{opacity:0.04;opacity:var(--mdc-ripple-hover-opacity, 0.04)}.mdc-ripple-surface.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-focus-opacity, 0.12)}.mdc-ripple-surface:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface::before,.mdc-ripple-surface::after{top:calc(50% - 100%);left:calc(50% - 100%);width:200%;height:200%}.mdc-ripple-surface.mdc-ripple-upgraded::after{width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}.mdc-ripple-surface[data-mdc-ripple-is-unbounded],.mdc-ripple-upgraded--unbounded{overflow:visible}.mdc-ripple-surface[data-mdc-ripple-is-unbounded]::before,.mdc-ripple-surface[data-mdc-ripple-is-unbounded]::after,.mdc-ripple-upgraded--unbounded::before,.mdc-ripple-upgraded--unbounded::after{top:calc(50% - 50%);left:calc(50% - 50%);width:100%;height:100%}.mdc-ripple-surface[data-mdc-ripple-is-unbounded].mdc-ripple-upgraded::before,.mdc-ripple-surface[data-mdc-ripple-is-unbounded].mdc-ripple-upgraded::after,.mdc-ripple-upgraded--unbounded.mdc-ripple-upgraded::before,.mdc-ripple-upgraded--unbounded.mdc-ripple-upgraded::after{top:var(--mdc-ripple-top, calc(50% - 50%));left:var(--mdc-ripple-left, calc(50% - 50%));width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}.mdc-ripple-surface[data-mdc-ripple-is-unbounded].mdc-ripple-upgraded::after,.mdc-ripple-upgraded--unbounded.mdc-ripple-upgraded::after{width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}@keyframes mdc-ripple-fg-radius-in{from{animation-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transform:translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1)}to{transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}}@keyframes mdc-ripple-fg-opacity-in{from{animation-timing-function:linear;opacity:0}to{opacity:var(--mdc-ripple-fg-opacity, 0)}}@keyframes mdc-ripple-fg-opacity-out{from{animation-timing-function:linear;opacity:var(--mdc-ripple-fg-opacity, 0)}to{opacity:0}}:host{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;display:block}:host .mdc-ripple-surface{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;will-change:unset}.mdc-ripple-surface--primary::before,.mdc-ripple-surface--primary::after{background-color:#6200ee;background-color:var(--mdc-ripple-color, var(--mdc-theme-primary, #6200ee))}.mdc-ripple-surface--primary:hover::before,.mdc-ripple-surface--primary.mdc-ripple-surface--hover::before{opacity:0.04;opacity:var(--mdc-ripple-hover-opacity, 0.04)}.mdc-ripple-surface--primary.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--primary:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-focus-opacity, 0.12)}.mdc-ripple-surface--primary:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--primary:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface--primary.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface--primary--activated::before{opacity:0.12;opacity:var(--mdc-ripple-activated-opacity, 0.12)}.mdc-ripple-surface--primary--activated::before,.mdc-ripple-surface--primary--activated::after{background-color:#6200ee;background-color:var(--mdc-ripple-color, var(--mdc-theme-primary, #6200ee))}.mdc-ripple-surface--primary--activated:hover::before,.mdc-ripple-surface--primary--activated.mdc-ripple-surface--hover::before{opacity:0.16;opacity:var(--mdc-ripple-hover-opacity, 0.16)}.mdc-ripple-surface--primary--activated.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--primary--activated:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-focus-opacity, 0.24)}.mdc-ripple-surface--primary--activated:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--primary--activated:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-press-opacity, 0.24)}.mdc-ripple-surface--primary--activated.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.24)}.mdc-ripple-surface--primary--selected::before{opacity:0.08;opacity:var(--mdc-ripple-selected-opacity, 0.08)}.mdc-ripple-surface--primary--selected::before,.mdc-ripple-surface--primary--selected::after{background-color:#6200ee;background-color:var(--mdc-ripple-color, var(--mdc-theme-primary, #6200ee))}.mdc-ripple-surface--primary--selected:hover::before,.mdc-ripple-surface--primary--selected.mdc-ripple-surface--hover::before{opacity:0.12;opacity:var(--mdc-ripple-hover-opacity, 0.12)}.mdc-ripple-surface--primary--selected.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--primary--selected:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.2;opacity:var(--mdc-ripple-focus-opacity, 0.2)}.mdc-ripple-surface--primary--selected:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--primary--selected:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.2;opacity:var(--mdc-ripple-press-opacity, 0.2)}.mdc-ripple-surface--primary--selected.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.2)}.mdc-ripple-surface--accent::before,.mdc-ripple-surface--accent::after{background-color:#018786;background-color:var(--mdc-ripple-color, var(--mdc-theme-secondary, #018786))}.mdc-ripple-surface--accent:hover::before,.mdc-ripple-surface--accent.mdc-ripple-surface--hover::before{opacity:0.04;opacity:var(--mdc-ripple-hover-opacity, 0.04)}.mdc-ripple-surface--accent.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--accent:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-focus-opacity, 0.12)}.mdc-ripple-surface--accent:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--accent:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface--accent.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface--accent--activated::before{opacity:0.12;opacity:var(--mdc-ripple-activated-opacity, 0.12)}.mdc-ripple-surface--accent--activated::before,.mdc-ripple-surface--accent--activated::after{background-color:#018786;background-color:var(--mdc-ripple-color, var(--mdc-theme-secondary, #018786))}.mdc-ripple-surface--accent--activated:hover::before,.mdc-ripple-surface--accent--activated.mdc-ripple-surface--hover::before{opacity:0.16;opacity:var(--mdc-ripple-hover-opacity, 0.16)}.mdc-ripple-surface--accent--activated.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--accent--activated:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-focus-opacity, 0.24)}.mdc-ripple-surface--accent--activated:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--accent--activated:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-press-opacity, 0.24)}.mdc-ripple-surface--accent--activated.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.24)}.mdc-ripple-surface--accent--selected::before{opacity:0.08;opacity:var(--mdc-ripple-selected-opacity, 0.08)}.mdc-ripple-surface--accent--selected::before,.mdc-ripple-surface--accent--selected::after{background-color:#018786;background-color:var(--mdc-ripple-color, var(--mdc-theme-secondary, #018786))}.mdc-ripple-surface--accent--selected:hover::before,.mdc-ripple-surface--accent--selected.mdc-ripple-surface--hover::before{opacity:0.12;opacity:var(--mdc-ripple-hover-opacity, 0.12)}.mdc-ripple-surface--accent--selected.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--accent--selected:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.2;opacity:var(--mdc-ripple-focus-opacity, 0.2)}.mdc-ripple-surface--accent--selected:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--accent--selected:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.2;opacity:var(--mdc-ripple-press-opacity, 0.2)}.mdc-ripple-surface--accent--selected.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.2)}.mdc-ripple-surface--disabled{opacity:0}`;
+const style$n = css$1 `.mdc-ripple-surface{--mdc-ripple-fg-size: 0;--mdc-ripple-left: 0;--mdc-ripple-top: 0;--mdc-ripple-fg-scale: 1;--mdc-ripple-fg-translate-end: 0;--mdc-ripple-fg-translate-start: 0;-webkit-tap-highlight-color:rgba(0,0,0,0);will-change:transform,opacity;position:relative;outline:none;overflow:hidden}.mdc-ripple-surface::before,.mdc-ripple-surface::after{position:absolute;border-radius:50%;opacity:0;pointer-events:none;content:""}.mdc-ripple-surface::before{transition:opacity 15ms linear,background-color 15ms linear;z-index:1;z-index:var(--mdc-ripple-z-index, 1)}.mdc-ripple-surface::after{z-index:0;z-index:var(--mdc-ripple-z-index, 0)}.mdc-ripple-surface.mdc-ripple-upgraded::before{transform:scale(var(--mdc-ripple-fg-scale, 1))}.mdc-ripple-surface.mdc-ripple-upgraded::after{top:0;left:0;transform:scale(0);transform-origin:center center}.mdc-ripple-surface.mdc-ripple-upgraded--unbounded::after{top:var(--mdc-ripple-top, 0);left:var(--mdc-ripple-left, 0)}.mdc-ripple-surface.mdc-ripple-upgraded--foreground-activation::after{animation:mdc-ripple-fg-radius-in 225ms forwards,mdc-ripple-fg-opacity-in 75ms forwards}.mdc-ripple-surface.mdc-ripple-upgraded--foreground-deactivation::after{animation:mdc-ripple-fg-opacity-out 150ms;transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}.mdc-ripple-surface::before,.mdc-ripple-surface::after{background-color:#000;background-color:var(--mdc-ripple-color, #000)}.mdc-ripple-surface:hover::before,.mdc-ripple-surface.mdc-ripple-surface--hover::before{opacity:0.04;opacity:var(--mdc-ripple-hover-opacity, 0.04)}.mdc-ripple-surface.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-focus-opacity, 0.12)}.mdc-ripple-surface:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface::before,.mdc-ripple-surface::after{top:calc(50% - 100%);left:calc(50% - 100%);width:200%;height:200%}.mdc-ripple-surface.mdc-ripple-upgraded::after{width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}.mdc-ripple-surface[data-mdc-ripple-is-unbounded],.mdc-ripple-upgraded--unbounded{overflow:visible}.mdc-ripple-surface[data-mdc-ripple-is-unbounded]::before,.mdc-ripple-surface[data-mdc-ripple-is-unbounded]::after,.mdc-ripple-upgraded--unbounded::before,.mdc-ripple-upgraded--unbounded::after{top:calc(50% - 50%);left:calc(50% - 50%);width:100%;height:100%}.mdc-ripple-surface[data-mdc-ripple-is-unbounded].mdc-ripple-upgraded::before,.mdc-ripple-surface[data-mdc-ripple-is-unbounded].mdc-ripple-upgraded::after,.mdc-ripple-upgraded--unbounded.mdc-ripple-upgraded::before,.mdc-ripple-upgraded--unbounded.mdc-ripple-upgraded::after{top:var(--mdc-ripple-top, calc(50% - 50%));left:var(--mdc-ripple-left, calc(50% - 50%));width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}.mdc-ripple-surface[data-mdc-ripple-is-unbounded].mdc-ripple-upgraded::after,.mdc-ripple-upgraded--unbounded.mdc-ripple-upgraded::after{width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}@keyframes mdc-ripple-fg-radius-in{from{animation-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transform:translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1)}to{transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}}@keyframes mdc-ripple-fg-opacity-in{from{animation-timing-function:linear;opacity:0}to{opacity:var(--mdc-ripple-fg-opacity, 0)}}@keyframes mdc-ripple-fg-opacity-out{from{animation-timing-function:linear;opacity:var(--mdc-ripple-fg-opacity, 0)}to{opacity:0}}:host{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;display:block}:host .mdc-ripple-surface{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;will-change:unset}.mdc-ripple-surface--primary::before,.mdc-ripple-surface--primary::after{background-color:#6200ee;background-color:var(--mdc-ripple-color, var(--mdc-theme-primary, #6200ee))}.mdc-ripple-surface--primary:hover::before,.mdc-ripple-surface--primary.mdc-ripple-surface--hover::before{opacity:0.04;opacity:var(--mdc-ripple-hover-opacity, 0.04)}.mdc-ripple-surface--primary.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--primary:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-focus-opacity, 0.12)}.mdc-ripple-surface--primary:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--primary:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface--primary.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface--primary--activated::before{opacity:0.12;opacity:var(--mdc-ripple-activated-opacity, 0.12)}.mdc-ripple-surface--primary--activated::before,.mdc-ripple-surface--primary--activated::after{background-color:#6200ee;background-color:var(--mdc-ripple-color, var(--mdc-theme-primary, #6200ee))}.mdc-ripple-surface--primary--activated:hover::before,.mdc-ripple-surface--primary--activated.mdc-ripple-surface--hover::before{opacity:0.16;opacity:var(--mdc-ripple-hover-opacity, 0.16)}.mdc-ripple-surface--primary--activated.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--primary--activated:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-focus-opacity, 0.24)}.mdc-ripple-surface--primary--activated:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--primary--activated:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-press-opacity, 0.24)}.mdc-ripple-surface--primary--activated.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.24)}.mdc-ripple-surface--primary--selected::before{opacity:0.08;opacity:var(--mdc-ripple-selected-opacity, 0.08)}.mdc-ripple-surface--primary--selected::before,.mdc-ripple-surface--primary--selected::after{background-color:#6200ee;background-color:var(--mdc-ripple-color, var(--mdc-theme-primary, #6200ee))}.mdc-ripple-surface--primary--selected:hover::before,.mdc-ripple-surface--primary--selected.mdc-ripple-surface--hover::before{opacity:0.12;opacity:var(--mdc-ripple-hover-opacity, 0.12)}.mdc-ripple-surface--primary--selected.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--primary--selected:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.2;opacity:var(--mdc-ripple-focus-opacity, 0.2)}.mdc-ripple-surface--primary--selected:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--primary--selected:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.2;opacity:var(--mdc-ripple-press-opacity, 0.2)}.mdc-ripple-surface--primary--selected.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.2)}.mdc-ripple-surface--accent::before,.mdc-ripple-surface--accent::after{background-color:#018786;background-color:var(--mdc-ripple-color, var(--mdc-theme-secondary, #018786))}.mdc-ripple-surface--accent:hover::before,.mdc-ripple-surface--accent.mdc-ripple-surface--hover::before{opacity:0.04;opacity:var(--mdc-ripple-hover-opacity, 0.04)}.mdc-ripple-surface--accent.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--accent:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-focus-opacity, 0.12)}.mdc-ripple-surface--accent:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--accent:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface--accent.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface--accent--activated::before{opacity:0.12;opacity:var(--mdc-ripple-activated-opacity, 0.12)}.mdc-ripple-surface--accent--activated::before,.mdc-ripple-surface--accent--activated::after{background-color:#018786;background-color:var(--mdc-ripple-color, var(--mdc-theme-secondary, #018786))}.mdc-ripple-surface--accent--activated:hover::before,.mdc-ripple-surface--accent--activated.mdc-ripple-surface--hover::before{opacity:0.16;opacity:var(--mdc-ripple-hover-opacity, 0.16)}.mdc-ripple-surface--accent--activated.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--accent--activated:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-focus-opacity, 0.24)}.mdc-ripple-surface--accent--activated:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--accent--activated:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-press-opacity, 0.24)}.mdc-ripple-surface--accent--activated.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.24)}.mdc-ripple-surface--accent--selected::before{opacity:0.08;opacity:var(--mdc-ripple-selected-opacity, 0.08)}.mdc-ripple-surface--accent--selected::before,.mdc-ripple-surface--accent--selected::after{background-color:#018786;background-color:var(--mdc-ripple-color, var(--mdc-theme-secondary, #018786))}.mdc-ripple-surface--accent--selected:hover::before,.mdc-ripple-surface--accent--selected.mdc-ripple-surface--hover::before{opacity:0.12;opacity:var(--mdc-ripple-hover-opacity, 0.12)}.mdc-ripple-surface--accent--selected.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--accent--selected:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.2;opacity:var(--mdc-ripple-focus-opacity, 0.2)}.mdc-ripple-surface--accent--selected:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--accent--selected:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.2;opacity:var(--mdc-ripple-press-opacity, 0.2)}.mdc-ripple-surface--accent--selected.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.2)}.mdc-ripple-surface--disabled{opacity:0}`;
 
-class Ripple extends ScopedElementsMixin$1(RippleBase) {
+class Ripple$1 extends ScopedElementsMixin$1(RippleBase$1) {
 }
-Ripple.styles = style$e;
+Ripple$1.styles = style$n;
 
 /** @soyCompatible */
 class IconButtonBase extends LitElement$1 {
@@ -5337,7 +5299,7 @@ class IconButtonBase extends LitElement$1 {
         this.icon = '';
         this.label = '';
         this.shouldRenderRipple = false;
-        this.rippleHandlers = new RippleHandlers(() => {
+        this.rippleHandlers = new RippleHandlers$1(() => {
             this.shouldRenderRipple = true;
             return this.ripple;
         });
@@ -5413,35 +5375,35 @@ class IconButtonBase extends LitElement$1 {
         this.rippleHandlers.endFocus();
     }
 }
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean, reflect: true })
 ], IconButtonBase.prototype, "disabled", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String })
 ], IconButtonBase.prototype, "icon", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String })
 ], IconButtonBase.prototype, "label", void 0);
-__decorate$2([
+__decorate$3([
     query$1('button')
 ], IconButtonBase.prototype, "buttonElement", void 0);
-__decorate$2([
+__decorate$3([
     queryAsync('mwc-ripple')
 ], IconButtonBase.prototype, "ripple", void 0);
-__decorate$2([
+__decorate$3([
     internalProperty()
 ], IconButtonBase.prototype, "shouldRenderRipple", void 0);
-__decorate$2([
+__decorate$3([
     eventOptions({ passive: true })
 ], IconButtonBase.prototype, "handleRippleMouseDown", null);
-__decorate$2([
+__decorate$3([
     eventOptions({ passive: true })
 ], IconButtonBase.prototype, "handleRippleTouchStart", null);
 
 class IconButton extends ScopedElementsMixin$1(IconButtonBase) {
     static get scopedElements() {
         return {
-            'mwc-ripple': Ripple,
+            'mwc-ripple': Ripple$1,
         };
     }
     renderRipple() {
@@ -5451,8 +5413,8 @@ class IconButton extends ScopedElementsMixin$1(IconButtonBase) {
             : '';
     }
 }
-IconButton.styles = style$f;
-__decorate$2([
+IconButton.styles = style$o;
+__decorate$3([
     queryAsync('.ripple')
 ], IconButton.prototype, "ripple", void 0);
 
@@ -5478,14 +5440,14 @@ __decorate$2([
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-var strings$6 = {
+var strings$7 = {
     NOTCH_ELEMENT_SELECTOR: '.mdc-notched-outline__notch',
 };
-var numbers$6 = {
+var numbers$7 = {
     // This should stay in sync with $mdc-notched-outline-padding * 2.
     NOTCH_ELEMENT_PADDING: 8,
 };
-var cssClasses$8 = {
+var cssClasses$9 = {
     NO_LABEL: 'mdc-notched-outline--no-label',
     OUTLINE_NOTCHED: 'mdc-notched-outline--notched',
     OUTLINE_UPGRADED: 'mdc-notched-outline--upgraded',
@@ -5514,27 +5476,27 @@ var cssClasses$8 = {
  * THE SOFTWARE.
  */
 var MDCNotchedOutlineFoundation = /** @class */ (function (_super) {
-    __extends$1(MDCNotchedOutlineFoundation, _super);
+    __extends$2(MDCNotchedOutlineFoundation, _super);
     function MDCNotchedOutlineFoundation(adapter) {
-        return _super.call(this, __assign$1(__assign$1({}, MDCNotchedOutlineFoundation.defaultAdapter), adapter)) || this;
+        return _super.call(this, __assign$2(__assign$2({}, MDCNotchedOutlineFoundation.defaultAdapter), adapter)) || this;
     }
     Object.defineProperty(MDCNotchedOutlineFoundation, "strings", {
         get: function () {
-            return strings$6;
+            return strings$7;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MDCNotchedOutlineFoundation, "cssClasses", {
         get: function () {
-            return cssClasses$8;
+            return cssClasses$9;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MDCNotchedOutlineFoundation, "numbers", {
         get: function () {
-            return numbers$6;
+            return numbers$7;
         },
         enumerable: true,
         configurable: true
@@ -5562,7 +5524,7 @@ var MDCNotchedOutlineFoundation = /** @class */ (function (_super) {
     MDCNotchedOutlineFoundation.prototype.notch = function (notchWidth) {
         var OUTLINE_NOTCHED = MDCNotchedOutlineFoundation.cssClasses.OUTLINE_NOTCHED;
         if (notchWidth > 0) {
-            notchWidth += numbers$6.NOTCH_ELEMENT_PADDING; // Add padding from left/right.
+            notchWidth += numbers$7.NOTCH_ELEMENT_PADDING; // Add padding from left/right.
         }
         this.adapter.setNotchWidthProperty(notchWidth);
         this.adapter.addClass(OUTLINE_NOTCHED);
@@ -5576,9 +5538,9 @@ var MDCNotchedOutlineFoundation = /** @class */ (function (_super) {
         this.adapter.removeNotchWidthProperty();
     };
     return MDCNotchedOutlineFoundation;
-}(MDCFoundation$1));
+}(MDCFoundation$2));
 
-class NotchedOutlineBase extends BaseElement$1 {
+class NotchedOutlineBase$1 extends BaseElement$1 {
     constructor() {
         super(...arguments);
         this.mdcFoundationClass = MDCNotchedOutlineFoundation;
@@ -5620,18 +5582,18 @@ class NotchedOutlineBase extends BaseElement$1 {
       </span>`;
     }
 }
-__decorate$2([
+__decorate$3([
     query$1('.mdc-notched-outline')
-], NotchedOutlineBase.prototype, "mdcRoot", void 0);
-__decorate$2([
+], NotchedOutlineBase$1.prototype, "mdcRoot", void 0);
+__decorate$3([
     property$1({ type: Number })
-], NotchedOutlineBase.prototype, "width", void 0);
-__decorate$2([
+], NotchedOutlineBase$1.prototype, "width", void 0);
+__decorate$3([
     property$1({ type: Boolean, reflect: true })
-], NotchedOutlineBase.prototype, "open", void 0);
-__decorate$2([
+], NotchedOutlineBase$1.prototype, "open", void 0);
+__decorate$3([
     query$1('.mdc-notched-outline__notch')
-], NotchedOutlineBase.prototype, "notchElement", void 0);
+], NotchedOutlineBase$1.prototype, "notchElement", void 0);
 
 /**
 @license
@@ -5649,7 +5611,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const style$d = css$1 `.mdc-notched-outline{display:flex;position:absolute;top:0;right:0;left:0;box-sizing:border-box;width:100%;max-width:100%;height:100%;text-align:left;pointer-events:none}[dir=rtl] .mdc-notched-outline,.mdc-notched-outline[dir=rtl]{text-align:right}.mdc-notched-outline__leading,.mdc-notched-outline__notch,.mdc-notched-outline__trailing{box-sizing:border-box;height:100%;border-top:1px solid;border-bottom:1px solid;pointer-events:none}.mdc-notched-outline__leading{border-left:1px solid;border-right:none;width:12px}[dir=rtl] .mdc-notched-outline__leading,.mdc-notched-outline__leading[dir=rtl]{border-left:none;border-right:1px solid}.mdc-notched-outline__trailing{border-left:none;border-right:1px solid;flex-grow:1}[dir=rtl] .mdc-notched-outline__trailing,.mdc-notched-outline__trailing[dir=rtl]{border-left:1px solid;border-right:none}.mdc-notched-outline__notch{flex:0 0 auto;width:auto;max-width:calc(100% - 12px * 2)}.mdc-notched-outline .mdc-floating-label{display:inline-block;position:relative;max-width:100%}.mdc-notched-outline .mdc-floating-label--float-above{text-overflow:clip}.mdc-notched-outline--upgraded .mdc-floating-label--float-above{max-width:calc(100% / 0.75)}.mdc-notched-outline--notched .mdc-notched-outline__notch{padding-left:0;padding-right:8px;border-top:none}[dir=rtl] .mdc-notched-outline--notched .mdc-notched-outline__notch,.mdc-notched-outline--notched .mdc-notched-outline__notch[dir=rtl]{padding-left:8px;padding-right:0}.mdc-notched-outline--no-label .mdc-notched-outline__notch{display:none}:host{display:block;position:absolute;right:0;left:0;box-sizing:border-box;width:100%;max-width:100%;height:100%;text-align:left;pointer-events:none}[dir=rtl] :host,:host[dir=rtl]{text-align:right}::slotted(.mdc-floating-label){display:inline-block;position:relative;top:17px;bottom:auto;max-width:100%}::slotted(.mdc-floating-label--float-above){text-overflow:clip}.mdc-notched-outline--upgraded ::slotted(.mdc-floating-label--float-above){max-width:calc(100% / .75)}.mdc-notched-outline .mdc-notched-outline__leading{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}[dir=rtl] .mdc-notched-outline .mdc-notched-outline__leading,.mdc-notched-outline .mdc-notched-outline__leading[dir=rtl]{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}@supports(top: max(0%)){.mdc-notched-outline .mdc-notched-outline__leading{width:max(12px, var(--mdc-shape-small, 4px))}}@supports(top: max(0%)){.mdc-notched-outline .mdc-notched-outline__notch{max-width:calc(100% - max(12px, var(--mdc-shape-small, 4px)) * 2)}}.mdc-notched-outline .mdc-notched-outline__trailing{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}[dir=rtl] .mdc-notched-outline .mdc-notched-outline__trailing,.mdc-notched-outline .mdc-notched-outline__trailing[dir=rtl]{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}.mdc-notched-outline__leading,.mdc-notched-outline__notch,.mdc-notched-outline__trailing{border-color:var(--mdc-notched-outline-border-color, var(--mdc-theme-primary, #6200ee));border-width:1px;border-width:var(--mdc-notched-outline-stroke-width, 1px)}.mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:0;padding-top:var(--mdc-notched-outline-notch-offset, 0)}`;
+const style$m = css$1 `.mdc-notched-outline{display:flex;position:absolute;top:0;right:0;left:0;box-sizing:border-box;width:100%;max-width:100%;height:100%;text-align:left;pointer-events:none}[dir=rtl] .mdc-notched-outline,.mdc-notched-outline[dir=rtl]{text-align:right}.mdc-notched-outline__leading,.mdc-notched-outline__notch,.mdc-notched-outline__trailing{box-sizing:border-box;height:100%;border-top:1px solid;border-bottom:1px solid;pointer-events:none}.mdc-notched-outline__leading{border-left:1px solid;border-right:none;width:12px}[dir=rtl] .mdc-notched-outline__leading,.mdc-notched-outline__leading[dir=rtl]{border-left:none;border-right:1px solid}.mdc-notched-outline__trailing{border-left:none;border-right:1px solid;flex-grow:1}[dir=rtl] .mdc-notched-outline__trailing,.mdc-notched-outline__trailing[dir=rtl]{border-left:1px solid;border-right:none}.mdc-notched-outline__notch{flex:0 0 auto;width:auto;max-width:calc(100% - 12px * 2)}.mdc-notched-outline .mdc-floating-label{display:inline-block;position:relative;max-width:100%}.mdc-notched-outline .mdc-floating-label--float-above{text-overflow:clip}.mdc-notched-outline--upgraded .mdc-floating-label--float-above{max-width:calc(100% / 0.75)}.mdc-notched-outline--notched .mdc-notched-outline__notch{padding-left:0;padding-right:8px;border-top:none}[dir=rtl] .mdc-notched-outline--notched .mdc-notched-outline__notch,.mdc-notched-outline--notched .mdc-notched-outline__notch[dir=rtl]{padding-left:8px;padding-right:0}.mdc-notched-outline--no-label .mdc-notched-outline__notch{display:none}:host{display:block;position:absolute;right:0;left:0;box-sizing:border-box;width:100%;max-width:100%;height:100%;text-align:left;pointer-events:none}[dir=rtl] :host,:host[dir=rtl]{text-align:right}::slotted(.mdc-floating-label){display:inline-block;position:relative;top:17px;bottom:auto;max-width:100%}::slotted(.mdc-floating-label--float-above){text-overflow:clip}.mdc-notched-outline--upgraded ::slotted(.mdc-floating-label--float-above){max-width:calc(100% / .75)}.mdc-notched-outline .mdc-notched-outline__leading{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}[dir=rtl] .mdc-notched-outline .mdc-notched-outline__leading,.mdc-notched-outline .mdc-notched-outline__leading[dir=rtl]{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}@supports(top: max(0%)){.mdc-notched-outline .mdc-notched-outline__leading{width:max(12px, var(--mdc-shape-small, 4px))}}@supports(top: max(0%)){.mdc-notched-outline .mdc-notched-outline__notch{max-width:calc(100% - max(12px, var(--mdc-shape-small, 4px)) * 2)}}.mdc-notched-outline .mdc-notched-outline__trailing{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}[dir=rtl] .mdc-notched-outline .mdc-notched-outline__trailing,.mdc-notched-outline .mdc-notched-outline__trailing[dir=rtl]{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}.mdc-notched-outline__leading,.mdc-notched-outline__notch,.mdc-notched-outline__trailing{border-color:var(--mdc-notched-outline-border-color, var(--mdc-theme-primary, #6200ee));border-width:1px;border-width:var(--mdc-notched-outline-stroke-width, 1px)}.mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:0;padding-top:var(--mdc-notched-outline-notch-offset, 0)}`;
 
 /**
  * @license
@@ -5673,7 +5635,7 @@ const style$d = css$1 `.mdc-notched-outline{display:flex;position:absolute;top:0
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-var cssClasses$7 = {
+var cssClasses$8 = {
     LABEL_FLOAT_ABOVE: 'mdc-floating-label--float-above',
     LABEL_REQUIRED: 'mdc-floating-label--required',
     LABEL_SHAKE: 'mdc-floating-label--shake',
@@ -5703,15 +5665,15 @@ var cssClasses$7 = {
  * THE SOFTWARE.
  */
 var MDCFloatingLabelFoundation = /** @class */ (function (_super) {
-    __extends$1(MDCFloatingLabelFoundation, _super);
+    __extends$2(MDCFloatingLabelFoundation, _super);
     function MDCFloatingLabelFoundation(adapter) {
-        var _this = _super.call(this, __assign$1(__assign$1({}, MDCFloatingLabelFoundation.defaultAdapter), adapter)) || this;
+        var _this = _super.call(this, __assign$2(__assign$2({}, MDCFloatingLabelFoundation.defaultAdapter), adapter)) || this;
         _this.shakeAnimationEndHandler_ = function () { return _this.handleShakeAnimationEnd_(); };
         return _this;
     }
     Object.defineProperty(MDCFloatingLabelFoundation, "cssClasses", {
         get: function () {
-            return cssClasses$7;
+            return cssClasses$8;
         },
         enumerable: true,
         configurable: true
@@ -5791,7 +5753,7 @@ var MDCFloatingLabelFoundation = /** @class */ (function (_super) {
         this.adapter.removeClass(LABEL_SHAKE);
     };
     return MDCFloatingLabelFoundation;
-}(MDCFoundation$1));
+}(MDCFoundation$2));
 
 /**
  * @license
@@ -5815,7 +5777,7 @@ var MDCFloatingLabelFoundation = /** @class */ (function (_super) {
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-var cssClasses$6 = {
+var cssClasses$7 = {
     LINE_RIPPLE_ACTIVE: 'mdc-line-ripple--active',
     LINE_RIPPLE_DEACTIVATING: 'mdc-line-ripple--deactivating',
 };
@@ -5843,15 +5805,15 @@ var cssClasses$6 = {
  * THE SOFTWARE.
  */
 var MDCLineRippleFoundation = /** @class */ (function (_super) {
-    __extends$1(MDCLineRippleFoundation, _super);
+    __extends$2(MDCLineRippleFoundation, _super);
     function MDCLineRippleFoundation(adapter) {
-        var _this = _super.call(this, __assign$1(__assign$1({}, MDCLineRippleFoundation.defaultAdapter), adapter)) || this;
+        var _this = _super.call(this, __assign$2(__assign$2({}, MDCLineRippleFoundation.defaultAdapter), adapter)) || this;
         _this.transitionEndHandler_ = function (evt) { return _this.handleTransitionEnd(evt); };
         return _this;
     }
     Object.defineProperty(MDCLineRippleFoundation, "cssClasses", {
         get: function () {
-            return cssClasses$6;
+            return cssClasses$7;
         },
         enumerable: true,
         configurable: true
@@ -5882,37 +5844,37 @@ var MDCLineRippleFoundation = /** @class */ (function (_super) {
         this.adapter.deregisterEventHandler('transitionend', this.transitionEndHandler_);
     };
     MDCLineRippleFoundation.prototype.activate = function () {
-        this.adapter.removeClass(cssClasses$6.LINE_RIPPLE_DEACTIVATING);
-        this.adapter.addClass(cssClasses$6.LINE_RIPPLE_ACTIVE);
+        this.adapter.removeClass(cssClasses$7.LINE_RIPPLE_DEACTIVATING);
+        this.adapter.addClass(cssClasses$7.LINE_RIPPLE_ACTIVE);
     };
     MDCLineRippleFoundation.prototype.setRippleCenter = function (xCoordinate) {
         this.adapter.setStyle('transform-origin', xCoordinate + "px center");
     };
     MDCLineRippleFoundation.prototype.deactivate = function () {
-        this.adapter.addClass(cssClasses$6.LINE_RIPPLE_DEACTIVATING);
+        this.adapter.addClass(cssClasses$7.LINE_RIPPLE_DEACTIVATING);
     };
     MDCLineRippleFoundation.prototype.handleTransitionEnd = function (evt) {
         // Wait for the line ripple to be either transparent or opaque
         // before emitting the animation end event
-        var isDeactivating = this.adapter.hasClass(cssClasses$6.LINE_RIPPLE_DEACTIVATING);
+        var isDeactivating = this.adapter.hasClass(cssClasses$7.LINE_RIPPLE_DEACTIVATING);
         if (evt.propertyName === 'opacity') {
             if (isDeactivating) {
-                this.adapter.removeClass(cssClasses$6.LINE_RIPPLE_ACTIVE);
-                this.adapter.removeClass(cssClasses$6.LINE_RIPPLE_DEACTIVATING);
+                this.adapter.removeClass(cssClasses$7.LINE_RIPPLE_ACTIVE);
+                this.adapter.removeClass(cssClasses$7.LINE_RIPPLE_DEACTIVATING);
             }
         }
     };
     return MDCLineRippleFoundation;
-}(MDCFoundation$1));
+}(MDCFoundation$2));
 
-let NotchedOutline$1 = class NotchedOutline extends NotchedOutlineBase {
+let NotchedOutline$3 = class NotchedOutline extends NotchedOutlineBase$1 {
 };
-NotchedOutline$1.styles = style$d;
-NotchedOutline$1 = __decorate$2([
+NotchedOutline$3.styles = style$m;
+NotchedOutline$3 = __decorate$3([
     
-], NotchedOutline$1);
+], NotchedOutline$3);
 
-const createAdapter = (labelElement) => {
+const createAdapter$2 = (labelElement) => {
     return {
         addClass: (className) => labelElement.classList.add(className),
         removeClass: (className) => labelElement.classList.remove(className),
@@ -5925,21 +5887,21 @@ const createAdapter = (labelElement) => {
         },
     };
 };
-const partToFoundationMap = new WeakMap();
-const floatingLabel = directive$1((label) => (part) => {
-    const lastFoundation = partToFoundationMap.get(part);
+const partToFoundationMap$2 = new WeakMap();
+const floatingLabel$1 = directive$1((label) => (part) => {
+    const lastFoundation = partToFoundationMap$2.get(part);
     if (!lastFoundation) {
         const labelElement = part.committer.element;
         labelElement.classList.add('mdc-floating-label');
-        const adapter = createAdapter(labelElement);
+        const adapter = createAdapter$2(labelElement);
         const foundation = new MDCFloatingLabelFoundation(adapter);
         foundation.init();
         part.setValue(foundation);
-        partToFoundationMap.set(part, { label, foundation });
+        partToFoundationMap$2.set(part, { label, foundation });
     }
 });
 
-const createAdapter$1 = (lineElement) => {
+const createAdapter$1$1 = (lineElement) => {
     return {
         addClass: (className) => lineElement.classList.add(className),
         removeClass: (className) => lineElement.classList.remove(className),
@@ -5953,17 +5915,17 @@ const createAdapter$1 = (lineElement) => {
         },
     };
 };
-const partToFoundationMap$1 = new WeakMap();
-const lineRipple = directive$1(() => (part) => {
-    const lastFoundation = partToFoundationMap$1.get(part);
+const partToFoundationMap$1$1 = new WeakMap();
+const lineRipple$1 = directive$1(() => (part) => {
+    const lastFoundation = partToFoundationMap$1$1.get(part);
     if (!lastFoundation) {
         const lineElement = part.committer.element;
         lineElement.classList.add('mdc-line-ripple');
-        const adapter = createAdapter$1(lineElement);
+        const adapter = createAdapter$1$1(lineElement);
         const foundation = new MDCLineRippleFoundation(adapter);
         foundation.init();
         part.setValue(foundation);
-        partToFoundationMap$1.set(part, foundation);
+        partToFoundationMap$1$1.set(part, foundation);
     }
 });
 
@@ -6083,7 +6045,7 @@ const observer = (observer) =>
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-var strings$5 = {
+var strings$6 = {
     ARIA_CONTROLS: 'aria-controls',
     ARIA_DESCRIBEDBY: 'aria-describedby',
     INPUT_SELECTOR: '.mdc-text-field__input',
@@ -6095,7 +6057,7 @@ var strings$5 = {
     SUFFIX_SELECTOR: '.mdc-text-field__affix--suffix',
     TRAILING_ICON_SELECTOR: '.mdc-text-field__icon--trailing'
 };
-var cssClasses$5 = {
+var cssClasses$6 = {
     DISABLED: 'mdc-text-field--disabled',
     FOCUSED: 'mdc-text-field--focused',
     HELPER_LINE: 'mdc-text-field-helper-line',
@@ -6108,7 +6070,7 @@ var cssClasses$5 = {
     WITH_LEADING_ICON: 'mdc-text-field--with-leading-icon',
     WITH_TRAILING_ICON: 'mdc-text-field--with-trailing-icon',
 };
-var numbers$5 = {
+var numbers$6 = {
     LABEL_SCALE: 0.75,
 };
 /**
@@ -6150,14 +6112,14 @@ var ALWAYS_FLOAT_TYPES = [
 var POINTERDOWN_EVENTS = ['mousedown', 'touchstart'];
 var INTERACTION_EVENTS = ['click', 'keydown'];
 var MDCTextFieldFoundation = /** @class */ (function (_super) {
-    __extends$1(MDCTextFieldFoundation, _super);
+    __extends$2(MDCTextFieldFoundation, _super);
     /**
      * @param adapter
      * @param foundationMap Map from subcomponent names to their subfoundations.
      */
     function MDCTextFieldFoundation(adapter, foundationMap) {
         if (foundationMap === void 0) { foundationMap = {}; }
-        var _this = _super.call(this, __assign$1(__assign$1({}, MDCTextFieldFoundation.defaultAdapter), adapter)) || this;
+        var _this = _super.call(this, __assign$2(__assign$2({}, MDCTextFieldFoundation.defaultAdapter), adapter)) || this;
         _this.isFocused_ = false;
         _this.receivedUserInput_ = false;
         _this.isValid_ = true;
@@ -6179,21 +6141,21 @@ var MDCTextFieldFoundation = /** @class */ (function (_super) {
     }
     Object.defineProperty(MDCTextFieldFoundation, "cssClasses", {
         get: function () {
-            return cssClasses$5;
+            return cssClasses$6;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MDCTextFieldFoundation, "strings", {
         get: function () {
-            return strings$5;
+            return strings$6;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MDCTextFieldFoundation, "numbers", {
         get: function () {
-            return numbers$5;
+            return numbers$6;
         },
         enumerable: true,
         configurable: true
@@ -6335,7 +6297,7 @@ var MDCTextFieldFoundation = /** @class */ (function (_super) {
             return;
         }
         if (openNotch) {
-            var labelWidth = this.adapter.getLabelWidth() * numbers$5.LABEL_SCALE;
+            var labelWidth = this.adapter.getLabelWidth() * numbers$6.LABEL_SCALE;
             this.adapter.notchOutline(labelWidth);
         }
         else {
@@ -6578,10 +6540,10 @@ var MDCTextFieldFoundation = /** @class */ (function (_super) {
             var helperTextVisible = this.helperText_.isVisible();
             var helperTextId = this.helperText_.getId();
             if (helperTextVisible && helperTextId) {
-                this.adapter.setInputAttr(strings$5.ARIA_DESCRIBEDBY, helperTextId);
+                this.adapter.setInputAttr(strings$6.ARIA_DESCRIBEDBY, helperTextId);
             }
             else {
-                this.adapter.removeInputAttr(strings$5.ARIA_DESCRIBEDBY);
+                this.adapter.removeInputAttr(strings$6.ARIA_DESCRIBEDBY);
             }
         }
     };
@@ -6652,7 +6614,7 @@ var MDCTextFieldFoundation = /** @class */ (function (_super) {
         };
     };
     return MDCTextFieldFoundation;
-}(MDCFoundation$1));
+}(MDCFoundation$2));
 
 /**
  * @license
@@ -6762,8 +6724,8 @@ const checkStrings = (strings) => {
     }
 };
 
-const passiveEvents = ['touchstart', 'touchmove', 'scroll', 'mousewheel'];
-const createValidityObj = (customValidity = {}) => {
+const passiveEvents$1 = ['touchstart', 'touchmove', 'scroll', 'mousewheel'];
+const createValidityObj$1 = (customValidity = {}) => {
     /*
      * We need to make ValidityState an object because it is readonly and
      * we cannot use the spread operator. Also, we don't export
@@ -6787,7 +6749,7 @@ const createValidityObj = (customValidity = {}) => {
     return Object.assign({ badInput: false, customError: false, patternMismatch: false, rangeOverflow: false, rangeUnderflow: false, stepMismatch: false, tooLong: false, tooShort: false, typeMismatch: false, valid: true, valueMissing: false }, objectifiedCustomValidity);
 };
 /** @soyCompatible */
-class TextFieldBase extends FormElement {
+class TextFieldBase$1 extends FormElement {
     constructor() {
         super(...arguments);
         this.mdcFoundationClass = MDCTextFieldFoundation;
@@ -6823,7 +6785,7 @@ class TextFieldBase extends FormElement {
         this.outlineWidth = 0;
         this.isUiValid = true;
         this.focused = false;
-        this._validity = createValidityObj();
+        this._validity = createValidityObj$1();
         this._outlineUpdateComplete = null;
         this.validityTransform = null;
     }
@@ -6922,7 +6884,7 @@ class TextFieldBase extends FormElement {
     renderLabel() {
         return !this.label ? '' : html$1 `
       <span
-          .floatingLabelFoundation=${floatingLabel(this.label)}
+          .floatingLabelFoundation=${floatingLabel$1(this.label)}
           id="label">${this.label}</span>
     `;
     }
@@ -7007,7 +6969,7 @@ class TextFieldBase extends FormElement {
     /** @soyTemplate */
     renderLineRipple() {
         return this.outlined ? '' : html$1 `
-      <span .lineRippleFoundation=${lineRipple()}></span>
+      <span .lineRippleFoundation=${lineRipple$1()}></span>
     `;
     }
     /** @soyTemplate */
@@ -7061,7 +7023,7 @@ class TextFieldBase extends FormElement {
     }
     _checkValidity(value) {
         const nativeValidity = this.formElement.validity;
-        let validity = createValidityObj(nativeValidity);
+        let validity = createValidityObj$1(nativeValidity);
         if (this.validityTransform) {
             const customValidity = this.validityTransform(value, validity);
             validity = Object.assign(Object.assign({}, validity), customValidity);
@@ -7114,7 +7076,7 @@ class TextFieldBase extends FormElement {
             isFocused: () => this.shadowRoot ?
                 this.shadowRoot.activeElement === this.formElement :
                 false,
-            registerInputInteractionHandler: (evtType, handler) => this.formElement.addEventListener(evtType, handler, { passive: evtType in passiveEvents }),
+            registerInputInteractionHandler: (evtType, handler) => this.formElement.addEventListener(evtType, handler, { passive: evtType in passiveEvents$1 }),
             deregisterInputInteractionHandler: (evtType, handler) => this.formElement.removeEventListener(evtType, handler),
         };
     }
@@ -7211,140 +7173,140 @@ class TextFieldBase extends FormElement {
         }
     }
 }
-__decorate$2([
+__decorate$3([
     query$1('.mdc-text-field')
-], TextFieldBase.prototype, "mdcRoot", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "mdcRoot", void 0);
+__decorate$3([
     query$1('input')
-], TextFieldBase.prototype, "formElement", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "formElement", void 0);
+__decorate$3([
     query$1('.mdc-floating-label')
-], TextFieldBase.prototype, "labelElement", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "labelElement", void 0);
+__decorate$3([
     query$1('.mdc-line-ripple')
-], TextFieldBase.prototype, "lineRippleElement", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "lineRippleElement", void 0);
+__decorate$3([
     query$1('mwc-notched-outline')
-], TextFieldBase.prototype, "outlineElement", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "outlineElement", void 0);
+__decorate$3([
     query$1('.mdc-notched-outline__notch')
-], TextFieldBase.prototype, "notchElement", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "notchElement", void 0);
+__decorate$3([
     property$1({ type: String })
-], TextFieldBase.prototype, "value", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "value", void 0);
+__decorate$3([
     property$1({ type: String })
-], TextFieldBase.prototype, "type", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "type", void 0);
+__decorate$3([
     property$1({ type: String })
-], TextFieldBase.prototype, "placeholder", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "placeholder", void 0);
+__decorate$3([
     property$1({ type: String }),
     observer(function (_newVal, oldVal) {
         if (oldVal !== undefined && this.label !== oldVal) {
             this.layout();
         }
     })
-], TextFieldBase.prototype, "label", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "label", void 0);
+__decorate$3([
     property$1({ type: String })
-], TextFieldBase.prototype, "icon", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "icon", void 0);
+__decorate$3([
     property$1({ type: String })
-], TextFieldBase.prototype, "iconTrailing", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "iconTrailing", void 0);
+__decorate$3([
     property$1({ type: Boolean, reflect: true })
-], TextFieldBase.prototype, "disabled", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "disabled", void 0);
+__decorate$3([
     property$1({ type: Boolean })
-], TextFieldBase.prototype, "required", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "required", void 0);
+__decorate$3([
     property$1({ type: Number })
-], TextFieldBase.prototype, "minLength", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "minLength", void 0);
+__decorate$3([
     property$1({ type: Number })
-], TextFieldBase.prototype, "maxLength", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "maxLength", void 0);
+__decorate$3([
     property$1({ type: Boolean, reflect: true }),
     observer(function (_newVal, oldVal) {
         if (oldVal !== undefined && this.outlined !== oldVal) {
             this.layout();
         }
     })
-], TextFieldBase.prototype, "outlined", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "outlined", void 0);
+__decorate$3([
     property$1({ type: String })
-], TextFieldBase.prototype, "helper", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "helper", void 0);
+__decorate$3([
     property$1({ type: Boolean })
-], TextFieldBase.prototype, "validateOnInitialRender", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "validateOnInitialRender", void 0);
+__decorate$3([
     property$1({ type: String })
-], TextFieldBase.prototype, "validationMessage", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "validationMessage", void 0);
+__decorate$3([
     property$1({ type: Boolean })
-], TextFieldBase.prototype, "autoValidate", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "autoValidate", void 0);
+__decorate$3([
     property$1({ type: String })
-], TextFieldBase.prototype, "pattern", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "pattern", void 0);
+__decorate$3([
     property$1({ type: String })
-], TextFieldBase.prototype, "min", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "min", void 0);
+__decorate$3([
     property$1({ type: String })
-], TextFieldBase.prototype, "max", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "max", void 0);
+__decorate$3([
     property$1({ type: Number })
-], TextFieldBase.prototype, "step", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "step", void 0);
+__decorate$3([
     property$1({ type: Number })
-], TextFieldBase.prototype, "size", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "size", void 0);
+__decorate$3([
     property$1({ type: Boolean })
-], TextFieldBase.prototype, "helperPersistent", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "helperPersistent", void 0);
+__decorate$3([
     property$1({ type: Boolean })
-], TextFieldBase.prototype, "charCounter", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "charCounter", void 0);
+__decorate$3([
     property$1({ type: Boolean })
-], TextFieldBase.prototype, "endAligned", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "endAligned", void 0);
+__decorate$3([
     property$1({ type: String })
-], TextFieldBase.prototype, "prefix", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "prefix", void 0);
+__decorate$3([
     property$1({ type: String })
-], TextFieldBase.prototype, "suffix", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "suffix", void 0);
+__decorate$3([
     property$1({ type: String })
-], TextFieldBase.prototype, "name", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "name", void 0);
+__decorate$3([
     property$1({ type: String })
-], TextFieldBase.prototype, "inputMode", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "inputMode", void 0);
+__decorate$3([
     property$1({ type: Boolean })
-], TextFieldBase.prototype, "readOnly", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "readOnly", void 0);
+__decorate$3([
     property$1({ type: String })
-], TextFieldBase.prototype, "autocapitalize", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "autocapitalize", void 0);
+__decorate$3([
     property$1({ type: Boolean })
-], TextFieldBase.prototype, "outlineOpen", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "outlineOpen", void 0);
+__decorate$3([
     property$1({ type: Number })
-], TextFieldBase.prototype, "outlineWidth", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "outlineWidth", void 0);
+__decorate$3([
     property$1({ type: Boolean })
-], TextFieldBase.prototype, "isUiValid", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "isUiValid", void 0);
+__decorate$3([
     internalProperty()
-], TextFieldBase.prototype, "focused", void 0);
-__decorate$2([
+], TextFieldBase$1.prototype, "focused", void 0);
+__decorate$3([
     eventOptions({ passive: true })
-], TextFieldBase.prototype, "handleInputChange", null);
+], TextFieldBase$1.prototype, "handleInputChange", null);
 
-class NotchedOutline extends NotchedOutlineBase {
+class NotchedOutline$2 extends NotchedOutlineBase$1 {
 }
-NotchedOutline.styles = style$d;
+NotchedOutline$2.styles = style$m;
 
 /**
 @license
@@ -7362,19 +7324,95 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const style$c = css$1 `.mdc-floating-label{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);position:absolute;left:0;transform-origin:left top;line-height:1.15rem;text-align:left;text-overflow:ellipsis;white-space:nowrap;cursor:text;overflow:hidden;will-change:transform;transition:transform 150ms cubic-bezier(0.4, 0, 0.2, 1),color 150ms cubic-bezier(0.4, 0, 0.2, 1)}[dir=rtl] .mdc-floating-label,.mdc-floating-label[dir=rtl]{right:0;left:auto;transform-origin:right top;text-align:right}.mdc-floating-label--float-above{cursor:auto}.mdc-floating-label--required::after{margin-left:1px;margin-right:0px;content:"*"}[dir=rtl] .mdc-floating-label--required::after,.mdc-floating-label--required[dir=rtl]::after{margin-left:0;margin-right:1px}.mdc-floating-label--float-above{transform:translateY(-106%) scale(0.75)}.mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-standard 250ms 1}@keyframes mdc-floating-label-shake-float-above-standard{0%{transform:translateX(calc(0 - 0%)) translateY(-106%) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-106%) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-106%) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-106%) scale(0.75)}}.mdc-line-ripple::before,.mdc-line-ripple::after{position:absolute;bottom:0;left:0;width:100%;border-bottom-style:solid;content:""}.mdc-line-ripple::before{border-bottom-width:1px;z-index:1}.mdc-line-ripple::after{transform:scaleX(0);border-bottom-width:2px;opacity:0;z-index:2}.mdc-line-ripple::after{transition:transform 180ms cubic-bezier(0.4, 0, 0.2, 1),opacity 180ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-line-ripple--active::after{transform:scaleX(1);opacity:1}.mdc-line-ripple--deactivating::after{opacity:0}.mdc-notched-outline{display:flex;position:absolute;top:0;right:0;left:0;box-sizing:border-box;width:100%;max-width:100%;height:100%;text-align:left;pointer-events:none}[dir=rtl] .mdc-notched-outline,.mdc-notched-outline[dir=rtl]{text-align:right}.mdc-notched-outline__leading,.mdc-notched-outline__notch,.mdc-notched-outline__trailing{box-sizing:border-box;height:100%;border-top:1px solid;border-bottom:1px solid;pointer-events:none}.mdc-notched-outline__leading{border-left:1px solid;border-right:none;width:12px}[dir=rtl] .mdc-notched-outline__leading,.mdc-notched-outline__leading[dir=rtl]{border-left:none;border-right:1px solid}.mdc-notched-outline__trailing{border-left:none;border-right:1px solid;flex-grow:1}[dir=rtl] .mdc-notched-outline__trailing,.mdc-notched-outline__trailing[dir=rtl]{border-left:1px solid;border-right:none}.mdc-notched-outline__notch{flex:0 0 auto;width:auto;max-width:calc(100% - 12px * 2)}.mdc-notched-outline .mdc-floating-label{display:inline-block;position:relative;max-width:100%}.mdc-notched-outline .mdc-floating-label--float-above{text-overflow:clip}.mdc-notched-outline--upgraded .mdc-floating-label--float-above{max-width:calc(100% / 0.75)}.mdc-notched-outline--notched .mdc-notched-outline__notch{padding-left:0;padding-right:8px;border-top:none}[dir=rtl] .mdc-notched-outline--notched .mdc-notched-outline__notch,.mdc-notched-outline--notched .mdc-notched-outline__notch[dir=rtl]{padding-left:8px;padding-right:0}.mdc-notched-outline--no-label .mdc-notched-outline__notch{display:none}@keyframes mdc-ripple-fg-radius-in{from{animation-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transform:translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1)}to{transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}}@keyframes mdc-ripple-fg-opacity-in{from{animation-timing-function:linear;opacity:0}to{opacity:var(--mdc-ripple-fg-opacity, 0)}}@keyframes mdc-ripple-fg-opacity-out{from{animation-timing-function:linear;opacity:var(--mdc-ripple-fg-opacity, 0)}to{opacity:0}}.mdc-text-field--filled{--mdc-ripple-fg-size: 0;--mdc-ripple-left: 0;--mdc-ripple-top: 0;--mdc-ripple-fg-scale: 1;--mdc-ripple-fg-translate-end: 0;--mdc-ripple-fg-translate-start: 0;-webkit-tap-highlight-color:rgba(0,0,0,0);will-change:transform,opacity}.mdc-text-field--filled .mdc-text-field__ripple::before,.mdc-text-field--filled .mdc-text-field__ripple::after{position:absolute;border-radius:50%;opacity:0;pointer-events:none;content:""}.mdc-text-field--filled .mdc-text-field__ripple::before{transition:opacity 15ms linear,background-color 15ms linear;z-index:1;z-index:var(--mdc-ripple-z-index, 1)}.mdc-text-field--filled .mdc-text-field__ripple::after{z-index:0;z-index:var(--mdc-ripple-z-index, 0)}.mdc-text-field--filled.mdc-ripple-upgraded .mdc-text-field__ripple::before{transform:scale(var(--mdc-ripple-fg-scale, 1))}.mdc-text-field--filled.mdc-ripple-upgraded .mdc-text-field__ripple::after{top:0;left:0;transform:scale(0);transform-origin:center center}.mdc-text-field--filled.mdc-ripple-upgraded--unbounded .mdc-text-field__ripple::after{top:var(--mdc-ripple-top, 0);left:var(--mdc-ripple-left, 0)}.mdc-text-field--filled.mdc-ripple-upgraded--foreground-activation .mdc-text-field__ripple::after{animation:mdc-ripple-fg-radius-in 225ms forwards,mdc-ripple-fg-opacity-in 75ms forwards}.mdc-text-field--filled.mdc-ripple-upgraded--foreground-deactivation .mdc-text-field__ripple::after{animation:mdc-ripple-fg-opacity-out 150ms;transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}.mdc-text-field--filled .mdc-text-field__ripple::before,.mdc-text-field--filled .mdc-text-field__ripple::after{top:calc(50% - 100%);left:calc(50% - 100%);width:200%;height:200%}.mdc-text-field--filled.mdc-ripple-upgraded .mdc-text-field__ripple::after{width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}.mdc-text-field__ripple{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}.mdc-text-field{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:0;border-bottom-left-radius:0;display:inline-flex;align-items:baseline;padding:0 16px;position:relative;box-sizing:border-box;overflow:hidden;will-change:opacity,transform,color}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input{color:rgba(0, 0, 0, 0.87)}@media all{.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input::placeholder{color:rgba(0, 0, 0, 0.54)}}@media all{.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input:-ms-input-placeholder{color:rgba(0, 0, 0, 0.54)}}.mdc-text-field .mdc-text-field__input{caret-color:#6200ee;caret-color:var(--mdc-theme-primary, #6200ee)}.mdc-text-field:not(.mdc-text-field--disabled)+.mdc-text-field-helper-line .mdc-text-field-helper-text{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field-character-counter,.mdc-text-field:not(.mdc-text-field--disabled)+.mdc-text-field-helper-line .mdc-text-field-character-counter{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon--leading{color:rgba(0, 0, 0, 0.54)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon--trailing{color:rgba(0, 0, 0, 0.54)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__affix--prefix{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__affix--suffix{color:rgba(0, 0, 0, 0.6)}.mdc-text-field .mdc-floating-label{top:50%;transform:translateY(-50%);pointer-events:none}.mdc-text-field__input{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);height:28px;transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);width:100%;min-width:0;border:none;border-radius:0;background:none;appearance:none;padding:0}.mdc-text-field__input::-ms-clear{display:none}.mdc-text-field__input::-webkit-calendar-picker-indicator{display:none}.mdc-text-field__input:focus{outline:none}.mdc-text-field__input:invalid{box-shadow:none}@media all{.mdc-text-field__input::placeholder{transition:opacity 67ms cubic-bezier(0.4, 0, 0.2, 1);opacity:0}}@media all{.mdc-text-field__input:-ms-input-placeholder{transition:opacity 67ms cubic-bezier(0.4, 0, 0.2, 1);opacity:0}}@media all{.mdc-text-field--no-label .mdc-text-field__input::placeholder,.mdc-text-field--focused .mdc-text-field__input::placeholder{transition-delay:40ms;transition-duration:110ms;opacity:1}}@media all{.mdc-text-field--no-label .mdc-text-field__input:-ms-input-placeholder,.mdc-text-field--focused .mdc-text-field__input:-ms-input-placeholder{transition-delay:40ms;transition-duration:110ms;opacity:1}}.mdc-text-field__affix{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);height:28px;transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);opacity:0;white-space:nowrap}.mdc-text-field--label-floating .mdc-text-field__affix,.mdc-text-field--no-label .mdc-text-field__affix{opacity:1}@supports(-webkit-hyphens: none){.mdc-text-field--outlined .mdc-text-field__affix{align-items:center;align-self:center;display:inline-flex;height:100%}}.mdc-text-field__affix--prefix{padding-left:0;padding-right:2px}[dir=rtl] .mdc-text-field__affix--prefix,.mdc-text-field__affix--prefix[dir=rtl]{padding-left:2px;padding-right:0}.mdc-text-field--end-aligned .mdc-text-field__affix--prefix{padding-left:0;padding-right:12px}[dir=rtl] .mdc-text-field--end-aligned .mdc-text-field__affix--prefix,.mdc-text-field--end-aligned .mdc-text-field__affix--prefix[dir=rtl]{padding-left:12px;padding-right:0}.mdc-text-field__affix--suffix{padding-left:12px;padding-right:0}[dir=rtl] .mdc-text-field__affix--suffix,.mdc-text-field__affix--suffix[dir=rtl]{padding-left:0;padding-right:12px}.mdc-text-field--end-aligned .mdc-text-field__affix--suffix{padding-left:2px;padding-right:0}[dir=rtl] .mdc-text-field--end-aligned .mdc-text-field__affix--suffix,.mdc-text-field--end-aligned .mdc-text-field__affix--suffix[dir=rtl]{padding-left:0;padding-right:2px}.mdc-text-field--filled{height:56px}.mdc-text-field--filled .mdc-text-field__ripple::before,.mdc-text-field--filled .mdc-text-field__ripple::after{background-color:rgba(0, 0, 0, 0.87);background-color:var(--mdc-ripple-color, rgba(0, 0, 0, 0.87))}.mdc-text-field--filled:hover .mdc-text-field__ripple::before,.mdc-text-field--filled.mdc-ripple-surface--hover .mdc-text-field__ripple::before{opacity:0.04;opacity:var(--mdc-ripple-hover-opacity, 0.04)}.mdc-text-field--filled.mdc-ripple-upgraded--background-focused .mdc-text-field__ripple::before,.mdc-text-field--filled:not(.mdc-ripple-upgraded):focus .mdc-text-field__ripple::before{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-focus-opacity, 0.12)}.mdc-text-field--filled::before{display:inline-block;width:0;height:40px;content:"";vertical-align:0}.mdc-text-field--filled:not(.mdc-text-field--disabled){background-color:whitesmoke}.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.42)}.mdc-text-field--filled:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.87)}.mdc-text-field--filled .mdc-line-ripple::after{border-bottom-color:#6200ee;border-bottom-color:var(--mdc-theme-primary, #6200ee)}.mdc-text-field--filled .mdc-floating-label{left:16px;right:initial}[dir=rtl] .mdc-text-field--filled .mdc-floating-label,.mdc-text-field--filled .mdc-floating-label[dir=rtl]{left:initial;right:16px}.mdc-text-field--filled .mdc-floating-label--float-above{transform:translateY(-106%) scale(0.75)}.mdc-text-field--filled.mdc-text-field--no-label .mdc-text-field__input{height:100%}.mdc-text-field--filled.mdc-text-field--no-label .mdc-floating-label{display:none}.mdc-text-field--filled.mdc-text-field--no-label::before{display:none}@supports(-webkit-hyphens: none){.mdc-text-field--filled.mdc-text-field--no-label .mdc-text-field__affix{align-items:center;align-self:center;display:inline-flex;height:100%}}.mdc-text-field--outlined{height:56px;overflow:visible}.mdc-text-field--outlined .mdc-floating-label--float-above{transform:translateY(-37.25px) scale(1)}.mdc-text-field--outlined .mdc-floating-label--float-above{font-size:.75rem}.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{transform:translateY(-34.75px) scale(0.75)}.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{font-size:1rem}.mdc-text-field--outlined .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-text-field-outlined 250ms 1}@keyframes mdc-floating-label-shake-float-above-text-field-outlined{0%{transform:translateX(calc(0 - 0%)) translateY(-34.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-34.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-34.75px) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-34.75px) scale(0.75)}}.mdc-text-field--outlined .mdc-text-field__input{height:100%}.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing{border-color:rgba(0, 0, 0, 0.38)}.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__leading,.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__notch,.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__trailing{border-color:rgba(0, 0, 0, 0.87)}.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing{border-color:#6200ee;border-color:var(--mdc-theme-primary, #6200ee)}.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}[dir=rtl] .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading,.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading[dir=rtl]{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}@supports(top: max(0%)){.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading{width:max(12px, var(--mdc-shape-small, 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__notch{max-width:calc(100% - max(12px, var(--mdc-shape-small, 4px)) * 2)}}.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}[dir=rtl] .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing,.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing[dir=rtl]{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}@supports(top: max(0%)){.mdc-text-field--outlined{padding-left:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined{padding-right:max(16px, var(--mdc-shape-small, 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined+.mdc-text-field-helper-line{padding-left:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined+.mdc-text-field-helper-line{padding-right:max(16px, var(--mdc-shape-small, 4px))}}.mdc-text-field--outlined.mdc-text-field--with-leading-icon{padding-left:0}@supports(top: max(0%)){.mdc-text-field--outlined.mdc-text-field--with-leading-icon{padding-right:max(16px, var(--mdc-shape-small, 4px))}}[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-leading-icon,.mdc-text-field--outlined.mdc-text-field--with-leading-icon[dir=rtl]{padding-right:0}@supports(top: max(0%)){[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-leading-icon,.mdc-text-field--outlined.mdc-text-field--with-leading-icon[dir=rtl]{padding-left:max(16px, var(--mdc-shape-small, 4px))}}.mdc-text-field--outlined.mdc-text-field--with-trailing-icon{padding-right:0}@supports(top: max(0%)){.mdc-text-field--outlined.mdc-text-field--with-trailing-icon{padding-left:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-trailing-icon,.mdc-text-field--outlined.mdc-text-field--with-trailing-icon[dir=rtl]{padding-left:0}@supports(top: max(0%)){[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-trailing-icon,.mdc-text-field--outlined.mdc-text-field--with-trailing-icon[dir=rtl]{padding-right:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}.mdc-text-field--outlined.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon{padding-left:0;padding-right:0}.mdc-text-field--outlined .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:1px}.mdc-text-field--outlined .mdc-text-field__ripple::before,.mdc-text-field--outlined .mdc-text-field__ripple::after{content:none}.mdc-text-field--outlined .mdc-floating-label{left:4px;right:initial}[dir=rtl] .mdc-text-field--outlined .mdc-floating-label,.mdc-text-field--outlined .mdc-floating-label[dir=rtl]{left:initial;right:4px}.mdc-text-field--outlined .mdc-text-field__input{display:flex;border:none !important;background-color:transparent}.mdc-text-field--outlined .mdc-notched-outline{z-index:1}.mdc-text-field--textarea{flex-direction:column;align-items:center;width:auto;height:auto;padding:0;transition:none}.mdc-text-field--textarea .mdc-floating-label{top:19px}.mdc-text-field--textarea .mdc-floating-label:not(.mdc-floating-label--float-above){transform:none}.mdc-text-field--textarea .mdc-text-field__input{flex-grow:1;height:auto;min-height:1.5rem;overflow-x:hidden;overflow-y:auto;box-sizing:border-box;resize:none;padding:0 16px;line-height:1.5rem}.mdc-text-field--textarea.mdc-text-field--filled::before{display:none}.mdc-text-field--textarea.mdc-text-field--filled .mdc-floating-label--float-above{transform:translateY(-10.25px) scale(0.75)}.mdc-text-field--textarea.mdc-text-field--filled .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-textarea-filled 250ms 1}@keyframes mdc-floating-label-shake-float-above-textarea-filled{0%{transform:translateX(calc(0 - 0%)) translateY(-10.25px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-10.25px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-10.25px) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-10.25px) scale(0.75)}}.mdc-text-field--textarea.mdc-text-field--filled .mdc-text-field__input{margin-top:23px;margin-bottom:9px}.mdc-text-field--textarea.mdc-text-field--filled.mdc-text-field--no-label .mdc-text-field__input{margin-top:16px;margin-bottom:16px}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:0}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label--float-above{transform:translateY(-27.25px) scale(1)}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label--float-above{font-size:.75rem}.mdc-text-field--textarea.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--textarea.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{transform:translateY(-24.75px) scale(0.75)}.mdc-text-field--textarea.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--textarea.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{font-size:1rem}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-textarea-outlined 250ms 1}@keyframes mdc-floating-label-shake-float-above-textarea-outlined{0%{transform:translateX(calc(0 - 0%)) translateY(-24.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-24.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-24.75px) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-24.75px) scale(0.75)}}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-text-field__input{margin-top:16px;margin-bottom:16px}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label{top:18px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field__input{margin-bottom:2px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field-character-counter{align-self:flex-end;padding:0 16px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field-character-counter::after{display:inline-block;width:0;height:16px;content:"";vertical-align:-16px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field-character-counter::before{display:none}.mdc-text-field__resizer{align-self:stretch;display:inline-flex;flex-direction:column;flex-grow:1;max-height:100%;max-width:100%;min-height:56px;min-width:fit-content;min-width:-moz-available;min-width:-webkit-fill-available;overflow:hidden;resize:both}.mdc-text-field--filled .mdc-text-field__resizer{transform:translateY(-1px)}.mdc-text-field--filled .mdc-text-field__resizer .mdc-text-field__input,.mdc-text-field--filled .mdc-text-field__resizer .mdc-text-field-character-counter{transform:translateY(1px)}.mdc-text-field--outlined .mdc-text-field__resizer{transform:translateX(-1px) translateY(-1px)}[dir=rtl] .mdc-text-field--outlined .mdc-text-field__resizer,.mdc-text-field--outlined .mdc-text-field__resizer[dir=rtl]{transform:translateX(1px) translateY(-1px)}.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field__input,.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field-character-counter{transform:translateX(1px) translateY(1px)}[dir=rtl] .mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field__input,.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field__input[dir=rtl],[dir=rtl] .mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field-character-counter,.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field-character-counter[dir=rtl]{transform:translateX(-1px) translateY(1px)}.mdc-text-field--with-leading-icon{padding-left:0;padding-right:16px}[dir=rtl] .mdc-text-field--with-leading-icon,.mdc-text-field--with-leading-icon[dir=rtl]{padding-left:16px;padding-right:0}.mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label{max-width:calc(100% - 48px);left:48px;right:initial}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label,.mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label[dir=rtl]{left:initial;right:48px}.mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label--float-above{max-width:calc(100% / 0.75 - 64px / 0.75)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label{left:36px;right:initial}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label[dir=rtl]{left:initial;right:36px}.mdc-text-field--with-leading-icon.mdc-text-field--outlined :not(.mdc-notched-outline--notched) .mdc-notched-outline__notch{max-width:calc(100% - 60px)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above{transform:translateY(-37.25px) translateX(-32px) scale(1)}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above[dir=rtl]{transform:translateY(-37.25px) translateX(32px) scale(1)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above{font-size:.75rem}.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{transform:translateY(-34.75px) translateX(-32px) scale(0.75)}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=rtl],[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=rtl]{transform:translateY(-34.75px) translateX(32px) scale(0.75)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{font-size:1rem}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-text-field-outlined-leading-icon 250ms 1}@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon{0%{transform:translateX(calc(0 - 32px)) translateY(-34.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 32px)) translateY(-34.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 32px)) translateY(-34.75px) scale(0.75)}100%{transform:translateX(calc(0 - 32px)) translateY(-34.75px) scale(0.75)}}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--shake,.mdc-text-field--with-leading-icon.mdc-text-field--outlined[dir=rtl] .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-text-field-outlined-leading-icon 250ms 1}@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon-rtl{0%{transform:translateX(calc(0 - -32px)) translateY(-34.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - -32px)) translateY(-34.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - -32px)) translateY(-34.75px) scale(0.75)}100%{transform:translateX(calc(0 - -32px)) translateY(-34.75px) scale(0.75)}}.mdc-text-field--with-trailing-icon{padding-left:16px;padding-right:0}[dir=rtl] .mdc-text-field--with-trailing-icon,.mdc-text-field--with-trailing-icon[dir=rtl]{padding-left:0;padding-right:16px}.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label{max-width:calc(100% - 64px)}.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label--float-above{max-width:calc(100% / 0.75 - 64px / 0.75)}.mdc-text-field--with-trailing-icon.mdc-text-field--outlined :not(.mdc-notched-outline--notched) .mdc-notched-outline__notch{max-width:calc(100% - 60px)}.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon{padding-left:0;padding-right:0}.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label{max-width:calc(100% - 96px)}.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label--float-above{max-width:calc(100% / 0.75 - 96px / 0.75)}.mdc-text-field-helper-line{display:flex;justify-content:space-between;box-sizing:border-box}.mdc-text-field+.mdc-text-field-helper-line{padding-right:16px;padding-left:16px}.mdc-form-field>.mdc-text-field+label{align-self:flex-start}.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label{color:rgba(98, 0, 238, 0.87)}.mdc-text-field--focused .mdc-notched-outline__leading,.mdc-text-field--focused .mdc-notched-outline__notch,.mdc-text-field--focused .mdc-notched-outline__trailing{border-width:2px}.mdc-text-field--focused+.mdc-text-field-helper-line .mdc-text-field-helper-text:not(.mdc-text-field-helper-text--validation-msg){opacity:1}.mdc-text-field--focused.mdc-text-field--outlined .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:2px}.mdc-text-field--focused.mdc-text-field--outlined.mdc-text-field--textarea .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:0}.mdc-text-field--invalid:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::after{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label{color:#b00020;color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--invalid+.mdc-text-field-helper-line .mdc-text-field-helper-text--validation-msg{color:#b00020;color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid .mdc-text-field__input{caret-color:#b00020;caret-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-text-field__icon--trailing{color:#b00020;color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing{border-color:#b00020;border-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__leading,.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__notch,.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__trailing{border-color:#b00020;border-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing{border-color:#b00020;border-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid+.mdc-text-field-helper-line .mdc-text-field-helper-text--validation-msg{opacity:1}.mdc-text-field--disabled{pointer-events:none}.mdc-text-field--disabled .mdc-text-field__input{color:rgba(0, 0, 0, 0.38)}@media all{.mdc-text-field--disabled .mdc-text-field__input::placeholder{color:rgba(0, 0, 0, 0.38)}}@media all{.mdc-text-field--disabled .mdc-text-field__input:-ms-input-placeholder{color:rgba(0, 0, 0, 0.38)}}.mdc-text-field--disabled .mdc-floating-label{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-helper-text{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-text-field-character-counter,.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-character-counter{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-text-field__icon--leading{color:rgba(0, 0, 0, 0.3)}.mdc-text-field--disabled .mdc-text-field__icon--trailing{color:rgba(0, 0, 0, 0.3)}.mdc-text-field--disabled .mdc-text-field__affix--prefix{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-text-field__affix--suffix{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.06)}.mdc-text-field--disabled .mdc-notched-outline__leading,.mdc-text-field--disabled .mdc-notched-outline__notch,.mdc-text-field--disabled .mdc-notched-outline__trailing{border-color:rgba(0, 0, 0, 0.06)}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__input::placeholder{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__input:-ms-input-placeholder{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-floating-label{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-helper-text{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field-character-counter,.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-character-counter{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__icon--leading{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__icon--trailing{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__affix--prefix{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__affix--suffix{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-line-ripple::before{border-bottom-color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-notched-outline__leading,.mdc-text-field--disabled .mdc-notched-outline__notch,.mdc-text-field--disabled .mdc-notched-outline__trailing{border-color:GrayText}}.mdc-text-field--disabled .mdc-floating-label{cursor:default}.mdc-text-field--disabled.mdc-text-field--filled{background-color:#fafafa}.mdc-text-field--disabled.mdc-text-field--filled .mdc-text-field__ripple{display:none}.mdc-text-field--disabled .mdc-text-field__input{pointer-events:auto}.mdc-text-field--end-aligned .mdc-text-field__input{text-align:right}[dir=rtl] .mdc-text-field--end-aligned .mdc-text-field__input,.mdc-text-field--end-aligned .mdc-text-field__input[dir=rtl]{text-align:left}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__input,[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__input,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix{direction:ltr}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--prefix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--prefix{padding-left:0;padding-right:2px}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--suffix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--suffix{padding-left:12px;padding-right:0}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__icon--leading,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__icon--leading{order:1}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--suffix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--suffix{order:2}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__input,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__input{order:3}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--prefix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--prefix{order:4}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__icon--trailing,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__icon--trailing{order:5}[dir=rtl] .mdc-text-field--ltr-text.mdc-text-field--end-aligned .mdc-text-field__input,.mdc-text-field--ltr-text.mdc-text-field--end-aligned[dir=rtl] .mdc-text-field__input{text-align:right}[dir=rtl] .mdc-text-field--ltr-text.mdc-text-field--end-aligned .mdc-text-field__affix--prefix,.mdc-text-field--ltr-text.mdc-text-field--end-aligned[dir=rtl] .mdc-text-field__affix--prefix{padding-right:12px}[dir=rtl] .mdc-text-field--ltr-text.mdc-text-field--end-aligned .mdc-text-field__affix--suffix,.mdc-text-field--ltr-text.mdc-text-field--end-aligned[dir=rtl] .mdc-text-field__affix--suffix{padding-left:2px}.mdc-text-field-helper-text{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.75rem;font-size:var(--mdc-typography-caption-font-size, 0.75rem);line-height:1.25rem;line-height:var(--mdc-typography-caption-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-caption-font-weight, 400);letter-spacing:0.0333333333em;letter-spacing:var(--mdc-typography-caption-letter-spacing, 0.0333333333em);text-decoration:inherit;text-decoration:var(--mdc-typography-caption-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-caption-text-transform, inherit);display:block;margin-top:0;line-height:normal;margin:0;opacity:0;will-change:opacity;transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-text-field-helper-text::before{display:inline-block;width:0;height:16px;content:"";vertical-align:0}.mdc-text-field-helper-text--persistent{transition:none;opacity:1;will-change:initial}.mdc-text-field-character-counter{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.75rem;font-size:var(--mdc-typography-caption-font-size, 0.75rem);line-height:1.25rem;line-height:var(--mdc-typography-caption-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-caption-font-weight, 400);letter-spacing:0.0333333333em;letter-spacing:var(--mdc-typography-caption-letter-spacing, 0.0333333333em);text-decoration:inherit;text-decoration:var(--mdc-typography-caption-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-caption-text-transform, inherit);display:block;margin-top:0;line-height:normal;margin-left:auto;margin-right:0;padding-left:16px;padding-right:0;white-space:nowrap}.mdc-text-field-character-counter::before{display:inline-block;width:0;height:16px;content:"";vertical-align:0}[dir=rtl] .mdc-text-field-character-counter,.mdc-text-field-character-counter[dir=rtl]{margin-left:0;margin-right:auto}[dir=rtl] .mdc-text-field-character-counter,.mdc-text-field-character-counter[dir=rtl]{padding-left:0;padding-right:16px}.mdc-text-field__icon{align-self:center;cursor:pointer}.mdc-text-field__icon:not([tabindex]),.mdc-text-field__icon[tabindex="-1"]{cursor:default;pointer-events:none}.mdc-text-field__icon svg{display:block}.mdc-text-field__icon--leading{margin-left:16px;margin-right:8px}[dir=rtl] .mdc-text-field__icon--leading,.mdc-text-field__icon--leading[dir=rtl]{margin-left:8px;margin-right:16px}.mdc-text-field__icon--trailing{padding:12px;margin-left:0px;margin-right:0px}[dir=rtl] .mdc-text-field__icon--trailing,.mdc-text-field__icon--trailing[dir=rtl]{margin-left:0px;margin-right:0px}.material-icons{font-family:var(--mdc-icon-font, "Material Icons");font-weight:normal;font-style:normal;font-size:var(--mdc-icon-size, 24px);line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale;font-feature-settings:"liga"}:host{display:inline-flex;flex-direction:column;outline:none}.mdc-text-field{width:100%}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.42);border-bottom-color:var(--mdc-text-field-idle-line-color, rgba(0, 0, 0, 0.42))}.mdc-text-field:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.87);border-bottom-color:var(--mdc-text-field-hover-line-color, rgba(0, 0, 0, 0.87))}.mdc-text-field.mdc-text-field--disabled .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.06);border-bottom-color:var(--mdc-text-field-disabled-line-color, rgba(0, 0, 0, 0.06))}.mdc-text-field.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-outlined-idle-border-color, rgba(0, 0, 0, 0.38))}:host(:not([disabled]):hover) :not(.mdc-text-field--invalid):not(.mdc-text-field--focused) mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-outlined-hover-border-color, rgba(0, 0, 0, 0.87))}:host(:not([disabled])) .mdc-text-field:not(.mdc-text-field--outlined){background-color:var(--mdc-text-field-fill-color, whitesmoke)}:host(:not([disabled])) .mdc-text-field.mdc-text-field--invalid mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-error-color, var(--mdc-theme-error, #b00020))}:host(:not([disabled])) .mdc-text-field.mdc-text-field--invalid+.mdc-text-field-helper-line .mdc-text-field-character-counter,:host(:not([disabled])) .mdc-text-field.mdc-text-field--invalid .mdc-text-field__icon{color:var(--mdc-text-field-error-color, var(--mdc-theme-error, #b00020))}:host(:not([disabled])) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label,:host(:not([disabled])) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label::after{color:var(--mdc-text-field-label-ink-color, rgba(0, 0, 0, 0.6))}:host(:not([disabled])) .mdc-text-field.mdc-text-field--focused mwc-notched-outline{--mdc-notched-outline-stroke-width: 2px}:host(:not([disabled])) .mdc-text-field.mdc-text-field--focused:not(.mdc-text-field--invalid) mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-focused-label-color, var(--mdc-theme-primary, rgba(98, 0, 238, 0.87)))}:host(:not([disabled])) .mdc-text-field.mdc-text-field--focused:not(.mdc-text-field--invalid) .mdc-floating-label{color:#6200ee;color:var(--mdc-theme-primary, #6200ee)}:host(:not([disabled])) .mdc-text-field .mdc-text-field__input{color:var(--mdc-text-field-ink-color, rgba(0, 0, 0, 0.87))}:host(:not([disabled])) .mdc-text-field .mdc-text-field__input::placeholder{color:var(--mdc-text-field-label-ink-color, rgba(0, 0, 0, 0.6))}:host(:not([disabled])) .mdc-text-field-helper-line .mdc-text-field-helper-text:not(.mdc-text-field-helper-text--validation-msg),:host(:not([disabled])) .mdc-text-field-helper-line:not(.mdc-text-field--invalid) .mdc-text-field-character-counter{color:var(--mdc-text-field-label-ink-color, rgba(0, 0, 0, 0.6))}:host([disabled]) .mdc-text-field:not(.mdc-text-field--outlined){background-color:var(--mdc-text-field-disabled-fill-color, #fafafa)}:host([disabled]) .mdc-text-field.mdc-text-field--outlined mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-outlined-disabled-border-color, rgba(0, 0, 0, 0.06))}:host([disabled]) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label,:host([disabled]) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label::after{color:var(--mdc-text-field-disabled-ink-color, rgba(0, 0, 0, 0.38))}:host([disabled]) .mdc-text-field .mdc-text-field__input,:host([disabled]) .mdc-text-field .mdc-text-field__input::placeholder{color:var(--mdc-text-field-disabled-ink-color, rgba(0, 0, 0, 0.38))}:host([disabled]) .mdc-text-field-helper-line .mdc-text-field-helper-text,:host([disabled]) .mdc-text-field-helper-line .mdc-text-field-character-counter{color:var(--mdc-text-field-disabled-ink-color, rgba(0, 0, 0, 0.38))}`;
+const style$l = css$1 `.mdc-floating-label{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);position:absolute;left:0;transform-origin:left top;line-height:1.15rem;text-align:left;text-overflow:ellipsis;white-space:nowrap;cursor:text;overflow:hidden;will-change:transform;transition:transform 150ms cubic-bezier(0.4, 0, 0.2, 1),color 150ms cubic-bezier(0.4, 0, 0.2, 1)}[dir=rtl] .mdc-floating-label,.mdc-floating-label[dir=rtl]{right:0;left:auto;transform-origin:right top;text-align:right}.mdc-floating-label--float-above{cursor:auto}.mdc-floating-label--required::after{margin-left:1px;margin-right:0px;content:"*"}[dir=rtl] .mdc-floating-label--required::after,.mdc-floating-label--required[dir=rtl]::after{margin-left:0;margin-right:1px}.mdc-floating-label--float-above{transform:translateY(-106%) scale(0.75)}.mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-standard 250ms 1}@keyframes mdc-floating-label-shake-float-above-standard{0%{transform:translateX(calc(0 - 0%)) translateY(-106%) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-106%) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-106%) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-106%) scale(0.75)}}.mdc-line-ripple::before,.mdc-line-ripple::after{position:absolute;bottom:0;left:0;width:100%;border-bottom-style:solid;content:""}.mdc-line-ripple::before{border-bottom-width:1px;z-index:1}.mdc-line-ripple::after{transform:scaleX(0);border-bottom-width:2px;opacity:0;z-index:2}.mdc-line-ripple::after{transition:transform 180ms cubic-bezier(0.4, 0, 0.2, 1),opacity 180ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-line-ripple--active::after{transform:scaleX(1);opacity:1}.mdc-line-ripple--deactivating::after{opacity:0}.mdc-notched-outline{display:flex;position:absolute;top:0;right:0;left:0;box-sizing:border-box;width:100%;max-width:100%;height:100%;text-align:left;pointer-events:none}[dir=rtl] .mdc-notched-outline,.mdc-notched-outline[dir=rtl]{text-align:right}.mdc-notched-outline__leading,.mdc-notched-outline__notch,.mdc-notched-outline__trailing{box-sizing:border-box;height:100%;border-top:1px solid;border-bottom:1px solid;pointer-events:none}.mdc-notched-outline__leading{border-left:1px solid;border-right:none;width:12px}[dir=rtl] .mdc-notched-outline__leading,.mdc-notched-outline__leading[dir=rtl]{border-left:none;border-right:1px solid}.mdc-notched-outline__trailing{border-left:none;border-right:1px solid;flex-grow:1}[dir=rtl] .mdc-notched-outline__trailing,.mdc-notched-outline__trailing[dir=rtl]{border-left:1px solid;border-right:none}.mdc-notched-outline__notch{flex:0 0 auto;width:auto;max-width:calc(100% - 12px * 2)}.mdc-notched-outline .mdc-floating-label{display:inline-block;position:relative;max-width:100%}.mdc-notched-outline .mdc-floating-label--float-above{text-overflow:clip}.mdc-notched-outline--upgraded .mdc-floating-label--float-above{max-width:calc(100% / 0.75)}.mdc-notched-outline--notched .mdc-notched-outline__notch{padding-left:0;padding-right:8px;border-top:none}[dir=rtl] .mdc-notched-outline--notched .mdc-notched-outline__notch,.mdc-notched-outline--notched .mdc-notched-outline__notch[dir=rtl]{padding-left:8px;padding-right:0}.mdc-notched-outline--no-label .mdc-notched-outline__notch{display:none}@keyframes mdc-ripple-fg-radius-in{from{animation-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transform:translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1)}to{transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}}@keyframes mdc-ripple-fg-opacity-in{from{animation-timing-function:linear;opacity:0}to{opacity:var(--mdc-ripple-fg-opacity, 0)}}@keyframes mdc-ripple-fg-opacity-out{from{animation-timing-function:linear;opacity:var(--mdc-ripple-fg-opacity, 0)}to{opacity:0}}.mdc-text-field--filled{--mdc-ripple-fg-size: 0;--mdc-ripple-left: 0;--mdc-ripple-top: 0;--mdc-ripple-fg-scale: 1;--mdc-ripple-fg-translate-end: 0;--mdc-ripple-fg-translate-start: 0;-webkit-tap-highlight-color:rgba(0,0,0,0);will-change:transform,opacity}.mdc-text-field--filled .mdc-text-field__ripple::before,.mdc-text-field--filled .mdc-text-field__ripple::after{position:absolute;border-radius:50%;opacity:0;pointer-events:none;content:""}.mdc-text-field--filled .mdc-text-field__ripple::before{transition:opacity 15ms linear,background-color 15ms linear;z-index:1;z-index:var(--mdc-ripple-z-index, 1)}.mdc-text-field--filled .mdc-text-field__ripple::after{z-index:0;z-index:var(--mdc-ripple-z-index, 0)}.mdc-text-field--filled.mdc-ripple-upgraded .mdc-text-field__ripple::before{transform:scale(var(--mdc-ripple-fg-scale, 1))}.mdc-text-field--filled.mdc-ripple-upgraded .mdc-text-field__ripple::after{top:0;left:0;transform:scale(0);transform-origin:center center}.mdc-text-field--filled.mdc-ripple-upgraded--unbounded .mdc-text-field__ripple::after{top:var(--mdc-ripple-top, 0);left:var(--mdc-ripple-left, 0)}.mdc-text-field--filled.mdc-ripple-upgraded--foreground-activation .mdc-text-field__ripple::after{animation:mdc-ripple-fg-radius-in 225ms forwards,mdc-ripple-fg-opacity-in 75ms forwards}.mdc-text-field--filled.mdc-ripple-upgraded--foreground-deactivation .mdc-text-field__ripple::after{animation:mdc-ripple-fg-opacity-out 150ms;transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}.mdc-text-field--filled .mdc-text-field__ripple::before,.mdc-text-field--filled .mdc-text-field__ripple::after{top:calc(50% - 100%);left:calc(50% - 100%);width:200%;height:200%}.mdc-text-field--filled.mdc-ripple-upgraded .mdc-text-field__ripple::after{width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}.mdc-text-field__ripple{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}.mdc-text-field{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:0;border-bottom-left-radius:0;display:inline-flex;align-items:baseline;padding:0 16px;position:relative;box-sizing:border-box;overflow:hidden;will-change:opacity,transform,color}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input{color:rgba(0, 0, 0, 0.87)}@media all{.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input::placeholder{color:rgba(0, 0, 0, 0.54)}}@media all{.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input:-ms-input-placeholder{color:rgba(0, 0, 0, 0.54)}}.mdc-text-field .mdc-text-field__input{caret-color:#6200ee;caret-color:var(--mdc-theme-primary, #6200ee)}.mdc-text-field:not(.mdc-text-field--disabled)+.mdc-text-field-helper-line .mdc-text-field-helper-text{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field-character-counter,.mdc-text-field:not(.mdc-text-field--disabled)+.mdc-text-field-helper-line .mdc-text-field-character-counter{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon--leading{color:rgba(0, 0, 0, 0.54)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon--trailing{color:rgba(0, 0, 0, 0.54)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__affix--prefix{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__affix--suffix{color:rgba(0, 0, 0, 0.6)}.mdc-text-field .mdc-floating-label{top:50%;transform:translateY(-50%);pointer-events:none}.mdc-text-field__input{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);height:28px;transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);width:100%;min-width:0;border:none;border-radius:0;background:none;appearance:none;padding:0}.mdc-text-field__input::-ms-clear{display:none}.mdc-text-field__input::-webkit-calendar-picker-indicator{display:none}.mdc-text-field__input:focus{outline:none}.mdc-text-field__input:invalid{box-shadow:none}@media all{.mdc-text-field__input::placeholder{transition:opacity 67ms cubic-bezier(0.4, 0, 0.2, 1);opacity:0}}@media all{.mdc-text-field__input:-ms-input-placeholder{transition:opacity 67ms cubic-bezier(0.4, 0, 0.2, 1);opacity:0}}@media all{.mdc-text-field--no-label .mdc-text-field__input::placeholder,.mdc-text-field--focused .mdc-text-field__input::placeholder{transition-delay:40ms;transition-duration:110ms;opacity:1}}@media all{.mdc-text-field--no-label .mdc-text-field__input:-ms-input-placeholder,.mdc-text-field--focused .mdc-text-field__input:-ms-input-placeholder{transition-delay:40ms;transition-duration:110ms;opacity:1}}.mdc-text-field__affix{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);height:28px;transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);opacity:0;white-space:nowrap}.mdc-text-field--label-floating .mdc-text-field__affix,.mdc-text-field--no-label .mdc-text-field__affix{opacity:1}@supports(-webkit-hyphens: none){.mdc-text-field--outlined .mdc-text-field__affix{align-items:center;align-self:center;display:inline-flex;height:100%}}.mdc-text-field__affix--prefix{padding-left:0;padding-right:2px}[dir=rtl] .mdc-text-field__affix--prefix,.mdc-text-field__affix--prefix[dir=rtl]{padding-left:2px;padding-right:0}.mdc-text-field--end-aligned .mdc-text-field__affix--prefix{padding-left:0;padding-right:12px}[dir=rtl] .mdc-text-field--end-aligned .mdc-text-field__affix--prefix,.mdc-text-field--end-aligned .mdc-text-field__affix--prefix[dir=rtl]{padding-left:12px;padding-right:0}.mdc-text-field__affix--suffix{padding-left:12px;padding-right:0}[dir=rtl] .mdc-text-field__affix--suffix,.mdc-text-field__affix--suffix[dir=rtl]{padding-left:0;padding-right:12px}.mdc-text-field--end-aligned .mdc-text-field__affix--suffix{padding-left:2px;padding-right:0}[dir=rtl] .mdc-text-field--end-aligned .mdc-text-field__affix--suffix,.mdc-text-field--end-aligned .mdc-text-field__affix--suffix[dir=rtl]{padding-left:0;padding-right:2px}.mdc-text-field--filled{height:56px}.mdc-text-field--filled .mdc-text-field__ripple::before,.mdc-text-field--filled .mdc-text-field__ripple::after{background-color:rgba(0, 0, 0, 0.87);background-color:var(--mdc-ripple-color, rgba(0, 0, 0, 0.87))}.mdc-text-field--filled:hover .mdc-text-field__ripple::before,.mdc-text-field--filled.mdc-ripple-surface--hover .mdc-text-field__ripple::before{opacity:0.04;opacity:var(--mdc-ripple-hover-opacity, 0.04)}.mdc-text-field--filled.mdc-ripple-upgraded--background-focused .mdc-text-field__ripple::before,.mdc-text-field--filled:not(.mdc-ripple-upgraded):focus .mdc-text-field__ripple::before{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-focus-opacity, 0.12)}.mdc-text-field--filled::before{display:inline-block;width:0;height:40px;content:"";vertical-align:0}.mdc-text-field--filled:not(.mdc-text-field--disabled){background-color:whitesmoke}.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.42)}.mdc-text-field--filled:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.87)}.mdc-text-field--filled .mdc-line-ripple::after{border-bottom-color:#6200ee;border-bottom-color:var(--mdc-theme-primary, #6200ee)}.mdc-text-field--filled .mdc-floating-label{left:16px;right:initial}[dir=rtl] .mdc-text-field--filled .mdc-floating-label,.mdc-text-field--filled .mdc-floating-label[dir=rtl]{left:initial;right:16px}.mdc-text-field--filled .mdc-floating-label--float-above{transform:translateY(-106%) scale(0.75)}.mdc-text-field--filled.mdc-text-field--no-label .mdc-text-field__input{height:100%}.mdc-text-field--filled.mdc-text-field--no-label .mdc-floating-label{display:none}.mdc-text-field--filled.mdc-text-field--no-label::before{display:none}@supports(-webkit-hyphens: none){.mdc-text-field--filled.mdc-text-field--no-label .mdc-text-field__affix{align-items:center;align-self:center;display:inline-flex;height:100%}}.mdc-text-field--outlined{height:56px;overflow:visible}.mdc-text-field--outlined .mdc-floating-label--float-above{transform:translateY(-37.25px) scale(1)}.mdc-text-field--outlined .mdc-floating-label--float-above{font-size:.75rem}.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{transform:translateY(-34.75px) scale(0.75)}.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{font-size:1rem}.mdc-text-field--outlined .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-text-field-outlined 250ms 1}@keyframes mdc-floating-label-shake-float-above-text-field-outlined{0%{transform:translateX(calc(0 - 0%)) translateY(-34.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-34.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-34.75px) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-34.75px) scale(0.75)}}.mdc-text-field--outlined .mdc-text-field__input{height:100%}.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing{border-color:rgba(0, 0, 0, 0.38)}.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__leading,.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__notch,.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__trailing{border-color:rgba(0, 0, 0, 0.87)}.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing{border-color:#6200ee;border-color:var(--mdc-theme-primary, #6200ee)}.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}[dir=rtl] .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading,.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading[dir=rtl]{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}@supports(top: max(0%)){.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading{width:max(12px, var(--mdc-shape-small, 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__notch{max-width:calc(100% - max(12px, var(--mdc-shape-small, 4px)) * 2)}}.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}[dir=rtl] .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing,.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing[dir=rtl]{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}@supports(top: max(0%)){.mdc-text-field--outlined{padding-left:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined{padding-right:max(16px, var(--mdc-shape-small, 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined+.mdc-text-field-helper-line{padding-left:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined+.mdc-text-field-helper-line{padding-right:max(16px, var(--mdc-shape-small, 4px))}}.mdc-text-field--outlined.mdc-text-field--with-leading-icon{padding-left:0}@supports(top: max(0%)){.mdc-text-field--outlined.mdc-text-field--with-leading-icon{padding-right:max(16px, var(--mdc-shape-small, 4px))}}[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-leading-icon,.mdc-text-field--outlined.mdc-text-field--with-leading-icon[dir=rtl]{padding-right:0}@supports(top: max(0%)){[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-leading-icon,.mdc-text-field--outlined.mdc-text-field--with-leading-icon[dir=rtl]{padding-left:max(16px, var(--mdc-shape-small, 4px))}}.mdc-text-field--outlined.mdc-text-field--with-trailing-icon{padding-right:0}@supports(top: max(0%)){.mdc-text-field--outlined.mdc-text-field--with-trailing-icon{padding-left:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-trailing-icon,.mdc-text-field--outlined.mdc-text-field--with-trailing-icon[dir=rtl]{padding-left:0}@supports(top: max(0%)){[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-trailing-icon,.mdc-text-field--outlined.mdc-text-field--with-trailing-icon[dir=rtl]{padding-right:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}.mdc-text-field--outlined.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon{padding-left:0;padding-right:0}.mdc-text-field--outlined .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:1px}.mdc-text-field--outlined .mdc-text-field__ripple::before,.mdc-text-field--outlined .mdc-text-field__ripple::after{content:none}.mdc-text-field--outlined .mdc-floating-label{left:4px;right:initial}[dir=rtl] .mdc-text-field--outlined .mdc-floating-label,.mdc-text-field--outlined .mdc-floating-label[dir=rtl]{left:initial;right:4px}.mdc-text-field--outlined .mdc-text-field__input{display:flex;border:none !important;background-color:transparent}.mdc-text-field--outlined .mdc-notched-outline{z-index:1}.mdc-text-field--textarea{flex-direction:column;align-items:center;width:auto;height:auto;padding:0;transition:none}.mdc-text-field--textarea .mdc-floating-label{top:19px}.mdc-text-field--textarea .mdc-floating-label:not(.mdc-floating-label--float-above){transform:none}.mdc-text-field--textarea .mdc-text-field__input{flex-grow:1;height:auto;min-height:1.5rem;overflow-x:hidden;overflow-y:auto;box-sizing:border-box;resize:none;padding:0 16px;line-height:1.5rem}.mdc-text-field--textarea.mdc-text-field--filled::before{display:none}.mdc-text-field--textarea.mdc-text-field--filled .mdc-floating-label--float-above{transform:translateY(-10.25px) scale(0.75)}.mdc-text-field--textarea.mdc-text-field--filled .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-textarea-filled 250ms 1}@keyframes mdc-floating-label-shake-float-above-textarea-filled{0%{transform:translateX(calc(0 - 0%)) translateY(-10.25px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-10.25px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-10.25px) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-10.25px) scale(0.75)}}.mdc-text-field--textarea.mdc-text-field--filled .mdc-text-field__input{margin-top:23px;margin-bottom:9px}.mdc-text-field--textarea.mdc-text-field--filled.mdc-text-field--no-label .mdc-text-field__input{margin-top:16px;margin-bottom:16px}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:0}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label--float-above{transform:translateY(-27.25px) scale(1)}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label--float-above{font-size:.75rem}.mdc-text-field--textarea.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--textarea.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{transform:translateY(-24.75px) scale(0.75)}.mdc-text-field--textarea.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--textarea.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{font-size:1rem}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-textarea-outlined 250ms 1}@keyframes mdc-floating-label-shake-float-above-textarea-outlined{0%{transform:translateX(calc(0 - 0%)) translateY(-24.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-24.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-24.75px) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-24.75px) scale(0.75)}}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-text-field__input{margin-top:16px;margin-bottom:16px}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label{top:18px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field__input{margin-bottom:2px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field-character-counter{align-self:flex-end;padding:0 16px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field-character-counter::after{display:inline-block;width:0;height:16px;content:"";vertical-align:-16px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field-character-counter::before{display:none}.mdc-text-field__resizer{align-self:stretch;display:inline-flex;flex-direction:column;flex-grow:1;max-height:100%;max-width:100%;min-height:56px;min-width:fit-content;min-width:-moz-available;min-width:-webkit-fill-available;overflow:hidden;resize:both}.mdc-text-field--filled .mdc-text-field__resizer{transform:translateY(-1px)}.mdc-text-field--filled .mdc-text-field__resizer .mdc-text-field__input,.mdc-text-field--filled .mdc-text-field__resizer .mdc-text-field-character-counter{transform:translateY(1px)}.mdc-text-field--outlined .mdc-text-field__resizer{transform:translateX(-1px) translateY(-1px)}[dir=rtl] .mdc-text-field--outlined .mdc-text-field__resizer,.mdc-text-field--outlined .mdc-text-field__resizer[dir=rtl]{transform:translateX(1px) translateY(-1px)}.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field__input,.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field-character-counter{transform:translateX(1px) translateY(1px)}[dir=rtl] .mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field__input,.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field__input[dir=rtl],[dir=rtl] .mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field-character-counter,.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field-character-counter[dir=rtl]{transform:translateX(-1px) translateY(1px)}.mdc-text-field--with-leading-icon{padding-left:0;padding-right:16px}[dir=rtl] .mdc-text-field--with-leading-icon,.mdc-text-field--with-leading-icon[dir=rtl]{padding-left:16px;padding-right:0}.mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label{max-width:calc(100% - 48px);left:48px;right:initial}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label,.mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label[dir=rtl]{left:initial;right:48px}.mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label--float-above{max-width:calc(100% / 0.75 - 64px / 0.75)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label{left:36px;right:initial}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label[dir=rtl]{left:initial;right:36px}.mdc-text-field--with-leading-icon.mdc-text-field--outlined :not(.mdc-notched-outline--notched) .mdc-notched-outline__notch{max-width:calc(100% - 60px)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above{transform:translateY(-37.25px) translateX(-32px) scale(1)}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above[dir=rtl]{transform:translateY(-37.25px) translateX(32px) scale(1)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above{font-size:.75rem}.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{transform:translateY(-34.75px) translateX(-32px) scale(0.75)}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=rtl],[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=rtl]{transform:translateY(-34.75px) translateX(32px) scale(0.75)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{font-size:1rem}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-text-field-outlined-leading-icon 250ms 1}@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon{0%{transform:translateX(calc(0 - 32px)) translateY(-34.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 32px)) translateY(-34.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 32px)) translateY(-34.75px) scale(0.75)}100%{transform:translateX(calc(0 - 32px)) translateY(-34.75px) scale(0.75)}}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--shake,.mdc-text-field--with-leading-icon.mdc-text-field--outlined[dir=rtl] .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-text-field-outlined-leading-icon 250ms 1}@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon-rtl{0%{transform:translateX(calc(0 - -32px)) translateY(-34.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - -32px)) translateY(-34.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - -32px)) translateY(-34.75px) scale(0.75)}100%{transform:translateX(calc(0 - -32px)) translateY(-34.75px) scale(0.75)}}.mdc-text-field--with-trailing-icon{padding-left:16px;padding-right:0}[dir=rtl] .mdc-text-field--with-trailing-icon,.mdc-text-field--with-trailing-icon[dir=rtl]{padding-left:0;padding-right:16px}.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label{max-width:calc(100% - 64px)}.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label--float-above{max-width:calc(100% / 0.75 - 64px / 0.75)}.mdc-text-field--with-trailing-icon.mdc-text-field--outlined :not(.mdc-notched-outline--notched) .mdc-notched-outline__notch{max-width:calc(100% - 60px)}.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon{padding-left:0;padding-right:0}.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label{max-width:calc(100% - 96px)}.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label--float-above{max-width:calc(100% / 0.75 - 96px / 0.75)}.mdc-text-field-helper-line{display:flex;justify-content:space-between;box-sizing:border-box}.mdc-text-field+.mdc-text-field-helper-line{padding-right:16px;padding-left:16px}.mdc-form-field>.mdc-text-field+label{align-self:flex-start}.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label{color:rgba(98, 0, 238, 0.87)}.mdc-text-field--focused .mdc-notched-outline__leading,.mdc-text-field--focused .mdc-notched-outline__notch,.mdc-text-field--focused .mdc-notched-outline__trailing{border-width:2px}.mdc-text-field--focused+.mdc-text-field-helper-line .mdc-text-field-helper-text:not(.mdc-text-field-helper-text--validation-msg){opacity:1}.mdc-text-field--focused.mdc-text-field--outlined .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:2px}.mdc-text-field--focused.mdc-text-field--outlined.mdc-text-field--textarea .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:0}.mdc-text-field--invalid:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::after{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label{color:#b00020;color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--invalid+.mdc-text-field-helper-line .mdc-text-field-helper-text--validation-msg{color:#b00020;color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid .mdc-text-field__input{caret-color:#b00020;caret-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-text-field__icon--trailing{color:#b00020;color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing{border-color:#b00020;border-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__leading,.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__notch,.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__trailing{border-color:#b00020;border-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing{border-color:#b00020;border-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid+.mdc-text-field-helper-line .mdc-text-field-helper-text--validation-msg{opacity:1}.mdc-text-field--disabled{pointer-events:none}.mdc-text-field--disabled .mdc-text-field__input{color:rgba(0, 0, 0, 0.38)}@media all{.mdc-text-field--disabled .mdc-text-field__input::placeholder{color:rgba(0, 0, 0, 0.38)}}@media all{.mdc-text-field--disabled .mdc-text-field__input:-ms-input-placeholder{color:rgba(0, 0, 0, 0.38)}}.mdc-text-field--disabled .mdc-floating-label{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-helper-text{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-text-field-character-counter,.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-character-counter{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-text-field__icon--leading{color:rgba(0, 0, 0, 0.3)}.mdc-text-field--disabled .mdc-text-field__icon--trailing{color:rgba(0, 0, 0, 0.3)}.mdc-text-field--disabled .mdc-text-field__affix--prefix{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-text-field__affix--suffix{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.06)}.mdc-text-field--disabled .mdc-notched-outline__leading,.mdc-text-field--disabled .mdc-notched-outline__notch,.mdc-text-field--disabled .mdc-notched-outline__trailing{border-color:rgba(0, 0, 0, 0.06)}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__input::placeholder{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__input:-ms-input-placeholder{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-floating-label{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-helper-text{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field-character-counter,.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-character-counter{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__icon--leading{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__icon--trailing{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__affix--prefix{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__affix--suffix{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-line-ripple::before{border-bottom-color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-notched-outline__leading,.mdc-text-field--disabled .mdc-notched-outline__notch,.mdc-text-field--disabled .mdc-notched-outline__trailing{border-color:GrayText}}.mdc-text-field--disabled .mdc-floating-label{cursor:default}.mdc-text-field--disabled.mdc-text-field--filled{background-color:#fafafa}.mdc-text-field--disabled.mdc-text-field--filled .mdc-text-field__ripple{display:none}.mdc-text-field--disabled .mdc-text-field__input{pointer-events:auto}.mdc-text-field--end-aligned .mdc-text-field__input{text-align:right}[dir=rtl] .mdc-text-field--end-aligned .mdc-text-field__input,.mdc-text-field--end-aligned .mdc-text-field__input[dir=rtl]{text-align:left}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__input,[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__input,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix{direction:ltr}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--prefix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--prefix{padding-left:0;padding-right:2px}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--suffix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--suffix{padding-left:12px;padding-right:0}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__icon--leading,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__icon--leading{order:1}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--suffix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--suffix{order:2}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__input,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__input{order:3}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--prefix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--prefix{order:4}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__icon--trailing,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__icon--trailing{order:5}[dir=rtl] .mdc-text-field--ltr-text.mdc-text-field--end-aligned .mdc-text-field__input,.mdc-text-field--ltr-text.mdc-text-field--end-aligned[dir=rtl] .mdc-text-field__input{text-align:right}[dir=rtl] .mdc-text-field--ltr-text.mdc-text-field--end-aligned .mdc-text-field__affix--prefix,.mdc-text-field--ltr-text.mdc-text-field--end-aligned[dir=rtl] .mdc-text-field__affix--prefix{padding-right:12px}[dir=rtl] .mdc-text-field--ltr-text.mdc-text-field--end-aligned .mdc-text-field__affix--suffix,.mdc-text-field--ltr-text.mdc-text-field--end-aligned[dir=rtl] .mdc-text-field__affix--suffix{padding-left:2px}.mdc-text-field-helper-text{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.75rem;font-size:var(--mdc-typography-caption-font-size, 0.75rem);line-height:1.25rem;line-height:var(--mdc-typography-caption-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-caption-font-weight, 400);letter-spacing:0.0333333333em;letter-spacing:var(--mdc-typography-caption-letter-spacing, 0.0333333333em);text-decoration:inherit;text-decoration:var(--mdc-typography-caption-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-caption-text-transform, inherit);display:block;margin-top:0;line-height:normal;margin:0;opacity:0;will-change:opacity;transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-text-field-helper-text::before{display:inline-block;width:0;height:16px;content:"";vertical-align:0}.mdc-text-field-helper-text--persistent{transition:none;opacity:1;will-change:initial}.mdc-text-field-character-counter{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.75rem;font-size:var(--mdc-typography-caption-font-size, 0.75rem);line-height:1.25rem;line-height:var(--mdc-typography-caption-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-caption-font-weight, 400);letter-spacing:0.0333333333em;letter-spacing:var(--mdc-typography-caption-letter-spacing, 0.0333333333em);text-decoration:inherit;text-decoration:var(--mdc-typography-caption-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-caption-text-transform, inherit);display:block;margin-top:0;line-height:normal;margin-left:auto;margin-right:0;padding-left:16px;padding-right:0;white-space:nowrap}.mdc-text-field-character-counter::before{display:inline-block;width:0;height:16px;content:"";vertical-align:0}[dir=rtl] .mdc-text-field-character-counter,.mdc-text-field-character-counter[dir=rtl]{margin-left:0;margin-right:auto}[dir=rtl] .mdc-text-field-character-counter,.mdc-text-field-character-counter[dir=rtl]{padding-left:0;padding-right:16px}.mdc-text-field__icon{align-self:center;cursor:pointer}.mdc-text-field__icon:not([tabindex]),.mdc-text-field__icon[tabindex="-1"]{cursor:default;pointer-events:none}.mdc-text-field__icon svg{display:block}.mdc-text-field__icon--leading{margin-left:16px;margin-right:8px}[dir=rtl] .mdc-text-field__icon--leading,.mdc-text-field__icon--leading[dir=rtl]{margin-left:8px;margin-right:16px}.mdc-text-field__icon--trailing{padding:12px;margin-left:0px;margin-right:0px}[dir=rtl] .mdc-text-field__icon--trailing,.mdc-text-field__icon--trailing[dir=rtl]{margin-left:0px;margin-right:0px}.material-icons{font-family:var(--mdc-icon-font, "Material Icons");font-weight:normal;font-style:normal;font-size:var(--mdc-icon-size, 24px);line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale;font-feature-settings:"liga"}:host{display:inline-flex;flex-direction:column;outline:none}.mdc-text-field{width:100%}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.42);border-bottom-color:var(--mdc-text-field-idle-line-color, rgba(0, 0, 0, 0.42))}.mdc-text-field:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.87);border-bottom-color:var(--mdc-text-field-hover-line-color, rgba(0, 0, 0, 0.87))}.mdc-text-field.mdc-text-field--disabled .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.06);border-bottom-color:var(--mdc-text-field-disabled-line-color, rgba(0, 0, 0, 0.06))}.mdc-text-field.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-outlined-idle-border-color, rgba(0, 0, 0, 0.38))}:host(:not([disabled]):hover) :not(.mdc-text-field--invalid):not(.mdc-text-field--focused) mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-outlined-hover-border-color, rgba(0, 0, 0, 0.87))}:host(:not([disabled])) .mdc-text-field:not(.mdc-text-field--outlined){background-color:var(--mdc-text-field-fill-color, whitesmoke)}:host(:not([disabled])) .mdc-text-field.mdc-text-field--invalid mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-error-color, var(--mdc-theme-error, #b00020))}:host(:not([disabled])) .mdc-text-field.mdc-text-field--invalid+.mdc-text-field-helper-line .mdc-text-field-character-counter,:host(:not([disabled])) .mdc-text-field.mdc-text-field--invalid .mdc-text-field__icon{color:var(--mdc-text-field-error-color, var(--mdc-theme-error, #b00020))}:host(:not([disabled])) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label,:host(:not([disabled])) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label::after{color:var(--mdc-text-field-label-ink-color, rgba(0, 0, 0, 0.6))}:host(:not([disabled])) .mdc-text-field.mdc-text-field--focused mwc-notched-outline{--mdc-notched-outline-stroke-width: 2px}:host(:not([disabled])) .mdc-text-field.mdc-text-field--focused:not(.mdc-text-field--invalid) mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-focused-label-color, var(--mdc-theme-primary, rgba(98, 0, 238, 0.87)))}:host(:not([disabled])) .mdc-text-field.mdc-text-field--focused:not(.mdc-text-field--invalid) .mdc-floating-label{color:#6200ee;color:var(--mdc-theme-primary, #6200ee)}:host(:not([disabled])) .mdc-text-field .mdc-text-field__input{color:var(--mdc-text-field-ink-color, rgba(0, 0, 0, 0.87))}:host(:not([disabled])) .mdc-text-field .mdc-text-field__input::placeholder{color:var(--mdc-text-field-label-ink-color, rgba(0, 0, 0, 0.6))}:host(:not([disabled])) .mdc-text-field-helper-line .mdc-text-field-helper-text:not(.mdc-text-field-helper-text--validation-msg),:host(:not([disabled])) .mdc-text-field-helper-line:not(.mdc-text-field--invalid) .mdc-text-field-character-counter{color:var(--mdc-text-field-label-ink-color, rgba(0, 0, 0, 0.6))}:host([disabled]) .mdc-text-field:not(.mdc-text-field--outlined){background-color:var(--mdc-text-field-disabled-fill-color, #fafafa)}:host([disabled]) .mdc-text-field.mdc-text-field--outlined mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-outlined-disabled-border-color, rgba(0, 0, 0, 0.06))}:host([disabled]) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label,:host([disabled]) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label::after{color:var(--mdc-text-field-disabled-ink-color, rgba(0, 0, 0, 0.38))}:host([disabled]) .mdc-text-field .mdc-text-field__input,:host([disabled]) .mdc-text-field .mdc-text-field__input::placeholder{color:var(--mdc-text-field-disabled-ink-color, rgba(0, 0, 0, 0.38))}:host([disabled]) .mdc-text-field-helper-line .mdc-text-field-helper-text,:host([disabled]) .mdc-text-field-helper-line .mdc-text-field-character-counter{color:var(--mdc-text-field-disabled-ink-color, rgba(0, 0, 0, 0.38))}`;
 
-class TextField extends ScopedElementsMixin$1(TextFieldBase) {
+class TextField$1 extends ScopedElementsMixin$1(TextFieldBase$1) {
     static get scopedElements() {
         return {
-            'mwc-notched-outline': NotchedOutline,
+            'mwc-notched-outline': NotchedOutline$2,
         };
     }
 }
-TextField.styles = style$c;
-__decorate$2([
+TextField$1.styles = style$l;
+__decorate$3([
     query$1('.mdc-notched-outline')
-], TextField.prototype, "outlineElement", void 0);
+], TextField$1.prototype, "outlineElement", void 0);
+
+/**
+@license
+Copyright 2020 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+/**
+ * Class that encapsulates the events handlers for `mwc-ripple`
+ *
+ *
+ * Example:
+ * ```
+ * class XFoo extends LitElement {
+ *   async getRipple() {
+ *     this.renderRipple = true;
+ *     await this.updateComplete;
+ *     return this.renderRoot.querySelector('mwc-ripple');
+ *   }
+ *   rippleHandlers = new RippleHandlers(() => this.getRipple());
+ *
+ *   render() {
+ *     return html`
+ *       <div @mousedown=${this.rippleHandlers.startPress}></div>
+ *       ${this.renderRipple ? html`<mwc-ripple></mwc-ripple>` : ''}
+ *     `;
+ *   }
+ * }
+ * ```
+ */
+class RippleHandlers {
+    constructor(
+    /** Function that returns a `mwc-ripple` */
+    rippleFn) {
+        this.startPress = (ev) => {
+            rippleFn().then((r) => {
+                r && r.startPress(ev);
+            });
+        };
+        this.endPress = () => {
+            rippleFn().then((r) => {
+                r && r.endPress();
+            });
+        };
+        this.startFocus = () => {
+            rippleFn().then((r) => {
+                r && r.startFocus();
+            });
+        };
+        this.endFocus = () => {
+            rippleFn().then((r) => {
+                r && r.endFocus();
+            });
+        };
+        this.startHover = () => {
+            rippleFn().then((r) => {
+                r && r.startHover();
+            });
+        };
+        this.endHover = () => {
+            rippleFn().then((r) => {
+                r && r.endHover();
+            });
+        };
+    }
+}
 
 /**
 @license
@@ -7392,18 +7430,251 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const style$b = css$1 `:host{font-family:var(--mdc-icon-font, "Material Icons");font-weight:normal;font-style:normal;font-size:var(--mdc-icon-size, 24px);line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale;font-feature-settings:"liga"}`;
+const style$k = css$1 `:host{font-family:var(--mdc-icon-font, "Material Icons");font-weight:normal;font-style:normal;font-size:var(--mdc-icon-size, 24px);line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale;font-feature-settings:"liga"}`;
 
-class Icon$2 extends ScopedElementsMixin$1(LitElement$1) {
+class Icon$3 extends ScopedElementsMixin$1(LitElement$1) {
     /** @soyTemplate */
     render() {
         return html$1 `<slot></slot>`;
     }
 }
-Icon$2.styles = style$b;
+Icon$3.styles = style$k;
 
 /** @soyCompatible */
-class ButtonBase extends LitElement$1 {
+class RippleBase extends BaseElement$1 {
+    constructor() {
+        super(...arguments);
+        this.primary = false;
+        this.accent = false;
+        this.unbounded = false;
+        this.disabled = false;
+        this.activated = false;
+        this.selected = false;
+        this.hovering = false;
+        this.bgFocused = false;
+        this.fgActivation = false;
+        this.fgDeactivation = false;
+        this.fgScale = '';
+        this.fgSize = '';
+        this.translateStart = '';
+        this.translateEnd = '';
+        this.leftPos = '';
+        this.topPos = '';
+        this.mdcFoundationClass = MDCRippleFoundation$2;
+    }
+    get isActive() {
+        return (this.parentElement || this).matches(':active');
+    }
+    createAdapter() {
+        return {
+            browserSupportsCssVars: () => true,
+            isUnbounded: () => this.unbounded,
+            isSurfaceActive: () => this.isActive,
+            isSurfaceDisabled: () => this.disabled,
+            addClass: (className) => {
+                switch (className) {
+                    case 'mdc-ripple-upgraded--background-focused':
+                        this.bgFocused = true;
+                        break;
+                    case 'mdc-ripple-upgraded--foreground-activation':
+                        this.fgActivation = true;
+                        break;
+                    case 'mdc-ripple-upgraded--foreground-deactivation':
+                        this.fgDeactivation = true;
+                        break;
+                }
+            },
+            removeClass: (className) => {
+                switch (className) {
+                    case 'mdc-ripple-upgraded--background-focused':
+                        this.bgFocused = false;
+                        break;
+                    case 'mdc-ripple-upgraded--foreground-activation':
+                        this.fgActivation = false;
+                        break;
+                    case 'mdc-ripple-upgraded--foreground-deactivation':
+                        this.fgDeactivation = false;
+                        break;
+                }
+            },
+            containsEventTarget: () => true,
+            registerInteractionHandler: () => undefined,
+            deregisterInteractionHandler: () => undefined,
+            registerDocumentInteractionHandler: () => undefined,
+            deregisterDocumentInteractionHandler: () => undefined,
+            registerResizeHandler: () => undefined,
+            deregisterResizeHandler: () => undefined,
+            updateCssVariable: (varName, value) => {
+                switch (varName) {
+                    case '--mdc-ripple-fg-scale':
+                        this.fgScale = value;
+                        break;
+                    case '--mdc-ripple-fg-size':
+                        this.fgSize = value;
+                        break;
+                    case '--mdc-ripple-fg-translate-end':
+                        this.translateEnd = value;
+                        break;
+                    case '--mdc-ripple-fg-translate-start':
+                        this.translateStart = value;
+                        break;
+                    case '--mdc-ripple-left':
+                        this.leftPos = value;
+                        break;
+                    case '--mdc-ripple-top':
+                        this.topPos = value;
+                        break;
+                }
+            },
+            computeBoundingRect: () => (this.parentElement || this).getBoundingClientRect(),
+            getWindowPageOffset: () => ({ x: window.pageXOffset, y: window.pageYOffset }),
+        };
+    }
+    startPress(ev) {
+        this.waitForFoundation(() => {
+            this.mdcFoundation.activate(ev);
+        });
+    }
+    endPress() {
+        this.waitForFoundation(() => {
+            this.mdcFoundation.deactivate();
+        });
+    }
+    startFocus() {
+        this.waitForFoundation(() => {
+            this.mdcFoundation.handleFocus();
+        });
+    }
+    endFocus() {
+        this.waitForFoundation(() => {
+            this.mdcFoundation.handleBlur();
+        });
+    }
+    startHover() {
+        this.hovering = true;
+    }
+    endHover() {
+        this.hovering = false;
+    }
+    /**
+     * Wait for the MDCFoundation to be created by `firstUpdated`
+     */
+    waitForFoundation(fn) {
+        if (this.mdcFoundation) {
+            fn();
+        }
+        else {
+            this.updateComplete.then(fn);
+        }
+    }
+    /** @soyTemplate */
+    render() {
+        const shouldActivateInPrimary = this.activated && (this.primary || !this.accent);
+        const shouldSelectInPrimary = this.selected && (this.primary || !this.accent);
+        /** @classMap */
+        const classes = {
+            'mdc-ripple-surface--accent': this.accent,
+            'mdc-ripple-surface--primary--activated': shouldActivateInPrimary,
+            'mdc-ripple-surface--accent--activated': this.accent && this.activated,
+            'mdc-ripple-surface--primary--selected': shouldSelectInPrimary,
+            'mdc-ripple-surface--accent--selected': this.accent && this.selected,
+            'mdc-ripple-surface--disabled': this.disabled,
+            'mdc-ripple-surface--hover': this.hovering,
+            'mdc-ripple-surface--primary': this.primary,
+            'mdc-ripple-surface--selected': this.selected,
+            'mdc-ripple-upgraded--background-focused': this.bgFocused,
+            'mdc-ripple-upgraded--foreground-activation': this.fgActivation,
+            'mdc-ripple-upgraded--foreground-deactivation': this.fgDeactivation,
+            'mdc-ripple-upgraded--unbounded': this.unbounded,
+        };
+        return html$1 `
+        <div class="mdc-ripple-surface mdc-ripple-upgraded ${classMap$1(classes)}"
+          style="${styleMap({
+            '--mdc-ripple-fg-scale': this.fgScale,
+            '--mdc-ripple-fg-size': this.fgSize,
+            '--mdc-ripple-fg-translate-end': this.translateEnd,
+            '--mdc-ripple-fg-translate-start': this.translateStart,
+            '--mdc-ripple-left': this.leftPos,
+            '--mdc-ripple-top': this.topPos,
+        })}"></div>`;
+    }
+}
+__decorate$3([
+    query$1('.mdc-ripple-surface')
+], RippleBase.prototype, "mdcRoot", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], RippleBase.prototype, "primary", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], RippleBase.prototype, "accent", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], RippleBase.prototype, "unbounded", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], RippleBase.prototype, "disabled", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], RippleBase.prototype, "activated", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], RippleBase.prototype, "selected", void 0);
+__decorate$3([
+    internalProperty()
+], RippleBase.prototype, "hovering", void 0);
+__decorate$3([
+    internalProperty()
+], RippleBase.prototype, "bgFocused", void 0);
+__decorate$3([
+    internalProperty()
+], RippleBase.prototype, "fgActivation", void 0);
+__decorate$3([
+    internalProperty()
+], RippleBase.prototype, "fgDeactivation", void 0);
+__decorate$3([
+    internalProperty()
+], RippleBase.prototype, "fgScale", void 0);
+__decorate$3([
+    internalProperty()
+], RippleBase.prototype, "fgSize", void 0);
+__decorate$3([
+    internalProperty()
+], RippleBase.prototype, "translateStart", void 0);
+__decorate$3([
+    internalProperty()
+], RippleBase.prototype, "translateEnd", void 0);
+__decorate$3([
+    internalProperty()
+], RippleBase.prototype, "leftPos", void 0);
+__decorate$3([
+    internalProperty()
+], RippleBase.prototype, "topPos", void 0);
+
+/**
+@license
+Copyright 2018 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+const style$j = css$1 `.mdc-ripple-surface{--mdc-ripple-fg-size: 0;--mdc-ripple-left: 0;--mdc-ripple-top: 0;--mdc-ripple-fg-scale: 1;--mdc-ripple-fg-translate-end: 0;--mdc-ripple-fg-translate-start: 0;-webkit-tap-highlight-color:rgba(0,0,0,0);will-change:transform,opacity;position:relative;outline:none;overflow:hidden}.mdc-ripple-surface::before,.mdc-ripple-surface::after{position:absolute;border-radius:50%;opacity:0;pointer-events:none;content:""}.mdc-ripple-surface::before{transition:opacity 15ms linear,background-color 15ms linear;z-index:1;z-index:var(--mdc-ripple-z-index, 1)}.mdc-ripple-surface::after{z-index:0;z-index:var(--mdc-ripple-z-index, 0)}.mdc-ripple-surface.mdc-ripple-upgraded::before{transform:scale(var(--mdc-ripple-fg-scale, 1))}.mdc-ripple-surface.mdc-ripple-upgraded::after{top:0;left:0;transform:scale(0);transform-origin:center center}.mdc-ripple-surface.mdc-ripple-upgraded--unbounded::after{top:var(--mdc-ripple-top, 0);left:var(--mdc-ripple-left, 0)}.mdc-ripple-surface.mdc-ripple-upgraded--foreground-activation::after{animation:mdc-ripple-fg-radius-in 225ms forwards,mdc-ripple-fg-opacity-in 75ms forwards}.mdc-ripple-surface.mdc-ripple-upgraded--foreground-deactivation::after{animation:mdc-ripple-fg-opacity-out 150ms;transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}.mdc-ripple-surface::before,.mdc-ripple-surface::after{background-color:#000;background-color:var(--mdc-ripple-color, #000)}.mdc-ripple-surface:hover::before,.mdc-ripple-surface.mdc-ripple-surface--hover::before{opacity:0.04;opacity:var(--mdc-ripple-hover-opacity, 0.04)}.mdc-ripple-surface.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-focus-opacity, 0.12)}.mdc-ripple-surface:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface::before,.mdc-ripple-surface::after{top:calc(50% - 100%);left:calc(50% - 100%);width:200%;height:200%}.mdc-ripple-surface.mdc-ripple-upgraded::after{width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}.mdc-ripple-surface[data-mdc-ripple-is-unbounded],.mdc-ripple-upgraded--unbounded{overflow:visible}.mdc-ripple-surface[data-mdc-ripple-is-unbounded]::before,.mdc-ripple-surface[data-mdc-ripple-is-unbounded]::after,.mdc-ripple-upgraded--unbounded::before,.mdc-ripple-upgraded--unbounded::after{top:calc(50% - 50%);left:calc(50% - 50%);width:100%;height:100%}.mdc-ripple-surface[data-mdc-ripple-is-unbounded].mdc-ripple-upgraded::before,.mdc-ripple-surface[data-mdc-ripple-is-unbounded].mdc-ripple-upgraded::after,.mdc-ripple-upgraded--unbounded.mdc-ripple-upgraded::before,.mdc-ripple-upgraded--unbounded.mdc-ripple-upgraded::after{top:var(--mdc-ripple-top, calc(50% - 50%));left:var(--mdc-ripple-left, calc(50% - 50%));width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}.mdc-ripple-surface[data-mdc-ripple-is-unbounded].mdc-ripple-upgraded::after,.mdc-ripple-upgraded--unbounded.mdc-ripple-upgraded::after{width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}@keyframes mdc-ripple-fg-radius-in{from{animation-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transform:translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1)}to{transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}}@keyframes mdc-ripple-fg-opacity-in{from{animation-timing-function:linear;opacity:0}to{opacity:var(--mdc-ripple-fg-opacity, 0)}}@keyframes mdc-ripple-fg-opacity-out{from{animation-timing-function:linear;opacity:var(--mdc-ripple-fg-opacity, 0)}to{opacity:0}}:host{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;display:block}:host .mdc-ripple-surface{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;will-change:unset}.mdc-ripple-surface--primary::before,.mdc-ripple-surface--primary::after{background-color:#6200ee;background-color:var(--mdc-ripple-color, var(--mdc-theme-primary, #6200ee))}.mdc-ripple-surface--primary:hover::before,.mdc-ripple-surface--primary.mdc-ripple-surface--hover::before{opacity:0.04;opacity:var(--mdc-ripple-hover-opacity, 0.04)}.mdc-ripple-surface--primary.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--primary:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-focus-opacity, 0.12)}.mdc-ripple-surface--primary:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--primary:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface--primary.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface--primary--activated::before{opacity:0.12;opacity:var(--mdc-ripple-activated-opacity, 0.12)}.mdc-ripple-surface--primary--activated::before,.mdc-ripple-surface--primary--activated::after{background-color:#6200ee;background-color:var(--mdc-ripple-color, var(--mdc-theme-primary, #6200ee))}.mdc-ripple-surface--primary--activated:hover::before,.mdc-ripple-surface--primary--activated.mdc-ripple-surface--hover::before{opacity:0.16;opacity:var(--mdc-ripple-hover-opacity, 0.16)}.mdc-ripple-surface--primary--activated.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--primary--activated:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-focus-opacity, 0.24)}.mdc-ripple-surface--primary--activated:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--primary--activated:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-press-opacity, 0.24)}.mdc-ripple-surface--primary--activated.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.24)}.mdc-ripple-surface--primary--selected::before{opacity:0.08;opacity:var(--mdc-ripple-selected-opacity, 0.08)}.mdc-ripple-surface--primary--selected::before,.mdc-ripple-surface--primary--selected::after{background-color:#6200ee;background-color:var(--mdc-ripple-color, var(--mdc-theme-primary, #6200ee))}.mdc-ripple-surface--primary--selected:hover::before,.mdc-ripple-surface--primary--selected.mdc-ripple-surface--hover::before{opacity:0.12;opacity:var(--mdc-ripple-hover-opacity, 0.12)}.mdc-ripple-surface--primary--selected.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--primary--selected:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.2;opacity:var(--mdc-ripple-focus-opacity, 0.2)}.mdc-ripple-surface--primary--selected:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--primary--selected:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.2;opacity:var(--mdc-ripple-press-opacity, 0.2)}.mdc-ripple-surface--primary--selected.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.2)}.mdc-ripple-surface--accent::before,.mdc-ripple-surface--accent::after{background-color:#018786;background-color:var(--mdc-ripple-color, var(--mdc-theme-secondary, #018786))}.mdc-ripple-surface--accent:hover::before,.mdc-ripple-surface--accent.mdc-ripple-surface--hover::before{opacity:0.04;opacity:var(--mdc-ripple-hover-opacity, 0.04)}.mdc-ripple-surface--accent.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--accent:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-focus-opacity, 0.12)}.mdc-ripple-surface--accent:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--accent:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface--accent.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.12)}.mdc-ripple-surface--accent--activated::before{opacity:0.12;opacity:var(--mdc-ripple-activated-opacity, 0.12)}.mdc-ripple-surface--accent--activated::before,.mdc-ripple-surface--accent--activated::after{background-color:#018786;background-color:var(--mdc-ripple-color, var(--mdc-theme-secondary, #018786))}.mdc-ripple-surface--accent--activated:hover::before,.mdc-ripple-surface--accent--activated.mdc-ripple-surface--hover::before{opacity:0.16;opacity:var(--mdc-ripple-hover-opacity, 0.16)}.mdc-ripple-surface--accent--activated.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--accent--activated:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-focus-opacity, 0.24)}.mdc-ripple-surface--accent--activated:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--accent--activated:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-press-opacity, 0.24)}.mdc-ripple-surface--accent--activated.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.24)}.mdc-ripple-surface--accent--selected::before{opacity:0.08;opacity:var(--mdc-ripple-selected-opacity, 0.08)}.mdc-ripple-surface--accent--selected::before,.mdc-ripple-surface--accent--selected::after{background-color:#018786;background-color:var(--mdc-ripple-color, var(--mdc-theme-secondary, #018786))}.mdc-ripple-surface--accent--selected:hover::before,.mdc-ripple-surface--accent--selected.mdc-ripple-surface--hover::before{opacity:0.12;opacity:var(--mdc-ripple-hover-opacity, 0.12)}.mdc-ripple-surface--accent--selected.mdc-ripple-upgraded--background-focused::before,.mdc-ripple-surface--accent--selected:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.2;opacity:var(--mdc-ripple-focus-opacity, 0.2)}.mdc-ripple-surface--accent--selected:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-ripple-surface--accent--selected:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.2;opacity:var(--mdc-ripple-press-opacity, 0.2)}.mdc-ripple-surface--accent--selected.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.2)}.mdc-ripple-surface--disabled{opacity:0}`;
+
+class Ripple extends ScopedElementsMixin$1(RippleBase) {
+}
+Ripple.styles = style$j;
+
+/** @soyCompatible */
+class ButtonBase$1 extends LitElement$1 {
     constructor() {
         super(...arguments);
         this.raised = false;
@@ -7530,48 +7801,48 @@ class ButtonBase extends LitElement$1 {
         this.rippleHandlers.endFocus();
     }
 }
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean, reflect: true })
-], ButtonBase.prototype, "raised", void 0);
-__decorate$2([
+], ButtonBase$1.prototype, "raised", void 0);
+__decorate$3([
     property$1({ type: Boolean, reflect: true })
-], ButtonBase.prototype, "unelevated", void 0);
-__decorate$2([
+], ButtonBase$1.prototype, "unelevated", void 0);
+__decorate$3([
     property$1({ type: Boolean, reflect: true })
-], ButtonBase.prototype, "outlined", void 0);
-__decorate$2([
+], ButtonBase$1.prototype, "outlined", void 0);
+__decorate$3([
     property$1({ type: Boolean })
-], ButtonBase.prototype, "dense", void 0);
-__decorate$2([
+], ButtonBase$1.prototype, "dense", void 0);
+__decorate$3([
     property$1({ type: Boolean, reflect: true })
-], ButtonBase.prototype, "disabled", void 0);
-__decorate$2([
+], ButtonBase$1.prototype, "disabled", void 0);
+__decorate$3([
     property$1({ type: Boolean, attribute: 'trailingicon' })
-], ButtonBase.prototype, "trailingIcon", void 0);
-__decorate$2([
+], ButtonBase$1.prototype, "trailingIcon", void 0);
+__decorate$3([
     property$1({ type: Boolean, reflect: true })
-], ButtonBase.prototype, "fullwidth", void 0);
-__decorate$2([
+], ButtonBase$1.prototype, "fullwidth", void 0);
+__decorate$3([
     property$1({ type: String })
-], ButtonBase.prototype, "icon", void 0);
-__decorate$2([
+], ButtonBase$1.prototype, "icon", void 0);
+__decorate$3([
     property$1({ type: String })
-], ButtonBase.prototype, "label", void 0);
-__decorate$2([
+], ButtonBase$1.prototype, "label", void 0);
+__decorate$3([
     property$1({ type: Boolean })
-], ButtonBase.prototype, "expandContent", void 0);
-__decorate$2([
+], ButtonBase$1.prototype, "expandContent", void 0);
+__decorate$3([
     query$1('#button')
-], ButtonBase.prototype, "buttonElement", void 0);
-__decorate$2([
+], ButtonBase$1.prototype, "buttonElement", void 0);
+__decorate$3([
     queryAsync('mwc-ripple')
-], ButtonBase.prototype, "ripple", void 0);
-__decorate$2([
+], ButtonBase$1.prototype, "ripple", void 0);
+__decorate$3([
     internalProperty()
-], ButtonBase.prototype, "shouldRenderRipple", void 0);
-__decorate$2([
+], ButtonBase$1.prototype, "shouldRenderRipple", void 0);
+__decorate$3([
     eventOptions({ passive: true })
-], ButtonBase.prototype, "handleRippleActivate", null);
+], ButtonBase$1.prototype, "handleRippleActivate", null);
 
 /**
 @license
@@ -7589,20 +7860,20 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const style$a = css$1 `.mdc-touch-target-wrapper{display:inline}.mdc-elevation-overlay{position:absolute;border-radius:inherit;pointer-events:none;opacity:0;opacity:var(--mdc-elevation-overlay-opacity, 0);transition:opacity 280ms cubic-bezier(0.4, 0, 0.2, 1);background-color:#fff;background-color:var(--mdc-elevation-overlay-color, #fff)}.mdc-button{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-button-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.875rem;font-size:var(--mdc-typography-button-font-size, 0.875rem);line-height:2.25rem;line-height:var(--mdc-typography-button-line-height, 2.25rem);font-weight:500;font-weight:var(--mdc-typography-button-font-weight, 500);letter-spacing:0.0892857143em;letter-spacing:var(--mdc-typography-button-letter-spacing, 0.0892857143em);text-decoration:none;text-decoration:var(--mdc-typography-button-text-decoration, none);text-transform:uppercase;text-transform:var(--mdc-typography-button-text-transform, uppercase);padding:0 8px 0 8px;position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;line-height:inherit;user-select:none;-webkit-appearance:none;overflow:visible;vertical-align:middle;border-radius:4px;border-radius:var(--mdc-shape-small, 4px);height:36px}.mdc-button .mdc-elevation-overlay{width:100%;height:100%;top:0;left:0}.mdc-button::-moz-focus-inner{padding:0;border:0}.mdc-button:active{outline:none}.mdc-button:hover{cursor:pointer}.mdc-button:disabled{cursor:default;pointer-events:none}.mdc-button .mdc-button__ripple{border-radius:4px;border-radius:var(--mdc-shape-small, 4px)}.mdc-button:not(:disabled){background-color:transparent}.mdc-button:disabled{background-color:transparent}.mdc-button .mdc-button__icon{margin-left:0;margin-right:8px;display:inline-block;width:18px;height:18px;font-size:18px;vertical-align:top}[dir=rtl] .mdc-button .mdc-button__icon,.mdc-button .mdc-button__icon[dir=rtl]{margin-left:8px;margin-right:0}.mdc-button .mdc-button__touch{position:absolute;top:50%;right:0;height:48px;left:0;transform:translateY(-50%)}.mdc-button:not(:disabled){color:#6200ee;color:var(--mdc-theme-primary, #6200ee)}.mdc-button:disabled{color:rgba(0, 0, 0, 0.38)}.mdc-button__label+.mdc-button__icon{margin-left:8px;margin-right:0}[dir=rtl] .mdc-button__label+.mdc-button__icon,.mdc-button__label+.mdc-button__icon[dir=rtl]{margin-left:0;margin-right:8px}svg.mdc-button__icon{fill:currentColor}.mdc-button--raised .mdc-button__icon,.mdc-button--unelevated .mdc-button__icon,.mdc-button--outlined .mdc-button__icon{margin-left:-4px;margin-right:8px}[dir=rtl] .mdc-button--raised .mdc-button__icon,.mdc-button--raised .mdc-button__icon[dir=rtl],[dir=rtl] .mdc-button--unelevated .mdc-button__icon,.mdc-button--unelevated .mdc-button__icon[dir=rtl],[dir=rtl] .mdc-button--outlined .mdc-button__icon,.mdc-button--outlined .mdc-button__icon[dir=rtl]{margin-left:8px;margin-right:-4px}.mdc-button--raised .mdc-button__label+.mdc-button__icon,.mdc-button--unelevated .mdc-button__label+.mdc-button__icon,.mdc-button--outlined .mdc-button__label+.mdc-button__icon{margin-left:8px;margin-right:-4px}[dir=rtl] .mdc-button--raised .mdc-button__label+.mdc-button__icon,.mdc-button--raised .mdc-button__label+.mdc-button__icon[dir=rtl],[dir=rtl] .mdc-button--unelevated .mdc-button__label+.mdc-button__icon,.mdc-button--unelevated .mdc-button__label+.mdc-button__icon[dir=rtl],[dir=rtl] .mdc-button--outlined .mdc-button__label+.mdc-button__icon,.mdc-button--outlined .mdc-button__label+.mdc-button__icon[dir=rtl]{margin-left:-4px;margin-right:8px}.mdc-button--raised,.mdc-button--unelevated{padding:0 16px 0 16px}.mdc-button--raised:not(:disabled),.mdc-button--unelevated:not(:disabled){background-color:#6200ee;background-color:var(--mdc-theme-primary, #6200ee)}.mdc-button--raised:not(:disabled),.mdc-button--unelevated:not(:disabled){color:#fff;color:var(--mdc-theme-on-primary, #fff)}.mdc-button--raised:disabled,.mdc-button--unelevated:disabled{background-color:rgba(0, 0, 0, 0.12)}.mdc-button--raised:disabled,.mdc-button--unelevated:disabled{color:rgba(0, 0, 0, 0.38)}.mdc-button--raised{box-shadow:0px 3px 1px -2px rgba(0, 0, 0, 0.2),0px 2px 2px 0px rgba(0, 0, 0, 0.14),0px 1px 5px 0px rgba(0,0,0,.12);transition:box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-button--raised:hover,.mdc-button--raised:focus{box-shadow:0px 2px 4px -1px rgba(0, 0, 0, 0.2),0px 4px 5px 0px rgba(0, 0, 0, 0.14),0px 1px 10px 0px rgba(0,0,0,.12)}.mdc-button--raised:active{box-shadow:0px 5px 5px -3px rgba(0, 0, 0, 0.2),0px 8px 10px 1px rgba(0, 0, 0, 0.14),0px 3px 14px 2px rgba(0,0,0,.12)}.mdc-button--raised:disabled{box-shadow:0px 0px 0px 0px rgba(0, 0, 0, 0.2),0px 0px 0px 0px rgba(0, 0, 0, 0.14),0px 0px 0px 0px rgba(0,0,0,.12)}.mdc-button--outlined{padding:0 15px 0 15px;border-width:1px;border-style:solid}.mdc-button--outlined .mdc-button__ripple{top:-1px;left:-1px;border:1px solid transparent}.mdc-button--outlined .mdc-button__touch{left:-1px;width:calc(100% + 2 * 1px)}.mdc-button--outlined:not(:disabled){border-color:rgba(0, 0, 0, 0.12)}.mdc-button--outlined:disabled{border-color:rgba(0, 0, 0, 0.12)}.mdc-button--touch{margin-top:6px;margin-bottom:6px}:host{display:inline-flex;outline:none;-webkit-tap-highlight-color:transparent;vertical-align:top}:host([fullwidth]){width:100%}:host([raised]),:host([unelevated]){--mdc-ripple-color: #fff;--mdc-ripple-focus-opacity: 0.24;--mdc-ripple-hover-opacity: 0.08;--mdc-ripple-press-opacity: 0.24}.trailing-icon ::slotted(*),.trailing-icon .mdc-button__icon,.leading-icon ::slotted(*),.leading-icon .mdc-button__icon{margin-left:0;margin-right:8px;display:inline-block;width:18px;height:18px;font-size:18px;vertical-align:top}[dir=rtl] .trailing-icon ::slotted(*),.trailing-icon ::slotted(*)[dir=rtl],[dir=rtl] .trailing-icon .mdc-button__icon,.trailing-icon .mdc-button__icon[dir=rtl],[dir=rtl] .leading-icon ::slotted(*),.leading-icon ::slotted(*)[dir=rtl],[dir=rtl] .leading-icon .mdc-button__icon,.leading-icon .mdc-button__icon[dir=rtl]{margin-left:8px;margin-right:0}.trailing-icon ::slotted(*),.trailing-icon .mdc-button__icon{margin-left:8px;margin-right:0}[dir=rtl] .trailing-icon ::slotted(*),.trailing-icon ::slotted(*)[dir=rtl],[dir=rtl] .trailing-icon .mdc-button__icon,.trailing-icon .mdc-button__icon[dir=rtl]{margin-left:0;margin-right:8px}.slot-container{display:inline-flex;align-items:center;justify-content:center}.slot-container.flex{flex:auto}.mdc-button{flex:auto;overflow:hidden;padding-left:8px;padding-left:var(--mdc-button-horizontal-padding, 8px);padding-right:8px;padding-right:var(--mdc-button-horizontal-padding, 8px)}.mdc-button--raised{box-shadow:0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);box-shadow:var(--mdc-button-raised-box-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12))}.mdc-button--raised:focus{box-shadow:0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);box-shadow:var(--mdc-button-raised-box-shadow-focus, var(--mdc-button-raised-box-shadow-hover, 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)))}.mdc-button--raised:hover{box-shadow:0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);box-shadow:var(--mdc-button-raised-box-shadow-hover, 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12))}.mdc-button--raised:active{box-shadow:0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);box-shadow:var(--mdc-button-raised-box-shadow-active, 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12))}.mdc-button--raised:disabled{box-shadow:0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12);box-shadow:var(--mdc-button-raised-box-shadow-disabled, 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12))}.mdc-button--raised,.mdc-button--unelevated{padding-left:16px;padding-left:var(--mdc-button-horizontal-padding, 16px);padding-right:16px;padding-right:var(--mdc-button-horizontal-padding, 16px)}.mdc-button--outlined{border-width:1px;border-width:var(--mdc-button-outline-width, 1px);padding-left:calc(16px - 1px);padding-left:calc(var(--mdc-button-horizontal-padding, 16px) - var(--mdc-button-outline-width, 1px));padding-right:calc(16px - 1px);padding-right:calc(var(--mdc-button-horizontal-padding, 16px) - var(--mdc-button-outline-width, 1px))}.mdc-button--outlined:not(:disabled){border-color:rgba(0, 0, 0, 0.12);border-color:var(--mdc-button-outline-color, rgba(0, 0, 0, 0.12))}.mdc-button--outlined .ripple{top:calc(-1 * 1px);top:calc(-1 * var(--mdc-button-outline-width, 1px));left:calc(-1 * 1px);left:calc(-1 * var(--mdc-button-outline-width, 1px));right:initial;border-width:1px;border-width:var(--mdc-button-outline-width, 1px);border-style:solid;border-color:transparent}[dir=rtl] .mdc-button--outlined .ripple,.mdc-button--outlined .ripple[dir=rtl]{left:initial;right:calc(-1 * 1px);right:calc(-1 * var(--mdc-button-outline-width, 1px))}.mdc-button--dense{height:28px;margin-top:0;margin-bottom:0}.mdc-button--dense .mdc-button__touch{display:none}:host([disabled]){pointer-events:none}:host([disabled]) .mdc-button{color:rgba(0, 0, 0, 0.38);color:var(--mdc-button-disabled-ink-color, rgba(0, 0, 0, 0.38))}:host([disabled]) .mdc-button--raised,:host([disabled]) .mdc-button--unelevated{background-color:rgba(0, 0, 0, 0.12);background-color:var(--mdc-button-disabled-fill-color, rgba(0, 0, 0, 0.12))}:host([disabled]) .mdc-button--outlined{border-color:rgba(0, 0, 0, 0.12);border-color:var(--mdc-button-disabled-outline-color, rgba(0, 0, 0, 0.12))}`;
+const style$i = css$1 `.mdc-touch-target-wrapper{display:inline}.mdc-elevation-overlay{position:absolute;border-radius:inherit;pointer-events:none;opacity:0;opacity:var(--mdc-elevation-overlay-opacity, 0);transition:opacity 280ms cubic-bezier(0.4, 0, 0.2, 1);background-color:#fff;background-color:var(--mdc-elevation-overlay-color, #fff)}.mdc-button{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-button-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.875rem;font-size:var(--mdc-typography-button-font-size, 0.875rem);line-height:2.25rem;line-height:var(--mdc-typography-button-line-height, 2.25rem);font-weight:500;font-weight:var(--mdc-typography-button-font-weight, 500);letter-spacing:0.0892857143em;letter-spacing:var(--mdc-typography-button-letter-spacing, 0.0892857143em);text-decoration:none;text-decoration:var(--mdc-typography-button-text-decoration, none);text-transform:uppercase;text-transform:var(--mdc-typography-button-text-transform, uppercase);padding:0 8px 0 8px;position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;line-height:inherit;user-select:none;-webkit-appearance:none;overflow:visible;vertical-align:middle;border-radius:4px;border-radius:var(--mdc-shape-small, 4px);height:36px}.mdc-button .mdc-elevation-overlay{width:100%;height:100%;top:0;left:0}.mdc-button::-moz-focus-inner{padding:0;border:0}.mdc-button:active{outline:none}.mdc-button:hover{cursor:pointer}.mdc-button:disabled{cursor:default;pointer-events:none}.mdc-button .mdc-button__ripple{border-radius:4px;border-radius:var(--mdc-shape-small, 4px)}.mdc-button:not(:disabled){background-color:transparent}.mdc-button:disabled{background-color:transparent}.mdc-button .mdc-button__icon{margin-left:0;margin-right:8px;display:inline-block;width:18px;height:18px;font-size:18px;vertical-align:top}[dir=rtl] .mdc-button .mdc-button__icon,.mdc-button .mdc-button__icon[dir=rtl]{margin-left:8px;margin-right:0}.mdc-button .mdc-button__touch{position:absolute;top:50%;right:0;height:48px;left:0;transform:translateY(-50%)}.mdc-button:not(:disabled){color:#6200ee;color:var(--mdc-theme-primary, #6200ee)}.mdc-button:disabled{color:rgba(0, 0, 0, 0.38)}.mdc-button__label+.mdc-button__icon{margin-left:8px;margin-right:0}[dir=rtl] .mdc-button__label+.mdc-button__icon,.mdc-button__label+.mdc-button__icon[dir=rtl]{margin-left:0;margin-right:8px}svg.mdc-button__icon{fill:currentColor}.mdc-button--raised .mdc-button__icon,.mdc-button--unelevated .mdc-button__icon,.mdc-button--outlined .mdc-button__icon{margin-left:-4px;margin-right:8px}[dir=rtl] .mdc-button--raised .mdc-button__icon,.mdc-button--raised .mdc-button__icon[dir=rtl],[dir=rtl] .mdc-button--unelevated .mdc-button__icon,.mdc-button--unelevated .mdc-button__icon[dir=rtl],[dir=rtl] .mdc-button--outlined .mdc-button__icon,.mdc-button--outlined .mdc-button__icon[dir=rtl]{margin-left:8px;margin-right:-4px}.mdc-button--raised .mdc-button__label+.mdc-button__icon,.mdc-button--unelevated .mdc-button__label+.mdc-button__icon,.mdc-button--outlined .mdc-button__label+.mdc-button__icon{margin-left:8px;margin-right:-4px}[dir=rtl] .mdc-button--raised .mdc-button__label+.mdc-button__icon,.mdc-button--raised .mdc-button__label+.mdc-button__icon[dir=rtl],[dir=rtl] .mdc-button--unelevated .mdc-button__label+.mdc-button__icon,.mdc-button--unelevated .mdc-button__label+.mdc-button__icon[dir=rtl],[dir=rtl] .mdc-button--outlined .mdc-button__label+.mdc-button__icon,.mdc-button--outlined .mdc-button__label+.mdc-button__icon[dir=rtl]{margin-left:-4px;margin-right:8px}.mdc-button--raised,.mdc-button--unelevated{padding:0 16px 0 16px}.mdc-button--raised:not(:disabled),.mdc-button--unelevated:not(:disabled){background-color:#6200ee;background-color:var(--mdc-theme-primary, #6200ee)}.mdc-button--raised:not(:disabled),.mdc-button--unelevated:not(:disabled){color:#fff;color:var(--mdc-theme-on-primary, #fff)}.mdc-button--raised:disabled,.mdc-button--unelevated:disabled{background-color:rgba(0, 0, 0, 0.12)}.mdc-button--raised:disabled,.mdc-button--unelevated:disabled{color:rgba(0, 0, 0, 0.38)}.mdc-button--raised{box-shadow:0px 3px 1px -2px rgba(0, 0, 0, 0.2),0px 2px 2px 0px rgba(0, 0, 0, 0.14),0px 1px 5px 0px rgba(0,0,0,.12);transition:box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-button--raised:hover,.mdc-button--raised:focus{box-shadow:0px 2px 4px -1px rgba(0, 0, 0, 0.2),0px 4px 5px 0px rgba(0, 0, 0, 0.14),0px 1px 10px 0px rgba(0,0,0,.12)}.mdc-button--raised:active{box-shadow:0px 5px 5px -3px rgba(0, 0, 0, 0.2),0px 8px 10px 1px rgba(0, 0, 0, 0.14),0px 3px 14px 2px rgba(0,0,0,.12)}.mdc-button--raised:disabled{box-shadow:0px 0px 0px 0px rgba(0, 0, 0, 0.2),0px 0px 0px 0px rgba(0, 0, 0, 0.14),0px 0px 0px 0px rgba(0,0,0,.12)}.mdc-button--outlined{padding:0 15px 0 15px;border-width:1px;border-style:solid}.mdc-button--outlined .mdc-button__ripple{top:-1px;left:-1px;border:1px solid transparent}.mdc-button--outlined .mdc-button__touch{left:-1px;width:calc(100% + 2 * 1px)}.mdc-button--outlined:not(:disabled){border-color:rgba(0, 0, 0, 0.12)}.mdc-button--outlined:disabled{border-color:rgba(0, 0, 0, 0.12)}.mdc-button--touch{margin-top:6px;margin-bottom:6px}:host{display:inline-flex;outline:none;-webkit-tap-highlight-color:transparent;vertical-align:top}:host([fullwidth]){width:100%}:host([raised]),:host([unelevated]){--mdc-ripple-color: #fff;--mdc-ripple-focus-opacity: 0.24;--mdc-ripple-hover-opacity: 0.08;--mdc-ripple-press-opacity: 0.24}.trailing-icon ::slotted(*),.trailing-icon .mdc-button__icon,.leading-icon ::slotted(*),.leading-icon .mdc-button__icon{margin-left:0;margin-right:8px;display:inline-block;width:18px;height:18px;font-size:18px;vertical-align:top}[dir=rtl] .trailing-icon ::slotted(*),.trailing-icon ::slotted(*)[dir=rtl],[dir=rtl] .trailing-icon .mdc-button__icon,.trailing-icon .mdc-button__icon[dir=rtl],[dir=rtl] .leading-icon ::slotted(*),.leading-icon ::slotted(*)[dir=rtl],[dir=rtl] .leading-icon .mdc-button__icon,.leading-icon .mdc-button__icon[dir=rtl]{margin-left:8px;margin-right:0}.trailing-icon ::slotted(*),.trailing-icon .mdc-button__icon{margin-left:8px;margin-right:0}[dir=rtl] .trailing-icon ::slotted(*),.trailing-icon ::slotted(*)[dir=rtl],[dir=rtl] .trailing-icon .mdc-button__icon,.trailing-icon .mdc-button__icon[dir=rtl]{margin-left:0;margin-right:8px}.slot-container{display:inline-flex;align-items:center;justify-content:center}.slot-container.flex{flex:auto}.mdc-button{flex:auto;overflow:hidden;padding-left:8px;padding-left:var(--mdc-button-horizontal-padding, 8px);padding-right:8px;padding-right:var(--mdc-button-horizontal-padding, 8px)}.mdc-button--raised{box-shadow:0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);box-shadow:var(--mdc-button-raised-box-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12))}.mdc-button--raised:focus{box-shadow:0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);box-shadow:var(--mdc-button-raised-box-shadow-focus, var(--mdc-button-raised-box-shadow-hover, 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)))}.mdc-button--raised:hover{box-shadow:0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);box-shadow:var(--mdc-button-raised-box-shadow-hover, 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12))}.mdc-button--raised:active{box-shadow:0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);box-shadow:var(--mdc-button-raised-box-shadow-active, 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12))}.mdc-button--raised:disabled{box-shadow:0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12);box-shadow:var(--mdc-button-raised-box-shadow-disabled, 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12))}.mdc-button--raised,.mdc-button--unelevated{padding-left:16px;padding-left:var(--mdc-button-horizontal-padding, 16px);padding-right:16px;padding-right:var(--mdc-button-horizontal-padding, 16px)}.mdc-button--outlined{border-width:1px;border-width:var(--mdc-button-outline-width, 1px);padding-left:calc(16px - 1px);padding-left:calc(var(--mdc-button-horizontal-padding, 16px) - var(--mdc-button-outline-width, 1px));padding-right:calc(16px - 1px);padding-right:calc(var(--mdc-button-horizontal-padding, 16px) - var(--mdc-button-outline-width, 1px))}.mdc-button--outlined:not(:disabled){border-color:rgba(0, 0, 0, 0.12);border-color:var(--mdc-button-outline-color, rgba(0, 0, 0, 0.12))}.mdc-button--outlined .ripple{top:calc(-1 * 1px);top:calc(-1 * var(--mdc-button-outline-width, 1px));left:calc(-1 * 1px);left:calc(-1 * var(--mdc-button-outline-width, 1px));right:initial;border-width:1px;border-width:var(--mdc-button-outline-width, 1px);border-style:solid;border-color:transparent}[dir=rtl] .mdc-button--outlined .ripple,.mdc-button--outlined .ripple[dir=rtl]{left:initial;right:calc(-1 * 1px);right:calc(-1 * var(--mdc-button-outline-width, 1px))}.mdc-button--dense{height:28px;margin-top:0;margin-bottom:0}.mdc-button--dense .mdc-button__touch{display:none}:host([disabled]){pointer-events:none}:host([disabled]) .mdc-button{color:rgba(0, 0, 0, 0.38);color:var(--mdc-button-disabled-ink-color, rgba(0, 0, 0, 0.38))}:host([disabled]) .mdc-button--raised,:host([disabled]) .mdc-button--unelevated{background-color:rgba(0, 0, 0, 0.12);background-color:var(--mdc-button-disabled-fill-color, rgba(0, 0, 0, 0.12))}:host([disabled]) .mdc-button--outlined{border-color:rgba(0, 0, 0, 0.12);border-color:var(--mdc-button-disabled-outline-color, rgba(0, 0, 0, 0.12))}`;
 
-class Button extends ScopedElementsMixin$1(ButtonBase) {
+class Button$1 extends ScopedElementsMixin$1(ButtonBase$1) {
     static get scopedElements() {
         return {
-            'mwc-icon': Icon$2,
+            'mwc-icon': Icon$3,
             'mwc-ripple': Ripple,
         };
     }
 }
-Button.styles = style$a;
-__decorate$2([
+Button$1.styles = style$i;
+__decorate$3([
     queryAsync('.ripple')
-], Button.prototype, "ripple", void 0);
+], Button$1.prototype, "ripple", void 0);
 
 /**
  * @license
@@ -7626,7 +7897,7 @@ __decorate$2([
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-function matches(element, selector) {
+function matches$1(element, selector) {
     var nativeMatches = element.matches
         || element.webkitMatchesSelector
         || element.msMatchesSelector;
@@ -7652,12 +7923,12 @@ limitations under the License.
 /**
  * Return all elements assigned to a given slot that matches the given selector
  */
-function findAssignedElements(slot, selector) {
+function findAssignedElements$1(slot, selector) {
     const els = [];
     for (const node of slot.assignedNodes({ flatten: true })) {
         if (node.nodeType === Node.ELEMENT_NODE) {
             const el = node;
-            if (matches(el, selector)) {
+            if (matches$1(el, selector)) {
                 els.push(el);
             }
         }
@@ -7681,28 +7952,28 @@ PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* window Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
+var extendStatics$1 = function(d, b) {
+    extendStatics$1 = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
         function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return extendStatics(d, b);
+    return extendStatics$1(d, b);
 };
 
-function __extends(d, b) {
-    extendStatics(d, b);
+function __extends$1(d, b) {
+    extendStatics$1(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
+var __assign$1 = function() {
+    __assign$1 = Object.assign || function __assign(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
             s = arguments[i];
             for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
         }
         return t;
     };
-    return __assign.apply(this, arguments);
+    return __assign$1.apply(this, arguments);
 };
 
 /**
@@ -7727,7 +7998,7 @@ var __assign = function() {
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-var MDCFoundation = /** @class */ (function () {
+var MDCFoundation$1 = /** @class */ (function () {
     function MDCFoundation(adapter) {
         if (adapter === void 0) { adapter = {}; }
         this.adapter_ = adapter;
@@ -7800,7 +8071,7 @@ var MDCFoundation = /** @class */ (function () {
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-var cssClasses$4 = {
+var cssClasses$5 = {
     // Ripple is a special case where the "root" component is really a "mixin" of sorts,
     // given that it's an 'upgrade' to an existing component. That being said it is the root
     // CSS class that all other CSS classes derive from.
@@ -7810,7 +8081,7 @@ var cssClasses$4 = {
     ROOT: 'mdc-ripple-upgraded',
     UNBOUNDED: 'mdc-ripple-upgraded--unbounded',
 };
-var strings$4 = {
+var strings$5 = {
     VAR_FG_SCALE: '--mdc-ripple-fg-scale',
     VAR_FG_SIZE: '--mdc-ripple-fg-size',
     VAR_FG_TRANSLATE_END: '--mdc-ripple-fg-translate-end',
@@ -7818,7 +8089,7 @@ var strings$4 = {
     VAR_LEFT: '--mdc-ripple-left',
     VAR_TOP: '--mdc-ripple-top',
 };
-var numbers$4 = {
+var numbers$5 = {
     DEACTIVATION_TIMEOUT_MS: 225,
     FG_DEACTIVATION_MS: 150,
     INITIAL_ORIGIN_SCALE: 0.6,
@@ -7830,13 +8101,13 @@ var numbers$4 = {
  * Stores result from supportsCssVariables to avoid redundant processing to
  * detect CSS custom variable support.
  */
-var supportsCssVariables_;
+var supportsCssVariables_$1;
 /**
  * Stores result from applyPassive to avoid redundant processing to detect
  * passive event listener support.
  */
-var supportsPassive_;
-function detectEdgePseudoVarBug(windowObj) {
+var supportsPassive_$1;
+function detectEdgePseudoVarBug$1(windowObj) {
     // Detect versions of Edge with buggy var() support
     // See: https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11495448/
     var document = windowObj.document;
@@ -7854,12 +8125,12 @@ function detectEdgePseudoVarBug(windowObj) {
     }
     return hasPseudoVarBug;
 }
-function supportsCssVariables(windowObj, forceRefresh) {
+function supportsCssVariables$2(windowObj, forceRefresh) {
     if (forceRefresh === void 0) { forceRefresh = false; }
     var CSS = windowObj.CSS;
-    var supportsCssVars = supportsCssVariables_;
-    if (typeof supportsCssVariables_ === 'boolean' && !forceRefresh) {
-        return supportsCssVariables_;
+    var supportsCssVars = supportsCssVariables_$1;
+    if (typeof supportsCssVariables_$1 === 'boolean' && !forceRefresh) {
+        return supportsCssVariables_$1;
     }
     var supportsFunctionPresent = CSS && typeof CSS.supports === 'function';
     if (!supportsFunctionPresent) {
@@ -7871,13 +8142,13 @@ function supportsCssVariables(windowObj, forceRefresh) {
     var weAreFeatureDetectingSafari10plus = (CSS.supports('(--css-vars: yes)') &&
         CSS.supports('color', '#00000000'));
     if (explicitlySupportsCssVars || weAreFeatureDetectingSafari10plus) {
-        supportsCssVars = !detectEdgePseudoVarBug(windowObj);
+        supportsCssVars = !detectEdgePseudoVarBug$1(windowObj);
     }
     else {
         supportsCssVars = false;
     }
     if (!forceRefresh) {
-        supportsCssVariables_ = supportsCssVars;
+        supportsCssVariables_$1 = supportsCssVars;
     }
     return supportsCssVars;
 }
@@ -7885,10 +8156,10 @@ function supportsCssVariables(windowObj, forceRefresh) {
  * Determine whether the current browser supports passive event listeners, and
  * if so, use them.
  */
-function applyPassive$1(globalObj, forceRefresh) {
+function applyPassive$2(globalObj, forceRefresh) {
     if (globalObj === void 0) { globalObj = window; }
     if (forceRefresh === void 0) { forceRefresh = false; }
-    if (supportsPassive_ === undefined || forceRefresh) {
+    if (supportsPassive_$1 === undefined || forceRefresh) {
         var isSupported_1 = false;
         try {
             globalObj.document.addEventListener('test', function () { return undefined; }, {
@@ -7900,11 +8171,11 @@ function applyPassive$1(globalObj, forceRefresh) {
         }
         catch (e) {
         } // tslint:disable-line:no-empty cannot throw error due to tests. tslint also disables console.log.
-        supportsPassive_ = isSupported_1;
+        supportsPassive_$1 = isSupported_1;
     }
-    return supportsPassive_ ? { passive: true } : false;
+    return supportsPassive_$1 ? { passive: true } : false;
 }
-function getNormalizedEventCoords(evt, pageOffset, clientRect) {
+function getNormalizedEventCoords$1(evt, pageOffset, clientRect) {
     if (!evt) {
         return { x: 0, y: 0 };
     }
@@ -7950,19 +8221,19 @@ function getNormalizedEventCoords(evt, pageOffset, clientRect) {
  * THE SOFTWARE.
  */
 // Activation events registered on the root element of each instance for activation
-var ACTIVATION_EVENT_TYPES = [
+var ACTIVATION_EVENT_TYPES$1 = [
     'touchstart', 'pointerdown', 'mousedown', 'keydown',
 ];
 // Deactivation events registered on documentElement when a pointer-related down event occurs
-var POINTER_DEACTIVATION_EVENT_TYPES = [
+var POINTER_DEACTIVATION_EVENT_TYPES$1 = [
     'touchend', 'pointerup', 'mouseup', 'contextmenu',
 ];
 // simultaneous nested activations
-var activatedTargets = [];
-var MDCRippleFoundation = /** @class */ (function (_super) {
-    __extends(MDCRippleFoundation, _super);
+var activatedTargets$1 = [];
+var MDCRippleFoundation$1 = /** @class */ (function (_super) {
+    __extends$1(MDCRippleFoundation, _super);
     function MDCRippleFoundation(adapter) {
-        var _this = _super.call(this, __assign({}, MDCRippleFoundation.defaultAdapter, adapter)) || this;
+        var _this = _super.call(this, __assign$1({}, MDCRippleFoundation.defaultAdapter, adapter)) || this;
         _this.activationAnimationHasEnded_ = false;
         _this.activationTimer_ = 0;
         _this.fgDeactivationRemovalTimer_ = 0;
@@ -7986,21 +8257,21 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
     }
     Object.defineProperty(MDCRippleFoundation, "cssClasses", {
         get: function () {
-            return cssClasses$4;
+            return cssClasses$5;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MDCRippleFoundation, "strings", {
         get: function () {
-            return strings$4;
+            return strings$5;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MDCRippleFoundation, "numbers", {
         get: function () {
-            return numbers$4;
+            return numbers$5;
         },
         enumerable: true,
         configurable: true
@@ -8133,7 +8404,7 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
     MDCRippleFoundation.prototype.registerRootHandlers_ = function (supportsPressRipple) {
         var _this = this;
         if (supportsPressRipple) {
-            ACTIVATION_EVENT_TYPES.forEach(function (evtType) {
+            ACTIVATION_EVENT_TYPES$1.forEach(function (evtType) {
                 _this.adapter_.registerInteractionHandler(evtType, _this.activateHandler_);
             });
             if (this.adapter_.isUnbounded()) {
@@ -8149,14 +8420,14 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
             this.adapter_.registerInteractionHandler('keyup', this.deactivateHandler_);
         }
         else {
-            POINTER_DEACTIVATION_EVENT_TYPES.forEach(function (evtType) {
+            POINTER_DEACTIVATION_EVENT_TYPES$1.forEach(function (evtType) {
                 _this.adapter_.registerDocumentInteractionHandler(evtType, _this.deactivateHandler_);
             });
         }
     };
     MDCRippleFoundation.prototype.deregisterRootHandlers_ = function () {
         var _this = this;
-        ACTIVATION_EVENT_TYPES.forEach(function (evtType) {
+        ACTIVATION_EVENT_TYPES$1.forEach(function (evtType) {
             _this.adapter_.deregisterInteractionHandler(evtType, _this.activateHandler_);
         });
         this.adapter_.deregisterInteractionHandler('focus', this.focusHandler_);
@@ -8168,7 +8439,7 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
     MDCRippleFoundation.prototype.deregisterDeactivationHandlers_ = function () {
         var _this = this;
         this.adapter_.deregisterInteractionHandler('keyup', this.deactivateHandler_);
-        POINTER_DEACTIVATION_EVENT_TYPES.forEach(function (evtType) {
+        POINTER_DEACTIVATION_EVENT_TYPES$1.forEach(function (evtType) {
             _this.adapter_.deregisterDocumentInteractionHandler(evtType, _this.deactivateHandler_);
         });
     };
@@ -8201,14 +8472,14 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
         activationState.isProgrammatic = evt === undefined;
         activationState.activationEvent = evt;
         activationState.wasActivatedByPointer = activationState.isProgrammatic ? false : evt !== undefined && (evt.type === 'mousedown' || evt.type === 'touchstart' || evt.type === 'pointerdown');
-        var hasActivatedChild = evt !== undefined && activatedTargets.length > 0 && activatedTargets.some(function (target) { return _this.adapter_.containsEventTarget(target); });
+        var hasActivatedChild = evt !== undefined && activatedTargets$1.length > 0 && activatedTargets$1.some(function (target) { return _this.adapter_.containsEventTarget(target); });
         if (hasActivatedChild) {
             // Immediately reset activation state, while preserving logic that prevents touch follow-on events
             this.resetActivationState_();
             return;
         }
         if (evt !== undefined) {
-            activatedTargets.push(evt.target);
+            activatedTargets$1.push(evt.target);
             this.registerDeactivationHandlers_(evt);
         }
         activationState.wasElementMadeActive = this.checkElementMadeActive_(evt);
@@ -8217,7 +8488,7 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
         }
         requestAnimationFrame(function () {
             // Reset array on next frame after the current event has had a chance to bubble to prevent ancestor ripples
-            activatedTargets = [];
+            activatedTargets$1 = [];
             if (!activationState.wasElementMadeActive
                 && evt !== undefined
                 && (evt.key === ' ' || evt.keyCode === 32)) {
@@ -8270,7 +8541,7 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
         var _a = this.activationState_, activationEvent = _a.activationEvent, wasActivatedByPointer = _a.wasActivatedByPointer;
         var startPoint;
         if (wasActivatedByPointer) {
-            startPoint = getNormalizedEventCoords(activationEvent, this.adapter_.getWindowPageOffset(), this.adapter_.computeBoundingRect());
+            startPoint = getNormalizedEventCoords$1(activationEvent, this.adapter_.getWindowPageOffset(), this.adapter_.computeBoundingRect());
         }
         else {
             startPoint = {
@@ -8301,7 +8572,7 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
             this.adapter_.addClass(FG_DEACTIVATION);
             this.fgDeactivationRemovalTimer_ = setTimeout(function () {
                 _this.adapter_.removeClass(FG_DEACTIVATION);
-            }, numbers$4.FG_DEACTIVATION_MS);
+            }, numbers$5.FG_DEACTIVATION_MS);
         }
     };
     MDCRippleFoundation.prototype.rmBoundedActivationClasses_ = function () {
@@ -8325,7 +8596,7 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
         if (!activationState.isActivated) {
             return;
         }
-        var state = __assign({}, activationState);
+        var state = __assign$1({}, activationState);
         if (activationState.isProgrammatic) {
             requestAnimationFrame(function () { return _this.animateDeactivation_(state); });
             this.resetActivationState_();
@@ -8379,7 +8650,7 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
         }
     };
     return MDCRippleFoundation;
-}(MDCFoundation));
+}(MDCFoundation$1));
 
 /**
 @license
@@ -8397,7 +8668,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const style$9 = css$1 `/**
+const style$h = css$1 `/**
 @license
 Copyright 2018 Google Inc. All Rights Reserved.
 
@@ -8457,26 +8728,26 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const supportsCssVariables$1 = supportsCssVariables(window);
+const supportsCssVariables$1$1 = supportsCssVariables$2(window);
 // NOTE: This is a workaround for https://bugs.webkit.org/show_bug.cgi?id=173027.
 // Since keyframes on pseudo-elements (:after) are not supported in Shadow DOM,
 // we put the keyframe style into the <head> element.
-const isSafari = navigator.userAgent.match(/Safari/);
-let didApplyRippleStyle = false;
-const applyRippleStyle = () => {
-    didApplyRippleStyle = true;
+const isSafari$1 = navigator.userAgent.match(/Safari/);
+let didApplyRippleStyle$1 = false;
+const applyRippleStyle$1 = () => {
+    didApplyRippleStyle$1 = true;
     const part = new NodePart$1({ templateFactory: templateFactory$1 });
     part.appendInto(document.head);
-    part.setValue(style$9);
+    part.setValue(style$h);
     part.commit();
 };
 /**
  * Applied a ripple to the node specified by {surfaceNode}.
  * @param options {RippleNodeOptions}
  */
-const rippleNode = (options) => {
-    if (isSafari && !didApplyRippleStyle) {
-        applyRippleStyle();
+const rippleNode$1 = (options) => {
+    if (isSafari$1 && !didApplyRippleStyle$1) {
+        applyRippleStyle$1();
     }
     // TODO(sorvell): This directive requires bringing css yourself. We probably need to do this
     // because of ShadyCSS, but on Safari, the keyframes styling must be window. Perhaps this
@@ -8489,31 +8760,31 @@ const rippleNode = (options) => {
             interactionNode.style.position = 'relative';
         }
     }
-    const adapter = Object.assign({ browserSupportsCssVars: () => supportsCssVariables$1, isUnbounded: () => options.unbounded === undefined ? true : options.unbounded, isSurfaceActive: () => matches(interactionNode, ':active'), isSurfaceDisabled: () => Boolean(options.disabled), addClass: (className) => surfaceNode.classList.add(className), removeClass: (className) => surfaceNode.classList.remove(className), containsEventTarget: (target) => interactionNode.contains(target), registerInteractionHandler: (type, handler) => interactionNode.addEventListener(type, handler, applyPassive$1()), deregisterInteractionHandler: (type, handler) => interactionNode.removeEventListener(type, handler, applyPassive$1()), registerDocumentInteractionHandler: (evtType, handler) => document.documentElement.addEventListener(evtType, handler, applyPassive$1()), deregisterDocumentInteractionHandler: (evtType, handler) => document.documentElement.removeEventListener(evtType, handler, applyPassive$1()), registerResizeHandler: (handler) => window.addEventListener('resize', handler), deregisterResizeHandler: (handler) => window.removeEventListener('resize', handler), updateCssVariable: (varName, value) => surfaceNode.style.setProperty(varName, value), computeBoundingRect: () => surfaceNode.getBoundingClientRect(), getWindowPageOffset: () => ({ x: window.pageXOffset, y: window.pageYOffset }) }, options.adapter);
-    const rippleFoundation = new MDCRippleFoundation(adapter);
+    const adapter = Object.assign({ browserSupportsCssVars: () => supportsCssVariables$1$1, isUnbounded: () => options.unbounded === undefined ? true : options.unbounded, isSurfaceActive: () => matches$1(interactionNode, ':active'), isSurfaceDisabled: () => Boolean(options.disabled), addClass: (className) => surfaceNode.classList.add(className), removeClass: (className) => surfaceNode.classList.remove(className), containsEventTarget: (target) => interactionNode.contains(target), registerInteractionHandler: (type, handler) => interactionNode.addEventListener(type, handler, applyPassive$2()), deregisterInteractionHandler: (type, handler) => interactionNode.removeEventListener(type, handler, applyPassive$2()), registerDocumentInteractionHandler: (evtType, handler) => document.documentElement.addEventListener(evtType, handler, applyPassive$2()), deregisterDocumentInteractionHandler: (evtType, handler) => document.documentElement.removeEventListener(evtType, handler, applyPassive$2()), registerResizeHandler: (handler) => window.addEventListener('resize', handler), deregisterResizeHandler: (handler) => window.removeEventListener('resize', handler), updateCssVariable: (varName, value) => surfaceNode.style.setProperty(varName, value), computeBoundingRect: () => surfaceNode.getBoundingClientRect(), getWindowPageOffset: () => ({ x: window.pageXOffset, y: window.pageYOffset }) }, options.adapter);
+    const rippleFoundation = new MDCRippleFoundation$1(adapter);
     rippleFoundation.init();
     return rippleFoundation;
 };
-const rippleInteractionNodes = new WeakMap();
+const rippleInteractionNodes$1 = new WeakMap();
 /**
  * A directive that applies a Material ripple to a part node. The directive
  * should be applied to a PropertyPart.
  * @param options {RippleOptions}
  */
-const ripple = directive$1((options = {}) => (part) => {
+const ripple$1 = directive$1((options = {}) => (part) => {
     const surfaceNode = part.committer.element;
     const interactionNode = options.interactionNode || surfaceNode;
     let rippleFoundation = part.value;
     // if the interaction node changes, destroy and invalidate the foundation.
-    const existingInteractionNode = rippleInteractionNodes.get(rippleFoundation);
+    const existingInteractionNode = rippleInteractionNodes$1.get(rippleFoundation);
     if (existingInteractionNode !== undefined && existingInteractionNode !== interactionNode) {
         rippleFoundation.destroy();
         rippleFoundation = noChange$1;
     }
     // make the ripple, if needed
     if (rippleFoundation === noChange$1) {
-        rippleFoundation = rippleNode(Object.assign({}, options, { surfaceNode }));
-        rippleInteractionNodes.set(rippleFoundation, interactionNode);
+        rippleFoundation = rippleNode$1(Object.assign({}, options, { surfaceNode }));
+        rippleInteractionNodes$1.set(rippleFoundation, interactionNode);
         part.setValue(rippleFoundation);
         // otherwise update settings as needed.
     }
@@ -8549,7 +8820,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const style$1$1 = css$1 `/**
+const style$1$2 = css$1 `/**
 @license
 Copyright 2018 Google Inc. All Rights Reserved.
 
@@ -8935,18 +9206,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 // load material icons font
-const fontEl = document.createElement('link');
-fontEl.rel = 'stylesheet';
-fontEl.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
-document.head.appendChild(fontEl);
+const fontEl$1 = document.createElement('link');
+fontEl$1.rel = 'stylesheet';
+fontEl$1.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
+document.head.appendChild(fontEl$1);
 
-var __decorate$1 = function (decorators, target, key, desc) {
+var __decorate$2 = function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-let Card = class Card extends LitElement$1 {
+let Card$2 = class Card extends LitElement$1 {
     constructor() {
         super(...arguments);
         /**
@@ -8959,19 +9230,19 @@ let Card = class Card extends LitElement$1 {
         this.aspectRatio = '';
     }
     get headerEls() {
-        return this.slotHeaderEl && findAssignedElements(this.slotHeaderEl, '*');
+        return this.slotHeaderEl && findAssignedElements$1(this.slotHeaderEl, '*');
     }
     get mediaEls() {
-        return this.slotMediaEl && findAssignedElements(this.slotMediaEl, '*');
+        return this.slotMediaEl && findAssignedElements$1(this.slotMediaEl, '*');
     }
     get contentEls() {
-        return this.slotContentEl && findAssignedElements(this.slotContentEl, '*');
+        return this.slotContentEl && findAssignedElements$1(this.slotContentEl, '*');
     }
     get actionButtons() {
-        return this.slotActionButtonsEl && findAssignedElements(this.slotActionButtonsEl, 'mwc-button');
+        return this.slotActionButtonsEl && findAssignedElements$1(this.slotActionButtonsEl, 'mwc-button');
     }
     get actionIcons() {
-        return this.slotActionIconsEl && findAssignedElements(this.slotActionIconsEl, 'mwc-icon-button');
+        return this.slotActionIconsEl && findAssignedElements$1(this.slotActionIconsEl, 'mwc-icon-button');
     }
     /**
      * Used to render the lit-html TemplateResult to the element's DOM
@@ -8987,7 +9258,7 @@ let Card = class Card extends LitElement$1 {
         };
         return html$1 `
       <div class="${classMap$1(styles)}">
-        <div class="mdc-card__primary-action" tabindex="0" .ripple="${ripple({ unbounded: false })}">
+        <div class="mdc-card__primary-action" tabindex="0" .ripple="${ripple$1({ unbounded: false })}">
           <slot name="header"></slot>
           
           <div class="${classMap$1(mediaStyles)}">
@@ -9032,45 +9303,45 @@ let Card = class Card extends LitElement$1 {
         this.actionsEl.classList.toggle('mdc-card__actions--empty', !_hasActions);
     }
 };
-Card.styles = style$1$1;
-__decorate$1([
+Card$2.styles = style$1$2;
+__decorate$2([
     query$1('.mdc-card__primary-action')
-], Card.prototype, "primaryActionEl", void 0);
-__decorate$1([
+], Card$2.prototype, "primaryActionEl", void 0);
+__decorate$2([
     query$1('.mdc-card__actions')
-], Card.prototype, "actionsEl", void 0);
-__decorate$1([
+], Card$2.prototype, "actionsEl", void 0);
+__decorate$2([
     query$1('.mdc-card__action-buttons')
-], Card.prototype, "actionButtonsEl", void 0);
-__decorate$1([
+], Card$2.prototype, "actionButtonsEl", void 0);
+__decorate$2([
     query$1('.mdc-card__action-icons')
-], Card.prototype, "actionIconsEl", void 0);
-__decorate$1([
+], Card$2.prototype, "actionIconsEl", void 0);
+__decorate$2([
     query$1('slot[name="header"]')
-], Card.prototype, "slotHeaderEl", void 0);
-__decorate$1([
+], Card$2.prototype, "slotHeaderEl", void 0);
+__decorate$2([
     query$1('slot[name="media"]')
-], Card.prototype, "slotMediaEl", void 0);
-__decorate$1([
+], Card$2.prototype, "slotMediaEl", void 0);
+__decorate$2([
     query$1('slot[name="content"]')
-], Card.prototype, "slotContentEl", void 0);
-__decorate$1([
+], Card$2.prototype, "slotContentEl", void 0);
+__decorate$2([
     query$1('slot[name="action-buttons"]')
-], Card.prototype, "slotActionButtonsEl", void 0);
-__decorate$1([
+], Card$2.prototype, "slotActionButtonsEl", void 0);
+__decorate$2([
     query$1('slot[name="action-icons"]')
-], Card.prototype, "slotActionIconsEl", void 0);
-__decorate$1([
+], Card$2.prototype, "slotActionIconsEl", void 0);
+__decorate$2([
     property$1({ type: Boolean })
-], Card.prototype, "outlined", void 0);
-__decorate$1([
+], Card$2.prototype, "outlined", void 0);
+__decorate$2([
     property$1({ type: String })
-], Card.prototype, "aspectRatio", void 0);
+], Card$2.prototype, "aspectRatio", void 0);
 
-class Card$1 extends ScopedElementsMixin$1(Card) {
+class Card$1$1 extends ScopedElementsMixin$1(Card$2) {
 }
-Card$1.styles = [
-    style$1$1,
+Card$1$1.styles = [
+    style$1$2,
     css$1 `
       :host {
         width: auto;
@@ -12787,7 +13058,7 @@ const metadata$1 = {
  * @tagname ui5-icon
  * @public
  */
-class Icon$1 extends UI5Element {
+class Icon$2 extends UI5Element {
 	static get metadata() {
 		return metadata$1;
 	}
@@ -12932,7 +13203,7 @@ class Icon$1 extends UI5Element {
 	}
 }
 
-Icon$1.define();
+Icon$2.define();
 
 /**
  * Different types of AvatarSize.
@@ -13417,7 +13688,7 @@ class Avatar extends UI5Element {
 	}
 
 	static get dependencies() {
-		return [Icon$1];
+		return [Icon$2];
 	}
 
 	static async onDefine() {
@@ -18505,25 +18776,25 @@ class CreateProfileForm extends StoreElement {
     }
     getScopedElements() {
         return {
-            'mwc-textfield': TextField,
-            'mwc-button': Button,
-            'mwc-icon': Icon$2,
-            'mwc-card': Card$1,
+            'mwc-textfield': TextField$1,
+            'mwc-button': Button$1,
+            'mwc-icon': Icon$3,
+            'mwc-card': Card$1$1,
             'mwc-ripple': Ripple,
             'ui5-avatar': Avatar,
         };
     }
 }
-__decorate$2([
+__decorate$3([
     property$1({ type: Number, attribute: 'min-length' })
 ], CreateProfileForm.prototype, "minLength", void 0);
-__decorate$2([
+__decorate$3([
     query$1('#nickname-field')
 ], CreateProfileForm.prototype, "_nicknameField", void 0);
-__decorate$2([
+__decorate$3([
     query$1('#avatar-file-picker')
 ], CreateProfileForm.prototype, "_avatarFilePicker", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String })
 ], CreateProfileForm.prototype, "_avatar", void 0);
 
@@ -18549,7 +18820,7 @@ __decorate$2([
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-var cssClasses$3 = {
+var cssClasses$4 = {
     ANCHOR: 'mdc-menu-surface--anchor',
     ANIMATING_CLOSED: 'mdc-menu-surface--animating-closed',
     ANIMATING_OPEN: 'mdc-menu-surface--animating-open',
@@ -18559,7 +18830,7 @@ var cssClasses$3 = {
     ROOT: 'mdc-menu-surface',
 };
 // tslint:disable:object-literal-sort-keys
-var strings$3 = {
+var strings$4 = {
     CLOSED_EVENT: 'MDCMenuSurface:closed',
     OPENED_EVENT: 'MDCMenuSurface:opened',
     FOCUSABLE_ELEMENTS: [
@@ -18568,7 +18839,7 @@ var strings$3 = {
     ].join(', '),
 };
 // tslint:enable:object-literal-sort-keys
-var numbers$3 = {
+var numbers$4 = {
     /** Total duration of menu-surface open animation. */
     TRANSITION_OPEN_DURATION: 120,
     /** Total duration of menu-surface close animation. */
@@ -18630,9 +18901,9 @@ var Corner;
  * THE SOFTWARE.
  */
 var MDCMenuSurfaceFoundation = /** @class */ (function (_super) {
-    __extends$1(MDCMenuSurfaceFoundation, _super);
+    __extends$2(MDCMenuSurfaceFoundation, _super);
     function MDCMenuSurfaceFoundation(adapter) {
-        var _this = _super.call(this, __assign$1(__assign$1({}, MDCMenuSurfaceFoundation.defaultAdapter), adapter)) || this;
+        var _this = _super.call(this, __assign$2(__assign$2({}, MDCMenuSurfaceFoundation.defaultAdapter), adapter)) || this;
         _this.isSurfaceOpen = false;
         _this.isQuickOpen = false;
         _this.isHoistedElement = false;
@@ -18662,21 +18933,21 @@ var MDCMenuSurfaceFoundation = /** @class */ (function (_super) {
     }
     Object.defineProperty(MDCMenuSurfaceFoundation, "cssClasses", {
         get: function () {
-            return cssClasses$3;
+            return cssClasses$4;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MDCMenuSurfaceFoundation, "strings", {
         get: function () {
-            return strings$3;
+            return strings$4;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MDCMenuSurfaceFoundation, "numbers", {
         get: function () {
-            return numbers$3;
+            return numbers$4;
         },
         enumerable: true,
         configurable: true
@@ -18801,7 +19072,7 @@ var MDCMenuSurfaceFoundation = /** @class */ (function (_super) {
                     _this.openAnimationEndTimerId = 0;
                     _this.adapter.removeClass(MDCMenuSurfaceFoundation.cssClasses.ANIMATING_OPEN);
                     _this.adapter.notifyOpen();
-                }, numbers$3.TRANSITION_OPEN_DURATION);
+                }, numbers$4.TRANSITION_OPEN_DURATION);
             });
             this.isSurfaceOpen = true;
         }
@@ -18833,7 +19104,7 @@ var MDCMenuSurfaceFoundation = /** @class */ (function (_super) {
                     _this.closeAnimationEndTimerId = 0;
                     _this.adapter.removeClass(MDCMenuSurfaceFoundation.cssClasses.ANIMATING_CLOSED);
                     _this.adapter.notifyClose();
-                }, numbers$3.TRANSITION_CLOSE_DURATION);
+                }, numbers$4.TRANSITION_CLOSE_DURATION);
             });
             this.isSurfaceOpen = false;
             if (!skipRestoreFocus) {
@@ -18873,7 +19144,7 @@ var MDCMenuSurfaceFoundation = /** @class */ (function (_super) {
             _a[verticalAlignment] = verticalOffset,
             _a);
         // Center align when anchor width is comparable or greater than menu surface, otherwise keep corner.
-        if (anchorSize.width / surfaceSize.width > numbers$3.ANCHOR_TO_MENU_SURFACE_WIDTH_RATIO) {
+        if (anchorSize.width / surfaceSize.width > numbers$4.ANCHOR_TO_MENU_SURFACE_WIDTH_RATIO) {
             horizontalAlignment = 'center';
         }
         // If the menu-surface has been hoisted to the body, it's no longer relative to the anchor element
@@ -19138,7 +19409,7 @@ var MDCMenuSurfaceFoundation = /** @class */ (function (_super) {
         return typeof num === 'number' && isFinite(num);
     };
     return MDCMenuSurfaceFoundation;
-}(MDCFoundation$1));
+}(MDCFoundation$2));
 
 // tslint:disable:no-bitwise
 // required for closure compiler
@@ -19317,13 +19588,13 @@ class MenuSurfaceBase extends BaseElement$1 {
         this.open = true;
     }
 }
-__decorate$2([
+__decorate$3([
     query$1('.mdc-menu-surface')
 ], MenuSurfaceBase.prototype, "mdcRoot", void 0);
-__decorate$2([
+__decorate$3([
     query$1('slot')
 ], MenuSurfaceBase.prototype, "slotElement", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean }),
     observer(function (isAbsolute) {
         if (this.mdcFoundation && !this.fixed) {
@@ -19331,10 +19602,10 @@ __decorate$2([
         }
     })
 ], MenuSurfaceBase.prototype, "absolute", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], MenuSurfaceBase.prototype, "fullwidth", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean }),
     observer(function (isFixed) {
         if (this.mdcFoundation && !this.absolute) {
@@ -19342,7 +19613,7 @@ __decorate$2([
         }
     })
 ], MenuSurfaceBase.prototype, "fixed", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Number }),
     observer(function (value) {
         if (this.mdcFoundation && this.y !== null && value !== null) {
@@ -19351,7 +19622,7 @@ __decorate$2([
         }
     })
 ], MenuSurfaceBase.prototype, "x", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Number }),
     observer(function (value) {
         if (this.mdcFoundation && this.x !== null && value !== null) {
@@ -19360,7 +19631,7 @@ __decorate$2([
         }
     })
 ], MenuSurfaceBase.prototype, "y", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean }),
     observer(function (value) {
         if (this.mdcFoundation) {
@@ -19368,7 +19639,7 @@ __decorate$2([
         }
     })
 ], MenuSurfaceBase.prototype, "quick", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean, reflect: true }),
     observer(function (isOpen, wasOpen) {
         if (this.mdcFoundation) {
@@ -19382,7 +19653,7 @@ __decorate$2([
         }
     })
 ], MenuSurfaceBase.prototype, "open", void 0);
-__decorate$2([
+__decorate$3([
     internalProperty(),
     observer(function (value) {
         if (this.mdcFoundation) {
@@ -19395,7 +19666,7 @@ __decorate$2([
         }
     })
 ], MenuSurfaceBase.prototype, "bitwiseCorner", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String }),
     observer(function (value) {
         if (this.mdcFoundation) {
@@ -19411,7 +19682,7 @@ __decorate$2([
         }
     })
 ], MenuSurfaceBase.prototype, "menuCorner", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String }),
     observer(function (value) {
         if (this.mdcFoundation) {
@@ -19425,22 +19696,22 @@ __decorate$2([
         }
     })
 ], MenuSurfaceBase.prototype, "corner", void 0);
-__decorate$2([
+__decorate$3([
     internalProperty()
 ], MenuSurfaceBase.prototype, "styleTop", void 0);
-__decorate$2([
+__decorate$3([
     internalProperty()
 ], MenuSurfaceBase.prototype, "styleLeft", void 0);
-__decorate$2([
+__decorate$3([
     internalProperty()
 ], MenuSurfaceBase.prototype, "styleRight", void 0);
-__decorate$2([
+__decorate$3([
     internalProperty()
 ], MenuSurfaceBase.prototype, "styleBottom", void 0);
-__decorate$2([
+__decorate$3([
     internalProperty()
 ], MenuSurfaceBase.prototype, "styleMaxHeight", void 0);
-__decorate$2([
+__decorate$3([
     internalProperty()
 ], MenuSurfaceBase.prototype, "styleTransformOrigin", void 0);
 
@@ -19460,11 +19731,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const style$8 = css$1 `.mdc-menu-surface{display:none;position:absolute;box-sizing:border-box;max-width:calc(100vw - 32px);max-height:calc(100vh - 32px);margin:0;padding:0;transform:scale(1);transform-origin:top left;opacity:0;overflow:auto;will-change:transform,opacity;z-index:8;transition:opacity .03s linear,transform .12s cubic-bezier(0, 0, 0.2, 1),height 250ms cubic-bezier(0, 0, 0.2, 1);box-shadow:0px 5px 5px -3px rgba(0, 0, 0, 0.2),0px 8px 10px 1px rgba(0, 0, 0, 0.14),0px 3px 14px 2px rgba(0,0,0,.12);background-color:#fff;background-color:var(--mdc-theme-surface, #fff);color:#000;color:var(--mdc-theme-on-surface, #000);border-radius:4px;border-radius:var(--mdc-shape-medium, 4px);transform-origin-left:top left;transform-origin-right:top right}.mdc-menu-surface:focus{outline:none}.mdc-menu-surface--open{display:inline-block;transform:scale(1);opacity:1}.mdc-menu-surface--animating-open{display:inline-block;transform:scale(0.8);opacity:0}.mdc-menu-surface--animating-closed{display:inline-block;opacity:0;transition:opacity .075s linear}[dir=rtl] .mdc-menu-surface,.mdc-menu-surface[dir=rtl]{transform-origin-left:top right;transform-origin-right:top left}.mdc-menu-surface--anchor{position:relative;overflow:visible}.mdc-menu-surface--fixed{position:fixed}.mdc-menu-surface--fullwidth{width:100%}:host(:not([open])){display:none}.mdc-menu-surface{z-index:8;z-index:var(--mdc-menu-z-index, 8);max-height:calc(100vh - 32px);max-height:var(--mdc-menu-max-height, calc(100vh - 32px))}`;
+const style$g = css$1 `.mdc-menu-surface{display:none;position:absolute;box-sizing:border-box;max-width:calc(100vw - 32px);max-height:calc(100vh - 32px);margin:0;padding:0;transform:scale(1);transform-origin:top left;opacity:0;overflow:auto;will-change:transform,opacity;z-index:8;transition:opacity .03s linear,transform .12s cubic-bezier(0, 0, 0.2, 1),height 250ms cubic-bezier(0, 0, 0.2, 1);box-shadow:0px 5px 5px -3px rgba(0, 0, 0, 0.2),0px 8px 10px 1px rgba(0, 0, 0, 0.14),0px 3px 14px 2px rgba(0,0,0,.12);background-color:#fff;background-color:var(--mdc-theme-surface, #fff);color:#000;color:var(--mdc-theme-on-surface, #000);border-radius:4px;border-radius:var(--mdc-shape-medium, 4px);transform-origin-left:top left;transform-origin-right:top right}.mdc-menu-surface:focus{outline:none}.mdc-menu-surface--open{display:inline-block;transform:scale(1);opacity:1}.mdc-menu-surface--animating-open{display:inline-block;transform:scale(0.8);opacity:0}.mdc-menu-surface--animating-closed{display:inline-block;opacity:0;transition:opacity .075s linear}[dir=rtl] .mdc-menu-surface,.mdc-menu-surface[dir=rtl]{transform-origin-left:top right;transform-origin-right:top left}.mdc-menu-surface--anchor{position:relative;overflow:visible}.mdc-menu-surface--fixed{position:fixed}.mdc-menu-surface--fullwidth{width:100%}:host(:not([open])){display:none}.mdc-menu-surface{z-index:8;z-index:var(--mdc-menu-z-index, 8);max-height:calc(100vh - 32px);max-height:var(--mdc-menu-max-height, calc(100vh - 32px))}`;
 
 class MenuSurface extends MenuSurfaceBase {
 }
-MenuSurface.styles = style$8;
+MenuSurface.styles = style$g;
 
 /**
  * @license
@@ -19604,7 +19875,7 @@ function normalizeKey(evt) {
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-var cssClasses$2 = {
+var cssClasses$3 = {
     LIST_ITEM_ACTIVATED_CLASS: 'mdc-list-item--activated',
     LIST_ITEM_CLASS: 'mdc-list-item',
     LIST_ITEM_DISABLED_CLASS: 'mdc-list-item--disabled',
@@ -19613,7 +19884,7 @@ var cssClasses$2 = {
     LIST_ITEM_PRIMARY_TEXT_CLASS: 'mdc-list-item__primary-text',
     ROOT: 'mdc-list',
 };
-var strings$2 = {
+var strings$3 = {
     ACTION_EVENT: 'MDCList:action',
     ARIA_CHECKED: 'aria-checked',
     ARIA_CHECKED_CHECKBOX_SELECTOR: '[role="checkbox"][aria-checked="true"]',
@@ -19626,11 +19897,11 @@ var strings$2 = {
     ARIA_SELECTED: 'aria-selected',
     CHECKBOX_RADIO_SELECTOR: 'input[type="checkbox"], input[type="radio"]',
     CHECKBOX_SELECTOR: 'input[type="checkbox"]',
-    CHILD_ELEMENTS_TO_TOGGLE_TABINDEX: "\n    ." + cssClasses$2.LIST_ITEM_CLASS + " button:not(:disabled),\n    ." + cssClasses$2.LIST_ITEM_CLASS + " a\n  ",
-    FOCUSABLE_CHILD_ELEMENTS: "\n    ." + cssClasses$2.LIST_ITEM_CLASS + " button:not(:disabled),\n    ." + cssClasses$2.LIST_ITEM_CLASS + " a,\n    ." + cssClasses$2.LIST_ITEM_CLASS + " input[type=\"radio\"]:not(:disabled),\n    ." + cssClasses$2.LIST_ITEM_CLASS + " input[type=\"checkbox\"]:not(:disabled)\n  ",
+    CHILD_ELEMENTS_TO_TOGGLE_TABINDEX: "\n    ." + cssClasses$3.LIST_ITEM_CLASS + " button:not(:disabled),\n    ." + cssClasses$3.LIST_ITEM_CLASS + " a\n  ",
+    FOCUSABLE_CHILD_ELEMENTS: "\n    ." + cssClasses$3.LIST_ITEM_CLASS + " button:not(:disabled),\n    ." + cssClasses$3.LIST_ITEM_CLASS + " a,\n    ." + cssClasses$3.LIST_ITEM_CLASS + " input[type=\"radio\"]:not(:disabled),\n    ." + cssClasses$3.LIST_ITEM_CLASS + " input[type=\"checkbox\"]:not(:disabled)\n  ",
     RADIO_SELECTOR: 'input[type="radio"]',
 };
-var numbers$2 = {
+var numbers$3 = {
     UNSET_INDEX: -1,
     TYPEAHEAD_BUFFER_CLEAR_TIMEOUT_MS: 300
 };
@@ -19655,7 +19926,7 @@ var numbers$2 = {
  * @fires request-selected {RequestSelectedDetail}
  * @fires list-item-rendered
  */
-class ListItemBase extends LitElement$1 {
+class ListItemBase$1 extends LitElement$1 {
     constructor() {
         super(...arguments);
         this.value = '';
@@ -19827,22 +20098,2237 @@ class ListItemBase extends LitElement$1 {
         this.dispatchEvent(ev);
     }
 }
-__decorate$2([
+__decorate$3([
+    query$1('slot')
+], ListItemBase$1.prototype, "slotElement", void 0);
+__decorate$3([
+    queryAsync('mwc-ripple')
+], ListItemBase$1.prototype, "ripple", void 0);
+__decorate$3([
+    property$1({ type: String })
+], ListItemBase$1.prototype, "value", void 0);
+__decorate$3([
+    property$1({ type: String, reflect: true })
+], ListItemBase$1.prototype, "group", void 0);
+__decorate$3([
+    property$1({ type: Number, reflect: true })
+], ListItemBase$1.prototype, "tabindex", void 0);
+__decorate$3([
+    property$1({ type: Boolean, reflect: true }),
+    observer(function (value) {
+        if (value) {
+            this.setAttribute('aria-disabled', 'true');
+        }
+        else {
+            this.setAttribute('aria-disabled', 'false');
+        }
+    })
+], ListItemBase$1.prototype, "disabled", void 0);
+__decorate$3([
+    property$1({ type: Boolean, reflect: true })
+], ListItemBase$1.prototype, "twoline", void 0);
+__decorate$3([
+    property$1({ type: Boolean, reflect: true })
+], ListItemBase$1.prototype, "activated", void 0);
+__decorate$3([
+    property$1({ type: String, reflect: true })
+], ListItemBase$1.prototype, "graphic", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], ListItemBase$1.prototype, "multipleGraphics", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], ListItemBase$1.prototype, "hasMeta", void 0);
+__decorate$3([
+    property$1({ type: Boolean, reflect: true }),
+    observer(function (value) {
+        if (value) {
+            this.removeAttribute('aria-checked');
+            this.removeAttribute('mwc-list-item');
+            this.selected = false;
+            this.activated = false;
+            this.tabIndex = -1;
+        }
+        else {
+            this.setAttribute('mwc-list-item', '');
+        }
+    })
+], ListItemBase$1.prototype, "noninteractive", void 0);
+__decorate$3([
+    property$1({ type: Boolean, reflect: true }),
+    observer(function (value) {
+        const role = this.getAttribute('role');
+        const isAriaSelectable = role === 'gridcell' || role === 'option' ||
+            role === 'row' || role === 'tab';
+        if (isAriaSelectable && value) {
+            this.setAttribute('aria-selected', 'true');
+        }
+        else if (isAriaSelectable) {
+            this.setAttribute('aria-selected', 'false');
+        }
+        if (this._firstChanged) {
+            this._firstChanged = false;
+            return;
+        }
+        if (this._skipPropRequest) {
+            return;
+        }
+        this.fireRequestSelected(value, 'property');
+    })
+], ListItemBase$1.prototype, "selected", void 0);
+__decorate$3([
+    internalProperty()
+], ListItemBase$1.prototype, "shouldRenderRipple", void 0);
+__decorate$3([
+    internalProperty()
+], ListItemBase$1.prototype, "_managingList", void 0);
+
+/**
+@license
+Copyright 2018 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+const style$f = css$1 `:host{cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;height:48px;display:flex;position:relative;align-items:center;justify-content:flex-start;overflow:hidden;padding:0;padding-left:var(--mdc-list-side-padding, 16px);padding-right:var(--mdc-list-side-padding, 16px);outline:none;height:48px;color:rgba(0,0,0,.87);color:var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87))}:host:focus{outline:none}:host([activated]){color:#6200ee;color:var(--mdc-theme-primary, #6200ee);--mdc-ripple-color: var(--mdc-theme-primary, #6200ee)}:host([activated]) .mdc-list-item__graphic{color:#6200ee;color:var(--mdc-theme-primary, #6200ee)}:host([activated]) .fake-activated-ripple::before{position:absolute;display:block;top:0;bottom:0;left:0;right:0;width:100%;height:100%;pointer-events:none;z-index:1;content:"";opacity:0.12;opacity:var(--mdc-ripple-activated-opacity, 0.12);background-color:#6200ee;background-color:var(--mdc-ripple-color, var(--mdc-theme-primary, #6200ee))}.mdc-list-item__graphic{flex-shrink:0;align-items:center;justify-content:center;fill:currentColor;display:inline-flex}.mdc-list-item__graphic ::slotted(*){flex-shrink:0;align-items:center;justify-content:center;fill:currentColor;width:100%;height:100%;text-align:center}.mdc-list-item__meta{width:var(--mdc-list-item-meta-size, 24px);height:var(--mdc-list-item-meta-size, 24px);margin-left:auto;margin-right:0;color:rgba(0, 0, 0, 0.38);color:var(--mdc-theme-text-hint-on-background, rgba(0, 0, 0, 0.38))}.mdc-list-item__meta.multi{width:auto}.mdc-list-item__meta ::slotted(*){width:var(--mdc-list-item-meta-size, 24px);line-height:var(--mdc-list-item-meta-size, 24px)}.mdc-list-item__meta ::slotted(.material-icons),.mdc-list-item__meta ::slotted(mwc-icon){line-height:var(--mdc-list-item-meta-size, 24px) !important}.mdc-list-item__meta ::slotted(:not(.material-icons):not(mwc-icon)){-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.75rem;font-size:var(--mdc-typography-caption-font-size, 0.75rem);line-height:1.25rem;line-height:var(--mdc-typography-caption-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-caption-font-weight, 400);letter-spacing:0.0333333333em;letter-spacing:var(--mdc-typography-caption-letter-spacing, 0.0333333333em);text-decoration:inherit;text-decoration:var(--mdc-typography-caption-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-caption-text-transform, inherit)}:host[dir=rtl] .mdc-list-item__meta,[dir=rtl] :host .mdc-list-item__meta{margin-left:0;margin-right:auto}.mdc-list-item__meta ::slotted(*){width:100%;height:100%}.mdc-list-item__text{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.mdc-list-item__text ::slotted([for]),.mdc-list-item__text[for]{pointer-events:none}.mdc-list-item__primary-text{text-overflow:ellipsis;white-space:nowrap;overflow:hidden;display:block;margin-top:0;line-height:normal;margin-bottom:-20px;display:block}.mdc-list-item__primary-text::before{display:inline-block;width:0;height:32px;content:"";vertical-align:0}.mdc-list-item__primary-text::after{display:inline-block;width:0;height:20px;content:"";vertical-align:-20px}.mdc-list-item__secondary-text{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-body2-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.875rem;font-size:var(--mdc-typography-body2-font-size, 0.875rem);line-height:1.25rem;line-height:var(--mdc-typography-body2-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-body2-font-weight, 400);letter-spacing:0.0178571429em;letter-spacing:var(--mdc-typography-body2-letter-spacing, 0.0178571429em);text-decoration:inherit;text-decoration:var(--mdc-typography-body2-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-body2-text-transform, inherit);text-overflow:ellipsis;white-space:nowrap;overflow:hidden;display:block;margin-top:0;line-height:normal;display:block}.mdc-list-item__secondary-text::before{display:inline-block;width:0;height:20px;content:"";vertical-align:0}.mdc-list--dense .mdc-list-item__secondary-text{font-size:inherit}* ::slotted(a),a{color:inherit;text-decoration:none}:host([twoline]){height:72px}:host([twoline]) .mdc-list-item__text{align-self:flex-start}:host([disabled]),:host([noninteractive]){cursor:default;pointer-events:none}:host([disabled]) .mdc-list-item__text ::slotted(*){opacity:.38}:host([disabled]) .mdc-list-item__text ::slotted(*),:host([disabled]) .mdc-list-item__primary-text ::slotted(*),:host([disabled]) .mdc-list-item__secondary-text ::slotted(*){color:#000;color:var(--mdc-theme-on-surface, #000)}.mdc-list-item__secondary-text ::slotted(*){color:rgba(0, 0, 0, 0.54);color:var(--mdc-theme-text-secondary-on-background, rgba(0, 0, 0, 0.54))}.mdc-list-item__graphic ::slotted(*){background-color:transparent;color:rgba(0, 0, 0, 0.38);color:var(--mdc-theme-text-icon-on-background, rgba(0, 0, 0, 0.38))}.mdc-list-group__subheader ::slotted(*){color:rgba(0, 0, 0, 0.87);color:var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87))}:host([graphic=avatar]) .mdc-list-item__graphic{width:var(--mdc-list-item-graphic-size, 40px);height:var(--mdc-list-item-graphic-size, 40px)}:host([graphic=avatar]) .mdc-list-item__graphic.multi{width:auto}:host([graphic=avatar]) .mdc-list-item__graphic ::slotted(*){width:var(--mdc-list-item-graphic-size, 40px);line-height:var(--mdc-list-item-graphic-size, 40px)}:host([graphic=avatar]) .mdc-list-item__graphic ::slotted(.material-icons),:host([graphic=avatar]) .mdc-list-item__graphic ::slotted(mwc-icon){line-height:var(--mdc-list-item-graphic-size, 40px) !important}:host([graphic=avatar]) .mdc-list-item__graphic ::slotted(*){border-radius:50%}:host([graphic=avatar],[graphic=medium],[graphic=large],[graphic=control]) .mdc-list-item__graphic{margin-left:0;margin-right:var(--mdc-list-item-graphic-margin, 16px)}:host[dir=rtl] :host([graphic=avatar],[graphic=medium],[graphic=large],[graphic=control]) .mdc-list-item__graphic,[dir=rtl] :host :host([graphic=avatar],[graphic=medium],[graphic=large],[graphic=control]) .mdc-list-item__graphic{margin-left:var(--mdc-list-item-graphic-margin, 16px);margin-right:0}:host([graphic=icon]) .mdc-list-item__graphic{width:var(--mdc-list-item-graphic-size, 24px);height:var(--mdc-list-item-graphic-size, 24px);margin-left:0;margin-right:var(--mdc-list-item-graphic-margin, 32px)}:host([graphic=icon]) .mdc-list-item__graphic.multi{width:auto}:host([graphic=icon]) .mdc-list-item__graphic ::slotted(*){width:var(--mdc-list-item-graphic-size, 24px);line-height:var(--mdc-list-item-graphic-size, 24px)}:host([graphic=icon]) .mdc-list-item__graphic ::slotted(.material-icons),:host([graphic=icon]) .mdc-list-item__graphic ::slotted(mwc-icon){line-height:var(--mdc-list-item-graphic-size, 24px) !important}:host[dir=rtl] :host([graphic=icon]) .mdc-list-item__graphic,[dir=rtl] :host :host([graphic=icon]) .mdc-list-item__graphic{margin-left:var(--mdc-list-item-graphic-margin, 32px);margin-right:0}:host([graphic=avatar]:not([twoLine])),:host([graphic=icon]:not([twoLine])){height:56px}:host([graphic=medium]:not([twoLine])),:host([graphic=large]:not([twoLine])){height:72px}:host([graphic=medium]) .mdc-list-item__graphic,:host([graphic=large]) .mdc-list-item__graphic{width:var(--mdc-list-item-graphic-size, 56px);height:var(--mdc-list-item-graphic-size, 56px)}:host([graphic=medium]) .mdc-list-item__graphic.multi,:host([graphic=large]) .mdc-list-item__graphic.multi{width:auto}:host([graphic=medium]) .mdc-list-item__graphic ::slotted(*),:host([graphic=large]) .mdc-list-item__graphic ::slotted(*){width:var(--mdc-list-item-graphic-size, 56px);line-height:var(--mdc-list-item-graphic-size, 56px)}:host([graphic=medium]) .mdc-list-item__graphic ::slotted(.material-icons),:host([graphic=medium]) .mdc-list-item__graphic ::slotted(mwc-icon),:host([graphic=large]) .mdc-list-item__graphic ::slotted(.material-icons),:host([graphic=large]) .mdc-list-item__graphic ::slotted(mwc-icon){line-height:var(--mdc-list-item-graphic-size, 56px) !important}:host([graphic=large]){padding-left:0px}`;
+
+class ListItem$1 extends ScopedElementsMixin$1(ListItemBase$1) {
+    static get scopedElements() {
+        return {
+            'mwc-ripple': Ripple,
+        };
+    }
+}
+ListItem$1.styles = style$f;
+
+/**
+ @license
+ Copyright 2020 Google Inc. All Rights Reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+const findIndexDiff$1 = (oldSet, newSet) => {
+    const oldArr = Array.from(oldSet);
+    const newArr = Array.from(newSet);
+    const diff = { added: [], removed: [] };
+    const oldSorted = oldArr.sort();
+    const newSorted = newArr.sort();
+    let i = 0;
+    let j = 0;
+    while (i < oldSorted.length || j < newSorted.length) {
+        const oldVal = oldSorted[i];
+        const newVal = newSorted[j];
+        if (oldVal === newVal) {
+            i++;
+            j++;
+            continue;
+        }
+        if (oldVal !== undefined && (newVal === undefined || oldVal < newVal)) {
+            diff.removed.push(oldVal);
+            i++;
+            continue;
+        }
+        if (newVal !== undefined && (oldVal === undefined || newVal < oldVal)) {
+            diff.added.push(newVal);
+            j++;
+            continue;
+        }
+    }
+    return diff;
+};
+const ELEMENTS_KEY_ALLOWED_IN$1 = ['input', 'button', 'textarea', 'select'];
+function isIndexSet$1(selectedIndex) {
+    return selectedIndex instanceof Set;
+}
+const createSetFromIndex$1 = (index) => {
+    const entry = index === numbers$3.UNSET_INDEX ? new Set() : index;
+    return isIndexSet$1(entry) ? new Set(entry) : new Set([entry]);
+};
+class MDCListFoundation$1 extends MDCFoundation$2 {
+    constructor(adapter) {
+        super(Object.assign(Object.assign({}, MDCListFoundation$1.defaultAdapter), adapter));
+        this.isMulti_ = false;
+        this.wrapFocus_ = false;
+        this.isVertical_ = true;
+        this.selectedIndex_ = numbers$3.UNSET_INDEX;
+        this.focusedItemIndex_ = numbers$3.UNSET_INDEX;
+        this.useActivatedClass_ = false;
+        this.ariaCurrentAttrValue_ = null;
+    }
+    static get strings() {
+        return strings$3;
+    }
+    static get numbers() {
+        return numbers$3;
+    }
+    static get defaultAdapter() {
+        return {
+            focusItemAtIndex: () => undefined,
+            getFocusedElementIndex: () => 0,
+            getListItemCount: () => 0,
+            isFocusInsideList: () => false,
+            isRootFocused: () => false,
+            notifyAction: () => undefined,
+            notifySelected: () => undefined,
+            getSelectedStateForElementIndex: () => false,
+            setDisabledStateForElementIndex: () => undefined,
+            getDisabledStateForElementIndex: () => false,
+            setSelectedStateForElementIndex: () => undefined,
+            setActivatedStateForElementIndex: () => undefined,
+            setTabIndexForElementIndex: () => undefined,
+            setAttributeForElementIndex: () => undefined,
+            getAttributeForElementIndex: () => null,
+        };
+    }
+    /**
+     * Sets the private wrapFocus_ variable.
+     */
+    setWrapFocus(value) {
+        this.wrapFocus_ = value;
+    }
+    /**
+     * Sets the private wrapFocus_ variable.
+     */
+    setMulti(value) {
+        this.isMulti_ = value;
+        const currentIndex = this.selectedIndex_;
+        if (value) {
+            // number to set
+            if (!isIndexSet$1(currentIndex)) {
+                const isUnset = currentIndex === numbers$3.UNSET_INDEX;
+                this.selectedIndex_ = isUnset ? new Set() : new Set([currentIndex]);
+            }
+        }
+        else {
+            // set to first sorted number in set
+            if (isIndexSet$1(currentIndex)) {
+                if (currentIndex.size) {
+                    const vals = Array.from(currentIndex).sort();
+                    this.selectedIndex_ = vals[0];
+                }
+                else {
+                    this.selectedIndex_ = numbers$3.UNSET_INDEX;
+                }
+            }
+        }
+    }
+    /**
+     * Sets the isVertical_ private variable.
+     */
+    setVerticalOrientation(value) {
+        this.isVertical_ = value;
+    }
+    /**
+     * Sets the useActivatedClass_ private variable.
+     */
+    setUseActivatedClass(useActivated) {
+        this.useActivatedClass_ = useActivated;
+    }
+    getSelectedIndex() {
+        return this.selectedIndex_;
+    }
+    setSelectedIndex(index) {
+        if (!this.isIndexValid_(index)) {
+            return;
+        }
+        if (this.isMulti_) {
+            this.setMultiSelectionAtIndex_(createSetFromIndex$1(index));
+        }
+        else {
+            this.setSingleSelectionAtIndex_(index);
+        }
+    }
+    /**
+     * Focus in handler for the list items.
+     */
+    handleFocusIn(_, listItemIndex) {
+        if (listItemIndex >= 0) {
+            this.adapter.setTabIndexForElementIndex(listItemIndex, 0);
+        }
+    }
+    /**
+     * Focus out handler for the list items.
+     */
+    handleFocusOut(_, listItemIndex) {
+        if (listItemIndex >= 0) {
+            this.adapter.setTabIndexForElementIndex(listItemIndex, -1);
+        }
+        /**
+         * Between Focusout & Focusin some browsers do not have focus on any
+         * element. Setting a delay to wait till the focus is moved to next element.
+         */
+        setTimeout(() => {
+            if (!this.adapter.isFocusInsideList()) {
+                this.setTabindexToFirstSelectedItem_();
+            }
+        }, 0);
+    }
+    /**
+     * Key handler for the list.
+     */
+    handleKeydown(event, isRootListItem, listItemIndex) {
+        const isArrowLeft = normalizeKey(event) === 'ArrowLeft';
+        const isArrowUp = normalizeKey(event) === 'ArrowUp';
+        const isArrowRight = normalizeKey(event) === 'ArrowRight';
+        const isArrowDown = normalizeKey(event) === 'ArrowDown';
+        const isHome = normalizeKey(event) === 'Home';
+        const isEnd = normalizeKey(event) === 'End';
+        const isEnter = normalizeKey(event) === 'Enter';
+        const isSpace = normalizeKey(event) === 'Spacebar';
+        if (this.adapter.isRootFocused()) {
+            if (isArrowUp || isEnd) {
+                event.preventDefault();
+                this.focusLastElement();
+            }
+            else if (isArrowDown || isHome) {
+                event.preventDefault();
+                this.focusFirstElement();
+            }
+            return;
+        }
+        let currentIndex = this.adapter.getFocusedElementIndex();
+        if (currentIndex === -1) {
+            currentIndex = listItemIndex;
+            if (currentIndex < 0) {
+                // If this event doesn't have a mdc-list-item ancestor from the
+                // current list (not from a sublist), return early.
+                return;
+            }
+        }
+        let nextIndex;
+        if ((this.isVertical_ && isArrowDown) ||
+            (!this.isVertical_ && isArrowRight)) {
+            this.preventDefaultEvent(event);
+            nextIndex = this.focusNextElement(currentIndex);
+        }
+        else if ((this.isVertical_ && isArrowUp) || (!this.isVertical_ && isArrowLeft)) {
+            this.preventDefaultEvent(event);
+            nextIndex = this.focusPrevElement(currentIndex);
+        }
+        else if (isHome) {
+            this.preventDefaultEvent(event);
+            nextIndex = this.focusFirstElement();
+        }
+        else if (isEnd) {
+            this.preventDefaultEvent(event);
+            nextIndex = this.focusLastElement();
+        }
+        else if (isEnter || isSpace) {
+            if (isRootListItem) {
+                // Return early if enter key is pressed on anchor element which triggers
+                // synthetic MouseEvent event.
+                const target = event.target;
+                if (target && target.tagName === 'A' && isEnter) {
+                    return;
+                }
+                this.preventDefaultEvent(event);
+                this.setSelectedIndexOnAction_(currentIndex, true);
+            }
+        }
+        this.focusedItemIndex_ = currentIndex;
+        if (nextIndex !== undefined) {
+            this.setTabindexAtIndex_(nextIndex);
+            this.focusedItemIndex_ = nextIndex;
+        }
+    }
+    /**
+     * Click handler for the list.
+     */
+    handleSingleSelection(index, isInteraction, force) {
+        if (index === numbers$3.UNSET_INDEX) {
+            return;
+        }
+        this.setSelectedIndexOnAction_(index, isInteraction, force);
+        this.setTabindexAtIndex_(index);
+        this.focusedItemIndex_ = index;
+    }
+    /**
+     * Focuses the next element on the list.
+     */
+    focusNextElement(index) {
+        const count = this.adapter.getListItemCount();
+        let nextIndex = index + 1;
+        if (nextIndex >= count) {
+            if (this.wrapFocus_) {
+                nextIndex = 0;
+            }
+            else {
+                // Return early because last item is already focused.
+                return index;
+            }
+        }
+        this.adapter.focusItemAtIndex(nextIndex);
+        return nextIndex;
+    }
+    /**
+     * Focuses the previous element on the list.
+     */
+    focusPrevElement(index) {
+        let prevIndex = index - 1;
+        if (prevIndex < 0) {
+            if (this.wrapFocus_) {
+                prevIndex = this.adapter.getListItemCount() - 1;
+            }
+            else {
+                // Return early because first item is already focused.
+                return index;
+            }
+        }
+        this.adapter.focusItemAtIndex(prevIndex);
+        return prevIndex;
+    }
+    focusFirstElement() {
+        this.adapter.focusItemAtIndex(0);
+        return 0;
+    }
+    focusLastElement() {
+        const lastIndex = this.adapter.getListItemCount() - 1;
+        this.adapter.focusItemAtIndex(lastIndex);
+        return lastIndex;
+    }
+    /**
+     * @param itemIndex Index of the list item
+     * @param isEnabled Sets the list item to enabled or disabled.
+     */
+    setEnabled(itemIndex, isEnabled) {
+        if (!this.isIndexValid_(itemIndex)) {
+            return;
+        }
+        this.adapter.setDisabledStateForElementIndex(itemIndex, !isEnabled);
+    }
+    /**
+     * Ensures that preventDefault is only called if the containing element
+     * doesn't consume the event, and it will cause an unintended scroll.
+     */
+    preventDefaultEvent(evt) {
+        const target = evt.target;
+        const tagName = `${target.tagName}`.toLowerCase();
+        if (ELEMENTS_KEY_ALLOWED_IN$1.indexOf(tagName) === -1) {
+            evt.preventDefault();
+        }
+    }
+    setSingleSelectionAtIndex_(index, isInteraction = true) {
+        if (this.selectedIndex_ === index) {
+            return;
+        }
+        // unset previous
+        if (this.selectedIndex_ !== numbers$3.UNSET_INDEX) {
+            this.adapter.setSelectedStateForElementIndex(this.selectedIndex_, false);
+            if (this.useActivatedClass_) {
+                this.adapter.setActivatedStateForElementIndex(this.selectedIndex_, false);
+            }
+        }
+        // set new
+        if (isInteraction) {
+            this.adapter.setSelectedStateForElementIndex(index, true);
+        }
+        if (this.useActivatedClass_) {
+            this.adapter.setActivatedStateForElementIndex(index, true);
+        }
+        this.setAriaForSingleSelectionAtIndex_(index);
+        this.selectedIndex_ = index;
+        this.adapter.notifySelected(index);
+    }
+    setMultiSelectionAtIndex_(newIndex, isInteraction = true) {
+        const oldIndex = createSetFromIndex$1(this.selectedIndex_);
+        const diff = findIndexDiff$1(oldIndex, newIndex);
+        if (!diff.removed.length && !diff.added.length) {
+            return;
+        }
+        for (const removed of diff.removed) {
+            if (isInteraction) {
+                this.adapter.setSelectedStateForElementIndex(removed, false);
+            }
+            if (this.useActivatedClass_) {
+                this.adapter.setActivatedStateForElementIndex(removed, false);
+            }
+        }
+        for (const added of diff.added) {
+            if (isInteraction) {
+                this.adapter.setSelectedStateForElementIndex(added, true);
+            }
+            if (this.useActivatedClass_) {
+                this.adapter.setActivatedStateForElementIndex(added, true);
+            }
+        }
+        this.selectedIndex_ = newIndex;
+        this.adapter.notifySelected(newIndex, diff);
+    }
+    /**
+     * Sets aria attribute for single selection at given index.
+     */
+    setAriaForSingleSelectionAtIndex_(index) {
+        // Detect the presence of aria-current and get the value only during list
+        // initialization when it is in unset state.
+        if (this.selectedIndex_ === numbers$3.UNSET_INDEX) {
+            this.ariaCurrentAttrValue_ =
+                this.adapter.getAttributeForElementIndex(index, strings$3.ARIA_CURRENT);
+        }
+        const isAriaCurrent = this.ariaCurrentAttrValue_ !== null;
+        const ariaAttribute = isAriaCurrent ? strings$3.ARIA_CURRENT : strings$3.ARIA_SELECTED;
+        if (this.selectedIndex_ !== numbers$3.UNSET_INDEX) {
+            this.adapter.setAttributeForElementIndex(this.selectedIndex_, ariaAttribute, 'false');
+        }
+        const ariaAttributeValue = isAriaCurrent ? this.ariaCurrentAttrValue_ : 'true';
+        this.adapter.setAttributeForElementIndex(index, ariaAttribute, ariaAttributeValue);
+    }
+    setTabindexAtIndex_(index) {
+        if (this.focusedItemIndex_ === numbers$3.UNSET_INDEX && index !== 0) {
+            // If no list item was selected set first list item's tabindex to -1.
+            // Generally, tabindex is set to 0 on first list item of list that has no
+            // preselected items.
+            this.adapter.setTabIndexForElementIndex(0, -1);
+        }
+        else if (this.focusedItemIndex_ >= 0 && this.focusedItemIndex_ !== index) {
+            this.adapter.setTabIndexForElementIndex(this.focusedItemIndex_, -1);
+        }
+        this.adapter.setTabIndexForElementIndex(index, 0);
+    }
+    setTabindexToFirstSelectedItem_() {
+        let targetIndex = 0;
+        if (typeof this.selectedIndex_ === 'number' &&
+            this.selectedIndex_ !== numbers$3.UNSET_INDEX) {
+            targetIndex = this.selectedIndex_;
+        }
+        else if (isIndexSet$1(this.selectedIndex_) && this.selectedIndex_.size > 0) {
+            targetIndex = Math.min(...this.selectedIndex_);
+        }
+        this.setTabindexAtIndex_(targetIndex);
+    }
+    isIndexValid_(index) {
+        if (index instanceof Set) {
+            if (!this.isMulti_) {
+                throw new Error('MDCListFoundation: Array of index is only supported for checkbox based list');
+            }
+            if (index.size === 0) {
+                return true;
+            }
+            else {
+                let isOneInRange = false;
+                for (const entry of index) {
+                    isOneInRange = this.isIndexInRange_(entry);
+                    if (isOneInRange) {
+                        break;
+                    }
+                }
+                return isOneInRange;
+            }
+        }
+        else if (typeof index === 'number') {
+            if (this.isMulti_) {
+                throw new Error('MDCListFoundation: Expected array of index for checkbox based list but got number: ' +
+                    index);
+            }
+            return index === numbers$3.UNSET_INDEX || this.isIndexInRange_(index);
+        }
+        else {
+            return false;
+        }
+    }
+    isIndexInRange_(index) {
+        const listSize = this.adapter.getListItemCount();
+        return index >= 0 && index < listSize;
+    }
+    /**
+     * Sets selected index on user action, toggles checkbox / radio based on
+     * toggleCheckbox value. User interaction should not toggle list item(s) when
+     * disabled.
+     */
+    setSelectedIndexOnAction_(index, isInteraction, force) {
+        if (this.adapter.getDisabledStateForElementIndex(index)) {
+            return;
+        }
+        let checkedIndex = index;
+        if (this.isMulti_) {
+            checkedIndex = new Set([index]);
+        }
+        if (!this.isIndexValid_(checkedIndex)) {
+            return;
+        }
+        if (this.isMulti_) {
+            this.toggleMultiAtIndex(index, force, isInteraction);
+        }
+        else {
+            if (isInteraction || force) {
+                this.setSingleSelectionAtIndex_(index, isInteraction);
+            }
+            else {
+                const isDeselection = this.selectedIndex_ === index;
+                if (isDeselection) {
+                    this.setSingleSelectionAtIndex_(numbers$3.UNSET_INDEX);
+                }
+            }
+        }
+        if (isInteraction) {
+            this.adapter.notifyAction(index);
+        }
+    }
+    toggleMultiAtIndex(index, force, isInteraction = true) {
+        let newSelectionValue = false;
+        if (force === undefined) {
+            newSelectionValue = !this.adapter.getSelectedStateForElementIndex(index);
+        }
+        else {
+            newSelectionValue = force;
+        }
+        const newSet = createSetFromIndex$1(this.selectedIndex_);
+        if (newSelectionValue) {
+            newSet.add(index);
+        }
+        else {
+            newSet.delete(index);
+        }
+        this.setMultiSelectionAtIndex_(newSet, isInteraction);
+    }
+}
+
+function debounceLayout$1(callback, waitInMS = 50) {
+    let timeoutId;
+    // tslint:disable-next-line
+    return function (updateItems = true) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            callback(updateItems);
+        }, waitInMS);
+    };
+}
+const isListItem$1 = (element) => {
+    return element.hasAttribute('mwc-list-item');
+};
+function clearAndCreateItemsReadyPromise$1() {
+    const oldResolver = this.itemsReadyResolver;
+    this.itemsReady = new Promise((res) => {
+        return this.itemsReadyResolver = res;
+    });
+    oldResolver();
+}
+/**
+ * @fires selected {SelectedDetail}
+ * @fires action {ActionDetail}
+ * @fires items-updated
+ */
+class ListBase$1 extends BaseElement$1 {
+    constructor() {
+        super();
+        this.mdcAdapter = null;
+        this.mdcFoundationClass = MDCListFoundation$1;
+        this.activatable = false;
+        this.multi = false;
+        this.wrapFocus = false;
+        this.itemRoles = null;
+        this.innerRole = null;
+        this.innerAriaLabel = null;
+        this.rootTabbable = false;
+        this.previousTabindex = null;
+        this.noninteractive = false;
+        this.itemsReadyResolver = (() => {
+            //
+        });
+        this.itemsReady = Promise.resolve([]);
+        this.items_ = [];
+        const debouncedFunction = debounceLayout$1(this.layout.bind(this));
+        this.debouncedLayout = (updateItems = true) => {
+            clearAndCreateItemsReadyPromise$1.call(this);
+            debouncedFunction(updateItems);
+        };
+    }
+    async _getUpdateComplete() {
+        await super._getUpdateComplete();
+        await this.itemsReady;
+    }
+    get assignedElements() {
+        const slot = this.slotElement;
+        if (slot) {
+            return slot.assignedNodes({ flatten: true }).filter(isNodeElement);
+        }
+        return [];
+    }
+    get items() {
+        return this.items_;
+    }
+    updateItems() {
+        const nodes = this.assignedElements;
+        const listItems = [];
+        for (const node of nodes) {
+            if (isListItem$1(node)) {
+                listItems.push(node);
+                node._managingList = this;
+            }
+            if (node.hasAttribute('divider') && !node.hasAttribute('role')) {
+                node.setAttribute('role', 'separator');
+            }
+        }
+        this.items_ = listItems;
+        const selectedIndices = new Set();
+        this.items_.forEach((item, index) => {
+            if (this.itemRoles) {
+                item.setAttribute('role', this.itemRoles);
+            }
+            else {
+                item.removeAttribute('role');
+            }
+            if (item.selected) {
+                selectedIndices.add(index);
+            }
+        });
+        if (this.multi) {
+            this.select(selectedIndices);
+        }
+        else {
+            const index = selectedIndices.size ? selectedIndices.entries().next().value[1] : -1;
+            this.select(index);
+        }
+        const itemsUpdatedEv = new Event('items-updated', { bubbles: true, composed: true });
+        this.dispatchEvent(itemsUpdatedEv);
+    }
+    get selected() {
+        const index = this.index;
+        if (!isIndexSet$1(index)) {
+            if (index === -1) {
+                return null;
+            }
+            return this.items[index];
+        }
+        const selected = [];
+        for (const entry of index) {
+            selected.push(this.items[entry]);
+        }
+        return selected;
+    }
+    get index() {
+        if (this.mdcFoundation) {
+            return this.mdcFoundation.getSelectedIndex();
+        }
+        return -1;
+    }
+    render() {
+        const role = this.innerRole === null ? undefined : this.innerRole;
+        const ariaLabel = this.innerAriaLabel === null ? undefined : this.innerAriaLabel;
+        const tabindex = this.rootTabbable ? '0' : '-1';
+        return html$1 `
+      <!-- @ts-ignore -->
+      <ul
+          tabindex=${tabindex}
+          role="${ifDefined$1(role)}"
+          aria-label="${ifDefined$1(ariaLabel)}"
+          class="mdc-list"
+          @keydown=${this.onKeydown}
+          @focusin=${this.onFocusIn}
+          @focusout=${this.onFocusOut}
+          @request-selected=${this.onRequestSelected}
+          @list-item-rendered=${this.onListItemConnected}>
+        <slot></slot>
+        ${this.renderPlaceholder()}
+      </ul>
+    `;
+    }
+    renderPlaceholder() {
+        if (this.emptyMessage !== undefined && this.assignedElements.length === 0) {
+            return html$1 `
+        <mwc-list-item noninteractive>${this.emptyMessage}</mwc-list-item>
+      `;
+        }
+        return null;
+    }
+    firstUpdated() {
+        super.firstUpdated();
+        if (!this.items.length) {
+            // required because this is called before observers
+            this.mdcFoundation.setMulti(this.multi);
+            // for when children upgrade before list
+            this.layout();
+        }
+    }
+    onFocusIn(evt) {
+        if (this.mdcFoundation && this.mdcRoot) {
+            const index = this.getIndexOfTarget(evt);
+            this.mdcFoundation.handleFocusIn(evt, index);
+        }
+    }
+    onFocusOut(evt) {
+        if (this.mdcFoundation && this.mdcRoot) {
+            const index = this.getIndexOfTarget(evt);
+            this.mdcFoundation.handleFocusOut(evt, index);
+        }
+    }
+    onKeydown(evt) {
+        if (this.mdcFoundation && this.mdcRoot) {
+            const index = this.getIndexOfTarget(evt);
+            const target = evt.target;
+            const isRootListItem = isListItem$1(target);
+            this.mdcFoundation.handleKeydown(evt, isRootListItem, index);
+        }
+    }
+    onRequestSelected(evt) {
+        if (this.mdcFoundation) {
+            let index = this.getIndexOfTarget(evt);
+            // might happen in shady dom slowness. Recalc children
+            if (index === -1) {
+                this.layout();
+                index = this.getIndexOfTarget(evt);
+                // still not found; may not be mwc-list-item. Unsupported case.
+                if (index === -1) {
+                    return;
+                }
+            }
+            const element = this.items[index];
+            if (element.disabled) {
+                return;
+            }
+            const selected = evt.detail.selected;
+            const source = evt.detail.source;
+            this.mdcFoundation.handleSingleSelection(index, source === 'interaction', selected);
+            evt.stopPropagation();
+        }
+    }
+    getIndexOfTarget(evt) {
+        const elements = this.items;
+        const path = evt.composedPath();
+        for (const pathItem of path) {
+            let index = -1;
+            if (isNodeElement(pathItem) && isListItem$1(pathItem)) {
+                index = elements.indexOf(pathItem);
+            }
+            if (index !== -1) {
+                return index;
+            }
+        }
+        return -1;
+    }
+    createAdapter() {
+        this.mdcAdapter = {
+            getListItemCount: () => {
+                if (this.mdcRoot) {
+                    return this.items.length;
+                }
+                return 0;
+            },
+            getFocusedElementIndex: this.getFocusedItemIndex,
+            getAttributeForElementIndex: (index, attr) => {
+                const listElement = this.mdcRoot;
+                if (!listElement) {
+                    return '';
+                }
+                const element = this.items[index];
+                return element ? element.getAttribute(attr) : '';
+            },
+            setAttributeForElementIndex: (index, attr, val) => {
+                if (!this.mdcRoot) {
+                    return;
+                }
+                const element = this.items[index];
+                if (element) {
+                    element.setAttribute(attr, val);
+                }
+            },
+            focusItemAtIndex: (index) => {
+                const element = this.items[index];
+                if (element) {
+                    element.focus();
+                }
+            },
+            setTabIndexForElementIndex: (index, value) => {
+                const item = this.items[index];
+                if (item) {
+                    item.tabindex = value;
+                }
+            },
+            notifyAction: (index) => {
+                const init = { bubbles: true, composed: true };
+                init.detail = { index };
+                const ev = new CustomEvent('action', init);
+                this.dispatchEvent(ev);
+            },
+            notifySelected: (index, diff) => {
+                const init = { bubbles: true, composed: true };
+                init.detail = { index, diff };
+                const ev = new CustomEvent('selected', init);
+                this.dispatchEvent(ev);
+            },
+            isFocusInsideList: () => {
+                return doesElementContainFocus(this);
+            },
+            isRootFocused: () => {
+                const mdcRoot = this.mdcRoot;
+                const root = mdcRoot.getRootNode();
+                return root.activeElement === mdcRoot;
+            },
+            setDisabledStateForElementIndex: (index, value) => {
+                const item = this.items[index];
+                if (!item) {
+                    return;
+                }
+                item.disabled = value;
+            },
+            getDisabledStateForElementIndex: (index) => {
+                const item = this.items[index];
+                if (!item) {
+                    return false;
+                }
+                return item.disabled;
+            },
+            setSelectedStateForElementIndex: (index, value) => {
+                const item = this.items[index];
+                if (!item) {
+                    return;
+                }
+                item.selected = value;
+            },
+            getSelectedStateForElementIndex: (index) => {
+                const item = this.items[index];
+                if (!item) {
+                    return false;
+                }
+                return item.selected;
+            },
+            setActivatedStateForElementIndex: (index, value) => {
+                const item = this.items[index];
+                if (!item) {
+                    return;
+                }
+                item.activated = value;
+            },
+        };
+        return this.mdcAdapter;
+    }
+    selectUi(index, activate = false) {
+        const item = this.items[index];
+        if (item) {
+            item.selected = true;
+            item.activated = activate;
+        }
+    }
+    deselectUi(index) {
+        const item = this.items[index];
+        if (item) {
+            item.selected = false;
+            item.activated = false;
+        }
+    }
+    select(index) {
+        if (!this.mdcFoundation) {
+            return;
+        }
+        this.mdcFoundation.setSelectedIndex(index);
+    }
+    toggle(index, force) {
+        if (this.multi) {
+            this.mdcFoundation.toggleMultiAtIndex(index, force);
+        }
+    }
+    onListItemConnected(e) {
+        const target = e.target;
+        this.layout(this.items.indexOf(target) === -1);
+    }
+    layout(updateItems = true) {
+        if (updateItems) {
+            this.updateItems();
+        }
+        const first = this.items[0];
+        for (const item of this.items) {
+            item.tabindex = -1;
+        }
+        if (first) {
+            if (this.noninteractive) {
+                if (!this.previousTabindex) {
+                    this.previousTabindex = first;
+                }
+            }
+            else {
+                first.tabindex = 0;
+            }
+        }
+        this.itemsReadyResolver();
+    }
+    getFocusedItemIndex() {
+        if (!this.mdcRoot) {
+            return -1;
+        }
+        if (!this.items.length) {
+            return -1;
+        }
+        const activeElementPath = deepActiveElementPath();
+        if (!activeElementPath.length) {
+            return -1;
+        }
+        for (let i = activeElementPath.length - 1; i >= 0; i--) {
+            const activeItem = activeElementPath[i];
+            if (isListItem$1(activeItem)) {
+                return this.items.indexOf(activeItem);
+            }
+        }
+        return -1;
+    }
+    focusItemAtIndex(index) {
+        for (const item of this.items) {
+            if (item.tabindex === 0) {
+                item.tabindex = -1;
+                break;
+            }
+        }
+        this.items[index].tabindex = 0;
+        this.items[index].focus();
+    }
+    focus() {
+        const root = this.mdcRoot;
+        if (root) {
+            root.focus();
+        }
+    }
+    blur() {
+        const root = this.mdcRoot;
+        if (root) {
+            root.blur();
+        }
+    }
+}
+__decorate$3([
+    property$1({ type: String })
+], ListBase$1.prototype, "emptyMessage", void 0);
+__decorate$3([
+    query$1('.mdc-list')
+], ListBase$1.prototype, "mdcRoot", void 0);
+__decorate$3([
+    query$1('slot')
+], ListBase$1.prototype, "slotElement", void 0);
+__decorate$3([
+    property$1({ type: Boolean }),
+    observer(function (value) {
+        if (this.mdcFoundation) {
+            this.mdcFoundation.setUseActivatedClass(value);
+        }
+    })
+], ListBase$1.prototype, "activatable", void 0);
+__decorate$3([
+    property$1({ type: Boolean }),
+    observer(function (newValue, oldValue) {
+        if (this.mdcFoundation) {
+            this.mdcFoundation.setMulti(newValue);
+        }
+        if (oldValue !== undefined) {
+            this.layout();
+        }
+    })
+], ListBase$1.prototype, "multi", void 0);
+__decorate$3([
+    property$1({ type: Boolean }),
+    observer(function (value) {
+        if (this.mdcFoundation) {
+            this.mdcFoundation.setWrapFocus(value);
+        }
+    })
+], ListBase$1.prototype, "wrapFocus", void 0);
+__decorate$3([
+    property$1({ type: String }),
+    observer(function (_newValue, oldValue) {
+        if (oldValue !== undefined) {
+            this.updateItems();
+        }
+    })
+], ListBase$1.prototype, "itemRoles", void 0);
+__decorate$3([
+    property$1({ type: String })
+], ListBase$1.prototype, "innerRole", void 0);
+__decorate$3([
+    property$1({ type: String })
+], ListBase$1.prototype, "innerAriaLabel", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], ListBase$1.prototype, "rootTabbable", void 0);
+__decorate$3([
+    property$1({ type: Boolean, reflect: true }),
+    observer(function (value) {
+        const slot = this.slotElement;
+        if (value && slot) {
+            const tabbable = findAssignedElement(slot, '[tabindex="0"]');
+            this.previousTabindex = tabbable;
+            if (tabbable) {
+                tabbable.setAttribute('tabindex', '-1');
+            }
+        }
+        else if (!value && this.previousTabindex) {
+            this.previousTabindex.setAttribute('tabindex', '0');
+            this.previousTabindex = null;
+        }
+    })
+], ListBase$1.prototype, "noninteractive", void 0);
+
+/**
+@license
+Copyright 2018 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+const style$e = css$1 `@keyframes mdc-ripple-fg-radius-in{from{animation-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transform:translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1)}to{transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}}@keyframes mdc-ripple-fg-opacity-in{from{animation-timing-function:linear;opacity:0}to{opacity:var(--mdc-ripple-fg-opacity, 0)}}@keyframes mdc-ripple-fg-opacity-out{from{animation-timing-function:linear;opacity:var(--mdc-ripple-fg-opacity, 0)}to{opacity:0}}:host{display:block}.mdc-list{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);line-height:1.75rem;line-height:var(--mdc-typography-subtitle1-line-height, 1.75rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);line-height:1.5rem;margin:0;padding:8px 0;list-style-type:none;color:rgba(0, 0, 0, 0.87);color:var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87));padding:var(--mdc-list-vertical-padding, 8px) 0}.mdc-list:focus{outline:none}.mdc-list-item{height:48px}.mdc-list--dense{padding-top:4px;padding-bottom:4px;font-size:.812rem}.mdc-list ::slotted([divider]){height:0;margin:0;border:none;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:rgba(0, 0, 0, 0.12)}.mdc-list ::slotted([divider][padded]){margin:0 var(--mdc-list-side-padding, 16px)}.mdc-list ::slotted([divider][inset]){margin-left:var(--mdc-list-inset-margin, 72px);margin-right:0;width:calc(100% - var(--mdc-list-inset-margin, 72px))}.mdc-list-group[dir=rtl] .mdc-list ::slotted([divider][inset]),[dir=rtl] .mdc-list-group .mdc-list ::slotted([divider][inset]){margin-left:0;margin-right:var(--mdc-list-inset-margin, 72px)}.mdc-list ::slotted([divider][inset][padded]){width:calc(100% - var(--mdc-list-inset-margin, 72px) - var(--mdc-list-side-padding, 16px))}.mdc-list--dense ::slotted([mwc-list-item]){height:40px}.mdc-list--dense ::slotted([mwc-list]){--mdc-list-item-graphic-size: 20px}.mdc-list--two-line.mdc-list--dense ::slotted([mwc-list-item]),.mdc-list--avatar-list.mdc-list--dense ::slotted([mwc-list-item]){height:60px}.mdc-list--avatar-list.mdc-list--dense ::slotted([mwc-list]){--mdc-list-item-graphic-size: 36px}:host([noninteractive]){pointer-events:none;cursor:default}.mdc-list--dense ::slotted(.mdc-list-item__primary-text){display:block;margin-top:0;line-height:normal;margin-bottom:-20px}.mdc-list--dense ::slotted(.mdc-list-item__primary-text)::before{display:inline-block;width:0;height:24px;content:"";vertical-align:0}.mdc-list--dense ::slotted(.mdc-list-item__primary-text)::after{display:inline-block;width:0;height:20px;content:"";vertical-align:-20px}`;
+
+class List$1 extends ScopedElementsMixin$1(ListBase$1) {
+    static get scopedElements() {
+        return {
+            'mwc-list-item': ListItem$1,
+        };
+    }
+}
+List$1.styles = style$e;
+
+/**
+ * @element search-agent
+ * @fires agent-selected - Fired when the user selects some agent. `event.detail.agent` will contain the agent selected
+ */
+class SearchAgent extends StoreElement {
+    constructor() {
+        /** Public attributes */
+        super(...arguments);
+        /**
+         * Whether to clear the field when an agent is selected
+         * @attr clear-on-select
+         */
+        this.clearOnSelect = false;
+        /**
+         * Whether to include my own agent as a possible agent to select
+         * @attr include-myself
+         */
+        this.includeMyself = false;
+        /**
+         * Label for the agent searching field
+         * @attr field-label
+         */
+        this.fieldLabel = 'Search agent';
+        this._currentFilter = undefined;
+        this._lastSearchedPrefix = undefined;
+    }
+    /** Private properties */
+    get _filteredAgents() {
+        let filtered = this.store.knownProfiles.filter(agent => agent.profile.nickname.startsWith(this._currentFilter));
+        if (!this.includeMyself) {
+            filtered = filtered.filter(agent => this.store.myAgentPubKey !== agent.agent_pub_key);
+        }
+        return filtered;
+    }
+    static get styles() {
+        return [
+            sharedStyles$3,
+            css$1 `
+        :host {
+          display: flex;
+        }
+        #list {
+          margin-top: 16px;
+          margin-left: 16px;
+        }
+      `,
+        ];
+    }
+    firstUpdated() {
+        this.addEventListener('blur', () => this._overlay.close());
+    }
+    async searchAgents(nicknamePrefix) {
+        this._lastSearchedPrefix = nicknamePrefix;
+        await this.store.searchProfiles(nicknamePrefix);
+    }
+    onFilterChange() {
+        if (this._textField.value.length < 3)
+            return;
+        this._overlay.show();
+        this._currentFilter = this._textField.value;
+        const filterPrefix = this._currentFilter.slice(0, 3);
+        if (filterPrefix !== this._lastSearchedPrefix) {
+            this.searchAgents(filterPrefix);
+        }
+    }
+    onUsernameSelected(agent) {
+        // If nickname matches agent, user has selected it
+        if (agent) {
+            this.dispatchEvent(new CustomEvent('agent-selected', {
+                detail: {
+                    agent,
+                },
+            }));
+            // If the consumer says so, clear the field
+            if (this.clearOnSelect) {
+                this._textField.value = '';
+            }
+            else {
+                this._textField.value = agent.profile.nickname;
+            }
+            this._overlay.close();
+        }
+    }
+    render() {
+        return html$1 `
+      <div style="position: relative">
+        <mwc-textfield
+          id="textfield"
+          class="input"
+          .label=${this.fieldLabel}
+          placeholder="At least 3 chars..."
+          outlined
+          @input=${() => this.onFilterChange()}
+          @focus=${() => this._currentFilter && this._overlay.show()}
+        >
+        </mwc-textfield>
+        <mwc-menu-surface absolute id="overlay" x="4" y="28">
+          ${this._filteredAgents.length > 0
+            ? this._filteredAgents.map(agent => html$1 `
+                  <mwc-list
+                    @selected=${(e) => this.onUsernameSelected(this._filteredAgents[e.detail.index])}
+                    activatable
+                    style="min-width: 80px;"
+                  >
+                    <mwc-list-item
+                      graphic="avatar"
+                      .value=${agent.agent_pub_key}
+                    >
+                      <ui5-avatar
+                        slot="graphic"
+                        image="${agent.profile.fields.avatar}"
+                        size="XS"
+                      ></ui5-avatar>
+                      <span style="margin-left: 8px;"
+                        >${agent.profile.nickname}</span
+                      >
+                    </mwc-list-item>
+                  </mwc-list>
+                `)
+            : html$1 `<mwc-list-item>No agents match the filter</mwc-list-item>`}
+        </mwc-menu-surface>
+      </div>
+    `;
+    }
+    getScopedElements() {
+        return {
+            'ui5-avatar': Avatar,
+            'mwc-textfield': TextField$1,
+            'mwc-menu-surface': MenuSurface,
+            'mwc-list': List$1,
+            'mwc-list-item': ListItem$1,
+        };
+    }
+}
+__decorate$3([
+    property$1({ type: Boolean, attribute: 'clear-on-select' })
+], SearchAgent.prototype, "clearOnSelect", void 0);
+__decorate$3([
+    property$1({ type: Boolean, attribute: 'include-myself' })
+], SearchAgent.prototype, "includeMyself", void 0);
+__decorate$3([
+    property$1({ type: String, attribute: 'field-label' })
+], SearchAgent.prototype, "fieldLabel", void 0);
+__decorate$3([
+    property$1({ type: String })
+], SearchAgent.prototype, "_currentFilter", void 0);
+__decorate$3([
+    query$1('#textfield')
+], SearchAgent.prototype, "_textField", void 0);
+__decorate$3([
+    query$1('#overlay')
+], SearchAgent.prototype, "_overlay", void 0);
+
+/** @soyCompatible */
+class CircularProgressBase$1 extends LitElement$1 {
+    constructor() {
+        super(...arguments);
+        this.indeterminate = false;
+        this.progress = 0;
+        this.density = 0;
+        this.closed = false;
+        this.ariaLabel = '';
+    }
+    open() {
+        this.closed = false;
+    }
+    close() {
+        this.closed = true;
+    }
+    /**
+     * @soyTemplate
+     */
+    render() {
+        /** @classMap */
+        const classes = {
+            'mdc-circular-progress--closed': this.closed,
+            'mdc-circular-progress--indeterminate': this.indeterminate,
+        };
+        const containerSideLength = 48 + this.density * 4;
+        const styles = {
+            'width': `${containerSideLength}px`,
+            'height': `${containerSideLength}px`,
+        };
+        return html$1 `
+      <div
+        class="mdc-circular-progress ${classMap$1(classes)}"
+        style="${styleMap(styles)}"
+        role="progressbar"
+        aria-label="${this.ariaLabel}"
+        aria-valuemin="0"
+        aria-valuemax="1"
+        aria-valuenow="${ifDefined$1(this.indeterminate ? undefined : this.progress)}">
+        ${this.renderDeterminateContainer()}
+        ${this.renderIndeterminateContainer()}
+      </div>`;
+    }
+    /**
+     * @soyTemplate
+     */
+    renderDeterminateContainer() {
+        const sideLength = 48 + this.density * 4;
+        const center = sideLength / 2;
+        const circleRadius = this.density >= -3 ? 18 + this.density * 11 / 6 :
+            12.5 + (this.density + 3) * 5 / 4;
+        const circumference = 2 * 3.1415926 * circleRadius;
+        const determinateStrokeDashOffset = (1 - this.progress) * circumference;
+        const strokeWidth = this.density >= -3 ? 4 + this.density * (1 / 3) :
+            3 + (this.density + 3) * (1 / 6);
+        return html$1 `
+      <div class="mdc-circular-progress__determinate-container">
+        <svg class="mdc-circular-progress__determinate-circle-graphic"
+             viewBox="0 0 ${sideLength} ${sideLength}">
+          <circle class="mdc-circular-progress__determinate-track"
+                  cx="${center}" cy="${center}" r="${circleRadius}"
+                  stroke-width="${strokeWidth}"></circle>
+          <circle class="mdc-circular-progress__determinate-circle"
+                  cx="${center}" cy="${center}" r="${circleRadius}"
+                  stroke-dasharray="${2 * 3.1415926 * circleRadius}"
+                  stroke-dashoffset="${determinateStrokeDashOffset}"
+                  stroke-width="${strokeWidth}"></circle>
+        </svg>
+      </div>`;
+    }
+    /**
+     * @soyTemplate
+     */
+    renderIndeterminateContainer() {
+        return html$1 `
+      <div class="mdc-circular-progress__indeterminate-container">
+        <div class="mdc-circular-progress__spinner-layer">
+          ${this.renderIndeterminateSpinnerLayer()}
+        </div>
+      </div>`;
+    }
+    /**
+     * @soyTemplate
+     */
+    renderIndeterminateSpinnerLayer() {
+        const sideLength = 48 + this.density * 4;
+        const center = sideLength / 2;
+        const circleRadius = this.density >= -3 ? 18 + this.density * 11 / 6 :
+            12.5 + (this.density + 3) * 5 / 4;
+        const circumference = 2 * 3.1415926 * circleRadius;
+        const halfCircumference = 0.5 * circumference;
+        const strokeWidth = this.density >= -3 ? 4 + this.density * (1 / 3) :
+            3 + (this.density + 3) * (1 / 6);
+        return html$1 `
+        <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-left">
+          <svg class="mdc-circular-progress__indeterminate-circle-graphic"
+               viewBox="0 0 ${sideLength} ${sideLength}">
+            <circle cx="${center}" cy="${center}" r="${circleRadius}"
+                    stroke-dasharray="${circumference}"
+                    stroke-dashoffset="${halfCircumference}"
+                    stroke-width="${strokeWidth}"></circle>
+          </svg>
+        </div>
+        <div class="mdc-circular-progress__gap-patch">
+          <svg class="mdc-circular-progress__indeterminate-circle-graphic"
+               viewBox="0 0 ${sideLength} ${sideLength}">
+            <circle cx="${center}" cy="${center}" r="${circleRadius}"
+                    stroke-dasharray="${circumference}"
+                    stroke-dashoffset="${halfCircumference}"
+                    stroke-width="${strokeWidth * 0.8}"></circle>
+          </svg>
+        </div>
+        <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-right">
+          <svg class="mdc-circular-progress__indeterminate-circle-graphic"
+               viewBox="0 0 ${sideLength} ${sideLength}">
+            <circle cx="${center}" cy="${center}" r="${circleRadius}"
+                    stroke-dasharray="${circumference}"
+                    stroke-dashoffset="${halfCircumference}"
+                    stroke-width="${strokeWidth}"></circle>
+          </svg>
+        </div>`;
+    }
+    update(changedProperties) {
+        super.update(changedProperties);
+        // Bound progress value in interval [0, 1].
+        if (changedProperties.has('progress')) {
+            if (this.progress > 1) {
+                this.progress = 1;
+            }
+            if (this.progress < 0) {
+                this.progress = 0;
+            }
+        }
+    }
+}
+__decorate$3([
+    property$1({ type: Boolean, reflect: true })
+], CircularProgressBase$1.prototype, "indeterminate", void 0);
+__decorate$3([
+    property$1({ type: Number, reflect: true })
+], CircularProgressBase$1.prototype, "progress", void 0);
+__decorate$3([
+    property$1({ type: Number, reflect: true })
+], CircularProgressBase$1.prototype, "density", void 0);
+__decorate$3([
+    property$1({ type: Boolean, reflect: true })
+], CircularProgressBase$1.prototype, "closed", void 0);
+__decorate$3([
+    property$1({ type: String })
+], CircularProgressBase$1.prototype, "ariaLabel", void 0);
+
+/**
+@license
+Copyright 2018 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+const style$d = css$1 `.mdc-circular-progress__determinate-circle,.mdc-circular-progress__indeterminate-circle-graphic{stroke:#6200ee;stroke:var(--mdc-theme-primary, #6200ee)}.mdc-circular-progress__determinate-track{stroke:transparent}@keyframes mdc-circular-progress-container-rotate{to{transform:rotate(360deg)}}@keyframes mdc-circular-progress-spinner-layer-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}@keyframes mdc-circular-progress-color-1-fade-in-out{from{opacity:.99}25%{opacity:.99}26%{opacity:0}89%{opacity:0}90%{opacity:.99}to{opacity:.99}}@keyframes mdc-circular-progress-color-2-fade-in-out{from{opacity:0}15%{opacity:0}25%{opacity:.99}50%{opacity:.99}51%{opacity:0}to{opacity:0}}@keyframes mdc-circular-progress-color-3-fade-in-out{from{opacity:0}40%{opacity:0}50%{opacity:.99}75%{opacity:.99}76%{opacity:0}to{opacity:0}}@keyframes mdc-circular-progress-color-4-fade-in-out{from{opacity:0}65%{opacity:0}75%{opacity:.99}90%{opacity:.99}to{opacity:0}}@keyframes mdc-circular-progress-left-spin{from{transform:rotate(265deg)}50%{transform:rotate(130deg)}to{transform:rotate(265deg)}}@keyframes mdc-circular-progress-right-spin{from{transform:rotate(-265deg)}50%{transform:rotate(-130deg)}to{transform:rotate(-265deg)}}.mdc-circular-progress{display:inline-flex;position:relative;direction:ltr;transition:opacity 250ms 0ms cubic-bezier(0.4, 0, 0.6, 1)}.mdc-circular-progress__determinate-container,.mdc-circular-progress__indeterminate-circle-graphic,.mdc-circular-progress__indeterminate-container,.mdc-circular-progress__spinner-layer{position:absolute;width:100%;height:100%}.mdc-circular-progress__determinate-container{transform:rotate(-90deg)}.mdc-circular-progress__indeterminate-container{font-size:0;letter-spacing:0;white-space:nowrap;opacity:0}.mdc-circular-progress__determinate-circle-graphic,.mdc-circular-progress__indeterminate-circle-graphic{fill:transparent}.mdc-circular-progress__determinate-circle{transition:stroke-dashoffset 500ms 0ms cubic-bezier(0, 0, 0.2, 1)}.mdc-circular-progress__gap-patch{position:absolute;top:0;left:47.5%;box-sizing:border-box;width:5%;height:100%;overflow:hidden}.mdc-circular-progress__gap-patch .mdc-circular-progress__indeterminate-circle-graphic{left:-900%;width:2000%;transform:rotate(180deg)}.mdc-circular-progress__circle-clipper{display:inline-flex;position:relative;width:50%;height:100%;overflow:hidden}.mdc-circular-progress__circle-clipper .mdc-circular-progress__indeterminate-circle-graphic{width:200%}.mdc-circular-progress__circle-right .mdc-circular-progress__indeterminate-circle-graphic{left:-100%}.mdc-circular-progress--indeterminate .mdc-circular-progress__determinate-container{opacity:0}.mdc-circular-progress--indeterminate .mdc-circular-progress__indeterminate-container{opacity:1}.mdc-circular-progress--indeterminate .mdc-circular-progress__indeterminate-container{animation:mdc-circular-progress-container-rotate 1568.2352941176ms linear infinite}.mdc-circular-progress--indeterminate .mdc-circular-progress__spinner-layer{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-1{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-1-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-2{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-2-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-3{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-3-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-4{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-4-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__circle-left .mdc-circular-progress__indeterminate-circle-graphic{animation:mdc-circular-progress-left-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__circle-right .mdc-circular-progress__indeterminate-circle-graphic{animation:mdc-circular-progress-right-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--closed{opacity:0}:host{display:inline-flex}.mdc-circular-progress__determinate-track{stroke:transparent;stroke:var(--mdc-circular-progress-track-color, transparent)}`;
+
+class CircularProgress$1 extends CircularProgressBase$1 {
+}
+CircularProgress$1.styles = style$d;
+
+/**
+ * @element profile-prompt
+ */
+class ProfilePrompt extends StoreElement {
+    constructor() {
+        /** Public attributes */
+        super(...arguments);
+        /** Private properties */
+        this._loading = true;
+    }
+    static get styles() {
+        return [
+            sharedStyles$3,
+            css$1 `
+        :host {
+          display: flex;
+        }
+      `,
+        ];
+    }
+    async firstUpdated() {
+        await this.store.fetchMyProfile();
+        this._loading = false;
+    }
+    renderPrompt() {
+        return html$1 ` <div
+      class="column"
+      style="align-items: center; justify-content: center; flex: 1;"
+    >
+      ${this._loading
+            ? html$1 `<mwc-circular-progress indeterminate></mwc-circular-progress>`
+            : html$1 `<create-profile-form></create-profile-form>`}
+    </div>`;
+    }
+    render() {
+        return html$1 `
+      ${!this._loading && this.store.myProfile
+            ? html$1 `<slot></slot>`
+            : this.renderPrompt()}
+    `;
+    }
+    getScopedElements() {
+        return {
+            'mwc-textfield': TextField$1,
+            'mwc-button': Button$1,
+            'mwc-circular-progress': CircularProgress$1,
+            'create-profile-form': connectStore(CreateProfileForm, this.store),
+        };
+    }
+}
+__decorate$3([
+    property$1({ type: Boolean })
+], ProfilePrompt.prototype, "_loading", void 0);
+
+class ListProfiles extends StoreElement {
+    constructor() {
+        /** Private properties */
+        super(...arguments);
+        this._loading = true;
+    }
+    static get styles() {
+        return [
+            sharedStyles$3,
+            css$1 `
+        :host {
+          display: flex;
+        }
+      `,
+        ];
+    }
+    async firstUpdated() {
+        await this.store.fetchAllProfiles();
+        this._loading = false;
+    }
+    initials(nickname) {
+        return nickname
+            .split(' ')
+            .map(name => name[0])
+            .join('');
+    }
+    render() {
+        if (this._loading)
+            return html$1 `<div class="fill center-content">
+        <mwc-circular-progress indeterminate></mwc-circular-progress>
+      </div>`;
+        const allProfiles = this.store.profiles;
+        if (Object.keys(allProfiles).length === 0)
+            return html$1 `<mwc-list-item
+        >There are no created profiles yet</mwc-list-item
+      >`;
+        return html$1 `
+      <mwc-list style="min-width: 80px;">
+        ${Object.entries(allProfiles).map(([agent_pub_key, profile]) => html$1 `
+            <mwc-list-item graphic="avatar" .value=${agent_pub_key}>
+              <ui5-avatar
+                slot="graphic"
+                .image=${profile.fields.avatar}
+                initials=${this.initials(profile.nickname)}
+                size="XS"
+              ></ui5-avatar>
+              <span style="margin-left: 8px;">${profile.nickname}</span>
+            </mwc-list-item>
+          `)}
+      </mwc-list>
+    `;
+    }
+    static get scopedElements() {
+        return {
+            'ui5-avatar': Avatar,
+            'mwc-circular-progress': CircularProgress$1,
+            'mwc-list': List$1,
+            'mwc-list-item': ListItem$1,
+        };
+    }
+}
+__decorate$3([
+    property$1({ type: Boolean })
+], ListProfiles.prototype, "_loading", void 0);
+
+class ProfilesService {
+    constructor(appWebsocket, cellId, zomeName = 'profiles') {
+        this.appWebsocket = appWebsocket;
+        this.cellId = cellId;
+        this.zomeName = zomeName;
+    }
+    async getMyProfile() {
+        return this.callZome('get_my_profile', null);
+    }
+    async getAgentProfile(agentPubKey) {
+        return this.callZome('get_agent_profile', agentPubKey);
+    }
+    async searchProfiles(nicknamePrefix) {
+        return this.callZome('search_profiles', {
+            nickname_prefix: nicknamePrefix,
+        });
+    }
+    async getAllProfiles() {
+        return this.callZome('get_all_profiles', null);
+    }
+    async createProfile(profile) {
+        const profileResult = await this.callZome('create_profile', profile);
+        return {
+            agent_pub_key: profileResult.agent_pub_key,
+            profile: profileResult.profile,
+        };
+    }
+    callZome(fn_name, payload) {
+        return this.appWebsocket.callZome({
+            cap: null,
+            cell_id: this.cellId,
+            zome_name: this.zomeName,
+            fn_name: fn_name,
+            payload: payload,
+            provenance: this.cellId[1],
+        });
+    }
+}
+
+var HeaderType;
+(function (HeaderType) {
+    HeaderType["Dna"] = "Dna";
+    HeaderType["AgentValidationPkg"] = "AgentValidationPkg";
+    HeaderType["InitZomesComplete"] = "InitZomesComplete";
+    HeaderType["CreateLink"] = "CreateLink";
+    HeaderType["DeleteLink"] = "DeleteLink";
+    HeaderType["OpenChain"] = "OpenChain";
+    HeaderType["CloseChain"] = "CloseChain";
+    HeaderType["Create"] = "Create";
+    HeaderType["Update"] = "Update";
+    HeaderType["Delete"] = "Delete";
+})(HeaderType || (HeaderType = {}));
+
+// https://github.com/holochain/holochain/blob/develop/crates/types/src/dht_op.rs
+var DHTOpType;
+(function (DHTOpType) {
+    DHTOpType["StoreElement"] = "StoreElement";
+    DHTOpType["StoreEntry"] = "StoreEntry";
+    DHTOpType["RegisterAgentActivity"] = "RegisterAgentActivity";
+    DHTOpType["RegisterUpdatedContent"] = "RegisterUpdatedContent";
+    DHTOpType["RegisterUpdatedElement"] = "RegisterUpdatedElement";
+    DHTOpType["RegisterDeletedBy"] = "RegisterDeletedBy";
+    DHTOpType["RegisterDeletedEntryHeader"] = "RegisterDeletedEntryHeader";
+    DHTOpType["RegisterAddLink"] = "RegisterAddLink";
+    DHTOpType["RegisterRemoveLink"] = "RegisterRemoveLink";
+})(DHTOpType || (DHTOpType = {}));
+[
+    DHTOpType.RegisterAgentActivity,
+    DHTOpType.StoreEntry,
+    DHTOpType.StoreElement,
+    DHTOpType.RegisterUpdatedContent,
+    DHTOpType.RegisterUpdatedElement,
+    DHTOpType.RegisterDeletedEntryHeader,
+    DHTOpType.RegisterDeletedBy,
+    DHTOpType.RegisterAddLink,
+    DHTOpType.RegisterRemoveLink,
+];
+
+var DetailsType;
+(function (DetailsType) {
+    DetailsType[DetailsType["Entry"] = 0] = "Entry";
+    DetailsType[DetailsType["Element"] = 1] = "Element";
+})(DetailsType || (DetailsType = {}));
+
+var ChainStatus;
+(function (ChainStatus) {
+    ChainStatus[ChainStatus["Empty"] = 0] = "Empty";
+    ChainStatus[ChainStatus["Valid"] = 1] = "Valid";
+    ChainStatus[ChainStatus["Forked"] = 2] = "Forked";
+    ChainStatus[ChainStatus["Invalid"] = 3] = "Invalid";
+})(ChainStatus || (ChainStatus = {}));
+var EntryDhtStatus;
+(function (EntryDhtStatus) {
+    EntryDhtStatus[EntryDhtStatus["Live"] = 0] = "Live";
+    /// This [Entry] has no headers that have not been deleted
+    EntryDhtStatus[EntryDhtStatus["Dead"] = 1] = "Dead";
+    /// This [Entry] is awaiting validation
+    EntryDhtStatus[EntryDhtStatus["Pending"] = 2] = "Pending";
+    /// This [Entry] has failed validation and will not be served by the DHT
+    EntryDhtStatus[EntryDhtStatus["Rejected"] = 3] = "Rejected";
+    /// This [Entry] has taken too long / too many resources to validate, so we gave up
+    EntryDhtStatus[EntryDhtStatus["Abandoned"] = 4] = "Abandoned";
+    /// **not implemented** There has been a conflict when validating this [Entry]
+    EntryDhtStatus[EntryDhtStatus["Conflict"] = 5] = "Conflict";
+    /// **not implemented** The author has withdrawn their publication of this element.
+    EntryDhtStatus[EntryDhtStatus["Withdrawn"] = 6] = "Withdrawn";
+    /// **not implemented** We have agreed to drop this [Entry] content from the system. Header can stay with no entry
+    EntryDhtStatus[EntryDhtStatus["Purged"] = 7] = "Purged";
+})(EntryDhtStatus || (EntryDhtStatus = {}));
+
+/**
+ *  base64.ts
+ *
+ *  Licensed under the BSD 3-Clause License.
+ *    http://opensource.org/licenses/BSD-3-Clause
+ *
+ *  References:
+ *    http://en.wikipedia.org/wiki/Base64
+ *
+ * @author Dan Kogai (https://github.com/dankogai)
+ */
+const version = '3.6.0';
+/**
+ * @deprecated use lowercase `version`.
+ */
+const VERSION = version;
+const _hasatob = typeof atob === 'function';
+const _hasbtoa = typeof btoa === 'function';
+const _hasBuffer = typeof Buffer === 'function';
+const _TD = typeof TextDecoder === 'function' ? new TextDecoder() : undefined;
+const _TE = typeof TextEncoder === 'function' ? new TextEncoder() : undefined;
+const b64ch = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+const b64chs = [...b64ch];
+const b64tab = ((a) => {
+    let tab = {};
+    a.forEach((c, i) => tab[c] = i);
+    return tab;
+})(b64chs);
+const b64re = /^(?:[A-Za-z\d+\/]{4})*?(?:[A-Za-z\d+\/]{2}(?:==)?|[A-Za-z\d+\/]{3}=?)?$/;
+const _fromCC = String.fromCharCode.bind(String);
+const _U8Afrom = typeof Uint8Array.from === 'function'
+    ? Uint8Array.from.bind(Uint8Array)
+    : (it, fn = (x) => x) => new Uint8Array(Array.prototype.slice.call(it, 0).map(fn));
+const _mkUriSafe = (src) => src
+    .replace(/[+\/]/g, (m0) => m0 == '+' ? '-' : '_')
+    .replace(/=+$/m, '');
+const _tidyB64 = (s) => s.replace(/[^A-Za-z0-9\+\/]/g, '');
+/**
+ * polyfill version of `btoa`
+ */
+const btoaPolyfill = (bin) => {
+    // console.log('polyfilled');
+    let u32, c0, c1, c2, asc = '';
+    const pad = bin.length % 3;
+    for (let i = 0; i < bin.length;) {
+        if ((c0 = bin.charCodeAt(i++)) > 255 ||
+            (c1 = bin.charCodeAt(i++)) > 255 ||
+            (c2 = bin.charCodeAt(i++)) > 255)
+            throw new TypeError('invalid character found');
+        u32 = (c0 << 16) | (c1 << 8) | c2;
+        asc += b64chs[u32 >> 18 & 63]
+            + b64chs[u32 >> 12 & 63]
+            + b64chs[u32 >> 6 & 63]
+            + b64chs[u32 & 63];
+    }
+    return pad ? asc.slice(0, pad - 3) + "===".substring(pad) : asc;
+};
+/**
+ * does what `window.btoa` of web browsers do.
+ * @param {String} bin binary string
+ * @returns {string} Base64-encoded string
+ */
+const _btoa = _hasbtoa ? (bin) => btoa(bin)
+    : _hasBuffer ? (bin) => Buffer.from(bin, 'binary').toString('base64')
+        : btoaPolyfill;
+const _fromUint8Array = _hasBuffer
+    ? (u8a) => Buffer.from(u8a).toString('base64')
+    : (u8a) => {
+        // cf. https://stackoverflow.com/questions/12710001/how-to-convert-uint8-array-to-base64-encoded-string/12713326#12713326
+        const maxargs = 0x1000;
+        let strs = [];
+        for (let i = 0, l = u8a.length; i < l; i += maxargs) {
+            strs.push(_fromCC.apply(null, u8a.subarray(i, i + maxargs)));
+        }
+        return _btoa(strs.join(''));
+    };
+/**
+ * converts a Uint8Array to a Base64 string.
+ * @param {boolean} [urlsafe] URL-and-filename-safe a la RFC4648 §5
+ * @returns {string} Base64 string
+ */
+const fromUint8Array = (u8a, urlsafe = false) => urlsafe ? _mkUriSafe(_fromUint8Array(u8a)) : _fromUint8Array(u8a);
+// This trick is found broken https://github.com/dankogai/js-base64/issues/130
+// const utob = (src: string) => unescape(encodeURIComponent(src));
+// reverting good old fationed regexp
+const cb_utob = (c) => {
+    if (c.length < 2) {
+        var cc = c.charCodeAt(0);
+        return cc < 0x80 ? c
+            : cc < 0x800 ? (_fromCC(0xc0 | (cc >>> 6))
+                + _fromCC(0x80 | (cc & 0x3f)))
+                : (_fromCC(0xe0 | ((cc >>> 12) & 0x0f))
+                    + _fromCC(0x80 | ((cc >>> 6) & 0x3f))
+                    + _fromCC(0x80 | (cc & 0x3f)));
+    }
+    else {
+        var cc = 0x10000
+            + (c.charCodeAt(0) - 0xD800) * 0x400
+            + (c.charCodeAt(1) - 0xDC00);
+        return (_fromCC(0xf0 | ((cc >>> 18) & 0x07))
+            + _fromCC(0x80 | ((cc >>> 12) & 0x3f))
+            + _fromCC(0x80 | ((cc >>> 6) & 0x3f))
+            + _fromCC(0x80 | (cc & 0x3f)));
+    }
+};
+const re_utob = /[\uD800-\uDBFF][\uDC00-\uDFFFF]|[^\x00-\x7F]/g;
+/**
+ * @deprecated should have been internal use only.
+ * @param {string} src UTF-8 string
+ * @returns {string} UTF-16 string
+ */
+const utob = (u) => u.replace(re_utob, cb_utob);
+//
+const _encode = _hasBuffer
+    ? (s) => Buffer.from(s, 'utf8').toString('base64')
+    : _TE
+        ? (s) => _fromUint8Array(_TE.encode(s))
+        : (s) => _btoa(utob(s));
+/**
+ * converts a UTF-8-encoded string to a Base64 string.
+ * @param {boolean} [urlsafe] if `true` make the result URL-safe
+ * @returns {string} Base64 string
+ */
+const encode = (src, urlsafe = false) => urlsafe
+    ? _mkUriSafe(_encode(src))
+    : _encode(src);
+/**
+ * converts a UTF-8-encoded string to URL-safe Base64 RFC4648 §5.
+ * @returns {string} Base64 string
+ */
+const encodeURI = (src) => encode(src, true);
+// This trick is found broken https://github.com/dankogai/js-base64/issues/130
+// const btou = (src: string) => decodeURIComponent(escape(src));
+// reverting good old fationed regexp
+const re_btou = /[\xC0-\xDF][\x80-\xBF]|[\xE0-\xEF][\x80-\xBF]{2}|[\xF0-\xF7][\x80-\xBF]{3}/g;
+const cb_btou = (cccc) => {
+    switch (cccc.length) {
+        case 4:
+            var cp = ((0x07 & cccc.charCodeAt(0)) << 18)
+                | ((0x3f & cccc.charCodeAt(1)) << 12)
+                | ((0x3f & cccc.charCodeAt(2)) << 6)
+                | (0x3f & cccc.charCodeAt(3)), offset = cp - 0x10000;
+            return (_fromCC((offset >>> 10) + 0xD800)
+                + _fromCC((offset & 0x3FF) + 0xDC00));
+        case 3:
+            return _fromCC(((0x0f & cccc.charCodeAt(0)) << 12)
+                | ((0x3f & cccc.charCodeAt(1)) << 6)
+                | (0x3f & cccc.charCodeAt(2)));
+        default:
+            return _fromCC(((0x1f & cccc.charCodeAt(0)) << 6)
+                | (0x3f & cccc.charCodeAt(1)));
+    }
+};
+/**
+ * @deprecated should have been internal use only.
+ * @param {string} src UTF-16 string
+ * @returns {string} UTF-8 string
+ */
+const btou = (b) => b.replace(re_btou, cb_btou);
+/**
+ * polyfill version of `atob`
+ */
+const atobPolyfill = (asc) => {
+    // console.log('polyfilled');
+    asc = asc.replace(/\s+/g, '');
+    if (!b64re.test(asc))
+        throw new TypeError('malformed base64.');
+    asc += '=='.slice(2 - (asc.length & 3));
+    let u24, bin = '', r1, r2;
+    for (let i = 0; i < asc.length;) {
+        u24 = b64tab[asc.charAt(i++)] << 18
+            | b64tab[asc.charAt(i++)] << 12
+            | (r1 = b64tab[asc.charAt(i++)]) << 6
+            | (r2 = b64tab[asc.charAt(i++)]);
+        bin += r1 === 64 ? _fromCC(u24 >> 16 & 255)
+            : r2 === 64 ? _fromCC(u24 >> 16 & 255, u24 >> 8 & 255)
+                : _fromCC(u24 >> 16 & 255, u24 >> 8 & 255, u24 & 255);
+    }
+    return bin;
+};
+/**
+ * does what `window.atob` of web browsers do.
+ * @param {String} asc Base64-encoded string
+ * @returns {string} binary string
+ */
+const _atob = _hasatob ? (asc) => atob(_tidyB64(asc))
+    : _hasBuffer ? (asc) => Buffer.from(asc, 'base64').toString('binary')
+        : atobPolyfill;
+//
+const _toUint8Array = _hasBuffer
+    ? (a) => _U8Afrom(Buffer.from(a, 'base64'))
+    : (a) => _U8Afrom(_atob(a), c => c.charCodeAt(0));
+/**
+ * converts a Base64 string to a Uint8Array.
+ */
+const toUint8Array = (a) => _toUint8Array(_unURI(a));
+//
+const _decode = _hasBuffer
+    ? (a) => Buffer.from(a, 'base64').toString('utf8')
+    : _TD
+        ? (a) => _TD.decode(_toUint8Array(a))
+        : (a) => btou(_atob(a));
+const _unURI = (a) => _tidyB64(a.replace(/[-_]/g, (m0) => m0 == '-' ? '+' : '/'));
+/**
+ * converts a Base64 string to a UTF-8 string.
+ * @param {String} src Base64 string.  Both normal and URL-safe are supported
+ * @returns {string} UTF-8 string
+ */
+const decode = (src) => _decode(_unURI(src));
+/**
+ * check if a value is a valid Base64 string
+ * @param {String} src a value to check
+  */
+const isValid$1 = (src) => {
+    if (typeof src !== 'string')
+        return false;
+    const s = src.replace(/\s+/g, '').replace(/=+$/, '');
+    return !/[^\s0-9a-zA-Z\+/]/.test(s) || !/[^\s0-9a-zA-Z\-_]/.test(s);
+};
+//
+const _noEnum = (v) => {
+    return {
+        value: v, enumerable: false, writable: true, configurable: true
+    };
+};
+/**
+ * extend String.prototype with relevant methods
+ */
+const extendString = function () {
+    const _add = (name, body) => Object.defineProperty(String.prototype, name, _noEnum(body));
+    _add('fromBase64', function () { return decode(this); });
+    _add('toBase64', function (urlsafe) { return encode(this, urlsafe); });
+    _add('toBase64URI', function () { return encode(this, true); });
+    _add('toBase64URL', function () { return encode(this, true); });
+    _add('toUint8Array', function () { return toUint8Array(this); });
+};
+/**
+ * extend Uint8Array.prototype with relevant methods
+ */
+const extendUint8Array = function () {
+    const _add = (name, body) => Object.defineProperty(Uint8Array.prototype, name, _noEnum(body));
+    _add('toBase64', function (urlsafe) { return fromUint8Array(this, urlsafe); });
+    _add('toBase64URI', function () { return fromUint8Array(this, true); });
+    _add('toBase64URL', function () { return fromUint8Array(this, true); });
+};
+/**
+ * extend Builtin prototypes with relevant methods
+ */
+const extendBuiltins = () => {
+    extendString();
+    extendUint8Array();
+};
+const gBase64 = {
+    version: version,
+    VERSION: VERSION,
+    atob: _atob,
+    atobPolyfill: atobPolyfill,
+    btoa: _btoa,
+    btoaPolyfill: btoaPolyfill,
+    fromBase64: decode,
+    toBase64: encode,
+    encode: encode,
+    encodeURI: encodeURI,
+    encodeURL: encodeURI,
+    utob: utob,
+    btou: btou,
+    decode: decode,
+    isValid: isValid$1,
+    fromUint8Array: fromUint8Array,
+    toUint8Array: toUint8Array,
+    extendString: extendString,
+    extendUint8Array: extendUint8Array,
+    extendBuiltins: extendBuiltins,
+};
+
+function serializeHash(hash) {
+    return `u${gBase64.fromUint8Array(hash, true)}`;
+}
+
+class ProfilesStore {
+    constructor(profilesService) {
+        this.profilesService = profilesService;
+        this.profiles = {};
+        makeObservable(this);
+    }
+    profileOf(agentPubKey) {
+        return this.profiles[agentPubKey];
+    }
+    get myAgentPubKey() {
+        return serializeHash(this.profilesService.cellId[1]);
+    }
+    get myProfile() {
+        return this.profiles[this.myAgentPubKey];
+    }
+    get knownProfiles() {
+        return Object.entries(this.profiles).map(([agent_pub_key, profile]) => ({
+            agent_pub_key,
+            profile,
+        }));
+    }
+    async fetchAllProfiles() {
+        const allProfiles = await this.profilesService.getAllProfiles();
+        runInAction(() => {
+            for (const agentProfile of allProfiles) {
+                this.profiles[agentProfile.agent_pub_key] = agentProfile.profile;
+            }
+        });
+    }
+    async fetchAgentProfile(agentPubKey) {
+        const profile = await this.profilesService.getAgentProfile(agentPubKey);
+        if (profile) {
+            runInAction(() => {
+                this.profiles[agentPubKey] = profile.profile;
+            });
+        }
+    }
+    async fetchMyProfile() {
+        const myProfile = await this.profilesService.getMyProfile();
+        if (myProfile) {
+            runInAction(() => {
+                this.profiles[this.myAgentPubKey] = myProfile.profile;
+            });
+        }
+    }
+    async searchProfiles(nicknamePrefix) {
+        const searchedProfiles = await this.profilesService.searchProfiles(nicknamePrefix);
+        runInAction(() => {
+            for (const { agent_pub_key, profile } of searchedProfiles) {
+                this.profiles[agent_pub_key] = profile;
+            }
+        });
+    }
+    async createProfile(profile) {
+        await this.profilesService.createProfile(profile);
+        runInAction(() => {
+            this.profiles[this.myAgentPubKey] = profile;
+        });
+    }
+}
+__decorate$3([
+    observable
+], ProfilesStore.prototype, "profiles", void 0);
+__decorate$3([
+    computed
+], ProfilesStore.prototype, "myProfile", null);
+__decorate$3([
+    computed
+], ProfilesStore.prototype, "knownProfiles", null);
+__decorate$3([
+    action
+], ProfilesStore.prototype, "fetchAllProfiles", null);
+__decorate$3([
+    action
+], ProfilesStore.prototype, "fetchAgentProfile", null);
+__decorate$3([
+    action
+], ProfilesStore.prototype, "fetchMyProfile", null);
+__decorate$3([
+    action
+], ProfilesStore.prototype, "searchProfiles", null);
+__decorate$3([
+    action
+], ProfilesStore.prototype, "createProfile", null);
+
+class BaseCompositoryService extends BaseElement {
+}
+
+/**
+ @license
+ Copyright 2020 Google Inc. All Rights Reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+/**
+ * @fires request-selected {RequestSelectedDetail}
+ * @fires list-item-rendered
+ */
+class ListItemBase extends LitElement$1 {
+    constructor() {
+        super(...arguments);
+        this.value = '';
+        this.group = null;
+        this.tabindex = -1;
+        this.disabled = false;
+        this.twoline = false;
+        this.activated = false;
+        this.graphic = null;
+        this.multipleGraphics = false;
+        this.hasMeta = false;
+        this.noninteractive = false;
+        this.selected = false;
+        this.shouldRenderRipple = false;
+        this._managingList = null;
+        this.boundOnClick = this.onClick.bind(this);
+        this._firstChanged = true;
+        this._skipPropRequest = false;
+        this.rippleHandlers = new RippleHandlers$1(() => {
+            this.shouldRenderRipple = true;
+            return this.ripple;
+        });
+        this.listeners = [
+            {
+                target: this,
+                eventNames: ['click'],
+                cb: () => {
+                    this.onClick();
+                },
+            },
+            {
+                target: this,
+                eventNames: ['mouseenter'],
+                cb: this.rippleHandlers.startHover,
+            },
+            {
+                target: this,
+                eventNames: ['mouseleave'],
+                cb: this.rippleHandlers.endHover,
+            },
+            {
+                target: this,
+                eventNames: ['focus'],
+                cb: this.rippleHandlers.startFocus,
+            },
+            {
+                target: this,
+                eventNames: ['blur'],
+                cb: this.rippleHandlers.endFocus,
+            },
+            {
+                target: this,
+                eventNames: ['mousedown', 'touchstart'],
+                cb: (e) => {
+                    const name = e.type;
+                    this.onDown(name === 'mousedown' ? 'mouseup' : 'touchend', e);
+                },
+            },
+        ];
+    }
+    get text() {
+        const textContent = this.textContent;
+        return textContent ? textContent.trim() : '';
+    }
+    render() {
+        const text = this.renderText();
+        const graphic = this.graphic ? this.renderGraphic() : html$1 ``;
+        const meta = this.hasMeta ? this.renderMeta() : html$1 ``;
+        return html$1 `
+      ${this.renderRipple()}
+      ${graphic}
+      ${text}
+      ${meta}`;
+    }
+    renderRipple() {
+        if (this.shouldRenderRipple) {
+            return html$1 `
+      <mwc-ripple
+        .activated=${this.activated}>
+      </mwc-ripple>`;
+        }
+        else if (this.activated) {
+            return html$1 `<div class="fake-activated-ripple"></div>`;
+        }
+        else {
+            return '';
+        }
+    }
+    renderGraphic() {
+        const graphicClasses = {
+            multi: this.multipleGraphics,
+        };
+        return html$1 `
+      <span class="mdc-list-item__graphic material-icons ${classMap$1(graphicClasses)}">
+        <slot name="graphic"></slot>
+      </span>`;
+    }
+    renderMeta() {
+        return html$1 `
+      <span class="mdc-list-item__meta material-icons">
+        <slot name="meta"></slot>
+      </span>`;
+    }
+    renderText() {
+        const inner = this.twoline ? this.renderTwoline() : this.renderSingleLine();
+        return html$1 `
+      <span class="mdc-list-item__text">
+        ${inner}
+      </span>`;
+    }
+    renderSingleLine() {
+        return html$1 `<slot></slot>`;
+    }
+    renderTwoline() {
+        return html$1 `
+      <span class="mdc-list-item__primary-text">
+        <slot></slot>
+      </span>
+      <span class="mdc-list-item__secondary-text">
+        <slot name="secondary"></slot>
+      </span>
+    `;
+    }
+    onClick() {
+        this.fireRequestSelected(!this.selected, 'interaction');
+    }
+    onDown(upName, evt) {
+        const onUp = () => {
+            window.removeEventListener(upName, onUp);
+            this.rippleHandlers.endPress();
+        };
+        window.addEventListener(upName, onUp);
+        this.rippleHandlers.startPress(evt);
+    }
+    fireRequestSelected(selected, source) {
+        if (this.noninteractive) {
+            return;
+        }
+        const customEv = new CustomEvent('request-selected', { bubbles: true, composed: true, detail: { source, selected } });
+        this.dispatchEvent(customEv);
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        if (!this.noninteractive) {
+            this.setAttribute('mwc-list-item', '');
+        }
+        for (const listener of this.listeners) {
+            for (const eventName of listener.eventNames) {
+                listener.target.addEventListener(eventName, listener.cb, { passive: true });
+            }
+        }
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        for (const listener of this.listeners) {
+            for (const eventName of listener.eventNames) {
+                listener.target.removeEventListener(eventName, listener.cb);
+            }
+        }
+        if (this._managingList) {
+            this._managingList.debouncedLayout ?
+                this._managingList.debouncedLayout(true) :
+                this._managingList.layout(true);
+        }
+    }
+    // composed flag, event fire through shadow root and up through composed tree
+    firstUpdated() {
+        const ev = new Event('list-item-rendered', { bubbles: true, composed: true });
+        this.dispatchEvent(ev);
+    }
+}
+__decorate$3([
     query$1('slot')
 ], ListItemBase.prototype, "slotElement", void 0);
-__decorate$2([
+__decorate$3([
     queryAsync('mwc-ripple')
 ], ListItemBase.prototype, "ripple", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String })
 ], ListItemBase.prototype, "value", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String, reflect: true })
 ], ListItemBase.prototype, "group", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Number, reflect: true })
 ], ListItemBase.prototype, "tabindex", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean, reflect: true }),
     observer(function (value) {
         if (value) {
@@ -19853,22 +22339,22 @@ __decorate$2([
         }
     })
 ], ListItemBase.prototype, "disabled", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean, reflect: true })
 ], ListItemBase.prototype, "twoline", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean, reflect: true })
 ], ListItemBase.prototype, "activated", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String, reflect: true })
 ], ListItemBase.prototype, "graphic", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], ListItemBase.prototype, "multipleGraphics", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], ListItemBase.prototype, "hasMeta", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean, reflect: true }),
     observer(function (value) {
         if (value) {
@@ -19883,7 +22369,7 @@ __decorate$2([
         }
     })
 ], ListItemBase.prototype, "noninteractive", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean, reflect: true }),
     observer(function (value) {
         const role = this.getAttribute('role');
@@ -19905,10 +22391,10 @@ __decorate$2([
         this.fireRequestSelected(value, 'property');
     })
 ], ListItemBase.prototype, "selected", void 0);
-__decorate$2([
+__decorate$3([
     internalProperty()
 ], ListItemBase.prototype, "shouldRenderRipple", void 0);
-__decorate$2([
+__decorate$3([
     internalProperty()
 ], ListItemBase.prototype, "_managingList", void 0);
 
@@ -19928,16 +22414,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const style$7 = css$1 `:host{cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;height:48px;display:flex;position:relative;align-items:center;justify-content:flex-start;overflow:hidden;padding:0;padding-left:var(--mdc-list-side-padding, 16px);padding-right:var(--mdc-list-side-padding, 16px);outline:none;height:48px;color:rgba(0,0,0,.87);color:var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87))}:host:focus{outline:none}:host([activated]){color:#6200ee;color:var(--mdc-theme-primary, #6200ee);--mdc-ripple-color: var(--mdc-theme-primary, #6200ee)}:host([activated]) .mdc-list-item__graphic{color:#6200ee;color:var(--mdc-theme-primary, #6200ee)}:host([activated]) .fake-activated-ripple::before{position:absolute;display:block;top:0;bottom:0;left:0;right:0;width:100%;height:100%;pointer-events:none;z-index:1;content:"";opacity:0.12;opacity:var(--mdc-ripple-activated-opacity, 0.12);background-color:#6200ee;background-color:var(--mdc-ripple-color, var(--mdc-theme-primary, #6200ee))}.mdc-list-item__graphic{flex-shrink:0;align-items:center;justify-content:center;fill:currentColor;display:inline-flex}.mdc-list-item__graphic ::slotted(*){flex-shrink:0;align-items:center;justify-content:center;fill:currentColor;width:100%;height:100%;text-align:center}.mdc-list-item__meta{width:var(--mdc-list-item-meta-size, 24px);height:var(--mdc-list-item-meta-size, 24px);margin-left:auto;margin-right:0;color:rgba(0, 0, 0, 0.38);color:var(--mdc-theme-text-hint-on-background, rgba(0, 0, 0, 0.38))}.mdc-list-item__meta.multi{width:auto}.mdc-list-item__meta ::slotted(*){width:var(--mdc-list-item-meta-size, 24px);line-height:var(--mdc-list-item-meta-size, 24px)}.mdc-list-item__meta ::slotted(.material-icons),.mdc-list-item__meta ::slotted(mwc-icon){line-height:var(--mdc-list-item-meta-size, 24px) !important}.mdc-list-item__meta ::slotted(:not(.material-icons):not(mwc-icon)){-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.75rem;font-size:var(--mdc-typography-caption-font-size, 0.75rem);line-height:1.25rem;line-height:var(--mdc-typography-caption-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-caption-font-weight, 400);letter-spacing:0.0333333333em;letter-spacing:var(--mdc-typography-caption-letter-spacing, 0.0333333333em);text-decoration:inherit;text-decoration:var(--mdc-typography-caption-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-caption-text-transform, inherit)}:host[dir=rtl] .mdc-list-item__meta,[dir=rtl] :host .mdc-list-item__meta{margin-left:0;margin-right:auto}.mdc-list-item__meta ::slotted(*){width:100%;height:100%}.mdc-list-item__text{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.mdc-list-item__text ::slotted([for]),.mdc-list-item__text[for]{pointer-events:none}.mdc-list-item__primary-text{text-overflow:ellipsis;white-space:nowrap;overflow:hidden;display:block;margin-top:0;line-height:normal;margin-bottom:-20px;display:block}.mdc-list-item__primary-text::before{display:inline-block;width:0;height:32px;content:"";vertical-align:0}.mdc-list-item__primary-text::after{display:inline-block;width:0;height:20px;content:"";vertical-align:-20px}.mdc-list-item__secondary-text{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-body2-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.875rem;font-size:var(--mdc-typography-body2-font-size, 0.875rem);line-height:1.25rem;line-height:var(--mdc-typography-body2-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-body2-font-weight, 400);letter-spacing:0.0178571429em;letter-spacing:var(--mdc-typography-body2-letter-spacing, 0.0178571429em);text-decoration:inherit;text-decoration:var(--mdc-typography-body2-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-body2-text-transform, inherit);text-overflow:ellipsis;white-space:nowrap;overflow:hidden;display:block;margin-top:0;line-height:normal;display:block}.mdc-list-item__secondary-text::before{display:inline-block;width:0;height:20px;content:"";vertical-align:0}.mdc-list--dense .mdc-list-item__secondary-text{font-size:inherit}* ::slotted(a),a{color:inherit;text-decoration:none}:host([twoline]){height:72px}:host([twoline]) .mdc-list-item__text{align-self:flex-start}:host([disabled]),:host([noninteractive]){cursor:default;pointer-events:none}:host([disabled]) .mdc-list-item__text ::slotted(*){opacity:.38}:host([disabled]) .mdc-list-item__text ::slotted(*),:host([disabled]) .mdc-list-item__primary-text ::slotted(*),:host([disabled]) .mdc-list-item__secondary-text ::slotted(*){color:#000;color:var(--mdc-theme-on-surface, #000)}.mdc-list-item__secondary-text ::slotted(*){color:rgba(0, 0, 0, 0.54);color:var(--mdc-theme-text-secondary-on-background, rgba(0, 0, 0, 0.54))}.mdc-list-item__graphic ::slotted(*){background-color:transparent;color:rgba(0, 0, 0, 0.38);color:var(--mdc-theme-text-icon-on-background, rgba(0, 0, 0, 0.38))}.mdc-list-group__subheader ::slotted(*){color:rgba(0, 0, 0, 0.87);color:var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87))}:host([graphic=avatar]) .mdc-list-item__graphic{width:var(--mdc-list-item-graphic-size, 40px);height:var(--mdc-list-item-graphic-size, 40px)}:host([graphic=avatar]) .mdc-list-item__graphic.multi{width:auto}:host([graphic=avatar]) .mdc-list-item__graphic ::slotted(*){width:var(--mdc-list-item-graphic-size, 40px);line-height:var(--mdc-list-item-graphic-size, 40px)}:host([graphic=avatar]) .mdc-list-item__graphic ::slotted(.material-icons),:host([graphic=avatar]) .mdc-list-item__graphic ::slotted(mwc-icon){line-height:var(--mdc-list-item-graphic-size, 40px) !important}:host([graphic=avatar]) .mdc-list-item__graphic ::slotted(*){border-radius:50%}:host([graphic=avatar],[graphic=medium],[graphic=large],[graphic=control]) .mdc-list-item__graphic{margin-left:0;margin-right:var(--mdc-list-item-graphic-margin, 16px)}:host[dir=rtl] :host([graphic=avatar],[graphic=medium],[graphic=large],[graphic=control]) .mdc-list-item__graphic,[dir=rtl] :host :host([graphic=avatar],[graphic=medium],[graphic=large],[graphic=control]) .mdc-list-item__graphic{margin-left:var(--mdc-list-item-graphic-margin, 16px);margin-right:0}:host([graphic=icon]) .mdc-list-item__graphic{width:var(--mdc-list-item-graphic-size, 24px);height:var(--mdc-list-item-graphic-size, 24px);margin-left:0;margin-right:var(--mdc-list-item-graphic-margin, 32px)}:host([graphic=icon]) .mdc-list-item__graphic.multi{width:auto}:host([graphic=icon]) .mdc-list-item__graphic ::slotted(*){width:var(--mdc-list-item-graphic-size, 24px);line-height:var(--mdc-list-item-graphic-size, 24px)}:host([graphic=icon]) .mdc-list-item__graphic ::slotted(.material-icons),:host([graphic=icon]) .mdc-list-item__graphic ::slotted(mwc-icon){line-height:var(--mdc-list-item-graphic-size, 24px) !important}:host[dir=rtl] :host([graphic=icon]) .mdc-list-item__graphic,[dir=rtl] :host :host([graphic=icon]) .mdc-list-item__graphic{margin-left:var(--mdc-list-item-graphic-margin, 32px);margin-right:0}:host([graphic=avatar]:not([twoLine])),:host([graphic=icon]:not([twoLine])){height:56px}:host([graphic=medium]:not([twoLine])),:host([graphic=large]:not([twoLine])){height:72px}:host([graphic=medium]) .mdc-list-item__graphic,:host([graphic=large]) .mdc-list-item__graphic{width:var(--mdc-list-item-graphic-size, 56px);height:var(--mdc-list-item-graphic-size, 56px)}:host([graphic=medium]) .mdc-list-item__graphic.multi,:host([graphic=large]) .mdc-list-item__graphic.multi{width:auto}:host([graphic=medium]) .mdc-list-item__graphic ::slotted(*),:host([graphic=large]) .mdc-list-item__graphic ::slotted(*){width:var(--mdc-list-item-graphic-size, 56px);line-height:var(--mdc-list-item-graphic-size, 56px)}:host([graphic=medium]) .mdc-list-item__graphic ::slotted(.material-icons),:host([graphic=medium]) .mdc-list-item__graphic ::slotted(mwc-icon),:host([graphic=large]) .mdc-list-item__graphic ::slotted(.material-icons),:host([graphic=large]) .mdc-list-item__graphic ::slotted(mwc-icon){line-height:var(--mdc-list-item-graphic-size, 56px) !important}:host([graphic=large]){padding-left:0px}`;
+const style$c = css$1 `:host{cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;height:48px;display:flex;position:relative;align-items:center;justify-content:flex-start;overflow:hidden;padding:0;padding-left:var(--mdc-list-side-padding, 16px);padding-right:var(--mdc-list-side-padding, 16px);outline:none;height:48px;color:rgba(0,0,0,.87);color:var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87))}:host:focus{outline:none}:host([activated]){color:#6200ee;color:var(--mdc-theme-primary, #6200ee);--mdc-ripple-color: var(--mdc-theme-primary, #6200ee)}:host([activated]) .mdc-list-item__graphic{color:#6200ee;color:var(--mdc-theme-primary, #6200ee)}:host([activated]) .fake-activated-ripple::before{position:absolute;display:block;top:0;bottom:0;left:0;right:0;width:100%;height:100%;pointer-events:none;z-index:1;content:"";opacity:0.12;opacity:var(--mdc-ripple-activated-opacity, 0.12);background-color:#6200ee;background-color:var(--mdc-ripple-color, var(--mdc-theme-primary, #6200ee))}.mdc-list-item__graphic{flex-shrink:0;align-items:center;justify-content:center;fill:currentColor;display:inline-flex}.mdc-list-item__graphic ::slotted(*){flex-shrink:0;align-items:center;justify-content:center;fill:currentColor;width:100%;height:100%;text-align:center}.mdc-list-item__meta{width:var(--mdc-list-item-meta-size, 24px);height:var(--mdc-list-item-meta-size, 24px);margin-left:auto;margin-right:0;color:rgba(0, 0, 0, 0.38);color:var(--mdc-theme-text-hint-on-background, rgba(0, 0, 0, 0.38))}.mdc-list-item__meta.multi{width:auto}.mdc-list-item__meta ::slotted(*){width:var(--mdc-list-item-meta-size, 24px);line-height:var(--mdc-list-item-meta-size, 24px)}.mdc-list-item__meta ::slotted(.material-icons),.mdc-list-item__meta ::slotted(mwc-icon){line-height:var(--mdc-list-item-meta-size, 24px) !important}.mdc-list-item__meta ::slotted(:not(.material-icons):not(mwc-icon)){-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.75rem;font-size:var(--mdc-typography-caption-font-size, 0.75rem);line-height:1.25rem;line-height:var(--mdc-typography-caption-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-caption-font-weight, 400);letter-spacing:0.0333333333em;letter-spacing:var(--mdc-typography-caption-letter-spacing, 0.0333333333em);text-decoration:inherit;text-decoration:var(--mdc-typography-caption-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-caption-text-transform, inherit)}:host[dir=rtl] .mdc-list-item__meta,[dir=rtl] :host .mdc-list-item__meta{margin-left:0;margin-right:auto}.mdc-list-item__meta ::slotted(*){width:100%;height:100%}.mdc-list-item__text{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.mdc-list-item__text ::slotted([for]),.mdc-list-item__text[for]{pointer-events:none}.mdc-list-item__primary-text{text-overflow:ellipsis;white-space:nowrap;overflow:hidden;display:block;margin-top:0;line-height:normal;margin-bottom:-20px;display:block}.mdc-list-item__primary-text::before{display:inline-block;width:0;height:32px;content:"";vertical-align:0}.mdc-list-item__primary-text::after{display:inline-block;width:0;height:20px;content:"";vertical-align:-20px}.mdc-list-item__secondary-text{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-body2-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.875rem;font-size:var(--mdc-typography-body2-font-size, 0.875rem);line-height:1.25rem;line-height:var(--mdc-typography-body2-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-body2-font-weight, 400);letter-spacing:0.0178571429em;letter-spacing:var(--mdc-typography-body2-letter-spacing, 0.0178571429em);text-decoration:inherit;text-decoration:var(--mdc-typography-body2-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-body2-text-transform, inherit);text-overflow:ellipsis;white-space:nowrap;overflow:hidden;display:block;margin-top:0;line-height:normal;display:block}.mdc-list-item__secondary-text::before{display:inline-block;width:0;height:20px;content:"";vertical-align:0}.mdc-list--dense .mdc-list-item__secondary-text{font-size:inherit}* ::slotted(a),a{color:inherit;text-decoration:none}:host([twoline]){height:72px}:host([twoline]) .mdc-list-item__text{align-self:flex-start}:host([disabled]),:host([noninteractive]){cursor:default;pointer-events:none}:host([disabled]) .mdc-list-item__text ::slotted(*){opacity:.38}:host([disabled]) .mdc-list-item__text ::slotted(*),:host([disabled]) .mdc-list-item__primary-text ::slotted(*),:host([disabled]) .mdc-list-item__secondary-text ::slotted(*){color:#000;color:var(--mdc-theme-on-surface, #000)}.mdc-list-item__secondary-text ::slotted(*){color:rgba(0, 0, 0, 0.54);color:var(--mdc-theme-text-secondary-on-background, rgba(0, 0, 0, 0.54))}.mdc-list-item__graphic ::slotted(*){background-color:transparent;color:rgba(0, 0, 0, 0.38);color:var(--mdc-theme-text-icon-on-background, rgba(0, 0, 0, 0.38))}.mdc-list-group__subheader ::slotted(*){color:rgba(0, 0, 0, 0.87);color:var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87))}:host([graphic=avatar]) .mdc-list-item__graphic{width:var(--mdc-list-item-graphic-size, 40px);height:var(--mdc-list-item-graphic-size, 40px)}:host([graphic=avatar]) .mdc-list-item__graphic.multi{width:auto}:host([graphic=avatar]) .mdc-list-item__graphic ::slotted(*){width:var(--mdc-list-item-graphic-size, 40px);line-height:var(--mdc-list-item-graphic-size, 40px)}:host([graphic=avatar]) .mdc-list-item__graphic ::slotted(.material-icons),:host([graphic=avatar]) .mdc-list-item__graphic ::slotted(mwc-icon){line-height:var(--mdc-list-item-graphic-size, 40px) !important}:host([graphic=avatar]) .mdc-list-item__graphic ::slotted(*){border-radius:50%}:host([graphic=avatar],[graphic=medium],[graphic=large],[graphic=control]) .mdc-list-item__graphic{margin-left:0;margin-right:var(--mdc-list-item-graphic-margin, 16px)}:host[dir=rtl] :host([graphic=avatar],[graphic=medium],[graphic=large],[graphic=control]) .mdc-list-item__graphic,[dir=rtl] :host :host([graphic=avatar],[graphic=medium],[graphic=large],[graphic=control]) .mdc-list-item__graphic{margin-left:var(--mdc-list-item-graphic-margin, 16px);margin-right:0}:host([graphic=icon]) .mdc-list-item__graphic{width:var(--mdc-list-item-graphic-size, 24px);height:var(--mdc-list-item-graphic-size, 24px);margin-left:0;margin-right:var(--mdc-list-item-graphic-margin, 32px)}:host([graphic=icon]) .mdc-list-item__graphic.multi{width:auto}:host([graphic=icon]) .mdc-list-item__graphic ::slotted(*){width:var(--mdc-list-item-graphic-size, 24px);line-height:var(--mdc-list-item-graphic-size, 24px)}:host([graphic=icon]) .mdc-list-item__graphic ::slotted(.material-icons),:host([graphic=icon]) .mdc-list-item__graphic ::slotted(mwc-icon){line-height:var(--mdc-list-item-graphic-size, 24px) !important}:host[dir=rtl] :host([graphic=icon]) .mdc-list-item__graphic,[dir=rtl] :host :host([graphic=icon]) .mdc-list-item__graphic{margin-left:var(--mdc-list-item-graphic-margin, 32px);margin-right:0}:host([graphic=avatar]:not([twoLine])),:host([graphic=icon]:not([twoLine])){height:56px}:host([graphic=medium]:not([twoLine])),:host([graphic=large]:not([twoLine])){height:72px}:host([graphic=medium]) .mdc-list-item__graphic,:host([graphic=large]) .mdc-list-item__graphic{width:var(--mdc-list-item-graphic-size, 56px);height:var(--mdc-list-item-graphic-size, 56px)}:host([graphic=medium]) .mdc-list-item__graphic.multi,:host([graphic=large]) .mdc-list-item__graphic.multi{width:auto}:host([graphic=medium]) .mdc-list-item__graphic ::slotted(*),:host([graphic=large]) .mdc-list-item__graphic ::slotted(*){width:var(--mdc-list-item-graphic-size, 56px);line-height:var(--mdc-list-item-graphic-size, 56px)}:host([graphic=medium]) .mdc-list-item__graphic ::slotted(.material-icons),:host([graphic=medium]) .mdc-list-item__graphic ::slotted(mwc-icon),:host([graphic=large]) .mdc-list-item__graphic ::slotted(.material-icons),:host([graphic=large]) .mdc-list-item__graphic ::slotted(mwc-icon){line-height:var(--mdc-list-item-graphic-size, 56px) !important}:host([graphic=large]){padding-left:0px}`;
 
 class ListItem extends ScopedElementsMixin$1(ListItemBase) {
     static get scopedElements() {
         return {
-            'mwc-ripple': Ripple,
+            'mwc-ripple': Ripple$1,
         };
     }
 }
-ListItem.styles = style$7;
+ListItem.styles = style$c;
 
 /**
  @license
@@ -19989,25 +22475,25 @@ function isIndexSet(selectedIndex) {
     return selectedIndex instanceof Set;
 }
 const createSetFromIndex = (index) => {
-    const entry = index === numbers$2.UNSET_INDEX ? new Set() : index;
+    const entry = index === numbers$3.UNSET_INDEX ? new Set() : index;
     return isIndexSet(entry) ? new Set(entry) : new Set([entry]);
 };
-class MDCListFoundation extends MDCFoundation$1 {
+class MDCListFoundation extends MDCFoundation$2 {
     constructor(adapter) {
         super(Object.assign(Object.assign({}, MDCListFoundation.defaultAdapter), adapter));
         this.isMulti_ = false;
         this.wrapFocus_ = false;
         this.isVertical_ = true;
-        this.selectedIndex_ = numbers$2.UNSET_INDEX;
-        this.focusedItemIndex_ = numbers$2.UNSET_INDEX;
+        this.selectedIndex_ = numbers$3.UNSET_INDEX;
+        this.focusedItemIndex_ = numbers$3.UNSET_INDEX;
         this.useActivatedClass_ = false;
         this.ariaCurrentAttrValue_ = null;
     }
     static get strings() {
-        return strings$2;
+        return strings$3;
     }
     static get numbers() {
-        return numbers$2;
+        return numbers$3;
     }
     static get defaultAdapter() {
         return {
@@ -20043,7 +22529,7 @@ class MDCListFoundation extends MDCFoundation$1 {
         if (value) {
             // number to set
             if (!isIndexSet(currentIndex)) {
-                const isUnset = currentIndex === numbers$2.UNSET_INDEX;
+                const isUnset = currentIndex === numbers$3.UNSET_INDEX;
                 this.selectedIndex_ = isUnset ? new Set() : new Set([currentIndex]);
             }
         }
@@ -20055,7 +22541,7 @@ class MDCListFoundation extends MDCFoundation$1 {
                     this.selectedIndex_ = vals[0];
                 }
                 else {
-                    this.selectedIndex_ = numbers$2.UNSET_INDEX;
+                    this.selectedIndex_ = numbers$3.UNSET_INDEX;
                 }
             }
         }
@@ -20183,7 +22669,7 @@ class MDCListFoundation extends MDCFoundation$1 {
      * Click handler for the list.
      */
     handleSingleSelection(index, isInteraction, force) {
-        if (index === numbers$2.UNSET_INDEX) {
+        if (index === numbers$3.UNSET_INDEX) {
             return;
         }
         this.setSelectedIndexOnAction_(index, isInteraction, force);
@@ -20260,7 +22746,7 @@ class MDCListFoundation extends MDCFoundation$1 {
             return;
         }
         // unset previous
-        if (this.selectedIndex_ !== numbers$2.UNSET_INDEX) {
+        if (this.selectedIndex_ !== numbers$3.UNSET_INDEX) {
             this.adapter.setSelectedStateForElementIndex(this.selectedIndex_, false);
             if (this.useActivatedClass_) {
                 this.adapter.setActivatedStateForElementIndex(this.selectedIndex_, false);
@@ -20308,20 +22794,20 @@ class MDCListFoundation extends MDCFoundation$1 {
     setAriaForSingleSelectionAtIndex_(index) {
         // Detect the presence of aria-current and get the value only during list
         // initialization when it is in unset state.
-        if (this.selectedIndex_ === numbers$2.UNSET_INDEX) {
+        if (this.selectedIndex_ === numbers$3.UNSET_INDEX) {
             this.ariaCurrentAttrValue_ =
-                this.adapter.getAttributeForElementIndex(index, strings$2.ARIA_CURRENT);
+                this.adapter.getAttributeForElementIndex(index, strings$3.ARIA_CURRENT);
         }
         const isAriaCurrent = this.ariaCurrentAttrValue_ !== null;
-        const ariaAttribute = isAriaCurrent ? strings$2.ARIA_CURRENT : strings$2.ARIA_SELECTED;
-        if (this.selectedIndex_ !== numbers$2.UNSET_INDEX) {
+        const ariaAttribute = isAriaCurrent ? strings$3.ARIA_CURRENT : strings$3.ARIA_SELECTED;
+        if (this.selectedIndex_ !== numbers$3.UNSET_INDEX) {
             this.adapter.setAttributeForElementIndex(this.selectedIndex_, ariaAttribute, 'false');
         }
         const ariaAttributeValue = isAriaCurrent ? this.ariaCurrentAttrValue_ : 'true';
         this.adapter.setAttributeForElementIndex(index, ariaAttribute, ariaAttributeValue);
     }
     setTabindexAtIndex_(index) {
-        if (this.focusedItemIndex_ === numbers$2.UNSET_INDEX && index !== 0) {
+        if (this.focusedItemIndex_ === numbers$3.UNSET_INDEX && index !== 0) {
             // If no list item was selected set first list item's tabindex to -1.
             // Generally, tabindex is set to 0 on first list item of list that has no
             // preselected items.
@@ -20335,7 +22821,7 @@ class MDCListFoundation extends MDCFoundation$1 {
     setTabindexToFirstSelectedItem_() {
         let targetIndex = 0;
         if (typeof this.selectedIndex_ === 'number' &&
-            this.selectedIndex_ !== numbers$2.UNSET_INDEX) {
+            this.selectedIndex_ !== numbers$3.UNSET_INDEX) {
             targetIndex = this.selectedIndex_;
         }
         else if (isIndexSet(this.selectedIndex_) && this.selectedIndex_.size > 0) {
@@ -20367,7 +22853,7 @@ class MDCListFoundation extends MDCFoundation$1 {
                 throw new Error('MDCListFoundation: Expected array of index for checkbox based list but got number: ' +
                     index);
             }
-            return index === numbers$2.UNSET_INDEX || this.isIndexInRange_(index);
+            return index === numbers$3.UNSET_INDEX || this.isIndexInRange_(index);
         }
         else {
             return false;
@@ -20403,7 +22889,7 @@ class MDCListFoundation extends MDCFoundation$1 {
             else {
                 const isDeselection = this.selectedIndex_ === index;
                 if (isDeselection) {
-                    this.setSingleSelectionAtIndex_(numbers$2.UNSET_INDEX);
+                    this.setSingleSelectionAtIndex_(numbers$3.UNSET_INDEX);
                 }
             }
         }
@@ -20830,16 +23316,16 @@ class ListBase extends BaseElement$1 {
         }
     }
 }
-__decorate$2([
+__decorate$3([
     property$1({ type: String })
 ], ListBase.prototype, "emptyMessage", void 0);
-__decorate$2([
+__decorate$3([
     query$1('.mdc-list')
 ], ListBase.prototype, "mdcRoot", void 0);
-__decorate$2([
+__decorate$3([
     query$1('slot')
 ], ListBase.prototype, "slotElement", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean }),
     observer(function (value) {
         if (this.mdcFoundation) {
@@ -20847,7 +23333,7 @@ __decorate$2([
         }
     })
 ], ListBase.prototype, "activatable", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean }),
     observer(function (newValue, oldValue) {
         if (this.mdcFoundation) {
@@ -20858,7 +23344,7 @@ __decorate$2([
         }
     })
 ], ListBase.prototype, "multi", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean }),
     observer(function (value) {
         if (this.mdcFoundation) {
@@ -20866,7 +23352,7 @@ __decorate$2([
         }
     })
 ], ListBase.prototype, "wrapFocus", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String }),
     observer(function (_newValue, oldValue) {
         if (oldValue !== undefined) {
@@ -20874,16 +23360,16 @@ __decorate$2([
         }
     })
 ], ListBase.prototype, "itemRoles", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String })
 ], ListBase.prototype, "innerRole", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String })
 ], ListBase.prototype, "innerAriaLabel", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], ListBase.prototype, "rootTabbable", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean, reflect: true }),
     observer(function (value) {
         const slot = this.slotElement;
@@ -20917,7 +23403,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const style$6 = css$1 `@keyframes mdc-ripple-fg-radius-in{from{animation-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transform:translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1)}to{transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}}@keyframes mdc-ripple-fg-opacity-in{from{animation-timing-function:linear;opacity:0}to{opacity:var(--mdc-ripple-fg-opacity, 0)}}@keyframes mdc-ripple-fg-opacity-out{from{animation-timing-function:linear;opacity:var(--mdc-ripple-fg-opacity, 0)}to{opacity:0}}:host{display:block}.mdc-list{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);line-height:1.75rem;line-height:var(--mdc-typography-subtitle1-line-height, 1.75rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);line-height:1.5rem;margin:0;padding:8px 0;list-style-type:none;color:rgba(0, 0, 0, 0.87);color:var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87));padding:var(--mdc-list-vertical-padding, 8px) 0}.mdc-list:focus{outline:none}.mdc-list-item{height:48px}.mdc-list--dense{padding-top:4px;padding-bottom:4px;font-size:.812rem}.mdc-list ::slotted([divider]){height:0;margin:0;border:none;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:rgba(0, 0, 0, 0.12)}.mdc-list ::slotted([divider][padded]){margin:0 var(--mdc-list-side-padding, 16px)}.mdc-list ::slotted([divider][inset]){margin-left:var(--mdc-list-inset-margin, 72px);margin-right:0;width:calc(100% - var(--mdc-list-inset-margin, 72px))}.mdc-list-group[dir=rtl] .mdc-list ::slotted([divider][inset]),[dir=rtl] .mdc-list-group .mdc-list ::slotted([divider][inset]){margin-left:0;margin-right:var(--mdc-list-inset-margin, 72px)}.mdc-list ::slotted([divider][inset][padded]){width:calc(100% - var(--mdc-list-inset-margin, 72px) - var(--mdc-list-side-padding, 16px))}.mdc-list--dense ::slotted([mwc-list-item]){height:40px}.mdc-list--dense ::slotted([mwc-list]){--mdc-list-item-graphic-size: 20px}.mdc-list--two-line.mdc-list--dense ::slotted([mwc-list-item]),.mdc-list--avatar-list.mdc-list--dense ::slotted([mwc-list-item]){height:60px}.mdc-list--avatar-list.mdc-list--dense ::slotted([mwc-list]){--mdc-list-item-graphic-size: 36px}:host([noninteractive]){pointer-events:none;cursor:default}.mdc-list--dense ::slotted(.mdc-list-item__primary-text){display:block;margin-top:0;line-height:normal;margin-bottom:-20px}.mdc-list--dense ::slotted(.mdc-list-item__primary-text)::before{display:inline-block;width:0;height:24px;content:"";vertical-align:0}.mdc-list--dense ::slotted(.mdc-list-item__primary-text)::after{display:inline-block;width:0;height:20px;content:"";vertical-align:-20px}`;
+const style$b = css$1 `@keyframes mdc-ripple-fg-radius-in{from{animation-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transform:translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1)}to{transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}}@keyframes mdc-ripple-fg-opacity-in{from{animation-timing-function:linear;opacity:0}to{opacity:var(--mdc-ripple-fg-opacity, 0)}}@keyframes mdc-ripple-fg-opacity-out{from{animation-timing-function:linear;opacity:var(--mdc-ripple-fg-opacity, 0)}to{opacity:0}}:host{display:block}.mdc-list{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);line-height:1.75rem;line-height:var(--mdc-typography-subtitle1-line-height, 1.75rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);line-height:1.5rem;margin:0;padding:8px 0;list-style-type:none;color:rgba(0, 0, 0, 0.87);color:var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87));padding:var(--mdc-list-vertical-padding, 8px) 0}.mdc-list:focus{outline:none}.mdc-list-item{height:48px}.mdc-list--dense{padding-top:4px;padding-bottom:4px;font-size:.812rem}.mdc-list ::slotted([divider]){height:0;margin:0;border:none;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:rgba(0, 0, 0, 0.12)}.mdc-list ::slotted([divider][padded]){margin:0 var(--mdc-list-side-padding, 16px)}.mdc-list ::slotted([divider][inset]){margin-left:var(--mdc-list-inset-margin, 72px);margin-right:0;width:calc(100% - var(--mdc-list-inset-margin, 72px))}.mdc-list-group[dir=rtl] .mdc-list ::slotted([divider][inset]),[dir=rtl] .mdc-list-group .mdc-list ::slotted([divider][inset]){margin-left:0;margin-right:var(--mdc-list-inset-margin, 72px)}.mdc-list ::slotted([divider][inset][padded]){width:calc(100% - var(--mdc-list-inset-margin, 72px) - var(--mdc-list-side-padding, 16px))}.mdc-list--dense ::slotted([mwc-list-item]){height:40px}.mdc-list--dense ::slotted([mwc-list]){--mdc-list-item-graphic-size: 20px}.mdc-list--two-line.mdc-list--dense ::slotted([mwc-list-item]),.mdc-list--avatar-list.mdc-list--dense ::slotted([mwc-list-item]){height:60px}.mdc-list--avatar-list.mdc-list--dense ::slotted([mwc-list]){--mdc-list-item-graphic-size: 36px}:host([noninteractive]){pointer-events:none;cursor:default}.mdc-list--dense ::slotted(.mdc-list-item__primary-text){display:block;margin-top:0;line-height:normal;margin-bottom:-20px}.mdc-list--dense ::slotted(.mdc-list-item__primary-text)::before{display:inline-block;width:0;height:24px;content:"";vertical-align:0}.mdc-list--dense ::slotted(.mdc-list-item__primary-text)::after{display:inline-block;width:0;height:20px;content:"";vertical-align:-20px}`;
 
 class List extends ScopedElementsMixin$1(ListBase) {
     static get scopedElements() {
@@ -20926,311 +23412,7 @@ class List extends ScopedElementsMixin$1(ListBase) {
         };
     }
 }
-List.styles = style$6;
-
-/**
- * @element search-agent
- * @fires agent-selected - Fired when the user selects some agent. `event.detail.agent` will contain the agent selected
- */
-class SearchAgent extends StoreElement {
-    constructor() {
-        /** Public attributes */
-        super(...arguments);
-        /**
-         * Whether to clear the field when an agent is selected
-         * @attr clear-on-select
-         */
-        this.clearOnSelect = false;
-        /**
-         * Whether to include my own agent as a possible agent to select
-         * @attr include-myself
-         */
-        this.includeMyself = false;
-        /**
-         * Label for the agent searching field
-         * @attr field-label
-         */
-        this.fieldLabel = 'Search agent';
-        this._currentFilter = undefined;
-        this._lastSearchedPrefix = undefined;
-    }
-    /** Private properties */
-    get _filteredAgents() {
-        let filtered = this.store.knownProfiles.filter(agent => agent.profile.nickname.startsWith(this._currentFilter));
-        if (!this.includeMyself) {
-            filtered = filtered.filter(agent => this.store.myAgentPubKey !== agent.agent_pub_key);
-        }
-        return filtered;
-    }
-    static get styles() {
-        return [
-            sharedStyles$3,
-            css$1 `
-        :host {
-          display: flex;
-        }
-        #list {
-          margin-top: 16px;
-          margin-left: 16px;
-        }
-      `,
-        ];
-    }
-    firstUpdated() {
-        this.addEventListener('blur', () => this._overlay.close());
-    }
-    async searchAgents(nicknamePrefix) {
-        this._lastSearchedPrefix = nicknamePrefix;
-        await this.store.searchProfiles(nicknamePrefix);
-    }
-    onFilterChange() {
-        if (this._textField.value.length < 3)
-            return;
-        this._overlay.show();
-        this._currentFilter = this._textField.value;
-        const filterPrefix = this._currentFilter.slice(0, 3);
-        if (filterPrefix !== this._lastSearchedPrefix) {
-            this.searchAgents(filterPrefix);
-        }
-    }
-    onUsernameSelected(agent) {
-        // If nickname matches agent, user has selected it
-        if (agent) {
-            this.dispatchEvent(new CustomEvent('agent-selected', {
-                detail: {
-                    agent,
-                },
-            }));
-            // If the consumer says so, clear the field
-            if (this.clearOnSelect) {
-                this._textField.value = '';
-            }
-            else {
-                this._textField.value = agent.profile.nickname;
-            }
-            this._overlay.close();
-        }
-    }
-    render() {
-        return html$1 `
-      <div style="position: relative">
-        <mwc-textfield
-          id="textfield"
-          class="input"
-          .label=${this.fieldLabel}
-          placeholder="At least 3 chars..."
-          outlined
-          @input=${() => this.onFilterChange()}
-          @focus=${() => this._currentFilter && this._overlay.show()}
-        >
-        </mwc-textfield>
-        <mwc-menu-surface absolute id="overlay" x="4" y="28">
-          ${this._filteredAgents.length > 0
-            ? this._filteredAgents.map(agent => html$1 `
-                  <mwc-list
-                    @selected=${(e) => this.onUsernameSelected(this._filteredAgents[e.detail.index])}
-                    activatable
-                    style="min-width: 80px;"
-                  >
-                    <mwc-list-item
-                      graphic="avatar"
-                      .value=${agent.agent_pub_key}
-                    >
-                      <ui5-avatar
-                        slot="graphic"
-                        image="${agent.profile.fields.avatar}"
-                        size="XS"
-                      ></ui5-avatar>
-                      <span style="margin-left: 8px;"
-                        >${agent.profile.nickname}</span
-                      >
-                    </mwc-list-item>
-                  </mwc-list>
-                `)
-            : html$1 `<mwc-list-item>No agents match the filter</mwc-list-item>`}
-        </mwc-menu-surface>
-      </div>
-    `;
-    }
-    getScopedElements() {
-        return {
-            'ui5-avatar': Avatar,
-            'mwc-textfield': TextField,
-            'mwc-menu-surface': MenuSurface,
-            'mwc-list': List,
-            'mwc-list-item': ListItem,
-        };
-    }
-}
-__decorate$2([
-    property$1({ type: Boolean, attribute: 'clear-on-select' })
-], SearchAgent.prototype, "clearOnSelect", void 0);
-__decorate$2([
-    property$1({ type: Boolean, attribute: 'include-myself' })
-], SearchAgent.prototype, "includeMyself", void 0);
-__decorate$2([
-    property$1({ type: String, attribute: 'field-label' })
-], SearchAgent.prototype, "fieldLabel", void 0);
-__decorate$2([
-    property$1({ type: String })
-], SearchAgent.prototype, "_currentFilter", void 0);
-__decorate$2([
-    query$1('#textfield')
-], SearchAgent.prototype, "_textField", void 0);
-__decorate$2([
-    query$1('#overlay')
-], SearchAgent.prototype, "_overlay", void 0);
-
-/** @soyCompatible */
-class CircularProgressBase extends LitElement$1 {
-    constructor() {
-        super(...arguments);
-        this.indeterminate = false;
-        this.progress = 0;
-        this.density = 0;
-        this.closed = false;
-        this.ariaLabel = '';
-    }
-    open() {
-        this.closed = false;
-    }
-    close() {
-        this.closed = true;
-    }
-    /**
-     * @soyTemplate
-     */
-    render() {
-        /** @classMap */
-        const classes = {
-            'mdc-circular-progress--closed': this.closed,
-            'mdc-circular-progress--indeterminate': this.indeterminate,
-        };
-        const containerSideLength = 48 + this.density * 4;
-        const styles = {
-            'width': `${containerSideLength}px`,
-            'height': `${containerSideLength}px`,
-        };
-        return html$1 `
-      <div
-        class="mdc-circular-progress ${classMap$1(classes)}"
-        style="${styleMap(styles)}"
-        role="progressbar"
-        aria-label="${this.ariaLabel}"
-        aria-valuemin="0"
-        aria-valuemax="1"
-        aria-valuenow="${ifDefined$1(this.indeterminate ? undefined : this.progress)}">
-        ${this.renderDeterminateContainer()}
-        ${this.renderIndeterminateContainer()}
-      </div>`;
-    }
-    /**
-     * @soyTemplate
-     */
-    renderDeterminateContainer() {
-        const sideLength = 48 + this.density * 4;
-        const center = sideLength / 2;
-        const circleRadius = this.density >= -3 ? 18 + this.density * 11 / 6 :
-            12.5 + (this.density + 3) * 5 / 4;
-        const circumference = 2 * 3.1415926 * circleRadius;
-        const determinateStrokeDashOffset = (1 - this.progress) * circumference;
-        const strokeWidth = this.density >= -3 ? 4 + this.density * (1 / 3) :
-            3 + (this.density + 3) * (1 / 6);
-        return html$1 `
-      <div class="mdc-circular-progress__determinate-container">
-        <svg class="mdc-circular-progress__determinate-circle-graphic"
-             viewBox="0 0 ${sideLength} ${sideLength}">
-          <circle class="mdc-circular-progress__determinate-track"
-                  cx="${center}" cy="${center}" r="${circleRadius}"
-                  stroke-width="${strokeWidth}"></circle>
-          <circle class="mdc-circular-progress__determinate-circle"
-                  cx="${center}" cy="${center}" r="${circleRadius}"
-                  stroke-dasharray="${2 * 3.1415926 * circleRadius}"
-                  stroke-dashoffset="${determinateStrokeDashOffset}"
-                  stroke-width="${strokeWidth}"></circle>
-        </svg>
-      </div>`;
-    }
-    /**
-     * @soyTemplate
-     */
-    renderIndeterminateContainer() {
-        return html$1 `
-      <div class="mdc-circular-progress__indeterminate-container">
-        <div class="mdc-circular-progress__spinner-layer">
-          ${this.renderIndeterminateSpinnerLayer()}
-        </div>
-      </div>`;
-    }
-    /**
-     * @soyTemplate
-     */
-    renderIndeterminateSpinnerLayer() {
-        const sideLength = 48 + this.density * 4;
-        const center = sideLength / 2;
-        const circleRadius = this.density >= -3 ? 18 + this.density * 11 / 6 :
-            12.5 + (this.density + 3) * 5 / 4;
-        const circumference = 2 * 3.1415926 * circleRadius;
-        const halfCircumference = 0.5 * circumference;
-        const strokeWidth = this.density >= -3 ? 4 + this.density * (1 / 3) :
-            3 + (this.density + 3) * (1 / 6);
-        return html$1 `
-        <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-left">
-          <svg class="mdc-circular-progress__indeterminate-circle-graphic"
-               viewBox="0 0 ${sideLength} ${sideLength}">
-            <circle cx="${center}" cy="${center}" r="${circleRadius}"
-                    stroke-dasharray="${circumference}"
-                    stroke-dashoffset="${halfCircumference}"
-                    stroke-width="${strokeWidth}"></circle>
-          </svg>
-        </div>
-        <div class="mdc-circular-progress__gap-patch">
-          <svg class="mdc-circular-progress__indeterminate-circle-graphic"
-               viewBox="0 0 ${sideLength} ${sideLength}">
-            <circle cx="${center}" cy="${center}" r="${circleRadius}"
-                    stroke-dasharray="${circumference}"
-                    stroke-dashoffset="${halfCircumference}"
-                    stroke-width="${strokeWidth * 0.8}"></circle>
-          </svg>
-        </div>
-        <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-right">
-          <svg class="mdc-circular-progress__indeterminate-circle-graphic"
-               viewBox="0 0 ${sideLength} ${sideLength}">
-            <circle cx="${center}" cy="${center}" r="${circleRadius}"
-                    stroke-dasharray="${circumference}"
-                    stroke-dashoffset="${halfCircumference}"
-                    stroke-width="${strokeWidth}"></circle>
-          </svg>
-        </div>`;
-    }
-    update(changedProperties) {
-        super.update(changedProperties);
-        // Bound progress value in interval [0, 1].
-        if (changedProperties.has('progress')) {
-            if (this.progress > 1) {
-                this.progress = 1;
-            }
-            if (this.progress < 0) {
-                this.progress = 0;
-            }
-        }
-    }
-}
-__decorate$2([
-    property$1({ type: Boolean, reflect: true })
-], CircularProgressBase.prototype, "indeterminate", void 0);
-__decorate$2([
-    property$1({ type: Number, reflect: true })
-], CircularProgressBase.prototype, "progress", void 0);
-__decorate$2([
-    property$1({ type: Number, reflect: true })
-], CircularProgressBase.prototype, "density", void 0);
-__decorate$2([
-    property$1({ type: Boolean, reflect: true })
-], CircularProgressBase.prototype, "closed", void 0);
-__decorate$2([
-    property$1({ type: String })
-], CircularProgressBase.prototype, "ariaLabel", void 0);
+List.styles = style$b;
 
 /**
 @license
@@ -21248,607 +23430,217 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const style$5 = css$1 `.mdc-circular-progress__determinate-circle,.mdc-circular-progress__indeterminate-circle-graphic{stroke:#6200ee;stroke:var(--mdc-theme-primary, #6200ee)}.mdc-circular-progress__determinate-track{stroke:transparent}@keyframes mdc-circular-progress-container-rotate{to{transform:rotate(360deg)}}@keyframes mdc-circular-progress-spinner-layer-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}@keyframes mdc-circular-progress-color-1-fade-in-out{from{opacity:.99}25%{opacity:.99}26%{opacity:0}89%{opacity:0}90%{opacity:.99}to{opacity:.99}}@keyframes mdc-circular-progress-color-2-fade-in-out{from{opacity:0}15%{opacity:0}25%{opacity:.99}50%{opacity:.99}51%{opacity:0}to{opacity:0}}@keyframes mdc-circular-progress-color-3-fade-in-out{from{opacity:0}40%{opacity:0}50%{opacity:.99}75%{opacity:.99}76%{opacity:0}to{opacity:0}}@keyframes mdc-circular-progress-color-4-fade-in-out{from{opacity:0}65%{opacity:0}75%{opacity:.99}90%{opacity:.99}to{opacity:0}}@keyframes mdc-circular-progress-left-spin{from{transform:rotate(265deg)}50%{transform:rotate(130deg)}to{transform:rotate(265deg)}}@keyframes mdc-circular-progress-right-spin{from{transform:rotate(-265deg)}50%{transform:rotate(-130deg)}to{transform:rotate(-265deg)}}.mdc-circular-progress{display:inline-flex;position:relative;direction:ltr;transition:opacity 250ms 0ms cubic-bezier(0.4, 0, 0.6, 1)}.mdc-circular-progress__determinate-container,.mdc-circular-progress__indeterminate-circle-graphic,.mdc-circular-progress__indeterminate-container,.mdc-circular-progress__spinner-layer{position:absolute;width:100%;height:100%}.mdc-circular-progress__determinate-container{transform:rotate(-90deg)}.mdc-circular-progress__indeterminate-container{font-size:0;letter-spacing:0;white-space:nowrap;opacity:0}.mdc-circular-progress__determinate-circle-graphic,.mdc-circular-progress__indeterminate-circle-graphic{fill:transparent}.mdc-circular-progress__determinate-circle{transition:stroke-dashoffset 500ms 0ms cubic-bezier(0, 0, 0.2, 1)}.mdc-circular-progress__gap-patch{position:absolute;top:0;left:47.5%;box-sizing:border-box;width:5%;height:100%;overflow:hidden}.mdc-circular-progress__gap-patch .mdc-circular-progress__indeterminate-circle-graphic{left:-900%;width:2000%;transform:rotate(180deg)}.mdc-circular-progress__circle-clipper{display:inline-flex;position:relative;width:50%;height:100%;overflow:hidden}.mdc-circular-progress__circle-clipper .mdc-circular-progress__indeterminate-circle-graphic{width:200%}.mdc-circular-progress__circle-right .mdc-circular-progress__indeterminate-circle-graphic{left:-100%}.mdc-circular-progress--indeterminate .mdc-circular-progress__determinate-container{opacity:0}.mdc-circular-progress--indeterminate .mdc-circular-progress__indeterminate-container{opacity:1}.mdc-circular-progress--indeterminate .mdc-circular-progress__indeterminate-container{animation:mdc-circular-progress-container-rotate 1568.2352941176ms linear infinite}.mdc-circular-progress--indeterminate .mdc-circular-progress__spinner-layer{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-1{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-1-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-2{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-2-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-3{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-3-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-4{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-4-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__circle-left .mdc-circular-progress__indeterminate-circle-graphic{animation:mdc-circular-progress-left-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__circle-right .mdc-circular-progress__indeterminate-circle-graphic{animation:mdc-circular-progress-right-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--closed{opacity:0}:host{display:inline-flex}.mdc-circular-progress__determinate-track{stroke:transparent;stroke:var(--mdc-circular-progress-track-color, transparent)}`;
+const style$a = css$1 `:host{font-family:var(--mdc-icon-font, "Material Icons");font-weight:normal;font-style:normal;font-size:var(--mdc-icon-size, 24px);line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale;font-feature-settings:"liga"}`;
 
-class CircularProgress extends CircularProgressBase {
+class Icon$1 extends ScopedElementsMixin$1(LitElement$1) {
+    /** @soyTemplate */
+    render() {
+        return html$1 `<slot></slot>`;
+    }
 }
-CircularProgress.styles = style$5;
+Icon$1.styles = style$a;
+
+/** @soyCompatible */
+class ButtonBase extends LitElement$1 {
+    constructor() {
+        super(...arguments);
+        this.raised = false;
+        this.unelevated = false;
+        this.outlined = false;
+        this.dense = false;
+        this.disabled = false;
+        this.trailingIcon = false;
+        this.fullwidth = false;
+        this.icon = '';
+        this.label = '';
+        this.expandContent = false;
+        this.shouldRenderRipple = false;
+        this.rippleHandlers = new RippleHandlers$1(() => {
+            this.shouldRenderRipple = true;
+            return this.ripple;
+        });
+    }
+    /** @soyTemplate */
+    renderOverlay() {
+        return html$1 ``;
+    }
+    /** @soyTemplate */
+    renderRipple() {
+        const filled = this.raised || this.unelevated;
+        return this.shouldRenderRipple ?
+            html$1 `<mwc-ripple class="ripple" .primary="${!filled}" .disabled="${this.disabled}"></mwc-ripple>` :
+            '';
+    }
+    createRenderRoot() {
+        return this.attachShadow({ mode: 'open', delegatesFocus: true });
+    }
+    focus() {
+        const buttonElement = this.buttonElement;
+        if (buttonElement) {
+            this.rippleHandlers.startFocus();
+            buttonElement.focus();
+        }
+    }
+    blur() {
+        const buttonElement = this.buttonElement;
+        if (buttonElement) {
+            this.rippleHandlers.endFocus();
+            buttonElement.blur();
+        }
+    }
+    /** @soyTemplate classMap */
+    getRenderClasses() {
+        return classMap$1({
+            'mdc-button--raised': this.raised,
+            'mdc-button--unelevated': this.unelevated,
+            'mdc-button--outlined': this.outlined,
+            'mdc-button--dense': this.dense,
+        });
+    }
+    /**
+     * @soyTemplate
+     * @soyAttributes buttonAttributes: #button
+     * @soyClasses buttonClasses: #button
+     */
+    render() {
+        return html$1 `
+      <button
+          id="button"
+          class="mdc-button ${this.getRenderClasses()}"
+          ?disabled="${this.disabled}"
+          aria-label="${this.label || this.icon}"
+          @focus="${this.handleRippleFocus}"
+          @blur="${this.handleRippleBlur}"
+          @mousedown="${this.handleRippleActivate}"
+          @mouseenter="${this.handleRippleMouseEnter}"
+          @mouseleave="${this.handleRippleMouseLeave}"
+          @touchstart="${this.handleRippleActivate}"
+          @touchend="${this.handleRippleDeactivate}"
+          @touchcancel="${this.handleRippleDeactivate}">
+        ${this.renderOverlay()}
+        ${this.renderRipple()}
+        <span class="leading-icon">
+          <slot name="icon">
+            ${this.icon && !this.trailingIcon ? this.renderIcon() : ''}
+          </slot>
+        </span>
+        <span class="mdc-button__label">${this.label}</span>
+        <span class="slot-container ${classMap$1({
+            flex: this.expandContent
+        })}">
+          <slot></slot>
+        </span>
+        <span class="trailing-icon">
+          <slot name="trailingIcon">
+            ${this.icon && this.trailingIcon ? this.renderIcon() : ''}
+          </slot>
+        </span>
+      </button>`;
+    }
+    /** @soyTemplate */
+    renderIcon() {
+        return html$1 `
+    <mwc-icon class="mdc-button__icon">
+      ${this.icon}
+    </mwc-icon>`;
+    }
+    handleRippleActivate(evt) {
+        const onUp = () => {
+            window.removeEventListener('mouseup', onUp);
+            this.handleRippleDeactivate();
+        };
+        window.addEventListener('mouseup', onUp);
+        this.rippleHandlers.startPress(evt);
+    }
+    handleRippleDeactivate() {
+        this.rippleHandlers.endPress();
+    }
+    handleRippleMouseEnter() {
+        this.rippleHandlers.startHover();
+    }
+    handleRippleMouseLeave() {
+        this.rippleHandlers.endHover();
+    }
+    handleRippleFocus() {
+        this.rippleHandlers.startFocus();
+    }
+    handleRippleBlur() {
+        this.rippleHandlers.endFocus();
+    }
+}
+__decorate$3([
+    property$1({ type: Boolean, reflect: true })
+], ButtonBase.prototype, "raised", void 0);
+__decorate$3([
+    property$1({ type: Boolean, reflect: true })
+], ButtonBase.prototype, "unelevated", void 0);
+__decorate$3([
+    property$1({ type: Boolean, reflect: true })
+], ButtonBase.prototype, "outlined", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], ButtonBase.prototype, "dense", void 0);
+__decorate$3([
+    property$1({ type: Boolean, reflect: true })
+], ButtonBase.prototype, "disabled", void 0);
+__decorate$3([
+    property$1({ type: Boolean, attribute: 'trailingicon' })
+], ButtonBase.prototype, "trailingIcon", void 0);
+__decorate$3([
+    property$1({ type: Boolean, reflect: true })
+], ButtonBase.prototype, "fullwidth", void 0);
+__decorate$3([
+    property$1({ type: String })
+], ButtonBase.prototype, "icon", void 0);
+__decorate$3([
+    property$1({ type: String })
+], ButtonBase.prototype, "label", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], ButtonBase.prototype, "expandContent", void 0);
+__decorate$3([
+    query$1('#button')
+], ButtonBase.prototype, "buttonElement", void 0);
+__decorate$3([
+    queryAsync('mwc-ripple')
+], ButtonBase.prototype, "ripple", void 0);
+__decorate$3([
+    internalProperty()
+], ButtonBase.prototype, "shouldRenderRipple", void 0);
+__decorate$3([
+    eventOptions({ passive: true })
+], ButtonBase.prototype, "handleRippleActivate", null);
 
 /**
- * @element profile-prompt
- */
-class ProfilePrompt extends StoreElement {
-    constructor() {
-        /** Public attributes */
-        super(...arguments);
-        /** Private properties */
-        this._loading = true;
-    }
-    static get styles() {
-        return [
-            sharedStyles$3,
-            css$1 `
-        :host {
-          display: flex;
-        }
-      `,
-        ];
-    }
-    async firstUpdated() {
-        await this.store.fetchMyProfile();
-        this._loading = false;
-    }
-    renderPrompt() {
-        return html$1 ` <div
-      class="column"
-      style="align-items: center; justify-content: center; flex: 1;"
-    >
-      ${this._loading
-            ? html$1 `<mwc-circular-progress indeterminate></mwc-circular-progress>`
-            : html$1 `<create-profile-form></create-profile-form>`}
-    </div>`;
-    }
-    render() {
-        return html$1 `
-      ${!this._loading && this.store.myProfile
-            ? html$1 `<slot></slot>`
-            : this.renderPrompt()}
-    `;
-    }
-    getScopedElements() {
-        return {
-            'mwc-textfield': TextField,
-            'mwc-button': Button,
-            'mwc-circular-progress': CircularProgress,
-            'create-profile-form': connectStore(CreateProfileForm, this.store),
-        };
-    }
-}
-__decorate$2([
-    property$1({ type: Boolean })
-], ProfilePrompt.prototype, "_loading", void 0);
+@license
+Copyright 2018 Google Inc. All Rights Reserved.
 
-class ListProfiles extends StoreElement {
-    constructor() {
-        /** Private properties */
-        super(...arguments);
-        this._loading = true;
-    }
-    static get styles() {
-        return [
-            sharedStyles$3,
-            css$1 `
-        :host {
-          display: flex;
-        }
-      `,
-        ];
-    }
-    async firstUpdated() {
-        await this.store.fetchAllProfiles();
-        this._loading = false;
-    }
-    initials(nickname) {
-        return nickname
-            .split(' ')
-            .map(name => name[0])
-            .join('');
-    }
-    render() {
-        if (this._loading)
-            return html$1 `<div class="fill center-content">
-        <mwc-circular-progress indeterminate></mwc-circular-progress>
-      </div>`;
-        const allProfiles = this.store.profiles;
-        if (Object.keys(allProfiles).length === 0)
-            return html$1 `<mwc-list-item
-        >There are no created profiles yet</mwc-list-item
-      >`;
-        return html$1 `
-      <mwc-list style="min-width: 80px;">
-        ${Object.entries(allProfiles).map(([agent_pub_key, profile]) => html$1 `
-            <mwc-list-item graphic="avatar" .value=${agent_pub_key}>
-              <ui5-avatar
-                slot="graphic"
-                .image=${profile.fields.avatar}
-                initials=${this.initials(profile.nickname)}
-                size="XS"
-              ></ui5-avatar>
-              <span style="margin-left: 8px;">${profile.nickname}</span>
-            </mwc-list-item>
-          `)}
-      </mwc-list>
-    `;
-    }
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+const style$9 = css$1 `.mdc-touch-target-wrapper{display:inline}.mdc-elevation-overlay{position:absolute;border-radius:inherit;pointer-events:none;opacity:0;opacity:var(--mdc-elevation-overlay-opacity, 0);transition:opacity 280ms cubic-bezier(0.4, 0, 0.2, 1);background-color:#fff;background-color:var(--mdc-elevation-overlay-color, #fff)}.mdc-button{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-button-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.875rem;font-size:var(--mdc-typography-button-font-size, 0.875rem);line-height:2.25rem;line-height:var(--mdc-typography-button-line-height, 2.25rem);font-weight:500;font-weight:var(--mdc-typography-button-font-weight, 500);letter-spacing:0.0892857143em;letter-spacing:var(--mdc-typography-button-letter-spacing, 0.0892857143em);text-decoration:none;text-decoration:var(--mdc-typography-button-text-decoration, none);text-transform:uppercase;text-transform:var(--mdc-typography-button-text-transform, uppercase);padding:0 8px 0 8px;position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;line-height:inherit;user-select:none;-webkit-appearance:none;overflow:visible;vertical-align:middle;border-radius:4px;border-radius:var(--mdc-shape-small, 4px);height:36px}.mdc-button .mdc-elevation-overlay{width:100%;height:100%;top:0;left:0}.mdc-button::-moz-focus-inner{padding:0;border:0}.mdc-button:active{outline:none}.mdc-button:hover{cursor:pointer}.mdc-button:disabled{cursor:default;pointer-events:none}.mdc-button .mdc-button__ripple{border-radius:4px;border-radius:var(--mdc-shape-small, 4px)}.mdc-button:not(:disabled){background-color:transparent}.mdc-button:disabled{background-color:transparent}.mdc-button .mdc-button__icon{margin-left:0;margin-right:8px;display:inline-block;width:18px;height:18px;font-size:18px;vertical-align:top}[dir=rtl] .mdc-button .mdc-button__icon,.mdc-button .mdc-button__icon[dir=rtl]{margin-left:8px;margin-right:0}.mdc-button .mdc-button__touch{position:absolute;top:50%;right:0;height:48px;left:0;transform:translateY(-50%)}.mdc-button:not(:disabled){color:#6200ee;color:var(--mdc-theme-primary, #6200ee)}.mdc-button:disabled{color:rgba(0, 0, 0, 0.38)}.mdc-button__label+.mdc-button__icon{margin-left:8px;margin-right:0}[dir=rtl] .mdc-button__label+.mdc-button__icon,.mdc-button__label+.mdc-button__icon[dir=rtl]{margin-left:0;margin-right:8px}svg.mdc-button__icon{fill:currentColor}.mdc-button--raised .mdc-button__icon,.mdc-button--unelevated .mdc-button__icon,.mdc-button--outlined .mdc-button__icon{margin-left:-4px;margin-right:8px}[dir=rtl] .mdc-button--raised .mdc-button__icon,.mdc-button--raised .mdc-button__icon[dir=rtl],[dir=rtl] .mdc-button--unelevated .mdc-button__icon,.mdc-button--unelevated .mdc-button__icon[dir=rtl],[dir=rtl] .mdc-button--outlined .mdc-button__icon,.mdc-button--outlined .mdc-button__icon[dir=rtl]{margin-left:8px;margin-right:-4px}.mdc-button--raised .mdc-button__label+.mdc-button__icon,.mdc-button--unelevated .mdc-button__label+.mdc-button__icon,.mdc-button--outlined .mdc-button__label+.mdc-button__icon{margin-left:8px;margin-right:-4px}[dir=rtl] .mdc-button--raised .mdc-button__label+.mdc-button__icon,.mdc-button--raised .mdc-button__label+.mdc-button__icon[dir=rtl],[dir=rtl] .mdc-button--unelevated .mdc-button__label+.mdc-button__icon,.mdc-button--unelevated .mdc-button__label+.mdc-button__icon[dir=rtl],[dir=rtl] .mdc-button--outlined .mdc-button__label+.mdc-button__icon,.mdc-button--outlined .mdc-button__label+.mdc-button__icon[dir=rtl]{margin-left:-4px;margin-right:8px}.mdc-button--raised,.mdc-button--unelevated{padding:0 16px 0 16px}.mdc-button--raised:not(:disabled),.mdc-button--unelevated:not(:disabled){background-color:#6200ee;background-color:var(--mdc-theme-primary, #6200ee)}.mdc-button--raised:not(:disabled),.mdc-button--unelevated:not(:disabled){color:#fff;color:var(--mdc-theme-on-primary, #fff)}.mdc-button--raised:disabled,.mdc-button--unelevated:disabled{background-color:rgba(0, 0, 0, 0.12)}.mdc-button--raised:disabled,.mdc-button--unelevated:disabled{color:rgba(0, 0, 0, 0.38)}.mdc-button--raised{box-shadow:0px 3px 1px -2px rgba(0, 0, 0, 0.2),0px 2px 2px 0px rgba(0, 0, 0, 0.14),0px 1px 5px 0px rgba(0,0,0,.12);transition:box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-button--raised:hover,.mdc-button--raised:focus{box-shadow:0px 2px 4px -1px rgba(0, 0, 0, 0.2),0px 4px 5px 0px rgba(0, 0, 0, 0.14),0px 1px 10px 0px rgba(0,0,0,.12)}.mdc-button--raised:active{box-shadow:0px 5px 5px -3px rgba(0, 0, 0, 0.2),0px 8px 10px 1px rgba(0, 0, 0, 0.14),0px 3px 14px 2px rgba(0,0,0,.12)}.mdc-button--raised:disabled{box-shadow:0px 0px 0px 0px rgba(0, 0, 0, 0.2),0px 0px 0px 0px rgba(0, 0, 0, 0.14),0px 0px 0px 0px rgba(0,0,0,.12)}.mdc-button--outlined{padding:0 15px 0 15px;border-width:1px;border-style:solid}.mdc-button--outlined .mdc-button__ripple{top:-1px;left:-1px;border:1px solid transparent}.mdc-button--outlined .mdc-button__touch{left:-1px;width:calc(100% + 2 * 1px)}.mdc-button--outlined:not(:disabled){border-color:rgba(0, 0, 0, 0.12)}.mdc-button--outlined:disabled{border-color:rgba(0, 0, 0, 0.12)}.mdc-button--touch{margin-top:6px;margin-bottom:6px}:host{display:inline-flex;outline:none;-webkit-tap-highlight-color:transparent;vertical-align:top}:host([fullwidth]){width:100%}:host([raised]),:host([unelevated]){--mdc-ripple-color: #fff;--mdc-ripple-focus-opacity: 0.24;--mdc-ripple-hover-opacity: 0.08;--mdc-ripple-press-opacity: 0.24}.trailing-icon ::slotted(*),.trailing-icon .mdc-button__icon,.leading-icon ::slotted(*),.leading-icon .mdc-button__icon{margin-left:0;margin-right:8px;display:inline-block;width:18px;height:18px;font-size:18px;vertical-align:top}[dir=rtl] .trailing-icon ::slotted(*),.trailing-icon ::slotted(*)[dir=rtl],[dir=rtl] .trailing-icon .mdc-button__icon,.trailing-icon .mdc-button__icon[dir=rtl],[dir=rtl] .leading-icon ::slotted(*),.leading-icon ::slotted(*)[dir=rtl],[dir=rtl] .leading-icon .mdc-button__icon,.leading-icon .mdc-button__icon[dir=rtl]{margin-left:8px;margin-right:0}.trailing-icon ::slotted(*),.trailing-icon .mdc-button__icon{margin-left:8px;margin-right:0}[dir=rtl] .trailing-icon ::slotted(*),.trailing-icon ::slotted(*)[dir=rtl],[dir=rtl] .trailing-icon .mdc-button__icon,.trailing-icon .mdc-button__icon[dir=rtl]{margin-left:0;margin-right:8px}.slot-container{display:inline-flex;align-items:center;justify-content:center}.slot-container.flex{flex:auto}.mdc-button{flex:auto;overflow:hidden;padding-left:8px;padding-left:var(--mdc-button-horizontal-padding, 8px);padding-right:8px;padding-right:var(--mdc-button-horizontal-padding, 8px)}.mdc-button--raised{box-shadow:0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);box-shadow:var(--mdc-button-raised-box-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12))}.mdc-button--raised:focus{box-shadow:0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);box-shadow:var(--mdc-button-raised-box-shadow-focus, var(--mdc-button-raised-box-shadow-hover, 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)))}.mdc-button--raised:hover{box-shadow:0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);box-shadow:var(--mdc-button-raised-box-shadow-hover, 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12))}.mdc-button--raised:active{box-shadow:0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);box-shadow:var(--mdc-button-raised-box-shadow-active, 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12))}.mdc-button--raised:disabled{box-shadow:0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12);box-shadow:var(--mdc-button-raised-box-shadow-disabled, 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12))}.mdc-button--raised,.mdc-button--unelevated{padding-left:16px;padding-left:var(--mdc-button-horizontal-padding, 16px);padding-right:16px;padding-right:var(--mdc-button-horizontal-padding, 16px)}.mdc-button--outlined{border-width:1px;border-width:var(--mdc-button-outline-width, 1px);padding-left:calc(16px - 1px);padding-left:calc(var(--mdc-button-horizontal-padding, 16px) - var(--mdc-button-outline-width, 1px));padding-right:calc(16px - 1px);padding-right:calc(var(--mdc-button-horizontal-padding, 16px) - var(--mdc-button-outline-width, 1px))}.mdc-button--outlined:not(:disabled){border-color:rgba(0, 0, 0, 0.12);border-color:var(--mdc-button-outline-color, rgba(0, 0, 0, 0.12))}.mdc-button--outlined .ripple{top:calc(-1 * 1px);top:calc(-1 * var(--mdc-button-outline-width, 1px));left:calc(-1 * 1px);left:calc(-1 * var(--mdc-button-outline-width, 1px));right:initial;border-width:1px;border-width:var(--mdc-button-outline-width, 1px);border-style:solid;border-color:transparent}[dir=rtl] .mdc-button--outlined .ripple,.mdc-button--outlined .ripple[dir=rtl]{left:initial;right:calc(-1 * 1px);right:calc(-1 * var(--mdc-button-outline-width, 1px))}.mdc-button--dense{height:28px;margin-top:0;margin-bottom:0}.mdc-button--dense .mdc-button__touch{display:none}:host([disabled]){pointer-events:none}:host([disabled]) .mdc-button{color:rgba(0, 0, 0, 0.38);color:var(--mdc-button-disabled-ink-color, rgba(0, 0, 0, 0.38))}:host([disabled]) .mdc-button--raised,:host([disabled]) .mdc-button--unelevated{background-color:rgba(0, 0, 0, 0.12);background-color:var(--mdc-button-disabled-fill-color, rgba(0, 0, 0, 0.12))}:host([disabled]) .mdc-button--outlined{border-color:rgba(0, 0, 0, 0.12);border-color:var(--mdc-button-disabled-outline-color, rgba(0, 0, 0, 0.12))}`;
+
+class Button extends ScopedElementsMixin$1(ButtonBase) {
     static get scopedElements() {
         return {
-            'ui5-avatar': Avatar,
-            'mwc-circular-progress': CircularProgress,
-            'mwc-list': List,
-            'mwc-list-item': ListItem,
+            'mwc-icon': Icon$1,
+            'mwc-ripple': Ripple$1,
         };
     }
 }
-__decorate$2([
-    property$1({ type: Boolean })
-], ListProfiles.prototype, "_loading", void 0);
-
-class ProfilesService {
-    constructor(appWebsocket, cellId, zomeName = 'profiles') {
-        this.appWebsocket = appWebsocket;
-        this.cellId = cellId;
-        this.zomeName = zomeName;
-    }
-    async getMyProfile() {
-        return this.callZome('get_my_profile', null);
-    }
-    async getAgentProfile(agentPubKey) {
-        return this.callZome('get_agent_profile', agentPubKey);
-    }
-    async searchProfiles(nicknamePrefix) {
-        return this.callZome('search_profiles', {
-            nickname_prefix: nicknamePrefix,
-        });
-    }
-    async getAllProfiles() {
-        return this.callZome('get_all_profiles', null);
-    }
-    async createProfile(profile) {
-        const profileResult = await this.callZome('create_profile', profile);
-        return {
-            agent_pub_key: profileResult.agent_pub_key,
-            profile: profileResult.profile,
-        };
-    }
-    callZome(fn_name, payload) {
-        return this.appWebsocket.callZome({
-            cap: null,
-            cell_id: this.cellId,
-            zome_name: this.zomeName,
-            fn_name: fn_name,
-            payload: payload,
-            provenance: this.cellId[1],
-        });
-    }
-}
-
-var HeaderType;
-(function (HeaderType) {
-    HeaderType["Dna"] = "Dna";
-    HeaderType["AgentValidationPkg"] = "AgentValidationPkg";
-    HeaderType["InitZomesComplete"] = "InitZomesComplete";
-    HeaderType["CreateLink"] = "CreateLink";
-    HeaderType["DeleteLink"] = "DeleteLink";
-    HeaderType["OpenChain"] = "OpenChain";
-    HeaderType["CloseChain"] = "CloseChain";
-    HeaderType["Create"] = "Create";
-    HeaderType["Update"] = "Update";
-    HeaderType["Delete"] = "Delete";
-})(HeaderType || (HeaderType = {}));
-
-// https://github.com/holochain/holochain/blob/develop/crates/types/src/dht_op.rs
-var DHTOpType;
-(function (DHTOpType) {
-    DHTOpType["StoreElement"] = "StoreElement";
-    DHTOpType["StoreEntry"] = "StoreEntry";
-    DHTOpType["RegisterAgentActivity"] = "RegisterAgentActivity";
-    DHTOpType["RegisterUpdatedContent"] = "RegisterUpdatedContent";
-    DHTOpType["RegisterUpdatedElement"] = "RegisterUpdatedElement";
-    DHTOpType["RegisterDeletedBy"] = "RegisterDeletedBy";
-    DHTOpType["RegisterDeletedEntryHeader"] = "RegisterDeletedEntryHeader";
-    DHTOpType["RegisterAddLink"] = "RegisterAddLink";
-    DHTOpType["RegisterRemoveLink"] = "RegisterRemoveLink";
-})(DHTOpType || (DHTOpType = {}));
-[
-    DHTOpType.RegisterAgentActivity,
-    DHTOpType.StoreEntry,
-    DHTOpType.StoreElement,
-    DHTOpType.RegisterUpdatedContent,
-    DHTOpType.RegisterUpdatedElement,
-    DHTOpType.RegisterDeletedEntryHeader,
-    DHTOpType.RegisterDeletedBy,
-    DHTOpType.RegisterAddLink,
-    DHTOpType.RegisterRemoveLink,
-];
-
-var DetailsType;
-(function (DetailsType) {
-    DetailsType[DetailsType["Entry"] = 0] = "Entry";
-    DetailsType[DetailsType["Element"] = 1] = "Element";
-})(DetailsType || (DetailsType = {}));
-
-var ChainStatus;
-(function (ChainStatus) {
-    ChainStatus[ChainStatus["Empty"] = 0] = "Empty";
-    ChainStatus[ChainStatus["Valid"] = 1] = "Valid";
-    ChainStatus[ChainStatus["Forked"] = 2] = "Forked";
-    ChainStatus[ChainStatus["Invalid"] = 3] = "Invalid";
-})(ChainStatus || (ChainStatus = {}));
-var EntryDhtStatus;
-(function (EntryDhtStatus) {
-    EntryDhtStatus[EntryDhtStatus["Live"] = 0] = "Live";
-    /// This [Entry] has no headers that have not been deleted
-    EntryDhtStatus[EntryDhtStatus["Dead"] = 1] = "Dead";
-    /// This [Entry] is awaiting validation
-    EntryDhtStatus[EntryDhtStatus["Pending"] = 2] = "Pending";
-    /// This [Entry] has failed validation and will not be served by the DHT
-    EntryDhtStatus[EntryDhtStatus["Rejected"] = 3] = "Rejected";
-    /// This [Entry] has taken too long / too many resources to validate, so we gave up
-    EntryDhtStatus[EntryDhtStatus["Abandoned"] = 4] = "Abandoned";
-    /// **not implemented** There has been a conflict when validating this [Entry]
-    EntryDhtStatus[EntryDhtStatus["Conflict"] = 5] = "Conflict";
-    /// **not implemented** The author has withdrawn their publication of this element.
-    EntryDhtStatus[EntryDhtStatus["Withdrawn"] = 6] = "Withdrawn";
-    /// **not implemented** We have agreed to drop this [Entry] content from the system. Header can stay with no entry
-    EntryDhtStatus[EntryDhtStatus["Purged"] = 7] = "Purged";
-})(EntryDhtStatus || (EntryDhtStatus = {}));
-
-/**
- *  base64.ts
- *
- *  Licensed under the BSD 3-Clause License.
- *    http://opensource.org/licenses/BSD-3-Clause
- *
- *  References:
- *    http://en.wikipedia.org/wiki/Base64
- *
- * @author Dan Kogai (https://github.com/dankogai)
- */
-const version = '3.6.0';
-/**
- * @deprecated use lowercase `version`.
- */
-const VERSION = version;
-const _hasatob = typeof atob === 'function';
-const _hasbtoa = typeof btoa === 'function';
-const _hasBuffer = typeof Buffer === 'function';
-const _TD = typeof TextDecoder === 'function' ? new TextDecoder() : undefined;
-const _TE = typeof TextEncoder === 'function' ? new TextEncoder() : undefined;
-const b64ch = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-const b64chs = [...b64ch];
-const b64tab = ((a) => {
-    let tab = {};
-    a.forEach((c, i) => tab[c] = i);
-    return tab;
-})(b64chs);
-const b64re = /^(?:[A-Za-z\d+\/]{4})*?(?:[A-Za-z\d+\/]{2}(?:==)?|[A-Za-z\d+\/]{3}=?)?$/;
-const _fromCC = String.fromCharCode.bind(String);
-const _U8Afrom = typeof Uint8Array.from === 'function'
-    ? Uint8Array.from.bind(Uint8Array)
-    : (it, fn = (x) => x) => new Uint8Array(Array.prototype.slice.call(it, 0).map(fn));
-const _mkUriSafe = (src) => src
-    .replace(/[+\/]/g, (m0) => m0 == '+' ? '-' : '_')
-    .replace(/=+$/m, '');
-const _tidyB64 = (s) => s.replace(/[^A-Za-z0-9\+\/]/g, '');
-/**
- * polyfill version of `btoa`
- */
-const btoaPolyfill = (bin) => {
-    // console.log('polyfilled');
-    let u32, c0, c1, c2, asc = '';
-    const pad = bin.length % 3;
-    for (let i = 0; i < bin.length;) {
-        if ((c0 = bin.charCodeAt(i++)) > 255 ||
-            (c1 = bin.charCodeAt(i++)) > 255 ||
-            (c2 = bin.charCodeAt(i++)) > 255)
-            throw new TypeError('invalid character found');
-        u32 = (c0 << 16) | (c1 << 8) | c2;
-        asc += b64chs[u32 >> 18 & 63]
-            + b64chs[u32 >> 12 & 63]
-            + b64chs[u32 >> 6 & 63]
-            + b64chs[u32 & 63];
-    }
-    return pad ? asc.slice(0, pad - 3) + "===".substring(pad) : asc;
-};
-/**
- * does what `window.btoa` of web browsers do.
- * @param {String} bin binary string
- * @returns {string} Base64-encoded string
- */
-const _btoa = _hasbtoa ? (bin) => btoa(bin)
-    : _hasBuffer ? (bin) => Buffer.from(bin, 'binary').toString('base64')
-        : btoaPolyfill;
-const _fromUint8Array = _hasBuffer
-    ? (u8a) => Buffer.from(u8a).toString('base64')
-    : (u8a) => {
-        // cf. https://stackoverflow.com/questions/12710001/how-to-convert-uint8-array-to-base64-encoded-string/12713326#12713326
-        const maxargs = 0x1000;
-        let strs = [];
-        for (let i = 0, l = u8a.length; i < l; i += maxargs) {
-            strs.push(_fromCC.apply(null, u8a.subarray(i, i + maxargs)));
-        }
-        return _btoa(strs.join(''));
-    };
-/**
- * converts a Uint8Array to a Base64 string.
- * @param {boolean} [urlsafe] URL-and-filename-safe a la RFC4648 §5
- * @returns {string} Base64 string
- */
-const fromUint8Array = (u8a, urlsafe = false) => urlsafe ? _mkUriSafe(_fromUint8Array(u8a)) : _fromUint8Array(u8a);
-// This trick is found broken https://github.com/dankogai/js-base64/issues/130
-// const utob = (src: string) => unescape(encodeURIComponent(src));
-// reverting good old fationed regexp
-const cb_utob = (c) => {
-    if (c.length < 2) {
-        var cc = c.charCodeAt(0);
-        return cc < 0x80 ? c
-            : cc < 0x800 ? (_fromCC(0xc0 | (cc >>> 6))
-                + _fromCC(0x80 | (cc & 0x3f)))
-                : (_fromCC(0xe0 | ((cc >>> 12) & 0x0f))
-                    + _fromCC(0x80 | ((cc >>> 6) & 0x3f))
-                    + _fromCC(0x80 | (cc & 0x3f)));
-    }
-    else {
-        var cc = 0x10000
-            + (c.charCodeAt(0) - 0xD800) * 0x400
-            + (c.charCodeAt(1) - 0xDC00);
-        return (_fromCC(0xf0 | ((cc >>> 18) & 0x07))
-            + _fromCC(0x80 | ((cc >>> 12) & 0x3f))
-            + _fromCC(0x80 | ((cc >>> 6) & 0x3f))
-            + _fromCC(0x80 | (cc & 0x3f)));
-    }
-};
-const re_utob = /[\uD800-\uDBFF][\uDC00-\uDFFFF]|[^\x00-\x7F]/g;
-/**
- * @deprecated should have been internal use only.
- * @param {string} src UTF-8 string
- * @returns {string} UTF-16 string
- */
-const utob = (u) => u.replace(re_utob, cb_utob);
-//
-const _encode = _hasBuffer
-    ? (s) => Buffer.from(s, 'utf8').toString('base64')
-    : _TE
-        ? (s) => _fromUint8Array(_TE.encode(s))
-        : (s) => _btoa(utob(s));
-/**
- * converts a UTF-8-encoded string to a Base64 string.
- * @param {boolean} [urlsafe] if `true` make the result URL-safe
- * @returns {string} Base64 string
- */
-const encode = (src, urlsafe = false) => urlsafe
-    ? _mkUriSafe(_encode(src))
-    : _encode(src);
-/**
- * converts a UTF-8-encoded string to URL-safe Base64 RFC4648 §5.
- * @returns {string} Base64 string
- */
-const encodeURI = (src) => encode(src, true);
-// This trick is found broken https://github.com/dankogai/js-base64/issues/130
-// const btou = (src: string) => decodeURIComponent(escape(src));
-// reverting good old fationed regexp
-const re_btou = /[\xC0-\xDF][\x80-\xBF]|[\xE0-\xEF][\x80-\xBF]{2}|[\xF0-\xF7][\x80-\xBF]{3}/g;
-const cb_btou = (cccc) => {
-    switch (cccc.length) {
-        case 4:
-            var cp = ((0x07 & cccc.charCodeAt(0)) << 18)
-                | ((0x3f & cccc.charCodeAt(1)) << 12)
-                | ((0x3f & cccc.charCodeAt(2)) << 6)
-                | (0x3f & cccc.charCodeAt(3)), offset = cp - 0x10000;
-            return (_fromCC((offset >>> 10) + 0xD800)
-                + _fromCC((offset & 0x3FF) + 0xDC00));
-        case 3:
-            return _fromCC(((0x0f & cccc.charCodeAt(0)) << 12)
-                | ((0x3f & cccc.charCodeAt(1)) << 6)
-                | (0x3f & cccc.charCodeAt(2)));
-        default:
-            return _fromCC(((0x1f & cccc.charCodeAt(0)) << 6)
-                | (0x3f & cccc.charCodeAt(1)));
-    }
-};
-/**
- * @deprecated should have been internal use only.
- * @param {string} src UTF-16 string
- * @returns {string} UTF-8 string
- */
-const btou = (b) => b.replace(re_btou, cb_btou);
-/**
- * polyfill version of `atob`
- */
-const atobPolyfill = (asc) => {
-    // console.log('polyfilled');
-    asc = asc.replace(/\s+/g, '');
-    if (!b64re.test(asc))
-        throw new TypeError('malformed base64.');
-    asc += '=='.slice(2 - (asc.length & 3));
-    let u24, bin = '', r1, r2;
-    for (let i = 0; i < asc.length;) {
-        u24 = b64tab[asc.charAt(i++)] << 18
-            | b64tab[asc.charAt(i++)] << 12
-            | (r1 = b64tab[asc.charAt(i++)]) << 6
-            | (r2 = b64tab[asc.charAt(i++)]);
-        bin += r1 === 64 ? _fromCC(u24 >> 16 & 255)
-            : r2 === 64 ? _fromCC(u24 >> 16 & 255, u24 >> 8 & 255)
-                : _fromCC(u24 >> 16 & 255, u24 >> 8 & 255, u24 & 255);
-    }
-    return bin;
-};
-/**
- * does what `window.atob` of web browsers do.
- * @param {String} asc Base64-encoded string
- * @returns {string} binary string
- */
-const _atob = _hasatob ? (asc) => atob(_tidyB64(asc))
-    : _hasBuffer ? (asc) => Buffer.from(asc, 'base64').toString('binary')
-        : atobPolyfill;
-//
-const _toUint8Array = _hasBuffer
-    ? (a) => _U8Afrom(Buffer.from(a, 'base64'))
-    : (a) => _U8Afrom(_atob(a), c => c.charCodeAt(0));
-/**
- * converts a Base64 string to a Uint8Array.
- */
-const toUint8Array = (a) => _toUint8Array(_unURI(a));
-//
-const _decode = _hasBuffer
-    ? (a) => Buffer.from(a, 'base64').toString('utf8')
-    : _TD
-        ? (a) => _TD.decode(_toUint8Array(a))
-        : (a) => btou(_atob(a));
-const _unURI = (a) => _tidyB64(a.replace(/[-_]/g, (m0) => m0 == '-' ? '+' : '/'));
-/**
- * converts a Base64 string to a UTF-8 string.
- * @param {String} src Base64 string.  Both normal and URL-safe are supported
- * @returns {string} UTF-8 string
- */
-const decode = (src) => _decode(_unURI(src));
-/**
- * check if a value is a valid Base64 string
- * @param {String} src a value to check
-  */
-const isValid$1 = (src) => {
-    if (typeof src !== 'string')
-        return false;
-    const s = src.replace(/\s+/g, '').replace(/=+$/, '');
-    return !/[^\s0-9a-zA-Z\+/]/.test(s) || !/[^\s0-9a-zA-Z\-_]/.test(s);
-};
-//
-const _noEnum = (v) => {
-    return {
-        value: v, enumerable: false, writable: true, configurable: true
-    };
-};
-/**
- * extend String.prototype with relevant methods
- */
-const extendString = function () {
-    const _add = (name, body) => Object.defineProperty(String.prototype, name, _noEnum(body));
-    _add('fromBase64', function () { return decode(this); });
-    _add('toBase64', function (urlsafe) { return encode(this, urlsafe); });
-    _add('toBase64URI', function () { return encode(this, true); });
-    _add('toBase64URL', function () { return encode(this, true); });
-    _add('toUint8Array', function () { return toUint8Array(this); });
-};
-/**
- * extend Uint8Array.prototype with relevant methods
- */
-const extendUint8Array = function () {
-    const _add = (name, body) => Object.defineProperty(Uint8Array.prototype, name, _noEnum(body));
-    _add('toBase64', function (urlsafe) { return fromUint8Array(this, urlsafe); });
-    _add('toBase64URI', function () { return fromUint8Array(this, true); });
-    _add('toBase64URL', function () { return fromUint8Array(this, true); });
-};
-/**
- * extend Builtin prototypes with relevant methods
- */
-const extendBuiltins = () => {
-    extendString();
-    extendUint8Array();
-};
-const gBase64 = {
-    version: version,
-    VERSION: VERSION,
-    atob: _atob,
-    atobPolyfill: atobPolyfill,
-    btoa: _btoa,
-    btoaPolyfill: btoaPolyfill,
-    fromBase64: decode,
-    toBase64: encode,
-    encode: encode,
-    encodeURI: encodeURI,
-    encodeURL: encodeURI,
-    utob: utob,
-    btou: btou,
-    decode: decode,
-    isValid: isValid$1,
-    fromUint8Array: fromUint8Array,
-    toUint8Array: toUint8Array,
-    extendString: extendString,
-    extendUint8Array: extendUint8Array,
-    extendBuiltins: extendBuiltins,
-};
-
-function serializeHash$1(hash) {
-    return `u${gBase64.fromUint8Array(hash, true)}`;
-}
-
-class ProfilesStore {
-    constructor(profilesService) {
-        this.profilesService = profilesService;
-        this.profiles = {};
-        makeObservable(this);
-    }
-    profileOf(agentPubKey) {
-        return this.profiles[agentPubKey];
-    }
-    get myAgentPubKey() {
-        return serializeHash$1(this.profilesService.cellId[1]);
-    }
-    get myProfile() {
-        return this.profiles[this.myAgentPubKey];
-    }
-    get knownProfiles() {
-        return Object.entries(this.profiles).map(([agent_pub_key, profile]) => ({
-            agent_pub_key,
-            profile,
-        }));
-    }
-    async fetchAllProfiles() {
-        const allProfiles = await this.profilesService.getAllProfiles();
-        runInAction(() => {
-            for (const agentProfile of allProfiles) {
-                this.profiles[agentProfile.agent_pub_key] = agentProfile.profile;
-            }
-        });
-    }
-    async fetchAgentProfile(agentPubKey) {
-        const profile = await this.profilesService.getAgentProfile(agentPubKey);
-        if (profile) {
-            runInAction(() => {
-                this.profiles[agentPubKey] = profile.profile;
-            });
-        }
-    }
-    async fetchMyProfile() {
-        const myProfile = await this.profilesService.getMyProfile();
-        if (myProfile) {
-            runInAction(() => {
-                this.profiles[this.myAgentPubKey] = myProfile.profile;
-            });
-        }
-    }
-    async searchProfiles(nicknamePrefix) {
-        const searchedProfiles = await this.profilesService.searchProfiles(nicknamePrefix);
-        runInAction(() => {
-            for (const { agent_pub_key, profile } of searchedProfiles) {
-                this.profiles[agent_pub_key] = profile;
-            }
-        });
-    }
-    async createProfile(profile) {
-        await this.profilesService.createProfile(profile);
-        runInAction(() => {
-            this.profiles[this.myAgentPubKey] = profile;
-        });
-    }
-}
-__decorate$2([
-    observable
-], ProfilesStore.prototype, "profiles", void 0);
-__decorate$2([
-    computed
-], ProfilesStore.prototype, "myProfile", null);
-__decorate$2([
-    computed
-], ProfilesStore.prototype, "knownProfiles", null);
-__decorate$2([
-    action
-], ProfilesStore.prototype, "fetchAllProfiles", null);
-__decorate$2([
-    action
-], ProfilesStore.prototype, "fetchAgentProfile", null);
-__decorate$2([
-    action
-], ProfilesStore.prototype, "fetchMyProfile", null);
-__decorate$2([
-    action
-], ProfilesStore.prototype, "searchProfiles", null);
-__decorate$2([
-    action
-], ProfilesStore.prototype, "createProfile", null);
-
-class BaseCompositoryService extends BaseElement {
-}
+Button.styles = style$9;
+__decorate$3([
+    queryAsync('.ripple')
+], Button.prototype, "ripple", void 0);
 
 /** @soyCompatible */
 class CheckboxBase extends FormElement {
@@ -21871,7 +23663,7 @@ class CheckboxBase extends FormElement {
         this.mdcFoundationClass = undefined;
         this.mdcFoundation = undefined;
         this.rippleElement = null;
-        this.rippleHandlers = new RippleHandlers(() => {
+        this.rippleHandlers = new RippleHandlers$1(() => {
             this.shouldRenderRipple = true;
             this.ripple.then((v) => this.rippleElement = v);
             return this.ripple;
@@ -22022,40 +23814,40 @@ class CheckboxBase extends FormElement {
         return ((_a = this.rippleElement) === null || _a === void 0 ? void 0 : _a.isActive) || false;
     }
 }
-__decorate$2([
+__decorate$3([
     query$1('.mdc-checkbox')
 ], CheckboxBase.prototype, "mdcRoot", void 0);
-__decorate$2([
+__decorate$3([
     query$1('input')
 ], CheckboxBase.prototype, "formElement", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean, reflect: true })
 ], CheckboxBase.prototype, "checked", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], CheckboxBase.prototype, "indeterminate", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean, reflect: true })
 ], CheckboxBase.prototype, "disabled", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String })
 ], CheckboxBase.prototype, "value", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], CheckboxBase.prototype, "reducedTouchTarget", void 0);
-__decorate$2([
+__decorate$3([
     internalProperty()
 ], CheckboxBase.prototype, "animationClass", void 0);
-__decorate$2([
+__decorate$3([
     internalProperty()
 ], CheckboxBase.prototype, "shouldRenderRipple", void 0);
-__decorate$2([
+__decorate$3([
     internalProperty()
 ], CheckboxBase.prototype, "focused", void 0);
-__decorate$2([
+__decorate$3([
     queryAsync('mwc-ripple')
 ], CheckboxBase.prototype, "ripple", void 0);
-__decorate$2([
+__decorate$3([
     eventOptions({ passive: true })
 ], CheckboxBase.prototype, "handleRippleTouchStart", null);
 
@@ -22075,16 +23867,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const style$4 = css$1 `.mdc-checkbox{padding:11px;margin-top:0px;margin-bottom:0px;margin-right:0px;margin-left:0px}.mdc-checkbox .mdc-checkbox__ripple::before,.mdc-checkbox .mdc-checkbox__ripple::after{background-color:#000;background-color:var(--mdc-ripple-color, #000)}.mdc-checkbox:hover .mdc-checkbox__ripple::before,.mdc-checkbox.mdc-ripple-surface--hover .mdc-checkbox__ripple::before{opacity:0.04;opacity:var(--mdc-ripple-hover-opacity, 0.04)}.mdc-checkbox.mdc-ripple-upgraded--background-focused .mdc-checkbox__ripple::before,.mdc-checkbox:not(.mdc-ripple-upgraded):focus .mdc-checkbox__ripple::before{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-focus-opacity, 0.12)}.mdc-checkbox:not(.mdc-ripple-upgraded) .mdc-checkbox__ripple::after{transition:opacity 150ms linear}.mdc-checkbox:not(.mdc-ripple-upgraded):active .mdc-checkbox__ripple::after{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-press-opacity, 0.12)}.mdc-checkbox.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.12)}.mdc-checkbox .mdc-checkbox__native-control:checked~.mdc-checkbox__background::before,.mdc-checkbox .mdc-checkbox__native-control:indeterminate~.mdc-checkbox__background::before,.mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]~.mdc-checkbox__background::before{background-color:#018786;background-color:var(--mdc-theme-secondary, #018786)}.mdc-checkbox.mdc-checkbox--selected .mdc-checkbox__ripple::before,.mdc-checkbox.mdc-checkbox--selected .mdc-checkbox__ripple::after{background-color:#018786;background-color:var(--mdc-ripple-color, var(--mdc-theme-secondary, #018786))}.mdc-checkbox.mdc-checkbox--selected:hover .mdc-checkbox__ripple::before,.mdc-checkbox.mdc-checkbox--selected.mdc-ripple-surface--hover .mdc-checkbox__ripple::before{opacity:0.04;opacity:var(--mdc-ripple-hover-opacity, 0.04)}.mdc-checkbox.mdc-checkbox--selected.mdc-ripple-upgraded--background-focused .mdc-checkbox__ripple::before,.mdc-checkbox.mdc-checkbox--selected:not(.mdc-ripple-upgraded):focus .mdc-checkbox__ripple::before{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-focus-opacity, 0.12)}.mdc-checkbox.mdc-checkbox--selected:not(.mdc-ripple-upgraded) .mdc-checkbox__ripple::after{transition:opacity 150ms linear}.mdc-checkbox.mdc-checkbox--selected:not(.mdc-ripple-upgraded):active .mdc-checkbox__ripple::after{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-press-opacity, 0.12)}.mdc-checkbox.mdc-checkbox--selected.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.12)}.mdc-checkbox.mdc-ripple-upgraded--background-focused.mdc-checkbox--selected .mdc-checkbox__ripple::before,.mdc-checkbox.mdc-ripple-upgraded--background-focused.mdc-checkbox--selected .mdc-checkbox__ripple::after{background-color:#018786;background-color:var(--mdc-ripple-color, var(--mdc-theme-secondary, #018786))}.mdc-checkbox .mdc-checkbox__background{top:11px;left:11px}.mdc-checkbox .mdc-checkbox__background::before{top:-13px;left:-13px;width:40px;height:40px}.mdc-checkbox .mdc-checkbox__native-control{top:0px;right:0px;left:0px;width:40px;height:40px}.mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background{border-color:rgba(0, 0, 0, 0.54);border-color:var(--mdc-checkbox-unchecked-color, rgba(0, 0, 0, 0.54));background-color:transparent}.mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background,.mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background,.mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background{border-color:#018786;border-color:var(--mdc-checkbox-checked-color, var(--mdc-theme-secondary, #018786));background-color:#018786;background-color:var(--mdc-checkbox-checked-color, var(--mdc-theme-secondary, #018786))}@keyframes mdc-checkbox-fade-in-background-8A000000FF01878600000000FF018786{0%{border-color:rgba(0, 0, 0, 0.54);border-color:var(--mdc-checkbox-unchecked-color, rgba(0, 0, 0, 0.54));background-color:transparent}50%{border-color:#018786;border-color:var(--mdc-checkbox-checked-color, var(--mdc-theme-secondary, #018786));background-color:#018786;background-color:var(--mdc-checkbox-checked-color, var(--mdc-theme-secondary, #018786))}}@keyframes mdc-checkbox-fade-out-background-8A000000FF01878600000000FF018786{0%,80%{border-color:#018786;border-color:var(--mdc-checkbox-checked-color, var(--mdc-theme-secondary, #018786));background-color:#018786;background-color:var(--mdc-checkbox-checked-color, var(--mdc-theme-secondary, #018786))}100%{border-color:rgba(0, 0, 0, 0.54);border-color:var(--mdc-checkbox-unchecked-color, rgba(0, 0, 0, 0.54));background-color:transparent}}.mdc-checkbox.mdc-checkbox--anim-unchecked-checked .mdc-checkbox__native-control:enabled~.mdc-checkbox__background,.mdc-checkbox.mdc-checkbox--anim-unchecked-indeterminate .mdc-checkbox__native-control:enabled~.mdc-checkbox__background{animation-name:mdc-checkbox-fade-in-background-8A000000FF01878600000000FF018786}.mdc-checkbox.mdc-checkbox--anim-checked-unchecked .mdc-checkbox__native-control:enabled~.mdc-checkbox__background,.mdc-checkbox.mdc-checkbox--anim-indeterminate-unchecked .mdc-checkbox__native-control:enabled~.mdc-checkbox__background{animation-name:mdc-checkbox-fade-out-background-8A000000FF01878600000000FF018786}.mdc-checkbox .mdc-checkbox__native-control[disabled]:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background{border-color:rgba(0, 0, 0, 0.38);border-color:var(--mdc-checkbox-disabled-color, rgba(0, 0, 0, 0.38));background-color:transparent}.mdc-checkbox .mdc-checkbox__native-control[disabled]:checked~.mdc-checkbox__background,.mdc-checkbox .mdc-checkbox__native-control[disabled]:indeterminate~.mdc-checkbox__background,.mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true][disabled]~.mdc-checkbox__background{border-color:transparent;background-color:rgba(0, 0, 0, 0.38);background-color:var(--mdc-checkbox-disabled-color, rgba(0, 0, 0, 0.38))}.mdc-checkbox .mdc-checkbox__native-control:enabled~.mdc-checkbox__background .mdc-checkbox__checkmark{color:#fff;color:var(--mdc-checkbox-ink-color, #fff)}.mdc-checkbox .mdc-checkbox__native-control:enabled~.mdc-checkbox__background .mdc-checkbox__mixedmark{border-color:#fff;border-color:var(--mdc-checkbox-ink-color, #fff)}.mdc-checkbox .mdc-checkbox__native-control:disabled~.mdc-checkbox__background .mdc-checkbox__checkmark{color:#fff;color:var(--mdc-checkbox-ink-color, #fff)}.mdc-checkbox .mdc-checkbox__native-control:disabled~.mdc-checkbox__background .mdc-checkbox__mixedmark{border-color:#fff;border-color:var(--mdc-checkbox-ink-color, #fff)}.mdc-touch-target-wrapper{display:inline}@keyframes mdc-checkbox-unchecked-checked-checkmark-path{0%,50%{stroke-dashoffset:29.7833385}50%{animation-timing-function:cubic-bezier(0, 0, 0.2, 1)}100%{stroke-dashoffset:0}}@keyframes mdc-checkbox-unchecked-indeterminate-mixedmark{0%,68.2%{transform:scaleX(0)}68.2%{animation-timing-function:cubic-bezier(0, 0, 0, 1)}100%{transform:scaleX(1)}}@keyframes mdc-checkbox-checked-unchecked-checkmark-path{from{animation-timing-function:cubic-bezier(0.4, 0, 1, 1);opacity:1;stroke-dashoffset:0}to{opacity:0;stroke-dashoffset:-29.7833385}}@keyframes mdc-checkbox-checked-indeterminate-checkmark{from{animation-timing-function:cubic-bezier(0, 0, 0.2, 1);transform:rotate(0deg);opacity:1}to{transform:rotate(45deg);opacity:0}}@keyframes mdc-checkbox-indeterminate-checked-checkmark{from{animation-timing-function:cubic-bezier(0.14, 0, 0, 1);transform:rotate(45deg);opacity:0}to{transform:rotate(360deg);opacity:1}}@keyframes mdc-checkbox-checked-indeterminate-mixedmark{from{animation-timing-function:mdc-animation-deceleration-curve-timing-function;transform:rotate(-45deg);opacity:0}to{transform:rotate(0deg);opacity:1}}@keyframes mdc-checkbox-indeterminate-checked-mixedmark{from{animation-timing-function:cubic-bezier(0.14, 0, 0, 1);transform:rotate(0deg);opacity:1}to{transform:rotate(315deg);opacity:0}}@keyframes mdc-checkbox-indeterminate-unchecked-mixedmark{0%{animation-timing-function:linear;transform:scaleX(1);opacity:1}32.8%,100%{transform:scaleX(0);opacity:0}}.mdc-checkbox{display:inline-block;position:relative;flex:0 0 18px;box-sizing:content-box;width:18px;height:18px;line-height:0;white-space:nowrap;cursor:pointer;vertical-align:bottom}@media screen and (-ms-high-contrast: active){.mdc-checkbox__native-control[disabled]:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background{border-color:GrayText;border-color:var(--mdc-checkbox-disabled-color, GrayText);background-color:transparent}.mdc-checkbox__native-control[disabled]:checked~.mdc-checkbox__background,.mdc-checkbox__native-control[disabled]:indeterminate~.mdc-checkbox__background,.mdc-checkbox__native-control[data-indeterminate=true][disabled]~.mdc-checkbox__background{border-color:GrayText;background-color:transparent;background-color:var(--mdc-checkbox-disabled-color, transparent)}.mdc-checkbox__native-control:disabled~.mdc-checkbox__background .mdc-checkbox__checkmark{color:GrayText;color:var(--mdc-checkbox-ink-color, GrayText)}.mdc-checkbox__native-control:disabled~.mdc-checkbox__background .mdc-checkbox__mixedmark{border-color:GrayText;border-color:var(--mdc-checkbox-ink-color, GrayText)}.mdc-checkbox__mixedmark{margin:0 1px}}.mdc-checkbox--disabled{cursor:default;pointer-events:none}.mdc-checkbox__background{display:inline-flex;position:absolute;align-items:center;justify-content:center;box-sizing:border-box;width:18px;height:18px;border:2px solid currentColor;border-radius:2px;background-color:transparent;pointer-events:none;will-change:background-color,border-color;transition:background-color 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1),border-color 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1)}.mdc-checkbox__background .mdc-checkbox__background::before{background-color:#000;background-color:var(--mdc-theme-on-surface, #000)}.mdc-checkbox__checkmark{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;opacity:0;transition:opacity 180ms 0ms cubic-bezier(0.4, 0, 0.6, 1)}.mdc-checkbox--upgraded .mdc-checkbox__checkmark{opacity:1}.mdc-checkbox__checkmark-path{transition:stroke-dashoffset 180ms 0ms cubic-bezier(0.4, 0, 0.6, 1);stroke:currentColor;stroke-width:3.12px;stroke-dashoffset:29.7833385;stroke-dasharray:29.7833385}.mdc-checkbox__mixedmark{width:100%;height:0;transform:scaleX(0) rotate(0deg);border-width:1px;border-style:solid;opacity:0;transition:opacity 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1),transform 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1)}.mdc-checkbox--anim-unchecked-checked .mdc-checkbox__background,.mdc-checkbox--anim-unchecked-indeterminate .mdc-checkbox__background,.mdc-checkbox--anim-checked-unchecked .mdc-checkbox__background,.mdc-checkbox--anim-indeterminate-unchecked .mdc-checkbox__background{animation-duration:180ms;animation-timing-function:linear}.mdc-checkbox--anim-unchecked-checked .mdc-checkbox__checkmark-path{animation:mdc-checkbox-unchecked-checked-checkmark-path 180ms linear 0s;transition:none}.mdc-checkbox--anim-unchecked-indeterminate .mdc-checkbox__mixedmark{animation:mdc-checkbox-unchecked-indeterminate-mixedmark 90ms linear 0s;transition:none}.mdc-checkbox--anim-checked-unchecked .mdc-checkbox__checkmark-path{animation:mdc-checkbox-checked-unchecked-checkmark-path 90ms linear 0s;transition:none}.mdc-checkbox--anim-checked-indeterminate .mdc-checkbox__checkmark{animation:mdc-checkbox-checked-indeterminate-checkmark 90ms linear 0s;transition:none}.mdc-checkbox--anim-checked-indeterminate .mdc-checkbox__mixedmark{animation:mdc-checkbox-checked-indeterminate-mixedmark 90ms linear 0s;transition:none}.mdc-checkbox--anim-indeterminate-checked .mdc-checkbox__checkmark{animation:mdc-checkbox-indeterminate-checked-checkmark 500ms linear 0s;transition:none}.mdc-checkbox--anim-indeterminate-checked .mdc-checkbox__mixedmark{animation:mdc-checkbox-indeterminate-checked-mixedmark 500ms linear 0s;transition:none}.mdc-checkbox--anim-indeterminate-unchecked .mdc-checkbox__mixedmark{animation:mdc-checkbox-indeterminate-unchecked-mixedmark 300ms linear 0s;transition:none}.mdc-checkbox__native-control:checked~.mdc-checkbox__background,.mdc-checkbox__native-control:indeterminate~.mdc-checkbox__background,.mdc-checkbox__native-control[data-indeterminate=true]~.mdc-checkbox__background{transition:border-color 90ms 0ms cubic-bezier(0, 0, 0.2, 1),background-color 90ms 0ms cubic-bezier(0, 0, 0.2, 1)}.mdc-checkbox__native-control:checked~.mdc-checkbox__background .mdc-checkbox__checkmark-path,.mdc-checkbox__native-control:indeterminate~.mdc-checkbox__background .mdc-checkbox__checkmark-path,.mdc-checkbox__native-control[data-indeterminate=true]~.mdc-checkbox__background .mdc-checkbox__checkmark-path{stroke-dashoffset:0}.mdc-checkbox__background::before{position:absolute;transform:scale(0, 0);border-radius:50%;opacity:0;pointer-events:none;content:"";will-change:opacity,transform;transition:opacity 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1),transform 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1)}.mdc-checkbox__native-control:focus~.mdc-checkbox__background::before{transform:scale(1);opacity:.12;transition:opacity 80ms 0ms cubic-bezier(0, 0, 0.2, 1),transform 80ms 0ms cubic-bezier(0, 0, 0.2, 1)}.mdc-checkbox__native-control{position:absolute;margin:0;padding:0;opacity:0;cursor:inherit}.mdc-checkbox__native-control:disabled{cursor:default;pointer-events:none}.mdc-checkbox--touch{margin-top:4px;margin-bottom:4px;margin-right:4px;margin-left:4px}.mdc-checkbox--touch .mdc-checkbox__native-control{top:-4px;right:-4px;left:-4px;width:48px;height:48px}.mdc-checkbox__native-control:checked~.mdc-checkbox__background .mdc-checkbox__checkmark{transition:opacity 180ms 0ms cubic-bezier(0, 0, 0.2, 1),transform 180ms 0ms cubic-bezier(0, 0, 0.2, 1);opacity:1}.mdc-checkbox__native-control:checked~.mdc-checkbox__background .mdc-checkbox__mixedmark{transform:scaleX(1) rotate(-45deg)}.mdc-checkbox__native-control:indeterminate~.mdc-checkbox__background .mdc-checkbox__checkmark,.mdc-checkbox__native-control[data-indeterminate=true]~.mdc-checkbox__background .mdc-checkbox__checkmark{transform:rotate(45deg);opacity:0;transition:opacity 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1),transform 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1)}.mdc-checkbox__native-control:indeterminate~.mdc-checkbox__background .mdc-checkbox__mixedmark,.mdc-checkbox__native-control[data-indeterminate=true]~.mdc-checkbox__background .mdc-checkbox__mixedmark{transform:scaleX(1) rotate(0deg);opacity:1}.mdc-checkbox.mdc-checkbox--upgraded .mdc-checkbox__background,.mdc-checkbox.mdc-checkbox--upgraded .mdc-checkbox__checkmark,.mdc-checkbox.mdc-checkbox--upgraded .mdc-checkbox__checkmark-path,.mdc-checkbox.mdc-checkbox--upgraded .mdc-checkbox__mixedmark{transition:none}:host{outline:none;display:inline-flex;-webkit-tap-highlight-color:transparent}.mdc-checkbox .mdc-checkbox__background::before{content:none}`;
+const style$8 = css$1 `.mdc-checkbox{padding:11px;margin-top:0px;margin-bottom:0px;margin-right:0px;margin-left:0px}.mdc-checkbox .mdc-checkbox__ripple::before,.mdc-checkbox .mdc-checkbox__ripple::after{background-color:#000;background-color:var(--mdc-ripple-color, #000)}.mdc-checkbox:hover .mdc-checkbox__ripple::before,.mdc-checkbox.mdc-ripple-surface--hover .mdc-checkbox__ripple::before{opacity:0.04;opacity:var(--mdc-ripple-hover-opacity, 0.04)}.mdc-checkbox.mdc-ripple-upgraded--background-focused .mdc-checkbox__ripple::before,.mdc-checkbox:not(.mdc-ripple-upgraded):focus .mdc-checkbox__ripple::before{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-focus-opacity, 0.12)}.mdc-checkbox:not(.mdc-ripple-upgraded) .mdc-checkbox__ripple::after{transition:opacity 150ms linear}.mdc-checkbox:not(.mdc-ripple-upgraded):active .mdc-checkbox__ripple::after{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-press-opacity, 0.12)}.mdc-checkbox.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.12)}.mdc-checkbox .mdc-checkbox__native-control:checked~.mdc-checkbox__background::before,.mdc-checkbox .mdc-checkbox__native-control:indeterminate~.mdc-checkbox__background::before,.mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]~.mdc-checkbox__background::before{background-color:#018786;background-color:var(--mdc-theme-secondary, #018786)}.mdc-checkbox.mdc-checkbox--selected .mdc-checkbox__ripple::before,.mdc-checkbox.mdc-checkbox--selected .mdc-checkbox__ripple::after{background-color:#018786;background-color:var(--mdc-ripple-color, var(--mdc-theme-secondary, #018786))}.mdc-checkbox.mdc-checkbox--selected:hover .mdc-checkbox__ripple::before,.mdc-checkbox.mdc-checkbox--selected.mdc-ripple-surface--hover .mdc-checkbox__ripple::before{opacity:0.04;opacity:var(--mdc-ripple-hover-opacity, 0.04)}.mdc-checkbox.mdc-checkbox--selected.mdc-ripple-upgraded--background-focused .mdc-checkbox__ripple::before,.mdc-checkbox.mdc-checkbox--selected:not(.mdc-ripple-upgraded):focus .mdc-checkbox__ripple::before{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-focus-opacity, 0.12)}.mdc-checkbox.mdc-checkbox--selected:not(.mdc-ripple-upgraded) .mdc-checkbox__ripple::after{transition:opacity 150ms linear}.mdc-checkbox.mdc-checkbox--selected:not(.mdc-ripple-upgraded):active .mdc-checkbox__ripple::after{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-press-opacity, 0.12)}.mdc-checkbox.mdc-checkbox--selected.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.12)}.mdc-checkbox.mdc-ripple-upgraded--background-focused.mdc-checkbox--selected .mdc-checkbox__ripple::before,.mdc-checkbox.mdc-ripple-upgraded--background-focused.mdc-checkbox--selected .mdc-checkbox__ripple::after{background-color:#018786;background-color:var(--mdc-ripple-color, var(--mdc-theme-secondary, #018786))}.mdc-checkbox .mdc-checkbox__background{top:11px;left:11px}.mdc-checkbox .mdc-checkbox__background::before{top:-13px;left:-13px;width:40px;height:40px}.mdc-checkbox .mdc-checkbox__native-control{top:0px;right:0px;left:0px;width:40px;height:40px}.mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background{border-color:rgba(0, 0, 0, 0.54);border-color:var(--mdc-checkbox-unchecked-color, rgba(0, 0, 0, 0.54));background-color:transparent}.mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background,.mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background,.mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background{border-color:#018786;border-color:var(--mdc-checkbox-checked-color, var(--mdc-theme-secondary, #018786));background-color:#018786;background-color:var(--mdc-checkbox-checked-color, var(--mdc-theme-secondary, #018786))}@keyframes mdc-checkbox-fade-in-background-8A000000FF01878600000000FF018786{0%{border-color:rgba(0, 0, 0, 0.54);border-color:var(--mdc-checkbox-unchecked-color, rgba(0, 0, 0, 0.54));background-color:transparent}50%{border-color:#018786;border-color:var(--mdc-checkbox-checked-color, var(--mdc-theme-secondary, #018786));background-color:#018786;background-color:var(--mdc-checkbox-checked-color, var(--mdc-theme-secondary, #018786))}}@keyframes mdc-checkbox-fade-out-background-8A000000FF01878600000000FF018786{0%,80%{border-color:#018786;border-color:var(--mdc-checkbox-checked-color, var(--mdc-theme-secondary, #018786));background-color:#018786;background-color:var(--mdc-checkbox-checked-color, var(--mdc-theme-secondary, #018786))}100%{border-color:rgba(0, 0, 0, 0.54);border-color:var(--mdc-checkbox-unchecked-color, rgba(0, 0, 0, 0.54));background-color:transparent}}.mdc-checkbox.mdc-checkbox--anim-unchecked-checked .mdc-checkbox__native-control:enabled~.mdc-checkbox__background,.mdc-checkbox.mdc-checkbox--anim-unchecked-indeterminate .mdc-checkbox__native-control:enabled~.mdc-checkbox__background{animation-name:mdc-checkbox-fade-in-background-8A000000FF01878600000000FF018786}.mdc-checkbox.mdc-checkbox--anim-checked-unchecked .mdc-checkbox__native-control:enabled~.mdc-checkbox__background,.mdc-checkbox.mdc-checkbox--anim-indeterminate-unchecked .mdc-checkbox__native-control:enabled~.mdc-checkbox__background{animation-name:mdc-checkbox-fade-out-background-8A000000FF01878600000000FF018786}.mdc-checkbox .mdc-checkbox__native-control[disabled]:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background{border-color:rgba(0, 0, 0, 0.38);border-color:var(--mdc-checkbox-disabled-color, rgba(0, 0, 0, 0.38));background-color:transparent}.mdc-checkbox .mdc-checkbox__native-control[disabled]:checked~.mdc-checkbox__background,.mdc-checkbox .mdc-checkbox__native-control[disabled]:indeterminate~.mdc-checkbox__background,.mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true][disabled]~.mdc-checkbox__background{border-color:transparent;background-color:rgba(0, 0, 0, 0.38);background-color:var(--mdc-checkbox-disabled-color, rgba(0, 0, 0, 0.38))}.mdc-checkbox .mdc-checkbox__native-control:enabled~.mdc-checkbox__background .mdc-checkbox__checkmark{color:#fff;color:var(--mdc-checkbox-ink-color, #fff)}.mdc-checkbox .mdc-checkbox__native-control:enabled~.mdc-checkbox__background .mdc-checkbox__mixedmark{border-color:#fff;border-color:var(--mdc-checkbox-ink-color, #fff)}.mdc-checkbox .mdc-checkbox__native-control:disabled~.mdc-checkbox__background .mdc-checkbox__checkmark{color:#fff;color:var(--mdc-checkbox-ink-color, #fff)}.mdc-checkbox .mdc-checkbox__native-control:disabled~.mdc-checkbox__background .mdc-checkbox__mixedmark{border-color:#fff;border-color:var(--mdc-checkbox-ink-color, #fff)}.mdc-touch-target-wrapper{display:inline}@keyframes mdc-checkbox-unchecked-checked-checkmark-path{0%,50%{stroke-dashoffset:29.7833385}50%{animation-timing-function:cubic-bezier(0, 0, 0.2, 1)}100%{stroke-dashoffset:0}}@keyframes mdc-checkbox-unchecked-indeterminate-mixedmark{0%,68.2%{transform:scaleX(0)}68.2%{animation-timing-function:cubic-bezier(0, 0, 0, 1)}100%{transform:scaleX(1)}}@keyframes mdc-checkbox-checked-unchecked-checkmark-path{from{animation-timing-function:cubic-bezier(0.4, 0, 1, 1);opacity:1;stroke-dashoffset:0}to{opacity:0;stroke-dashoffset:-29.7833385}}@keyframes mdc-checkbox-checked-indeterminate-checkmark{from{animation-timing-function:cubic-bezier(0, 0, 0.2, 1);transform:rotate(0deg);opacity:1}to{transform:rotate(45deg);opacity:0}}@keyframes mdc-checkbox-indeterminate-checked-checkmark{from{animation-timing-function:cubic-bezier(0.14, 0, 0, 1);transform:rotate(45deg);opacity:0}to{transform:rotate(360deg);opacity:1}}@keyframes mdc-checkbox-checked-indeterminate-mixedmark{from{animation-timing-function:mdc-animation-deceleration-curve-timing-function;transform:rotate(-45deg);opacity:0}to{transform:rotate(0deg);opacity:1}}@keyframes mdc-checkbox-indeterminate-checked-mixedmark{from{animation-timing-function:cubic-bezier(0.14, 0, 0, 1);transform:rotate(0deg);opacity:1}to{transform:rotate(315deg);opacity:0}}@keyframes mdc-checkbox-indeterminate-unchecked-mixedmark{0%{animation-timing-function:linear;transform:scaleX(1);opacity:1}32.8%,100%{transform:scaleX(0);opacity:0}}.mdc-checkbox{display:inline-block;position:relative;flex:0 0 18px;box-sizing:content-box;width:18px;height:18px;line-height:0;white-space:nowrap;cursor:pointer;vertical-align:bottom}@media screen and (-ms-high-contrast: active){.mdc-checkbox__native-control[disabled]:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background{border-color:GrayText;border-color:var(--mdc-checkbox-disabled-color, GrayText);background-color:transparent}.mdc-checkbox__native-control[disabled]:checked~.mdc-checkbox__background,.mdc-checkbox__native-control[disabled]:indeterminate~.mdc-checkbox__background,.mdc-checkbox__native-control[data-indeterminate=true][disabled]~.mdc-checkbox__background{border-color:GrayText;background-color:transparent;background-color:var(--mdc-checkbox-disabled-color, transparent)}.mdc-checkbox__native-control:disabled~.mdc-checkbox__background .mdc-checkbox__checkmark{color:GrayText;color:var(--mdc-checkbox-ink-color, GrayText)}.mdc-checkbox__native-control:disabled~.mdc-checkbox__background .mdc-checkbox__mixedmark{border-color:GrayText;border-color:var(--mdc-checkbox-ink-color, GrayText)}.mdc-checkbox__mixedmark{margin:0 1px}}.mdc-checkbox--disabled{cursor:default;pointer-events:none}.mdc-checkbox__background{display:inline-flex;position:absolute;align-items:center;justify-content:center;box-sizing:border-box;width:18px;height:18px;border:2px solid currentColor;border-radius:2px;background-color:transparent;pointer-events:none;will-change:background-color,border-color;transition:background-color 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1),border-color 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1)}.mdc-checkbox__background .mdc-checkbox__background::before{background-color:#000;background-color:var(--mdc-theme-on-surface, #000)}.mdc-checkbox__checkmark{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;opacity:0;transition:opacity 180ms 0ms cubic-bezier(0.4, 0, 0.6, 1)}.mdc-checkbox--upgraded .mdc-checkbox__checkmark{opacity:1}.mdc-checkbox__checkmark-path{transition:stroke-dashoffset 180ms 0ms cubic-bezier(0.4, 0, 0.6, 1);stroke:currentColor;stroke-width:3.12px;stroke-dashoffset:29.7833385;stroke-dasharray:29.7833385}.mdc-checkbox__mixedmark{width:100%;height:0;transform:scaleX(0) rotate(0deg);border-width:1px;border-style:solid;opacity:0;transition:opacity 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1),transform 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1)}.mdc-checkbox--anim-unchecked-checked .mdc-checkbox__background,.mdc-checkbox--anim-unchecked-indeterminate .mdc-checkbox__background,.mdc-checkbox--anim-checked-unchecked .mdc-checkbox__background,.mdc-checkbox--anim-indeterminate-unchecked .mdc-checkbox__background{animation-duration:180ms;animation-timing-function:linear}.mdc-checkbox--anim-unchecked-checked .mdc-checkbox__checkmark-path{animation:mdc-checkbox-unchecked-checked-checkmark-path 180ms linear 0s;transition:none}.mdc-checkbox--anim-unchecked-indeterminate .mdc-checkbox__mixedmark{animation:mdc-checkbox-unchecked-indeterminate-mixedmark 90ms linear 0s;transition:none}.mdc-checkbox--anim-checked-unchecked .mdc-checkbox__checkmark-path{animation:mdc-checkbox-checked-unchecked-checkmark-path 90ms linear 0s;transition:none}.mdc-checkbox--anim-checked-indeterminate .mdc-checkbox__checkmark{animation:mdc-checkbox-checked-indeterminate-checkmark 90ms linear 0s;transition:none}.mdc-checkbox--anim-checked-indeterminate .mdc-checkbox__mixedmark{animation:mdc-checkbox-checked-indeterminate-mixedmark 90ms linear 0s;transition:none}.mdc-checkbox--anim-indeterminate-checked .mdc-checkbox__checkmark{animation:mdc-checkbox-indeterminate-checked-checkmark 500ms linear 0s;transition:none}.mdc-checkbox--anim-indeterminate-checked .mdc-checkbox__mixedmark{animation:mdc-checkbox-indeterminate-checked-mixedmark 500ms linear 0s;transition:none}.mdc-checkbox--anim-indeterminate-unchecked .mdc-checkbox__mixedmark{animation:mdc-checkbox-indeterminate-unchecked-mixedmark 300ms linear 0s;transition:none}.mdc-checkbox__native-control:checked~.mdc-checkbox__background,.mdc-checkbox__native-control:indeterminate~.mdc-checkbox__background,.mdc-checkbox__native-control[data-indeterminate=true]~.mdc-checkbox__background{transition:border-color 90ms 0ms cubic-bezier(0, 0, 0.2, 1),background-color 90ms 0ms cubic-bezier(0, 0, 0.2, 1)}.mdc-checkbox__native-control:checked~.mdc-checkbox__background .mdc-checkbox__checkmark-path,.mdc-checkbox__native-control:indeterminate~.mdc-checkbox__background .mdc-checkbox__checkmark-path,.mdc-checkbox__native-control[data-indeterminate=true]~.mdc-checkbox__background .mdc-checkbox__checkmark-path{stroke-dashoffset:0}.mdc-checkbox__background::before{position:absolute;transform:scale(0, 0);border-radius:50%;opacity:0;pointer-events:none;content:"";will-change:opacity,transform;transition:opacity 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1),transform 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1)}.mdc-checkbox__native-control:focus~.mdc-checkbox__background::before{transform:scale(1);opacity:.12;transition:opacity 80ms 0ms cubic-bezier(0, 0, 0.2, 1),transform 80ms 0ms cubic-bezier(0, 0, 0.2, 1)}.mdc-checkbox__native-control{position:absolute;margin:0;padding:0;opacity:0;cursor:inherit}.mdc-checkbox__native-control:disabled{cursor:default;pointer-events:none}.mdc-checkbox--touch{margin-top:4px;margin-bottom:4px;margin-right:4px;margin-left:4px}.mdc-checkbox--touch .mdc-checkbox__native-control{top:-4px;right:-4px;left:-4px;width:48px;height:48px}.mdc-checkbox__native-control:checked~.mdc-checkbox__background .mdc-checkbox__checkmark{transition:opacity 180ms 0ms cubic-bezier(0, 0, 0.2, 1),transform 180ms 0ms cubic-bezier(0, 0, 0.2, 1);opacity:1}.mdc-checkbox__native-control:checked~.mdc-checkbox__background .mdc-checkbox__mixedmark{transform:scaleX(1) rotate(-45deg)}.mdc-checkbox__native-control:indeterminate~.mdc-checkbox__background .mdc-checkbox__checkmark,.mdc-checkbox__native-control[data-indeterminate=true]~.mdc-checkbox__background .mdc-checkbox__checkmark{transform:rotate(45deg);opacity:0;transition:opacity 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1),transform 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1)}.mdc-checkbox__native-control:indeterminate~.mdc-checkbox__background .mdc-checkbox__mixedmark,.mdc-checkbox__native-control[data-indeterminate=true]~.mdc-checkbox__background .mdc-checkbox__mixedmark{transform:scaleX(1) rotate(0deg);opacity:1}.mdc-checkbox.mdc-checkbox--upgraded .mdc-checkbox__background,.mdc-checkbox.mdc-checkbox--upgraded .mdc-checkbox__checkmark,.mdc-checkbox.mdc-checkbox--upgraded .mdc-checkbox__checkmark-path,.mdc-checkbox.mdc-checkbox--upgraded .mdc-checkbox__mixedmark{transition:none}:host{outline:none;display:inline-flex;-webkit-tap-highlight-color:transparent}.mdc-checkbox .mdc-checkbox__background::before{content:none}`;
 
 class Checkbox$1 extends ScopedElementsMixin$1(CheckboxBase) {
     static get scopedElements() {
         return {
-            'mwc-ripple': Ripple,
+            'mwc-ripple': Ripple$1,
         };
     }
 }
-Checkbox$1.styles = style$4;
+Checkbox$1.styles = style$8;
 
 /**
 @license
@@ -22102,14 +23894,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const style$3 = css$1 `:host(:not([twoline])){height:56px}:host(:not([left])) .mdc-list-item__meta{height:40px;width:40px}`;
+const style$7 = css$1 `:host(:not([twoline])){height:56px}:host(:not([left])) .mdc-list-item__meta{height:40px;width:40px}`;
 
 /** @soyCompatible */
 let Checkbox = class Checkbox extends CheckboxBase {
 };
-Checkbox.styles = style$4;
-Checkbox = __decorate$2([
-    customElement('mwc-checkbox')
+Checkbox.styles = style$8;
+Checkbox = __decorate$3([
+    
 ], Checkbox);
 
 /**
@@ -22172,16 +23964,16 @@ class CheckListItemBase extends ListItemBase {
         }
     }
 }
-__decorate$2([
+__decorate$3([
     query$1('slot')
 ], CheckListItemBase.prototype, "slotElement", void 0);
-__decorate$2([
+__decorate$3([
     query$1('mwc-checkbox')
 ], CheckListItemBase.prototype, "checkboxElement", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], CheckListItemBase.prototype, "left", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String, reflect: true })
 ], CheckListItemBase.prototype, "graphic", void 0);
 
@@ -22192,7 +23984,7 @@ class CheckListItem extends ScopedElementsMixin$1(CheckListItemBase) {
         };
     }
 }
-CheckListItem.styles = [style$7, style$3];
+CheckListItem.styles = [style$c, style$7];
 
 /**
  * @license
@@ -22216,12 +24008,12 @@ CheckListItem.styles = [style$7, style$3];
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-var cssClasses$1 = {
+var cssClasses$2 = {
     CLOSING: 'mdc-snackbar--closing',
     OPEN: 'mdc-snackbar--open',
     OPENING: 'mdc-snackbar--opening',
 };
-var strings$1 = {
+var strings$2 = {
     ACTION_SELECTOR: '.mdc-snackbar__action',
     ARIA_LIVE_LABEL_TEXT_ATTR: 'data-mdc-snackbar-label-text',
     CLOSED_EVENT: 'MDCSnackbar:closed',
@@ -22234,7 +24026,7 @@ var strings$1 = {
     REASON_DISMISS: 'dismiss',
     SURFACE_SELECTOR: '.mdc-snackbar__surface',
 };
-var numbers$1 = {
+var numbers$2 = {
     DEFAULT_AUTO_DISMISS_TIMEOUT_MS: 5000,
     INDETERMINATE: -1,
     MAX_AUTO_DISMISS_TIMEOUT_MS: 10000,
@@ -22272,37 +24064,37 @@ var numbers$1 = {
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-var OPENING = cssClasses$1.OPENING, OPEN = cssClasses$1.OPEN, CLOSING = cssClasses$1.CLOSING;
-var REASON_ACTION = strings$1.REASON_ACTION, REASON_DISMISS = strings$1.REASON_DISMISS;
+var OPENING = cssClasses$2.OPENING, OPEN = cssClasses$2.OPEN, CLOSING = cssClasses$2.CLOSING;
+var REASON_ACTION = strings$2.REASON_ACTION, REASON_DISMISS = strings$2.REASON_DISMISS;
 var MDCSnackbarFoundation = /** @class */ (function (_super) {
-    __extends$1(MDCSnackbarFoundation, _super);
+    __extends$2(MDCSnackbarFoundation, _super);
     function MDCSnackbarFoundation(adapter) {
-        var _this = _super.call(this, __assign$1(__assign$1({}, MDCSnackbarFoundation.defaultAdapter), adapter)) || this;
+        var _this = _super.call(this, __assign$2(__assign$2({}, MDCSnackbarFoundation.defaultAdapter), adapter)) || this;
         _this.isOpen_ = false;
         _this.animationFrame_ = 0;
         _this.animationTimer_ = 0;
         _this.autoDismissTimer_ = 0;
-        _this.autoDismissTimeoutMs_ = numbers$1.DEFAULT_AUTO_DISMISS_TIMEOUT_MS;
+        _this.autoDismissTimeoutMs_ = numbers$2.DEFAULT_AUTO_DISMISS_TIMEOUT_MS;
         _this.closeOnEscape_ = true;
         return _this;
     }
     Object.defineProperty(MDCSnackbarFoundation, "cssClasses", {
         get: function () {
-            return cssClasses$1;
+            return cssClasses$2;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MDCSnackbarFoundation, "strings", {
         get: function () {
-            return strings$1;
+            return strings$2;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MDCSnackbarFoundation, "numbers", {
         get: function () {
-            return numbers$1;
+            return numbers$2;
         },
         enumerable: true,
         configurable: true
@@ -22347,12 +24139,12 @@ var MDCSnackbarFoundation = /** @class */ (function (_super) {
                 var timeoutMs = _this.getTimeoutMs();
                 _this.handleAnimationTimerEnd_();
                 _this.adapter.notifyOpened();
-                if (timeoutMs !== numbers$1.INDETERMINATE) {
+                if (timeoutMs !== numbers$2.INDETERMINATE) {
                     _this.autoDismissTimer_ = setTimeout(function () {
                         _this.close(REASON_DISMISS);
                     }, timeoutMs);
                 }
-            }, numbers$1.SNACKBAR_ANIMATION_OPEN_TIME_MS);
+            }, numbers$2.SNACKBAR_ANIMATION_OPEN_TIME_MS);
         });
     };
     /**
@@ -22372,14 +24164,14 @@ var MDCSnackbarFoundation = /** @class */ (function (_super) {
         this.clearAutoDismissTimer_();
         this.isOpen_ = false;
         this.adapter.notifyClosing(reason);
-        this.adapter.addClass(cssClasses$1.CLOSING);
-        this.adapter.removeClass(cssClasses$1.OPEN);
-        this.adapter.removeClass(cssClasses$1.OPENING);
+        this.adapter.addClass(cssClasses$2.CLOSING);
+        this.adapter.removeClass(cssClasses$2.OPEN);
+        this.adapter.removeClass(cssClasses$2.OPENING);
         clearTimeout(this.animationTimer_);
         this.animationTimer_ = setTimeout(function () {
             _this.handleAnimationTimerEnd_();
             _this.adapter.notifyClosed(reason);
-        }, numbers$1.SNACKBAR_ANIMATION_CLOSE_TIME_MS);
+        }, numbers$2.SNACKBAR_ANIMATION_CLOSE_TIME_MS);
     };
     MDCSnackbarFoundation.prototype.isOpen = function () {
         return this.isOpen_;
@@ -22389,10 +24181,10 @@ var MDCSnackbarFoundation = /** @class */ (function (_super) {
     };
     MDCSnackbarFoundation.prototype.setTimeoutMs = function (timeoutMs) {
         // Use shorter variable names to make the code more readable
-        var minValue = numbers$1.MIN_AUTO_DISMISS_TIMEOUT_MS;
-        var maxValue = numbers$1.MAX_AUTO_DISMISS_TIMEOUT_MS;
-        var indeterminateValue = numbers$1.INDETERMINATE;
-        if (timeoutMs === numbers$1.INDETERMINATE || (timeoutMs <= maxValue && timeoutMs >= minValue)) {
+        var minValue = numbers$2.MIN_AUTO_DISMISS_TIMEOUT_MS;
+        var maxValue = numbers$2.MAX_AUTO_DISMISS_TIMEOUT_MS;
+        var indeterminateValue = numbers$2.INDETERMINATE;
+        if (timeoutMs === numbers$2.INDETERMINATE || (timeoutMs <= maxValue && timeoutMs >= minValue)) {
             this.autoDismissTimeoutMs_ = timeoutMs;
         }
         else {
@@ -22423,8 +24215,8 @@ var MDCSnackbarFoundation = /** @class */ (function (_super) {
     };
     MDCSnackbarFoundation.prototype.handleAnimationTimerEnd_ = function () {
         this.animationTimer_ = 0;
-        this.adapter.removeClass(cssClasses$1.OPENING);
-        this.adapter.removeClass(cssClasses$1.CLOSING);
+        this.adapter.removeClass(cssClasses$2.OPENING);
+        this.adapter.removeClass(cssClasses$2.CLOSING);
     };
     /**
      * Runs the given logic on the next animation frame, using setTimeout to factor in Firefox reflow behavior.
@@ -22439,7 +24231,7 @@ var MDCSnackbarFoundation = /** @class */ (function (_super) {
         });
     };
     return MDCSnackbarFoundation;
-}(MDCFoundation$1));
+}(MDCFoundation$2));
 
 /**
 @license
@@ -22647,13 +24439,13 @@ class SnackbarBase extends BaseElement$1 {
         this.mdcFoundation.handleActionIconClick(e);
     }
 }
-__decorate$2([
+__decorate$3([
     query$1('.mdc-snackbar')
 ], SnackbarBase.prototype, "mdcRoot", void 0);
-__decorate$2([
+__decorate$3([
     query$1('.mdc-snackbar__label')
 ], SnackbarBase.prototype, "labelElement", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean, reflect: true }),
     observer(function (value) {
         if (this.mdcFoundation) {
@@ -22667,25 +24459,25 @@ __decorate$2([
         }
     })
 ], SnackbarBase.prototype, "open", void 0);
-__decorate$2([
+__decorate$3([
     observer(function (value) {
         this.mdcFoundation.setTimeoutMs(value);
     }),
     property$1({ type: Number })
 ], SnackbarBase.prototype, "timeoutMs", void 0);
-__decorate$2([
+__decorate$3([
     observer(function (value) {
         this.mdcFoundation.setCloseOnEscape(value);
     }),
     property$1({ type: Boolean })
 ], SnackbarBase.prototype, "closeOnEscape", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String })
 ], SnackbarBase.prototype, "labelText", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], SnackbarBase.prototype, "stacked", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], SnackbarBase.prototype, "leading", void 0);
 
@@ -22705,11 +24497,184 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const style$2 = css$1 `.mdc-snackbar{z-index:8;margin:8px;display:none;position:fixed;right:0;bottom:0;left:0;align-items:center;justify-content:center;box-sizing:border-box;pointer-events:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}.mdc-snackbar__surface{background-color:#333333}.mdc-snackbar__label{color:rgba(255, 255, 255, 0.87)}.mdc-snackbar__surface{min-width:344px}@media(max-width: 480px),(max-width: 344px){.mdc-snackbar__surface{min-width:100%}}.mdc-snackbar__surface{max-width:672px}.mdc-snackbar__surface{box-shadow:0px 3px 5px -1px rgba(0, 0, 0, 0.2),0px 6px 10px 0px rgba(0, 0, 0, 0.14),0px 1px 18px 0px rgba(0,0,0,.12)}.mdc-snackbar__surface{border-radius:4px;border-radius:var(--mdc-shape-small, 4px)}.mdc-snackbar--opening,.mdc-snackbar--open,.mdc-snackbar--closing{display:flex}.mdc-snackbar--open .mdc-snackbar__label,.mdc-snackbar--open .mdc-snackbar__actions{visibility:visible}.mdc-snackbar--leading{justify-content:flex-start}.mdc-snackbar--stacked .mdc-snackbar__label{padding-left:16px;padding-right:8px;padding-bottom:12px}[dir=rtl] .mdc-snackbar--stacked .mdc-snackbar__label,.mdc-snackbar--stacked .mdc-snackbar__label[dir=rtl]{padding-left:8px;padding-right:16px}.mdc-snackbar--stacked .mdc-snackbar__surface{flex-direction:column;align-items:flex-start}.mdc-snackbar--stacked .mdc-snackbar__actions{align-self:flex-end;margin-bottom:8px}.mdc-snackbar__surface{padding-left:0;padding-right:8px;display:flex;align-items:center;justify-content:flex-start;box-sizing:border-box;transform:scale(0.8);opacity:0}[dir=rtl] .mdc-snackbar__surface,.mdc-snackbar__surface[dir=rtl]{padding-left:8px;padding-right:0}.mdc-snackbar--open .mdc-snackbar__surface{transform:scale(1);opacity:1;pointer-events:auto;transition:opacity 150ms 0ms cubic-bezier(0, 0, 0.2, 1),transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1)}.mdc-snackbar--closing .mdc-snackbar__surface{transform:scale(1);transition:opacity 75ms 0ms cubic-bezier(0.4, 0, 1, 1)}.mdc-snackbar__label{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-body2-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.875rem;font-size:var(--mdc-typography-body2-font-size, 0.875rem);line-height:1.25rem;line-height:var(--mdc-typography-body2-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-body2-font-weight, 400);letter-spacing:0.0178571429em;letter-spacing:var(--mdc-typography-body2-letter-spacing, 0.0178571429em);text-decoration:inherit;text-decoration:var(--mdc-typography-body2-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-body2-text-transform, inherit);padding-left:16px;padding-right:8px;width:100%;flex-grow:1;box-sizing:border-box;margin:0;visibility:hidden;padding-top:14px;padding-bottom:14px}[dir=rtl] .mdc-snackbar__label,.mdc-snackbar__label[dir=rtl]{padding-left:8px;padding-right:16px}.mdc-snackbar__label::before{display:inline;content:attr(data-mdc-snackbar-label-text)}.mdc-snackbar__actions{display:flex;flex-shrink:0;align-items:center;box-sizing:border-box;visibility:hidden}.mdc-snackbar__action:not(:disabled){color:#bb86fc}.mdc-snackbar__action::before,.mdc-snackbar__action::after{background-color:#bb86fc;background-color:var(--mdc-ripple-color, #bb86fc)}.mdc-snackbar__action:hover::before,.mdc-snackbar__action.mdc-ripple-surface--hover::before{opacity:0.08;opacity:var(--mdc-ripple-hover-opacity, 0.08)}.mdc-snackbar__action.mdc-ripple-upgraded--background-focused::before,.mdc-snackbar__action:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-focus-opacity, 0.24)}.mdc-snackbar__action:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-snackbar__action:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-press-opacity, 0.24)}.mdc-snackbar__action.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.24)}.mdc-snackbar__dismiss{color:rgba(255, 255, 255, 0.87)}.mdc-snackbar__dismiss::before,.mdc-snackbar__dismiss::after{background-color:rgba(255, 255, 255, 0.87);background-color:var(--mdc-ripple-color, rgba(255, 255, 255, 0.87))}.mdc-snackbar__dismiss:hover::before,.mdc-snackbar__dismiss.mdc-ripple-surface--hover::before{opacity:0.08;opacity:var(--mdc-ripple-hover-opacity, 0.08)}.mdc-snackbar__dismiss.mdc-ripple-upgraded--background-focused::before,.mdc-snackbar__dismiss:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-focus-opacity, 0.24)}.mdc-snackbar__dismiss:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-snackbar__dismiss:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-press-opacity, 0.24)}.mdc-snackbar__dismiss.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.24)}.mdc-snackbar__dismiss.mdc-snackbar__dismiss{width:36px;height:36px;padding:9px;font-size:18px}.mdc-snackbar__dismiss.mdc-snackbar__dismiss svg,.mdc-snackbar__dismiss.mdc-snackbar__dismiss img{width:18px;height:18px}.mdc-snackbar__action+.mdc-snackbar__dismiss{margin-left:8px;margin-right:0}[dir=rtl] .mdc-snackbar__action+.mdc-snackbar__dismiss,.mdc-snackbar__action+.mdc-snackbar__dismiss[dir=rtl]{margin-left:0;margin-right:8px}slot[name=action]::slotted(mwc-button){--mdc-theme-primary: var(--mdc-snackbar-action-color, #bb86fc)}slot[name=dismiss]::slotted(mwc-icon-button){--mdc-icon-size: 18px;--mdc-icon-button-size: 36px;color:rgba(255, 255, 255, 0.87);margin-left:8px;margin-right:0}[dir=rtl] slot[name=dismiss]::slotted(mwc-icon-button),slot[name=dismiss]::slotted(mwc-icon-button)[dir=rtl]{margin-left:0;margin-right:8px}`;
+const style$6 = css$1 `.mdc-snackbar{z-index:8;margin:8px;display:none;position:fixed;right:0;bottom:0;left:0;align-items:center;justify-content:center;box-sizing:border-box;pointer-events:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}.mdc-snackbar__surface{background-color:#333333}.mdc-snackbar__label{color:rgba(255, 255, 255, 0.87)}.mdc-snackbar__surface{min-width:344px}@media(max-width: 480px),(max-width: 344px){.mdc-snackbar__surface{min-width:100%}}.mdc-snackbar__surface{max-width:672px}.mdc-snackbar__surface{box-shadow:0px 3px 5px -1px rgba(0, 0, 0, 0.2),0px 6px 10px 0px rgba(0, 0, 0, 0.14),0px 1px 18px 0px rgba(0,0,0,.12)}.mdc-snackbar__surface{border-radius:4px;border-radius:var(--mdc-shape-small, 4px)}.mdc-snackbar--opening,.mdc-snackbar--open,.mdc-snackbar--closing{display:flex}.mdc-snackbar--open .mdc-snackbar__label,.mdc-snackbar--open .mdc-snackbar__actions{visibility:visible}.mdc-snackbar--leading{justify-content:flex-start}.mdc-snackbar--stacked .mdc-snackbar__label{padding-left:16px;padding-right:8px;padding-bottom:12px}[dir=rtl] .mdc-snackbar--stacked .mdc-snackbar__label,.mdc-snackbar--stacked .mdc-snackbar__label[dir=rtl]{padding-left:8px;padding-right:16px}.mdc-snackbar--stacked .mdc-snackbar__surface{flex-direction:column;align-items:flex-start}.mdc-snackbar--stacked .mdc-snackbar__actions{align-self:flex-end;margin-bottom:8px}.mdc-snackbar__surface{padding-left:0;padding-right:8px;display:flex;align-items:center;justify-content:flex-start;box-sizing:border-box;transform:scale(0.8);opacity:0}[dir=rtl] .mdc-snackbar__surface,.mdc-snackbar__surface[dir=rtl]{padding-left:8px;padding-right:0}.mdc-snackbar--open .mdc-snackbar__surface{transform:scale(1);opacity:1;pointer-events:auto;transition:opacity 150ms 0ms cubic-bezier(0, 0, 0.2, 1),transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1)}.mdc-snackbar--closing .mdc-snackbar__surface{transform:scale(1);transition:opacity 75ms 0ms cubic-bezier(0.4, 0, 1, 1)}.mdc-snackbar__label{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-body2-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.875rem;font-size:var(--mdc-typography-body2-font-size, 0.875rem);line-height:1.25rem;line-height:var(--mdc-typography-body2-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-body2-font-weight, 400);letter-spacing:0.0178571429em;letter-spacing:var(--mdc-typography-body2-letter-spacing, 0.0178571429em);text-decoration:inherit;text-decoration:var(--mdc-typography-body2-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-body2-text-transform, inherit);padding-left:16px;padding-right:8px;width:100%;flex-grow:1;box-sizing:border-box;margin:0;visibility:hidden;padding-top:14px;padding-bottom:14px}[dir=rtl] .mdc-snackbar__label,.mdc-snackbar__label[dir=rtl]{padding-left:8px;padding-right:16px}.mdc-snackbar__label::before{display:inline;content:attr(data-mdc-snackbar-label-text)}.mdc-snackbar__actions{display:flex;flex-shrink:0;align-items:center;box-sizing:border-box;visibility:hidden}.mdc-snackbar__action:not(:disabled){color:#bb86fc}.mdc-snackbar__action::before,.mdc-snackbar__action::after{background-color:#bb86fc;background-color:var(--mdc-ripple-color, #bb86fc)}.mdc-snackbar__action:hover::before,.mdc-snackbar__action.mdc-ripple-surface--hover::before{opacity:0.08;opacity:var(--mdc-ripple-hover-opacity, 0.08)}.mdc-snackbar__action.mdc-ripple-upgraded--background-focused::before,.mdc-snackbar__action:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-focus-opacity, 0.24)}.mdc-snackbar__action:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-snackbar__action:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-press-opacity, 0.24)}.mdc-snackbar__action.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.24)}.mdc-snackbar__dismiss{color:rgba(255, 255, 255, 0.87)}.mdc-snackbar__dismiss::before,.mdc-snackbar__dismiss::after{background-color:rgba(255, 255, 255, 0.87);background-color:var(--mdc-ripple-color, rgba(255, 255, 255, 0.87))}.mdc-snackbar__dismiss:hover::before,.mdc-snackbar__dismiss.mdc-ripple-surface--hover::before{opacity:0.08;opacity:var(--mdc-ripple-hover-opacity, 0.08)}.mdc-snackbar__dismiss.mdc-ripple-upgraded--background-focused::before,.mdc-snackbar__dismiss:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-focus-opacity, 0.24)}.mdc-snackbar__dismiss:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-snackbar__dismiss:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:0.24;opacity:var(--mdc-ripple-press-opacity, 0.24)}.mdc-snackbar__dismiss.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.24)}.mdc-snackbar__dismiss.mdc-snackbar__dismiss{width:36px;height:36px;padding:9px;font-size:18px}.mdc-snackbar__dismiss.mdc-snackbar__dismiss svg,.mdc-snackbar__dismiss.mdc-snackbar__dismiss img{width:18px;height:18px}.mdc-snackbar__action+.mdc-snackbar__dismiss{margin-left:8px;margin-right:0}[dir=rtl] .mdc-snackbar__action+.mdc-snackbar__dismiss,.mdc-snackbar__action+.mdc-snackbar__dismiss[dir=rtl]{margin-left:0;margin-right:8px}slot[name=action]::slotted(mwc-button){--mdc-theme-primary: var(--mdc-snackbar-action-color, #bb86fc)}slot[name=dismiss]::slotted(mwc-icon-button){--mdc-icon-size: 18px;--mdc-icon-button-size: 36px;color:rgba(255, 255, 255, 0.87);margin-left:8px;margin-right:0}[dir=rtl] slot[name=dismiss]::slotted(mwc-icon-button),slot[name=dismiss]::slotted(mwc-icon-button)[dir=rtl]{margin-left:0;margin-right:8px}`;
 
 class Snackbar extends SnackbarBase {
 }
-Snackbar.styles = style$2;
+Snackbar.styles = style$6;
+
+/** @soyCompatible */
+class CircularProgressBase extends LitElement$1 {
+    constructor() {
+        super(...arguments);
+        this.indeterminate = false;
+        this.progress = 0;
+        this.density = 0;
+        this.closed = false;
+        this.ariaLabel = '';
+    }
+    open() {
+        this.closed = false;
+    }
+    close() {
+        this.closed = true;
+    }
+    /**
+     * @soyTemplate
+     */
+    render() {
+        /** @classMap */
+        const classes = {
+            'mdc-circular-progress--closed': this.closed,
+            'mdc-circular-progress--indeterminate': this.indeterminate,
+        };
+        const containerSideLength = 48 + this.density * 4;
+        const styles = {
+            'width': `${containerSideLength}px`,
+            'height': `${containerSideLength}px`,
+        };
+        return html$1 `
+      <div
+        class="mdc-circular-progress ${classMap$1(classes)}"
+        style="${styleMap(styles)}"
+        role="progressbar"
+        aria-label="${this.ariaLabel}"
+        aria-valuemin="0"
+        aria-valuemax="1"
+        aria-valuenow="${ifDefined$1(this.indeterminate ? undefined : this.progress)}">
+        ${this.renderDeterminateContainer()}
+        ${this.renderIndeterminateContainer()}
+      </div>`;
+    }
+    /**
+     * @soyTemplate
+     */
+    renderDeterminateContainer() {
+        const sideLength = 48 + this.density * 4;
+        const center = sideLength / 2;
+        const circleRadius = this.density >= -3 ? 18 + this.density * 11 / 6 :
+            12.5 + (this.density + 3) * 5 / 4;
+        const circumference = 2 * 3.1415926 * circleRadius;
+        const determinateStrokeDashOffset = (1 - this.progress) * circumference;
+        const strokeWidth = this.density >= -3 ? 4 + this.density * (1 / 3) :
+            3 + (this.density + 3) * (1 / 6);
+        return html$1 `
+      <div class="mdc-circular-progress__determinate-container">
+        <svg class="mdc-circular-progress__determinate-circle-graphic"
+             viewBox="0 0 ${sideLength} ${sideLength}">
+          <circle class="mdc-circular-progress__determinate-track"
+                  cx="${center}" cy="${center}" r="${circleRadius}"
+                  stroke-width="${strokeWidth}"></circle>
+          <circle class="mdc-circular-progress__determinate-circle"
+                  cx="${center}" cy="${center}" r="${circleRadius}"
+                  stroke-dasharray="${2 * 3.1415926 * circleRadius}"
+                  stroke-dashoffset="${determinateStrokeDashOffset}"
+                  stroke-width="${strokeWidth}"></circle>
+        </svg>
+      </div>`;
+    }
+    /**
+     * @soyTemplate
+     */
+    renderIndeterminateContainer() {
+        return html$1 `
+      <div class="mdc-circular-progress__indeterminate-container">
+        <div class="mdc-circular-progress__spinner-layer">
+          ${this.renderIndeterminateSpinnerLayer()}
+        </div>
+      </div>`;
+    }
+    /**
+     * @soyTemplate
+     */
+    renderIndeterminateSpinnerLayer() {
+        const sideLength = 48 + this.density * 4;
+        const center = sideLength / 2;
+        const circleRadius = this.density >= -3 ? 18 + this.density * 11 / 6 :
+            12.5 + (this.density + 3) * 5 / 4;
+        const circumference = 2 * 3.1415926 * circleRadius;
+        const halfCircumference = 0.5 * circumference;
+        const strokeWidth = this.density >= -3 ? 4 + this.density * (1 / 3) :
+            3 + (this.density + 3) * (1 / 6);
+        return html$1 `
+        <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-left">
+          <svg class="mdc-circular-progress__indeterminate-circle-graphic"
+               viewBox="0 0 ${sideLength} ${sideLength}">
+            <circle cx="${center}" cy="${center}" r="${circleRadius}"
+                    stroke-dasharray="${circumference}"
+                    stroke-dashoffset="${halfCircumference}"
+                    stroke-width="${strokeWidth}"></circle>
+          </svg>
+        </div>
+        <div class="mdc-circular-progress__gap-patch">
+          <svg class="mdc-circular-progress__indeterminate-circle-graphic"
+               viewBox="0 0 ${sideLength} ${sideLength}">
+            <circle cx="${center}" cy="${center}" r="${circleRadius}"
+                    stroke-dasharray="${circumference}"
+                    stroke-dashoffset="${halfCircumference}"
+                    stroke-width="${strokeWidth * 0.8}"></circle>
+          </svg>
+        </div>
+        <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-right">
+          <svg class="mdc-circular-progress__indeterminate-circle-graphic"
+               viewBox="0 0 ${sideLength} ${sideLength}">
+            <circle cx="${center}" cy="${center}" r="${circleRadius}"
+                    stroke-dasharray="${circumference}"
+                    stroke-dashoffset="${halfCircumference}"
+                    stroke-width="${strokeWidth}"></circle>
+          </svg>
+        </div>`;
+    }
+    update(changedProperties) {
+        super.update(changedProperties);
+        // Bound progress value in interval [0, 1].
+        if (changedProperties.has('progress')) {
+            if (this.progress > 1) {
+                this.progress = 1;
+            }
+            if (this.progress < 0) {
+                this.progress = 0;
+            }
+        }
+    }
+}
+__decorate$3([
+    property$1({ type: Boolean, reflect: true })
+], CircularProgressBase.prototype, "indeterminate", void 0);
+__decorate$3([
+    property$1({ type: Number, reflect: true })
+], CircularProgressBase.prototype, "progress", void 0);
+__decorate$3([
+    property$1({ type: Number, reflect: true })
+], CircularProgressBase.prototype, "density", void 0);
+__decorate$3([
+    property$1({ type: Boolean, reflect: true })
+], CircularProgressBase.prototype, "closed", void 0);
+__decorate$3([
+    property$1({ type: String })
+], CircularProgressBase.prototype, "ariaLabel", void 0);
+
+/**
+@license
+Copyright 2018 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+const style$5 = css$1 `.mdc-circular-progress__determinate-circle,.mdc-circular-progress__indeterminate-circle-graphic{stroke:#6200ee;stroke:var(--mdc-theme-primary, #6200ee)}.mdc-circular-progress__determinate-track{stroke:transparent}@keyframes mdc-circular-progress-container-rotate{to{transform:rotate(360deg)}}@keyframes mdc-circular-progress-spinner-layer-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}@keyframes mdc-circular-progress-color-1-fade-in-out{from{opacity:.99}25%{opacity:.99}26%{opacity:0}89%{opacity:0}90%{opacity:.99}to{opacity:.99}}@keyframes mdc-circular-progress-color-2-fade-in-out{from{opacity:0}15%{opacity:0}25%{opacity:.99}50%{opacity:.99}51%{opacity:0}to{opacity:0}}@keyframes mdc-circular-progress-color-3-fade-in-out{from{opacity:0}40%{opacity:0}50%{opacity:.99}75%{opacity:.99}76%{opacity:0}to{opacity:0}}@keyframes mdc-circular-progress-color-4-fade-in-out{from{opacity:0}65%{opacity:0}75%{opacity:.99}90%{opacity:.99}to{opacity:0}}@keyframes mdc-circular-progress-left-spin{from{transform:rotate(265deg)}50%{transform:rotate(130deg)}to{transform:rotate(265deg)}}@keyframes mdc-circular-progress-right-spin{from{transform:rotate(-265deg)}50%{transform:rotate(-130deg)}to{transform:rotate(-265deg)}}.mdc-circular-progress{display:inline-flex;position:relative;direction:ltr;transition:opacity 250ms 0ms cubic-bezier(0.4, 0, 0.6, 1)}.mdc-circular-progress__determinate-container,.mdc-circular-progress__indeterminate-circle-graphic,.mdc-circular-progress__indeterminate-container,.mdc-circular-progress__spinner-layer{position:absolute;width:100%;height:100%}.mdc-circular-progress__determinate-container{transform:rotate(-90deg)}.mdc-circular-progress__indeterminate-container{font-size:0;letter-spacing:0;white-space:nowrap;opacity:0}.mdc-circular-progress__determinate-circle-graphic,.mdc-circular-progress__indeterminate-circle-graphic{fill:transparent}.mdc-circular-progress__determinate-circle{transition:stroke-dashoffset 500ms 0ms cubic-bezier(0, 0, 0.2, 1)}.mdc-circular-progress__gap-patch{position:absolute;top:0;left:47.5%;box-sizing:border-box;width:5%;height:100%;overflow:hidden}.mdc-circular-progress__gap-patch .mdc-circular-progress__indeterminate-circle-graphic{left:-900%;width:2000%;transform:rotate(180deg)}.mdc-circular-progress__circle-clipper{display:inline-flex;position:relative;width:50%;height:100%;overflow:hidden}.mdc-circular-progress__circle-clipper .mdc-circular-progress__indeterminate-circle-graphic{width:200%}.mdc-circular-progress__circle-right .mdc-circular-progress__indeterminate-circle-graphic{left:-100%}.mdc-circular-progress--indeterminate .mdc-circular-progress__determinate-container{opacity:0}.mdc-circular-progress--indeterminate .mdc-circular-progress__indeterminate-container{opacity:1}.mdc-circular-progress--indeterminate .mdc-circular-progress__indeterminate-container{animation:mdc-circular-progress-container-rotate 1568.2352941176ms linear infinite}.mdc-circular-progress--indeterminate .mdc-circular-progress__spinner-layer{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-1{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-1-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-2{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-2-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-3{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-3-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-4{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-4-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__circle-left .mdc-circular-progress__indeterminate-circle-graphic{animation:mdc-circular-progress-left-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__circle-right .mdc-circular-progress__indeterminate-circle-graphic{animation:mdc-circular-progress-right-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--closed{opacity:0}:host{display:inline-flex}.mdc-circular-progress__determinate-track{stroke:transparent;stroke:var(--mdc-circular-progress-track-color, transparent)}`;
+
+class CircularProgress extends CircularProgressBase {
+}
+CircularProgress.styles = style$5;
 
 const sharedStyles$2 = css$1 `
   .column {
@@ -22767,6 +24732,2229 @@ const sharedStyles$2 = css$1 `
     overflow-y: auto;
   }
 `;
+
+class NotchedOutlineBase extends BaseElement$1 {
+    constructor() {
+        super(...arguments);
+        this.mdcFoundationClass = MDCNotchedOutlineFoundation;
+        this.width = 0;
+        this.open = false;
+        this.lastOpen = this.open;
+    }
+    createAdapter() {
+        return {
+            addClass: (className) => this.mdcRoot.classList.add(className),
+            removeClass: (className) => this.mdcRoot.classList.remove(className),
+            setNotchWidthProperty: (width) => this.notchElement.style.setProperty('width', `${width}px`),
+            removeNotchWidthProperty: () => this.notchElement.style.removeProperty('width'),
+        };
+    }
+    openOrClose(shouldOpen, width) {
+        if (!this.mdcFoundation) {
+            return;
+        }
+        if (shouldOpen && width !== undefined) {
+            this.mdcFoundation.notch(width);
+        }
+        else {
+            this.mdcFoundation.closeNotch();
+        }
+    }
+    render() {
+        this.openOrClose(this.open, this.width);
+        const classes = classMap$1({
+            'mdc-notched-outline--notched': this.open,
+        });
+        return html$1 `
+      <span class="mdc-notched-outline ${classes}">
+        <span class="mdc-notched-outline__leading"></span>
+        <span class="mdc-notched-outline__notch">
+          <slot></slot>
+        </span>
+        <span class="mdc-notched-outline__trailing"></span>
+      </span>`;
+    }
+}
+__decorate$3([
+    query$1('.mdc-notched-outline')
+], NotchedOutlineBase.prototype, "mdcRoot", void 0);
+__decorate$3([
+    property$1({ type: Number })
+], NotchedOutlineBase.prototype, "width", void 0);
+__decorate$3([
+    property$1({ type: Boolean, reflect: true })
+], NotchedOutlineBase.prototype, "open", void 0);
+__decorate$3([
+    query$1('.mdc-notched-outline__notch')
+], NotchedOutlineBase.prototype, "notchElement", void 0);
+
+/**
+@license
+Copyright 2018 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+const style$4 = css$1 `.mdc-notched-outline{display:flex;position:absolute;top:0;right:0;left:0;box-sizing:border-box;width:100%;max-width:100%;height:100%;text-align:left;pointer-events:none}[dir=rtl] .mdc-notched-outline,.mdc-notched-outline[dir=rtl]{text-align:right}.mdc-notched-outline__leading,.mdc-notched-outline__notch,.mdc-notched-outline__trailing{box-sizing:border-box;height:100%;border-top:1px solid;border-bottom:1px solid;pointer-events:none}.mdc-notched-outline__leading{border-left:1px solid;border-right:none;width:12px}[dir=rtl] .mdc-notched-outline__leading,.mdc-notched-outline__leading[dir=rtl]{border-left:none;border-right:1px solid}.mdc-notched-outline__trailing{border-left:none;border-right:1px solid;flex-grow:1}[dir=rtl] .mdc-notched-outline__trailing,.mdc-notched-outline__trailing[dir=rtl]{border-left:1px solid;border-right:none}.mdc-notched-outline__notch{flex:0 0 auto;width:auto;max-width:calc(100% - 12px * 2)}.mdc-notched-outline .mdc-floating-label{display:inline-block;position:relative;max-width:100%}.mdc-notched-outline .mdc-floating-label--float-above{text-overflow:clip}.mdc-notched-outline--upgraded .mdc-floating-label--float-above{max-width:calc(100% / 0.75)}.mdc-notched-outline--notched .mdc-notched-outline__notch{padding-left:0;padding-right:8px;border-top:none}[dir=rtl] .mdc-notched-outline--notched .mdc-notched-outline__notch,.mdc-notched-outline--notched .mdc-notched-outline__notch[dir=rtl]{padding-left:8px;padding-right:0}.mdc-notched-outline--no-label .mdc-notched-outline__notch{display:none}:host{display:block;position:absolute;right:0;left:0;box-sizing:border-box;width:100%;max-width:100%;height:100%;text-align:left;pointer-events:none}[dir=rtl] :host,:host[dir=rtl]{text-align:right}::slotted(.mdc-floating-label){display:inline-block;position:relative;top:17px;bottom:auto;max-width:100%}::slotted(.mdc-floating-label--float-above){text-overflow:clip}.mdc-notched-outline--upgraded ::slotted(.mdc-floating-label--float-above){max-width:calc(100% / .75)}.mdc-notched-outline .mdc-notched-outline__leading{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}[dir=rtl] .mdc-notched-outline .mdc-notched-outline__leading,.mdc-notched-outline .mdc-notched-outline__leading[dir=rtl]{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}@supports(top: max(0%)){.mdc-notched-outline .mdc-notched-outline__leading{width:max(12px, var(--mdc-shape-small, 4px))}}@supports(top: max(0%)){.mdc-notched-outline .mdc-notched-outline__notch{max-width:calc(100% - max(12px, var(--mdc-shape-small, 4px)) * 2)}}.mdc-notched-outline .mdc-notched-outline__trailing{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}[dir=rtl] .mdc-notched-outline .mdc-notched-outline__trailing,.mdc-notched-outline .mdc-notched-outline__trailing[dir=rtl]{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}.mdc-notched-outline__leading,.mdc-notched-outline__notch,.mdc-notched-outline__trailing{border-color:var(--mdc-notched-outline-border-color, var(--mdc-theme-primary, #6200ee));border-width:1px;border-width:var(--mdc-notched-outline-stroke-width, 1px)}.mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:0;padding-top:var(--mdc-notched-outline-notch-offset, 0)}`;
+
+let NotchedOutline$1 = class NotchedOutline extends NotchedOutlineBase {
+};
+NotchedOutline$1.styles = style$4;
+NotchedOutline$1 = __decorate$3([
+    
+], NotchedOutline$1);
+
+const createAdapter = (labelElement) => {
+    return {
+        addClass: (className) => labelElement.classList.add(className),
+        removeClass: (className) => labelElement.classList.remove(className),
+        getWidth: () => labelElement.scrollWidth,
+        registerInteractionHandler: (evtType, handler) => {
+            labelElement.addEventListener(evtType, handler);
+        },
+        deregisterInteractionHandler: (evtType, handler) => {
+            labelElement.removeEventListener(evtType, handler);
+        },
+    };
+};
+const partToFoundationMap = new WeakMap();
+const floatingLabel = directive$1((label) => (part) => {
+    const lastFoundation = partToFoundationMap.get(part);
+    if (!lastFoundation) {
+        const labelElement = part.committer.element;
+        labelElement.classList.add('mdc-floating-label');
+        const adapter = createAdapter(labelElement);
+        const foundation = new MDCFloatingLabelFoundation(adapter);
+        foundation.init();
+        part.setValue(foundation);
+        partToFoundationMap.set(part, { label, foundation });
+    }
+});
+
+const createAdapter$1 = (lineElement) => {
+    return {
+        addClass: (className) => lineElement.classList.add(className),
+        removeClass: (className) => lineElement.classList.remove(className),
+        hasClass: (className) => lineElement.classList.contains(className),
+        setStyle: (propertyName, value) => lineElement.style.setProperty(propertyName, value),
+        registerEventHandler: (evtType, handler) => {
+            lineElement.addEventListener(evtType, handler);
+        },
+        deregisterEventHandler: (evtType, handler) => {
+            lineElement.removeEventListener(evtType, handler);
+        },
+    };
+};
+const partToFoundationMap$1 = new WeakMap();
+const lineRipple = directive$1(() => (part) => {
+    const lastFoundation = partToFoundationMap$1.get(part);
+    if (!lastFoundation) {
+        const lineElement = part.committer.element;
+        lineElement.classList.add('mdc-line-ripple');
+        const adapter = createAdapter$1(lineElement);
+        const foundation = new MDCLineRippleFoundation(adapter);
+        foundation.init();
+        part.setValue(foundation);
+        partToFoundationMap$1.set(part, foundation);
+    }
+});
+
+const passiveEvents = ['touchstart', 'touchmove', 'scroll', 'mousewheel'];
+const createValidityObj = (customValidity = {}) => {
+    /*
+     * We need to make ValidityState an object because it is readonly and
+     * we cannot use the spread operator. Also, we don't export
+     * `CustomValidityState` because it is a leaky implementation and the user
+     * already has access to `ValidityState` in lib.dom.ts. Also an interface
+     * {a: Type} can be casted to {readonly a: Type} so passing any object
+     * should be fine.
+     */
+    const objectifiedCustomValidity = {};
+    // eslint-disable-next-line guard-for-in
+    for (const propName in customValidity) {
+        /*
+         * Casting is needed because ValidityState's props are all readonly and
+         * thus cannot be set on `onjectifiedCustomValidity`. In the end, the
+         * interface is the same as ValidityState (but not readonly), but the
+         * function signature casts the output to ValidityState (thus readonly).
+         */
+        objectifiedCustomValidity[propName] =
+            customValidity[propName];
+    }
+    return Object.assign({ badInput: false, customError: false, patternMismatch: false, rangeOverflow: false, rangeUnderflow: false, stepMismatch: false, tooLong: false, tooShort: false, typeMismatch: false, valid: true, valueMissing: false }, objectifiedCustomValidity);
+};
+/** @soyCompatible */
+class TextFieldBase extends FormElement {
+    constructor() {
+        super(...arguments);
+        this.mdcFoundationClass = MDCTextFieldFoundation;
+        this.value = '';
+        this.type = 'text';
+        this.placeholder = '';
+        this.label = '';
+        this.icon = '';
+        this.iconTrailing = '';
+        this.disabled = false;
+        this.required = false;
+        this.minLength = -1;
+        this.maxLength = -1;
+        this.outlined = false;
+        this.helper = '';
+        this.validateOnInitialRender = false;
+        this.validationMessage = '';
+        this.autoValidate = false;
+        this.pattern = '';
+        this.min = '';
+        this.max = '';
+        this.step = null;
+        this.size = null;
+        this.helperPersistent = false;
+        this.charCounter = false;
+        this.endAligned = false;
+        this.prefix = '';
+        this.suffix = '';
+        this.name = '';
+        this.readOnly = false;
+        this.autocapitalize = '';
+        this.outlineOpen = false;
+        this.outlineWidth = 0;
+        this.isUiValid = true;
+        this.focused = false;
+        this._validity = createValidityObj();
+        this._outlineUpdateComplete = null;
+        this.validityTransform = null;
+    }
+    get validity() {
+        this._checkValidity(this.value);
+        return this._validity;
+    }
+    get willValidate() {
+        return this.formElement.willValidate;
+    }
+    get selectionStart() {
+        return this.formElement.selectionStart;
+    }
+    get selectionEnd() {
+        return this.formElement.selectionEnd;
+    }
+    focus() {
+        const focusEvt = new CustomEvent('focus');
+        this.formElement.dispatchEvent(focusEvt);
+        this.formElement.focus();
+    }
+    blur() {
+        const blurEvt = new CustomEvent('blur');
+        this.formElement.dispatchEvent(blurEvt);
+        this.formElement.blur();
+    }
+    select() {
+        this.formElement.select();
+    }
+    setSelectionRange(selectionStart, selectionEnd, selectionDirection) {
+        this.formElement.setSelectionRange(selectionStart, selectionEnd, selectionDirection);
+    }
+    update(changedProperties) {
+        if (changedProperties.has('autoValidate') && this.mdcFoundation) {
+            this.mdcFoundation.setValidateOnValueChange(this.autoValidate);
+        }
+        if (changedProperties.has('value') && typeof this.value !== 'string') {
+            this.value = `${this.value}`;
+        }
+        super.update(changedProperties);
+    }
+    /** @soyTemplate */
+    render() {
+        const shouldRenderCharCounter = this.charCounter && this.maxLength !== -1;
+        const shouldRenderHelperText = !!this.helper || !!this.validationMessage || shouldRenderCharCounter;
+        /** @classMap */
+        const classes = {
+            'mdc-text-field--disabled': this.disabled,
+            'mdc-text-field--no-label': !this.label,
+            'mdc-text-field--filled': !this.outlined,
+            'mdc-text-field--outlined': this.outlined,
+            'mdc-text-field--with-leading-icon': this.icon,
+            'mdc-text-field--with-trailing-icon': this.iconTrailing,
+            'mdc-text-field--end-aligned': this.endAligned,
+        };
+        return html$1 `
+      <label class="mdc-text-field ${classMap$1(classes)}">
+        ${this.renderRipple()}
+        ${this.outlined ? this.renderOutline() : this.renderLabel()}
+        ${this.renderLeadingIcon()}
+        ${this.renderPrefix()}
+        ${this.renderInput(shouldRenderHelperText)}
+        ${this.renderSuffix()}
+        ${this.renderTrailingIcon()}
+        ${this.renderLineRipple()}
+      </label>
+      ${this.renderHelperText(shouldRenderHelperText, shouldRenderCharCounter)}
+    `;
+    }
+    updated(changedProperties) {
+        if (changedProperties.has('value') &&
+            changedProperties.get('value') !== undefined) {
+            this.mdcFoundation.setValue(this.value);
+            if (this.autoValidate) {
+                this.reportValidity();
+            }
+        }
+    }
+    /** @soyTemplate */
+    renderRipple() {
+        return this.outlined ? '' : html$1 `
+      <span class="mdc-text-field__ripple"></span>
+    `;
+    }
+    /** @soyTemplate */
+    renderOutline() {
+        return !this.outlined ? '' : html$1 `
+      <mwc-notched-outline
+          .width=${this.outlineWidth}
+          .open=${this.outlineOpen}
+          class="mdc-notched-outline">
+        ${this.renderLabel()}
+      </mwc-notched-outline>`;
+    }
+    /** @soyTemplate */
+    renderLabel() {
+        return !this.label ? '' : html$1 `
+      <span
+          .floatingLabelFoundation=${floatingLabel(this.label)}
+          id="label">${this.label}</span>
+    `;
+    }
+    /** @soyTemplate */
+    renderLeadingIcon() {
+        return this.icon ? this.renderIcon(this.icon) : '';
+    }
+    /** @soyTemplate */
+    renderTrailingIcon() {
+        return this.iconTrailing ? this.renderIcon(this.iconTrailing, true) : '';
+    }
+    /** @soyTemplate */
+    renderIcon(icon, isTrailingIcon = false) {
+        /** @classMap */
+        const classes = {
+            'mdc-text-field__icon--leading': !isTrailingIcon,
+            'mdc-text-field__icon--trailing': isTrailingIcon
+        };
+        return html$1 `<i class="material-icons mdc-text-field__icon ${classMap$1(classes)}">${icon}</i>`;
+    }
+    /** @soyTemplate */
+    renderPrefix() {
+        return this.prefix ? this.renderAffix(this.prefix) : '';
+    }
+    /** @soyTemplate */
+    renderSuffix() {
+        return this.suffix ? this.renderAffix(this.suffix, true) : '';
+    }
+    /** @soyTemplate */
+    renderAffix(content, isSuffix = false) {
+        /** @classMap */
+        const classes = {
+            'mdc-text-field__affix--prefix': !isSuffix,
+            'mdc-text-field__affix--suffix': isSuffix
+        };
+        return html$1 `<span class="mdc-text-field__affix ${classMap$1(classes)}">
+        ${content}</span>`;
+    }
+    /** @soyTemplate */
+    renderInput(shouldRenderHelperText) {
+        const minOrUndef = this.minLength === -1 ? undefined : this.minLength;
+        const maxOrUndef = this.maxLength === -1 ? undefined : this.maxLength;
+        const autocapitalizeOrUndef = this.autocapitalize ?
+            this.autocapitalize :
+            undefined;
+        const showValidationMessage = this.validationMessage && !this.isUiValid;
+        const ariaControlsOrUndef = shouldRenderHelperText ? 'helper-text' : undefined;
+        const ariaDescribedbyOrUndef = this.focused || this.helperPersistent || showValidationMessage ?
+            'helper-text' :
+            undefined;
+        const ariaErrortextOrUndef = showValidationMessage ? 'helper-text' : undefined;
+        // TODO: live() directive needs casting for lit-analyzer
+        // https://github.com/runem/lit-analyzer/pull/91/files
+        // TODO: lit-analyzer labels min/max as (number|string) instead of string
+        return html$1 `
+      <input
+          aria-labelledby="label"
+          aria-controls="${ifDefined$1(ariaControlsOrUndef)}"
+          aria-describedby="${ifDefined$1(ariaDescribedbyOrUndef)}"
+          aria-errortext="${ifDefined$1(ariaErrortextOrUndef)}"
+          class="mdc-text-field__input"
+          type="${this.type}"
+          .value="${live(this.value)}"
+          ?disabled="${this.disabled}"
+          placeholder="${this.placeholder}"
+          ?required="${this.required}"
+          ?readonly="${this.readOnly}"
+          minlength="${ifDefined$1(minOrUndef)}"
+          maxlength="${ifDefined$1(maxOrUndef)}"
+          pattern="${ifDefined$1(this.pattern ? this.pattern : undefined)}"
+          min="${ifDefined$1(this.min === '' ? undefined : this.min)}"
+          max="${ifDefined$1(this.max === '' ? undefined : this.max)}"
+          step="${ifDefined$1(this.step === null ? undefined : this.step)}"
+          size="${ifDefined$1(this.size === null ? undefined : this.size)}"
+          name="${ifDefined$1(this.name === '' ? undefined : this.name)}"
+          inputmode="${ifDefined$1(this.inputMode)}"
+          autocapitalize="${ifDefined$1(autocapitalizeOrUndef)}"
+          @input="${this.handleInputChange}"
+          @focus="${this.onInputFocus}"
+          @blur="${this.onInputBlur}">`;
+    }
+    /** @soyTemplate */
+    renderLineRipple() {
+        return this.outlined ? '' : html$1 `
+      <span .lineRippleFoundation=${lineRipple()}></span>
+    `;
+    }
+    /** @soyTemplate */
+    renderHelperText(shouldRenderHelperText, shouldRenderCharCounter) {
+        const showValidationMessage = this.validationMessage && !this.isUiValid;
+        /** @classMap */
+        const classes = {
+            'mdc-text-field-helper-text--persistent': this.helperPersistent,
+            'mdc-text-field-helper-text--validation-msg': showValidationMessage,
+        };
+        const ariaHiddenOrUndef = this.focused || this.helperPersistent || showValidationMessage ?
+            undefined :
+            'true';
+        const helperText = showValidationMessage ? this.validationMessage : this.helper;
+        return !shouldRenderHelperText ? '' : html$1 `
+      <div class="mdc-text-field-helper-line">
+        <div id="helper-text"
+             aria-hidden="${ifDefined$1(ariaHiddenOrUndef)}"
+             class="mdc-text-field-helper-text ${classMap$1(classes)}"
+             >${helperText}</div>
+        ${this.renderCharCounter(shouldRenderCharCounter)}
+      </div>`;
+    }
+    /** @soyTemplate */
+    renderCharCounter(shouldRenderCharCounter) {
+        const length = Math.min(this.value.length, this.maxLength);
+        return !shouldRenderCharCounter ? '' : html$1 `
+      <span class="mdc-text-field-character-counter"
+            >${length} / ${this.maxLength}</span>`;
+    }
+    onInputFocus() {
+        this.focused = true;
+    }
+    onInputBlur() {
+        this.focused = false;
+        this.reportValidity();
+    }
+    checkValidity() {
+        const isValid = this._checkValidity(this.value);
+        if (!isValid) {
+            const invalidEvent = new Event('invalid', { bubbles: false, cancelable: true });
+            this.dispatchEvent(invalidEvent);
+        }
+        return isValid;
+    }
+    reportValidity() {
+        const isValid = this.checkValidity();
+        this.mdcFoundation.setValid(isValid);
+        this.isUiValid = isValid;
+        return isValid;
+    }
+    _checkValidity(value) {
+        const nativeValidity = this.formElement.validity;
+        let validity = createValidityObj(nativeValidity);
+        if (this.validityTransform) {
+            const customValidity = this.validityTransform(value, validity);
+            validity = Object.assign(Object.assign({}, validity), customValidity);
+            this.mdcFoundation.setUseNativeValidation(false);
+        }
+        else {
+            this.mdcFoundation.setUseNativeValidation(true);
+        }
+        this._validity = validity;
+        return this._validity.valid;
+    }
+    setCustomValidity(message) {
+        this.validationMessage = message;
+        this.formElement.setCustomValidity(message);
+    }
+    handleInputChange() {
+        this.value = this.formElement.value;
+    }
+    createFoundation() {
+        if (this.mdcFoundation !== undefined) {
+            this.mdcFoundation.destroy();
+        }
+        this.mdcFoundation = new this.mdcFoundationClass(this.createAdapter());
+        this.mdcFoundation.init();
+    }
+    createAdapter() {
+        return Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, this.getRootAdapterMethods()), this.getInputAdapterMethods()), this.getLabelAdapterMethods()), this.getLineRippleAdapterMethods()), this.getOutlineAdapterMethods());
+    }
+    getRootAdapterMethods() {
+        return Object.assign({ registerTextFieldInteractionHandler: (evtType, handler) => this.addEventListener(evtType, handler), deregisterTextFieldInteractionHandler: (evtType, handler) => this.removeEventListener(evtType, handler), registerValidationAttributeChangeHandler: (handler) => {
+                const getAttributesList = (mutationsList) => {
+                    return mutationsList.map((mutation) => mutation.attributeName)
+                        .filter((attributeName) => attributeName);
+                };
+                const observer = new MutationObserver((mutationsList) => {
+                    handler(getAttributesList(mutationsList));
+                });
+                const config = { attributes: true };
+                observer.observe(this.formElement, config);
+                return observer;
+            }, deregisterValidationAttributeChangeHandler: (observer) => observer.disconnect() }, addHasRemoveClass(this.mdcRoot));
+    }
+    getInputAdapterMethods() {
+        return {
+            getNativeInput: () => this.formElement,
+            // since HelperTextFoundation is not used, aria-describedby a11y logic
+            // is implemented in render method instead of these adapter methods
+            setInputAttr: () => undefined,
+            removeInputAttr: () => undefined,
+            isFocused: () => this.shadowRoot ?
+                this.shadowRoot.activeElement === this.formElement :
+                false,
+            registerInputInteractionHandler: (evtType, handler) => this.formElement.addEventListener(evtType, handler, { passive: evtType in passiveEvents }),
+            deregisterInputInteractionHandler: (evtType, handler) => this.formElement.removeEventListener(evtType, handler),
+        };
+    }
+    getLabelAdapterMethods() {
+        return {
+            floatLabel: (shouldFloat) => this.labelElement &&
+                this.labelElement.floatingLabelFoundation.float(shouldFloat),
+            getLabelWidth: () => {
+                return this.labelElement ?
+                    this.labelElement.floatingLabelFoundation.getWidth() :
+                    0;
+            },
+            hasLabel: () => Boolean(this.labelElement),
+            shakeLabel: (shouldShake) => this.labelElement &&
+                this.labelElement.floatingLabelFoundation.shake(shouldShake),
+            setLabelRequired: (isRequired) => {
+                if (this.labelElement) {
+                    this.labelElement.floatingLabelFoundation.setRequired(isRequired);
+                }
+            },
+        };
+    }
+    getLineRippleAdapterMethods() {
+        return {
+            activateLineRipple: () => {
+                if (this.lineRippleElement) {
+                    this.lineRippleElement.lineRippleFoundation.activate();
+                }
+            },
+            deactivateLineRipple: () => {
+                if (this.lineRippleElement) {
+                    this.lineRippleElement.lineRippleFoundation.deactivate();
+                }
+            },
+            setLineRippleTransformOrigin: (normalizedX) => {
+                if (this.lineRippleElement) {
+                    this.lineRippleElement.lineRippleFoundation.setRippleCenter(normalizedX);
+                }
+            },
+        };
+    }
+    async _getUpdateComplete() {
+        await super._getUpdateComplete();
+        await this._outlineUpdateComplete;
+    }
+    async firstUpdated() {
+        const outlineElement = this.outlineElement;
+        if (outlineElement) {
+            this._outlineUpdateComplete = outlineElement.updateComplete;
+            await this._outlineUpdateComplete;
+        }
+        super.firstUpdated();
+        this.mdcFoundation.setValidateOnValueChange(this.autoValidate);
+        if (this.validateOnInitialRender) {
+            this.reportValidity();
+        }
+    }
+    getOutlineAdapterMethods() {
+        return {
+            closeOutline: () => this.outlineElement && (this.outlineOpen = false),
+            hasOutline: () => Boolean(this.outlineElement),
+            notchOutline: (labelWidth) => {
+                const outlineElement = this.outlineElement;
+                if (outlineElement && !this.outlineOpen) {
+                    this.outlineWidth = labelWidth;
+                    this.outlineOpen = true;
+                }
+            }
+        };
+    }
+    async layout() {
+        await this.updateComplete;
+        const labelElement = this.labelElement;
+        if (!labelElement) {
+            this.outlineOpen = false;
+            return;
+        }
+        const shouldFloat = !!this.label && !!this.value;
+        labelElement.floatingLabelFoundation.float(shouldFloat);
+        if (!this.outlined) {
+            return;
+        }
+        this.outlineOpen = shouldFloat;
+        await this.updateComplete;
+        /* When the textfield automatically notches due to a value and label
+         * being defined, the textfield may be set to `display: none` by the user.
+         * this means that the notch is of size 0px. We provide this function so
+         * that the user may manually resize the notch to the floated label's
+         * width.
+         */
+        const labelWidth = labelElement.floatingLabelFoundation.getWidth();
+        if (this.outlineOpen) {
+            this.outlineWidth = labelWidth;
+        }
+    }
+}
+__decorate$3([
+    query$1('.mdc-text-field')
+], TextFieldBase.prototype, "mdcRoot", void 0);
+__decorate$3([
+    query$1('input')
+], TextFieldBase.prototype, "formElement", void 0);
+__decorate$3([
+    query$1('.mdc-floating-label')
+], TextFieldBase.prototype, "labelElement", void 0);
+__decorate$3([
+    query$1('.mdc-line-ripple')
+], TextFieldBase.prototype, "lineRippleElement", void 0);
+__decorate$3([
+    query$1('mwc-notched-outline')
+], TextFieldBase.prototype, "outlineElement", void 0);
+__decorate$3([
+    query$1('.mdc-notched-outline__notch')
+], TextFieldBase.prototype, "notchElement", void 0);
+__decorate$3([
+    property$1({ type: String })
+], TextFieldBase.prototype, "value", void 0);
+__decorate$3([
+    property$1({ type: String })
+], TextFieldBase.prototype, "type", void 0);
+__decorate$3([
+    property$1({ type: String })
+], TextFieldBase.prototype, "placeholder", void 0);
+__decorate$3([
+    property$1({ type: String }),
+    observer(function (_newVal, oldVal) {
+        if (oldVal !== undefined && this.label !== oldVal) {
+            this.layout();
+        }
+    })
+], TextFieldBase.prototype, "label", void 0);
+__decorate$3([
+    property$1({ type: String })
+], TextFieldBase.prototype, "icon", void 0);
+__decorate$3([
+    property$1({ type: String })
+], TextFieldBase.prototype, "iconTrailing", void 0);
+__decorate$3([
+    property$1({ type: Boolean, reflect: true })
+], TextFieldBase.prototype, "disabled", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], TextFieldBase.prototype, "required", void 0);
+__decorate$3([
+    property$1({ type: Number })
+], TextFieldBase.prototype, "minLength", void 0);
+__decorate$3([
+    property$1({ type: Number })
+], TextFieldBase.prototype, "maxLength", void 0);
+__decorate$3([
+    property$1({ type: Boolean, reflect: true }),
+    observer(function (_newVal, oldVal) {
+        if (oldVal !== undefined && this.outlined !== oldVal) {
+            this.layout();
+        }
+    })
+], TextFieldBase.prototype, "outlined", void 0);
+__decorate$3([
+    property$1({ type: String })
+], TextFieldBase.prototype, "helper", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], TextFieldBase.prototype, "validateOnInitialRender", void 0);
+__decorate$3([
+    property$1({ type: String })
+], TextFieldBase.prototype, "validationMessage", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], TextFieldBase.prototype, "autoValidate", void 0);
+__decorate$3([
+    property$1({ type: String })
+], TextFieldBase.prototype, "pattern", void 0);
+__decorate$3([
+    property$1({ type: String })
+], TextFieldBase.prototype, "min", void 0);
+__decorate$3([
+    property$1({ type: String })
+], TextFieldBase.prototype, "max", void 0);
+__decorate$3([
+    property$1({ type: Number })
+], TextFieldBase.prototype, "step", void 0);
+__decorate$3([
+    property$1({ type: Number })
+], TextFieldBase.prototype, "size", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], TextFieldBase.prototype, "helperPersistent", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], TextFieldBase.prototype, "charCounter", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], TextFieldBase.prototype, "endAligned", void 0);
+__decorate$3([
+    property$1({ type: String })
+], TextFieldBase.prototype, "prefix", void 0);
+__decorate$3([
+    property$1({ type: String })
+], TextFieldBase.prototype, "suffix", void 0);
+__decorate$3([
+    property$1({ type: String })
+], TextFieldBase.prototype, "name", void 0);
+__decorate$3([
+    property$1({ type: String })
+], TextFieldBase.prototype, "inputMode", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], TextFieldBase.prototype, "readOnly", void 0);
+__decorate$3([
+    property$1({ type: String })
+], TextFieldBase.prototype, "autocapitalize", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], TextFieldBase.prototype, "outlineOpen", void 0);
+__decorate$3([
+    property$1({ type: Number })
+], TextFieldBase.prototype, "outlineWidth", void 0);
+__decorate$3([
+    property$1({ type: Boolean })
+], TextFieldBase.prototype, "isUiValid", void 0);
+__decorate$3([
+    internalProperty()
+], TextFieldBase.prototype, "focused", void 0);
+__decorate$3([
+    eventOptions({ passive: true })
+], TextFieldBase.prototype, "handleInputChange", null);
+
+class NotchedOutline extends NotchedOutlineBase {
+}
+NotchedOutline.styles = style$4;
+
+/**
+@license
+Copyright 2018 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+const style$3 = css$1 `.mdc-floating-label{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);position:absolute;left:0;transform-origin:left top;line-height:1.15rem;text-align:left;text-overflow:ellipsis;white-space:nowrap;cursor:text;overflow:hidden;will-change:transform;transition:transform 150ms cubic-bezier(0.4, 0, 0.2, 1),color 150ms cubic-bezier(0.4, 0, 0.2, 1)}[dir=rtl] .mdc-floating-label,.mdc-floating-label[dir=rtl]{right:0;left:auto;transform-origin:right top;text-align:right}.mdc-floating-label--float-above{cursor:auto}.mdc-floating-label--required::after{margin-left:1px;margin-right:0px;content:"*"}[dir=rtl] .mdc-floating-label--required::after,.mdc-floating-label--required[dir=rtl]::after{margin-left:0;margin-right:1px}.mdc-floating-label--float-above{transform:translateY(-106%) scale(0.75)}.mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-standard 250ms 1}@keyframes mdc-floating-label-shake-float-above-standard{0%{transform:translateX(calc(0 - 0%)) translateY(-106%) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-106%) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-106%) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-106%) scale(0.75)}}.mdc-line-ripple::before,.mdc-line-ripple::after{position:absolute;bottom:0;left:0;width:100%;border-bottom-style:solid;content:""}.mdc-line-ripple::before{border-bottom-width:1px;z-index:1}.mdc-line-ripple::after{transform:scaleX(0);border-bottom-width:2px;opacity:0;z-index:2}.mdc-line-ripple::after{transition:transform 180ms cubic-bezier(0.4, 0, 0.2, 1),opacity 180ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-line-ripple--active::after{transform:scaleX(1);opacity:1}.mdc-line-ripple--deactivating::after{opacity:0}.mdc-notched-outline{display:flex;position:absolute;top:0;right:0;left:0;box-sizing:border-box;width:100%;max-width:100%;height:100%;text-align:left;pointer-events:none}[dir=rtl] .mdc-notched-outline,.mdc-notched-outline[dir=rtl]{text-align:right}.mdc-notched-outline__leading,.mdc-notched-outline__notch,.mdc-notched-outline__trailing{box-sizing:border-box;height:100%;border-top:1px solid;border-bottom:1px solid;pointer-events:none}.mdc-notched-outline__leading{border-left:1px solid;border-right:none;width:12px}[dir=rtl] .mdc-notched-outline__leading,.mdc-notched-outline__leading[dir=rtl]{border-left:none;border-right:1px solid}.mdc-notched-outline__trailing{border-left:none;border-right:1px solid;flex-grow:1}[dir=rtl] .mdc-notched-outline__trailing,.mdc-notched-outline__trailing[dir=rtl]{border-left:1px solid;border-right:none}.mdc-notched-outline__notch{flex:0 0 auto;width:auto;max-width:calc(100% - 12px * 2)}.mdc-notched-outline .mdc-floating-label{display:inline-block;position:relative;max-width:100%}.mdc-notched-outline .mdc-floating-label--float-above{text-overflow:clip}.mdc-notched-outline--upgraded .mdc-floating-label--float-above{max-width:calc(100% / 0.75)}.mdc-notched-outline--notched .mdc-notched-outline__notch{padding-left:0;padding-right:8px;border-top:none}[dir=rtl] .mdc-notched-outline--notched .mdc-notched-outline__notch,.mdc-notched-outline--notched .mdc-notched-outline__notch[dir=rtl]{padding-left:8px;padding-right:0}.mdc-notched-outline--no-label .mdc-notched-outline__notch{display:none}@keyframes mdc-ripple-fg-radius-in{from{animation-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transform:translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1)}to{transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}}@keyframes mdc-ripple-fg-opacity-in{from{animation-timing-function:linear;opacity:0}to{opacity:var(--mdc-ripple-fg-opacity, 0)}}@keyframes mdc-ripple-fg-opacity-out{from{animation-timing-function:linear;opacity:var(--mdc-ripple-fg-opacity, 0)}to{opacity:0}}.mdc-text-field--filled{--mdc-ripple-fg-size: 0;--mdc-ripple-left: 0;--mdc-ripple-top: 0;--mdc-ripple-fg-scale: 1;--mdc-ripple-fg-translate-end: 0;--mdc-ripple-fg-translate-start: 0;-webkit-tap-highlight-color:rgba(0,0,0,0);will-change:transform,opacity}.mdc-text-field--filled .mdc-text-field__ripple::before,.mdc-text-field--filled .mdc-text-field__ripple::after{position:absolute;border-radius:50%;opacity:0;pointer-events:none;content:""}.mdc-text-field--filled .mdc-text-field__ripple::before{transition:opacity 15ms linear,background-color 15ms linear;z-index:1;z-index:var(--mdc-ripple-z-index, 1)}.mdc-text-field--filled .mdc-text-field__ripple::after{z-index:0;z-index:var(--mdc-ripple-z-index, 0)}.mdc-text-field--filled.mdc-ripple-upgraded .mdc-text-field__ripple::before{transform:scale(var(--mdc-ripple-fg-scale, 1))}.mdc-text-field--filled.mdc-ripple-upgraded .mdc-text-field__ripple::after{top:0;left:0;transform:scale(0);transform-origin:center center}.mdc-text-field--filled.mdc-ripple-upgraded--unbounded .mdc-text-field__ripple::after{top:var(--mdc-ripple-top, 0);left:var(--mdc-ripple-left, 0)}.mdc-text-field--filled.mdc-ripple-upgraded--foreground-activation .mdc-text-field__ripple::after{animation:mdc-ripple-fg-radius-in 225ms forwards,mdc-ripple-fg-opacity-in 75ms forwards}.mdc-text-field--filled.mdc-ripple-upgraded--foreground-deactivation .mdc-text-field__ripple::after{animation:mdc-ripple-fg-opacity-out 150ms;transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}.mdc-text-field--filled .mdc-text-field__ripple::before,.mdc-text-field--filled .mdc-text-field__ripple::after{top:calc(50% - 100%);left:calc(50% - 100%);width:200%;height:200%}.mdc-text-field--filled.mdc-ripple-upgraded .mdc-text-field__ripple::after{width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}.mdc-text-field__ripple{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}.mdc-text-field{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:0;border-bottom-left-radius:0;display:inline-flex;align-items:baseline;padding:0 16px;position:relative;box-sizing:border-box;overflow:hidden;will-change:opacity,transform,color}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input{color:rgba(0, 0, 0, 0.87)}@media all{.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input::placeholder{color:rgba(0, 0, 0, 0.54)}}@media all{.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input:-ms-input-placeholder{color:rgba(0, 0, 0, 0.54)}}.mdc-text-field .mdc-text-field__input{caret-color:#6200ee;caret-color:var(--mdc-theme-primary, #6200ee)}.mdc-text-field:not(.mdc-text-field--disabled)+.mdc-text-field-helper-line .mdc-text-field-helper-text{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field-character-counter,.mdc-text-field:not(.mdc-text-field--disabled)+.mdc-text-field-helper-line .mdc-text-field-character-counter{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon--leading{color:rgba(0, 0, 0, 0.54)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon--trailing{color:rgba(0, 0, 0, 0.54)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__affix--prefix{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__affix--suffix{color:rgba(0, 0, 0, 0.6)}.mdc-text-field .mdc-floating-label{top:50%;transform:translateY(-50%);pointer-events:none}.mdc-text-field__input{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);height:28px;transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);width:100%;min-width:0;border:none;border-radius:0;background:none;appearance:none;padding:0}.mdc-text-field__input::-ms-clear{display:none}.mdc-text-field__input::-webkit-calendar-picker-indicator{display:none}.mdc-text-field__input:focus{outline:none}.mdc-text-field__input:invalid{box-shadow:none}@media all{.mdc-text-field__input::placeholder{transition:opacity 67ms cubic-bezier(0.4, 0, 0.2, 1);opacity:0}}@media all{.mdc-text-field__input:-ms-input-placeholder{transition:opacity 67ms cubic-bezier(0.4, 0, 0.2, 1);opacity:0}}@media all{.mdc-text-field--no-label .mdc-text-field__input::placeholder,.mdc-text-field--focused .mdc-text-field__input::placeholder{transition-delay:40ms;transition-duration:110ms;opacity:1}}@media all{.mdc-text-field--no-label .mdc-text-field__input:-ms-input-placeholder,.mdc-text-field--focused .mdc-text-field__input:-ms-input-placeholder{transition-delay:40ms;transition-duration:110ms;opacity:1}}.mdc-text-field__affix{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);height:28px;transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);opacity:0;white-space:nowrap}.mdc-text-field--label-floating .mdc-text-field__affix,.mdc-text-field--no-label .mdc-text-field__affix{opacity:1}@supports(-webkit-hyphens: none){.mdc-text-field--outlined .mdc-text-field__affix{align-items:center;align-self:center;display:inline-flex;height:100%}}.mdc-text-field__affix--prefix{padding-left:0;padding-right:2px}[dir=rtl] .mdc-text-field__affix--prefix,.mdc-text-field__affix--prefix[dir=rtl]{padding-left:2px;padding-right:0}.mdc-text-field--end-aligned .mdc-text-field__affix--prefix{padding-left:0;padding-right:12px}[dir=rtl] .mdc-text-field--end-aligned .mdc-text-field__affix--prefix,.mdc-text-field--end-aligned .mdc-text-field__affix--prefix[dir=rtl]{padding-left:12px;padding-right:0}.mdc-text-field__affix--suffix{padding-left:12px;padding-right:0}[dir=rtl] .mdc-text-field__affix--suffix,.mdc-text-field__affix--suffix[dir=rtl]{padding-left:0;padding-right:12px}.mdc-text-field--end-aligned .mdc-text-field__affix--suffix{padding-left:2px;padding-right:0}[dir=rtl] .mdc-text-field--end-aligned .mdc-text-field__affix--suffix,.mdc-text-field--end-aligned .mdc-text-field__affix--suffix[dir=rtl]{padding-left:0;padding-right:2px}.mdc-text-field--filled{height:56px}.mdc-text-field--filled .mdc-text-field__ripple::before,.mdc-text-field--filled .mdc-text-field__ripple::after{background-color:rgba(0, 0, 0, 0.87);background-color:var(--mdc-ripple-color, rgba(0, 0, 0, 0.87))}.mdc-text-field--filled:hover .mdc-text-field__ripple::before,.mdc-text-field--filled.mdc-ripple-surface--hover .mdc-text-field__ripple::before{opacity:0.04;opacity:var(--mdc-ripple-hover-opacity, 0.04)}.mdc-text-field--filled.mdc-ripple-upgraded--background-focused .mdc-text-field__ripple::before,.mdc-text-field--filled:not(.mdc-ripple-upgraded):focus .mdc-text-field__ripple::before{transition-duration:75ms;opacity:0.12;opacity:var(--mdc-ripple-focus-opacity, 0.12)}.mdc-text-field--filled::before{display:inline-block;width:0;height:40px;content:"";vertical-align:0}.mdc-text-field--filled:not(.mdc-text-field--disabled){background-color:whitesmoke}.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.42)}.mdc-text-field--filled:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.87)}.mdc-text-field--filled .mdc-line-ripple::after{border-bottom-color:#6200ee;border-bottom-color:var(--mdc-theme-primary, #6200ee)}.mdc-text-field--filled .mdc-floating-label{left:16px;right:initial}[dir=rtl] .mdc-text-field--filled .mdc-floating-label,.mdc-text-field--filled .mdc-floating-label[dir=rtl]{left:initial;right:16px}.mdc-text-field--filled .mdc-floating-label--float-above{transform:translateY(-106%) scale(0.75)}.mdc-text-field--filled.mdc-text-field--no-label .mdc-text-field__input{height:100%}.mdc-text-field--filled.mdc-text-field--no-label .mdc-floating-label{display:none}.mdc-text-field--filled.mdc-text-field--no-label::before{display:none}@supports(-webkit-hyphens: none){.mdc-text-field--filled.mdc-text-field--no-label .mdc-text-field__affix{align-items:center;align-self:center;display:inline-flex;height:100%}}.mdc-text-field--outlined{height:56px;overflow:visible}.mdc-text-field--outlined .mdc-floating-label--float-above{transform:translateY(-37.25px) scale(1)}.mdc-text-field--outlined .mdc-floating-label--float-above{font-size:.75rem}.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{transform:translateY(-34.75px) scale(0.75)}.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{font-size:1rem}.mdc-text-field--outlined .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-text-field-outlined 250ms 1}@keyframes mdc-floating-label-shake-float-above-text-field-outlined{0%{transform:translateX(calc(0 - 0%)) translateY(-34.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-34.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-34.75px) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-34.75px) scale(0.75)}}.mdc-text-field--outlined .mdc-text-field__input{height:100%}.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing{border-color:rgba(0, 0, 0, 0.38)}.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__leading,.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__notch,.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__trailing{border-color:rgba(0, 0, 0, 0.87)}.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing{border-color:#6200ee;border-color:var(--mdc-theme-primary, #6200ee)}.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}[dir=rtl] .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading,.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading[dir=rtl]{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}@supports(top: max(0%)){.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading{width:max(12px, var(--mdc-shape-small, 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__notch{max-width:calc(100% - max(12px, var(--mdc-shape-small, 4px)) * 2)}}.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}[dir=rtl] .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing,.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing[dir=rtl]{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}@supports(top: max(0%)){.mdc-text-field--outlined{padding-left:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined{padding-right:max(16px, var(--mdc-shape-small, 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined+.mdc-text-field-helper-line{padding-left:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined+.mdc-text-field-helper-line{padding-right:max(16px, var(--mdc-shape-small, 4px))}}.mdc-text-field--outlined.mdc-text-field--with-leading-icon{padding-left:0}@supports(top: max(0%)){.mdc-text-field--outlined.mdc-text-field--with-leading-icon{padding-right:max(16px, var(--mdc-shape-small, 4px))}}[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-leading-icon,.mdc-text-field--outlined.mdc-text-field--with-leading-icon[dir=rtl]{padding-right:0}@supports(top: max(0%)){[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-leading-icon,.mdc-text-field--outlined.mdc-text-field--with-leading-icon[dir=rtl]{padding-left:max(16px, var(--mdc-shape-small, 4px))}}.mdc-text-field--outlined.mdc-text-field--with-trailing-icon{padding-right:0}@supports(top: max(0%)){.mdc-text-field--outlined.mdc-text-field--with-trailing-icon{padding-left:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-trailing-icon,.mdc-text-field--outlined.mdc-text-field--with-trailing-icon[dir=rtl]{padding-left:0}@supports(top: max(0%)){[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-trailing-icon,.mdc-text-field--outlined.mdc-text-field--with-trailing-icon[dir=rtl]{padding-right:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}.mdc-text-field--outlined.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon{padding-left:0;padding-right:0}.mdc-text-field--outlined .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:1px}.mdc-text-field--outlined .mdc-text-field__ripple::before,.mdc-text-field--outlined .mdc-text-field__ripple::after{content:none}.mdc-text-field--outlined .mdc-floating-label{left:4px;right:initial}[dir=rtl] .mdc-text-field--outlined .mdc-floating-label,.mdc-text-field--outlined .mdc-floating-label[dir=rtl]{left:initial;right:4px}.mdc-text-field--outlined .mdc-text-field__input{display:flex;border:none !important;background-color:transparent}.mdc-text-field--outlined .mdc-notched-outline{z-index:1}.mdc-text-field--textarea{flex-direction:column;align-items:center;width:auto;height:auto;padding:0;transition:none}.mdc-text-field--textarea .mdc-floating-label{top:19px}.mdc-text-field--textarea .mdc-floating-label:not(.mdc-floating-label--float-above){transform:none}.mdc-text-field--textarea .mdc-text-field__input{flex-grow:1;height:auto;min-height:1.5rem;overflow-x:hidden;overflow-y:auto;box-sizing:border-box;resize:none;padding:0 16px;line-height:1.5rem}.mdc-text-field--textarea.mdc-text-field--filled::before{display:none}.mdc-text-field--textarea.mdc-text-field--filled .mdc-floating-label--float-above{transform:translateY(-10.25px) scale(0.75)}.mdc-text-field--textarea.mdc-text-field--filled .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-textarea-filled 250ms 1}@keyframes mdc-floating-label-shake-float-above-textarea-filled{0%{transform:translateX(calc(0 - 0%)) translateY(-10.25px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-10.25px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-10.25px) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-10.25px) scale(0.75)}}.mdc-text-field--textarea.mdc-text-field--filled .mdc-text-field__input{margin-top:23px;margin-bottom:9px}.mdc-text-field--textarea.mdc-text-field--filled.mdc-text-field--no-label .mdc-text-field__input{margin-top:16px;margin-bottom:16px}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:0}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label--float-above{transform:translateY(-27.25px) scale(1)}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label--float-above{font-size:.75rem}.mdc-text-field--textarea.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--textarea.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{transform:translateY(-24.75px) scale(0.75)}.mdc-text-field--textarea.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--textarea.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{font-size:1rem}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-textarea-outlined 250ms 1}@keyframes mdc-floating-label-shake-float-above-textarea-outlined{0%{transform:translateX(calc(0 - 0%)) translateY(-24.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-24.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-24.75px) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-24.75px) scale(0.75)}}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-text-field__input{margin-top:16px;margin-bottom:16px}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label{top:18px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field__input{margin-bottom:2px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field-character-counter{align-self:flex-end;padding:0 16px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field-character-counter::after{display:inline-block;width:0;height:16px;content:"";vertical-align:-16px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field-character-counter::before{display:none}.mdc-text-field__resizer{align-self:stretch;display:inline-flex;flex-direction:column;flex-grow:1;max-height:100%;max-width:100%;min-height:56px;min-width:fit-content;min-width:-moz-available;min-width:-webkit-fill-available;overflow:hidden;resize:both}.mdc-text-field--filled .mdc-text-field__resizer{transform:translateY(-1px)}.mdc-text-field--filled .mdc-text-field__resizer .mdc-text-field__input,.mdc-text-field--filled .mdc-text-field__resizer .mdc-text-field-character-counter{transform:translateY(1px)}.mdc-text-field--outlined .mdc-text-field__resizer{transform:translateX(-1px) translateY(-1px)}[dir=rtl] .mdc-text-field--outlined .mdc-text-field__resizer,.mdc-text-field--outlined .mdc-text-field__resizer[dir=rtl]{transform:translateX(1px) translateY(-1px)}.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field__input,.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field-character-counter{transform:translateX(1px) translateY(1px)}[dir=rtl] .mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field__input,.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field__input[dir=rtl],[dir=rtl] .mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field-character-counter,.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field-character-counter[dir=rtl]{transform:translateX(-1px) translateY(1px)}.mdc-text-field--with-leading-icon{padding-left:0;padding-right:16px}[dir=rtl] .mdc-text-field--with-leading-icon,.mdc-text-field--with-leading-icon[dir=rtl]{padding-left:16px;padding-right:0}.mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label{max-width:calc(100% - 48px);left:48px;right:initial}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label,.mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label[dir=rtl]{left:initial;right:48px}.mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label--float-above{max-width:calc(100% / 0.75 - 64px / 0.75)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label{left:36px;right:initial}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label[dir=rtl]{left:initial;right:36px}.mdc-text-field--with-leading-icon.mdc-text-field--outlined :not(.mdc-notched-outline--notched) .mdc-notched-outline__notch{max-width:calc(100% - 60px)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above{transform:translateY(-37.25px) translateX(-32px) scale(1)}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above[dir=rtl]{transform:translateY(-37.25px) translateX(32px) scale(1)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above{font-size:.75rem}.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{transform:translateY(-34.75px) translateX(-32px) scale(0.75)}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=rtl],[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=rtl]{transform:translateY(-34.75px) translateX(32px) scale(0.75)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{font-size:1rem}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-text-field-outlined-leading-icon 250ms 1}@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon{0%{transform:translateX(calc(0 - 32px)) translateY(-34.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 32px)) translateY(-34.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 32px)) translateY(-34.75px) scale(0.75)}100%{transform:translateX(calc(0 - 32px)) translateY(-34.75px) scale(0.75)}}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--shake,.mdc-text-field--with-leading-icon.mdc-text-field--outlined[dir=rtl] .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-text-field-outlined-leading-icon 250ms 1}@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon-rtl{0%{transform:translateX(calc(0 - -32px)) translateY(-34.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - -32px)) translateY(-34.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - -32px)) translateY(-34.75px) scale(0.75)}100%{transform:translateX(calc(0 - -32px)) translateY(-34.75px) scale(0.75)}}.mdc-text-field--with-trailing-icon{padding-left:16px;padding-right:0}[dir=rtl] .mdc-text-field--with-trailing-icon,.mdc-text-field--with-trailing-icon[dir=rtl]{padding-left:0;padding-right:16px}.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label{max-width:calc(100% - 64px)}.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label--float-above{max-width:calc(100% / 0.75 - 64px / 0.75)}.mdc-text-field--with-trailing-icon.mdc-text-field--outlined :not(.mdc-notched-outline--notched) .mdc-notched-outline__notch{max-width:calc(100% - 60px)}.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon{padding-left:0;padding-right:0}.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label{max-width:calc(100% - 96px)}.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label--float-above{max-width:calc(100% / 0.75 - 96px / 0.75)}.mdc-text-field-helper-line{display:flex;justify-content:space-between;box-sizing:border-box}.mdc-text-field+.mdc-text-field-helper-line{padding-right:16px;padding-left:16px}.mdc-form-field>.mdc-text-field+label{align-self:flex-start}.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label{color:rgba(98, 0, 238, 0.87)}.mdc-text-field--focused .mdc-notched-outline__leading,.mdc-text-field--focused .mdc-notched-outline__notch,.mdc-text-field--focused .mdc-notched-outline__trailing{border-width:2px}.mdc-text-field--focused+.mdc-text-field-helper-line .mdc-text-field-helper-text:not(.mdc-text-field-helper-text--validation-msg){opacity:1}.mdc-text-field--focused.mdc-text-field--outlined .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:2px}.mdc-text-field--focused.mdc-text-field--outlined.mdc-text-field--textarea .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:0}.mdc-text-field--invalid:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::after{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label{color:#b00020;color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--invalid+.mdc-text-field-helper-line .mdc-text-field-helper-text--validation-msg{color:#b00020;color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid .mdc-text-field__input{caret-color:#b00020;caret-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-text-field__icon--trailing{color:#b00020;color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing{border-color:#b00020;border-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__leading,.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__notch,.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__trailing{border-color:#b00020;border-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing{border-color:#b00020;border-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid+.mdc-text-field-helper-line .mdc-text-field-helper-text--validation-msg{opacity:1}.mdc-text-field--disabled{pointer-events:none}.mdc-text-field--disabled .mdc-text-field__input{color:rgba(0, 0, 0, 0.38)}@media all{.mdc-text-field--disabled .mdc-text-field__input::placeholder{color:rgba(0, 0, 0, 0.38)}}@media all{.mdc-text-field--disabled .mdc-text-field__input:-ms-input-placeholder{color:rgba(0, 0, 0, 0.38)}}.mdc-text-field--disabled .mdc-floating-label{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-helper-text{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-text-field-character-counter,.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-character-counter{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-text-field__icon--leading{color:rgba(0, 0, 0, 0.3)}.mdc-text-field--disabled .mdc-text-field__icon--trailing{color:rgba(0, 0, 0, 0.3)}.mdc-text-field--disabled .mdc-text-field__affix--prefix{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-text-field__affix--suffix{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.06)}.mdc-text-field--disabled .mdc-notched-outline__leading,.mdc-text-field--disabled .mdc-notched-outline__notch,.mdc-text-field--disabled .mdc-notched-outline__trailing{border-color:rgba(0, 0, 0, 0.06)}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__input::placeholder{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__input:-ms-input-placeholder{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-floating-label{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-helper-text{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field-character-counter,.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-character-counter{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__icon--leading{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__icon--trailing{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__affix--prefix{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__affix--suffix{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-line-ripple::before{border-bottom-color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-notched-outline__leading,.mdc-text-field--disabled .mdc-notched-outline__notch,.mdc-text-field--disabled .mdc-notched-outline__trailing{border-color:GrayText}}.mdc-text-field--disabled .mdc-floating-label{cursor:default}.mdc-text-field--disabled.mdc-text-field--filled{background-color:#fafafa}.mdc-text-field--disabled.mdc-text-field--filled .mdc-text-field__ripple{display:none}.mdc-text-field--disabled .mdc-text-field__input{pointer-events:auto}.mdc-text-field--end-aligned .mdc-text-field__input{text-align:right}[dir=rtl] .mdc-text-field--end-aligned .mdc-text-field__input,.mdc-text-field--end-aligned .mdc-text-field__input[dir=rtl]{text-align:left}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__input,[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__input,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix{direction:ltr}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--prefix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--prefix{padding-left:0;padding-right:2px}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--suffix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--suffix{padding-left:12px;padding-right:0}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__icon--leading,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__icon--leading{order:1}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--suffix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--suffix{order:2}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__input,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__input{order:3}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--prefix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--prefix{order:4}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__icon--trailing,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__icon--trailing{order:5}[dir=rtl] .mdc-text-field--ltr-text.mdc-text-field--end-aligned .mdc-text-field__input,.mdc-text-field--ltr-text.mdc-text-field--end-aligned[dir=rtl] .mdc-text-field__input{text-align:right}[dir=rtl] .mdc-text-field--ltr-text.mdc-text-field--end-aligned .mdc-text-field__affix--prefix,.mdc-text-field--ltr-text.mdc-text-field--end-aligned[dir=rtl] .mdc-text-field__affix--prefix{padding-right:12px}[dir=rtl] .mdc-text-field--ltr-text.mdc-text-field--end-aligned .mdc-text-field__affix--suffix,.mdc-text-field--ltr-text.mdc-text-field--end-aligned[dir=rtl] .mdc-text-field__affix--suffix{padding-left:2px}.mdc-text-field-helper-text{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.75rem;font-size:var(--mdc-typography-caption-font-size, 0.75rem);line-height:1.25rem;line-height:var(--mdc-typography-caption-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-caption-font-weight, 400);letter-spacing:0.0333333333em;letter-spacing:var(--mdc-typography-caption-letter-spacing, 0.0333333333em);text-decoration:inherit;text-decoration:var(--mdc-typography-caption-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-caption-text-transform, inherit);display:block;margin-top:0;line-height:normal;margin:0;opacity:0;will-change:opacity;transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-text-field-helper-text::before{display:inline-block;width:0;height:16px;content:"";vertical-align:0}.mdc-text-field-helper-text--persistent{transition:none;opacity:1;will-change:initial}.mdc-text-field-character-counter{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.75rem;font-size:var(--mdc-typography-caption-font-size, 0.75rem);line-height:1.25rem;line-height:var(--mdc-typography-caption-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-caption-font-weight, 400);letter-spacing:0.0333333333em;letter-spacing:var(--mdc-typography-caption-letter-spacing, 0.0333333333em);text-decoration:inherit;text-decoration:var(--mdc-typography-caption-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-caption-text-transform, inherit);display:block;margin-top:0;line-height:normal;margin-left:auto;margin-right:0;padding-left:16px;padding-right:0;white-space:nowrap}.mdc-text-field-character-counter::before{display:inline-block;width:0;height:16px;content:"";vertical-align:0}[dir=rtl] .mdc-text-field-character-counter,.mdc-text-field-character-counter[dir=rtl]{margin-left:0;margin-right:auto}[dir=rtl] .mdc-text-field-character-counter,.mdc-text-field-character-counter[dir=rtl]{padding-left:0;padding-right:16px}.mdc-text-field__icon{align-self:center;cursor:pointer}.mdc-text-field__icon:not([tabindex]),.mdc-text-field__icon[tabindex="-1"]{cursor:default;pointer-events:none}.mdc-text-field__icon svg{display:block}.mdc-text-field__icon--leading{margin-left:16px;margin-right:8px}[dir=rtl] .mdc-text-field__icon--leading,.mdc-text-field__icon--leading[dir=rtl]{margin-left:8px;margin-right:16px}.mdc-text-field__icon--trailing{padding:12px;margin-left:0px;margin-right:0px}[dir=rtl] .mdc-text-field__icon--trailing,.mdc-text-field__icon--trailing[dir=rtl]{margin-left:0px;margin-right:0px}.material-icons{font-family:var(--mdc-icon-font, "Material Icons");font-weight:normal;font-style:normal;font-size:var(--mdc-icon-size, 24px);line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale;font-feature-settings:"liga"}:host{display:inline-flex;flex-direction:column;outline:none}.mdc-text-field{width:100%}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.42);border-bottom-color:var(--mdc-text-field-idle-line-color, rgba(0, 0, 0, 0.42))}.mdc-text-field:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.87);border-bottom-color:var(--mdc-text-field-hover-line-color, rgba(0, 0, 0, 0.87))}.mdc-text-field.mdc-text-field--disabled .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.06);border-bottom-color:var(--mdc-text-field-disabled-line-color, rgba(0, 0, 0, 0.06))}.mdc-text-field.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-outlined-idle-border-color, rgba(0, 0, 0, 0.38))}:host(:not([disabled]):hover) :not(.mdc-text-field--invalid):not(.mdc-text-field--focused) mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-outlined-hover-border-color, rgba(0, 0, 0, 0.87))}:host(:not([disabled])) .mdc-text-field:not(.mdc-text-field--outlined){background-color:var(--mdc-text-field-fill-color, whitesmoke)}:host(:not([disabled])) .mdc-text-field.mdc-text-field--invalid mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-error-color, var(--mdc-theme-error, #b00020))}:host(:not([disabled])) .mdc-text-field.mdc-text-field--invalid+.mdc-text-field-helper-line .mdc-text-field-character-counter,:host(:not([disabled])) .mdc-text-field.mdc-text-field--invalid .mdc-text-field__icon{color:var(--mdc-text-field-error-color, var(--mdc-theme-error, #b00020))}:host(:not([disabled])) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label,:host(:not([disabled])) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label::after{color:var(--mdc-text-field-label-ink-color, rgba(0, 0, 0, 0.6))}:host(:not([disabled])) .mdc-text-field.mdc-text-field--focused mwc-notched-outline{--mdc-notched-outline-stroke-width: 2px}:host(:not([disabled])) .mdc-text-field.mdc-text-field--focused:not(.mdc-text-field--invalid) mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-focused-label-color, var(--mdc-theme-primary, rgba(98, 0, 238, 0.87)))}:host(:not([disabled])) .mdc-text-field.mdc-text-field--focused:not(.mdc-text-field--invalid) .mdc-floating-label{color:#6200ee;color:var(--mdc-theme-primary, #6200ee)}:host(:not([disabled])) .mdc-text-field .mdc-text-field__input{color:var(--mdc-text-field-ink-color, rgba(0, 0, 0, 0.87))}:host(:not([disabled])) .mdc-text-field .mdc-text-field__input::placeholder{color:var(--mdc-text-field-label-ink-color, rgba(0, 0, 0, 0.6))}:host(:not([disabled])) .mdc-text-field-helper-line .mdc-text-field-helper-text:not(.mdc-text-field-helper-text--validation-msg),:host(:not([disabled])) .mdc-text-field-helper-line:not(.mdc-text-field--invalid) .mdc-text-field-character-counter{color:var(--mdc-text-field-label-ink-color, rgba(0, 0, 0, 0.6))}:host([disabled]) .mdc-text-field:not(.mdc-text-field--outlined){background-color:var(--mdc-text-field-disabled-fill-color, #fafafa)}:host([disabled]) .mdc-text-field.mdc-text-field--outlined mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-outlined-disabled-border-color, rgba(0, 0, 0, 0.06))}:host([disabled]) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label,:host([disabled]) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label::after{color:var(--mdc-text-field-disabled-ink-color, rgba(0, 0, 0, 0.38))}:host([disabled]) .mdc-text-field .mdc-text-field__input,:host([disabled]) .mdc-text-field .mdc-text-field__input::placeholder{color:var(--mdc-text-field-disabled-ink-color, rgba(0, 0, 0, 0.38))}:host([disabled]) .mdc-text-field-helper-line .mdc-text-field-helper-text,:host([disabled]) .mdc-text-field-helper-line .mdc-text-field-character-counter{color:var(--mdc-text-field-disabled-ink-color, rgba(0, 0, 0, 0.38))}`;
+
+class TextField extends ScopedElementsMixin$1(TextFieldBase) {
+    static get scopedElements() {
+        return {
+            'mwc-notched-outline': NotchedOutline,
+        };
+    }
+}
+TextField.styles = style$3;
+__decorate$3([
+    query$1('.mdc-notched-outline')
+], TextField.prototype, "outlineElement", void 0);
+
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+function matches(element, selector) {
+    var nativeMatches = element.matches
+        || element.webkitMatchesSelector
+        || element.msMatchesSelector;
+    return nativeMatches.call(element, selector);
+}
+
+/**
+@license
+Copyright 2018 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+/**
+ * Return all elements assigned to a given slot that matches the given selector
+ */
+function findAssignedElements(slot, selector) {
+    const els = [];
+    for (const node of slot.assignedNodes({ flatten: true })) {
+        if (node.nodeType === Node.ELEMENT_NODE) {
+            const el = node;
+            if (matches(el, selector)) {
+                els.push(el);
+            }
+        }
+    }
+    return els;
+}
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* window Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var MDCFoundation = /** @class */ (function () {
+    function MDCFoundation(adapter) {
+        if (adapter === void 0) { adapter = {}; }
+        this.adapter_ = adapter;
+    }
+    Object.defineProperty(MDCFoundation, "cssClasses", {
+        get: function () {
+            // Classes extending MDCFoundation should implement this method to return an object which exports every
+            // CSS class the foundation class needs as a property. e.g. {ACTIVE: 'mdc-component--active'}
+            return {};
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCFoundation, "strings", {
+        get: function () {
+            // Classes extending MDCFoundation should implement this method to return an object which exports all
+            // semantic strings as constants. e.g. {ARIA_ROLE: 'tablist'}
+            return {};
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCFoundation, "numbers", {
+        get: function () {
+            // Classes extending MDCFoundation should implement this method to return an object which exports all
+            // of its semantic numbers as constants. e.g. {ANIMATION_DELAY_MS: 350}
+            return {};
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCFoundation, "defaultAdapter", {
+        get: function () {
+            // Classes extending MDCFoundation may choose to implement this getter in order to provide a convenient
+            // way of viewing the necessary methods of an adapter. In the future, this could also be used for adapter
+            // validation.
+            return {};
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCFoundation.prototype.init = function () {
+        // Subclasses should override this method to perform initialization routines (registering events, etc.)
+    };
+    MDCFoundation.prototype.destroy = function () {
+        // Subclasses should override this method to perform de-initialization routines (de-registering events, etc.)
+    };
+    return MDCFoundation;
+}());
+
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var cssClasses$1 = {
+    // Ripple is a special case where the "root" component is really a "mixin" of sorts,
+    // given that it's an 'upgrade' to an existing component. That being said it is the root
+    // CSS class that all other CSS classes derive from.
+    BG_FOCUSED: 'mdc-ripple-upgraded--background-focused',
+    FG_ACTIVATION: 'mdc-ripple-upgraded--foreground-activation',
+    FG_DEACTIVATION: 'mdc-ripple-upgraded--foreground-deactivation',
+    ROOT: 'mdc-ripple-upgraded',
+    UNBOUNDED: 'mdc-ripple-upgraded--unbounded',
+};
+var strings$1 = {
+    VAR_FG_SCALE: '--mdc-ripple-fg-scale',
+    VAR_FG_SIZE: '--mdc-ripple-fg-size',
+    VAR_FG_TRANSLATE_END: '--mdc-ripple-fg-translate-end',
+    VAR_FG_TRANSLATE_START: '--mdc-ripple-fg-translate-start',
+    VAR_LEFT: '--mdc-ripple-left',
+    VAR_TOP: '--mdc-ripple-top',
+};
+var numbers$1 = {
+    DEACTIVATION_TIMEOUT_MS: 225,
+    FG_DEACTIVATION_MS: 150,
+    INITIAL_ORIGIN_SCALE: 0.6,
+    PADDING: 10,
+    TAP_DELAY_MS: 300,
+};
+
+/**
+ * Stores result from supportsCssVariables to avoid redundant processing to
+ * detect CSS custom variable support.
+ */
+var supportsCssVariables_;
+/**
+ * Stores result from applyPassive to avoid redundant processing to detect
+ * passive event listener support.
+ */
+var supportsPassive_;
+function detectEdgePseudoVarBug(windowObj) {
+    // Detect versions of Edge with buggy var() support
+    // See: https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11495448/
+    var document = windowObj.document;
+    var node = document.createElement('div');
+    node.className = 'mdc-ripple-surface--test-edge-var-bug';
+    document.body.appendChild(node);
+    // The bug exists if ::before style ends up propagating to the parent element.
+    // Additionally, getComputedStyle returns null in iframes with display: "none" in Firefox,
+    // but Firefox is known to support CSS custom properties correctly.
+    // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+    var computedStyle = windowObj.getComputedStyle(node);
+    var hasPseudoVarBug = computedStyle !== null && computedStyle.borderTopStyle === 'solid';
+    if (node.parentNode) {
+        node.parentNode.removeChild(node);
+    }
+    return hasPseudoVarBug;
+}
+function supportsCssVariables(windowObj, forceRefresh) {
+    if (forceRefresh === void 0) { forceRefresh = false; }
+    var CSS = windowObj.CSS;
+    var supportsCssVars = supportsCssVariables_;
+    if (typeof supportsCssVariables_ === 'boolean' && !forceRefresh) {
+        return supportsCssVariables_;
+    }
+    var supportsFunctionPresent = CSS && typeof CSS.supports === 'function';
+    if (!supportsFunctionPresent) {
+        return false;
+    }
+    var explicitlySupportsCssVars = CSS.supports('--css-vars', 'yes');
+    // See: https://bugs.webkit.org/show_bug.cgi?id=154669
+    // See: README section on Safari
+    var weAreFeatureDetectingSafari10plus = (CSS.supports('(--css-vars: yes)') &&
+        CSS.supports('color', '#00000000'));
+    if (explicitlySupportsCssVars || weAreFeatureDetectingSafari10plus) {
+        supportsCssVars = !detectEdgePseudoVarBug(windowObj);
+    }
+    else {
+        supportsCssVars = false;
+    }
+    if (!forceRefresh) {
+        supportsCssVariables_ = supportsCssVars;
+    }
+    return supportsCssVars;
+}
+/**
+ * Determine whether the current browser supports passive event listeners, and
+ * if so, use them.
+ */
+function applyPassive$1(globalObj, forceRefresh) {
+    if (globalObj === void 0) { globalObj = window; }
+    if (forceRefresh === void 0) { forceRefresh = false; }
+    if (supportsPassive_ === undefined || forceRefresh) {
+        var isSupported_1 = false;
+        try {
+            globalObj.document.addEventListener('test', function () { return undefined; }, {
+                get passive() {
+                    isSupported_1 = true;
+                    return isSupported_1;
+                },
+            });
+        }
+        catch (e) {
+        } // tslint:disable-line:no-empty cannot throw error due to tests. tslint also disables console.log.
+        supportsPassive_ = isSupported_1;
+    }
+    return supportsPassive_ ? { passive: true } : false;
+}
+function getNormalizedEventCoords(evt, pageOffset, clientRect) {
+    if (!evt) {
+        return { x: 0, y: 0 };
+    }
+    var x = pageOffset.x, y = pageOffset.y;
+    var documentX = x + clientRect.left;
+    var documentY = y + clientRect.top;
+    var normalizedX;
+    var normalizedY;
+    // Determine touch point relative to the ripple container.
+    if (evt.type === 'touchstart') {
+        var touchEvent = evt;
+        normalizedX = touchEvent.changedTouches[0].pageX - documentX;
+        normalizedY = touchEvent.changedTouches[0].pageY - documentY;
+    }
+    else {
+        var mouseEvent = evt;
+        normalizedX = mouseEvent.pageX - documentX;
+        normalizedY = mouseEvent.pageY - documentY;
+    }
+    return { x: normalizedX, y: normalizedY };
+}
+
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+// Activation events registered on the root element of each instance for activation
+var ACTIVATION_EVENT_TYPES = [
+    'touchstart', 'pointerdown', 'mousedown', 'keydown',
+];
+// Deactivation events registered on documentElement when a pointer-related down event occurs
+var POINTER_DEACTIVATION_EVENT_TYPES = [
+    'touchend', 'pointerup', 'mouseup', 'contextmenu',
+];
+// simultaneous nested activations
+var activatedTargets = [];
+var MDCRippleFoundation = /** @class */ (function (_super) {
+    __extends(MDCRippleFoundation, _super);
+    function MDCRippleFoundation(adapter) {
+        var _this = _super.call(this, __assign({}, MDCRippleFoundation.defaultAdapter, adapter)) || this;
+        _this.activationAnimationHasEnded_ = false;
+        _this.activationTimer_ = 0;
+        _this.fgDeactivationRemovalTimer_ = 0;
+        _this.fgScale_ = '0';
+        _this.frame_ = { width: 0, height: 0 };
+        _this.initialSize_ = 0;
+        _this.layoutFrame_ = 0;
+        _this.maxRadius_ = 0;
+        _this.unboundedCoords_ = { left: 0, top: 0 };
+        _this.activationState_ = _this.defaultActivationState_();
+        _this.activationTimerCallback_ = function () {
+            _this.activationAnimationHasEnded_ = true;
+            _this.runDeactivationUXLogicIfReady_();
+        };
+        _this.activateHandler_ = function (e) { return _this.activate_(e); };
+        _this.deactivateHandler_ = function () { return _this.deactivate_(); };
+        _this.focusHandler_ = function () { return _this.handleFocus(); };
+        _this.blurHandler_ = function () { return _this.handleBlur(); };
+        _this.resizeHandler_ = function () { return _this.layout(); };
+        return _this;
+    }
+    Object.defineProperty(MDCRippleFoundation, "cssClasses", {
+        get: function () {
+            return cssClasses$1;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCRippleFoundation, "strings", {
+        get: function () {
+            return strings$1;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCRippleFoundation, "numbers", {
+        get: function () {
+            return numbers$1;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCRippleFoundation, "defaultAdapter", {
+        get: function () {
+            return {
+                addClass: function () { return undefined; },
+                browserSupportsCssVars: function () { return true; },
+                computeBoundingRect: function () { return ({ top: 0, right: 0, bottom: 0, left: 0, width: 0, height: 0 }); },
+                containsEventTarget: function () { return true; },
+                deregisterDocumentInteractionHandler: function () { return undefined; },
+                deregisterInteractionHandler: function () { return undefined; },
+                deregisterResizeHandler: function () { return undefined; },
+                getWindowPageOffset: function () { return ({ x: 0, y: 0 }); },
+                isSurfaceActive: function () { return true; },
+                isSurfaceDisabled: function () { return true; },
+                isUnbounded: function () { return true; },
+                registerDocumentInteractionHandler: function () { return undefined; },
+                registerInteractionHandler: function () { return undefined; },
+                registerResizeHandler: function () { return undefined; },
+                removeClass: function () { return undefined; },
+                updateCssVariable: function () { return undefined; },
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCRippleFoundation.prototype.init = function () {
+        var _this = this;
+        var supportsPressRipple = this.supportsPressRipple_();
+        this.registerRootHandlers_(supportsPressRipple);
+        if (supportsPressRipple) {
+            var _a = MDCRippleFoundation.cssClasses, ROOT_1 = _a.ROOT, UNBOUNDED_1 = _a.UNBOUNDED;
+            requestAnimationFrame(function () {
+                _this.adapter_.addClass(ROOT_1);
+                if (_this.adapter_.isUnbounded()) {
+                    _this.adapter_.addClass(UNBOUNDED_1);
+                    // Unbounded ripples need layout logic applied immediately to set coordinates for both shade and ripple
+                    _this.layoutInternal_();
+                }
+            });
+        }
+    };
+    MDCRippleFoundation.prototype.destroy = function () {
+        var _this = this;
+        if (this.supportsPressRipple_()) {
+            if (this.activationTimer_) {
+                clearTimeout(this.activationTimer_);
+                this.activationTimer_ = 0;
+                this.adapter_.removeClass(MDCRippleFoundation.cssClasses.FG_ACTIVATION);
+            }
+            if (this.fgDeactivationRemovalTimer_) {
+                clearTimeout(this.fgDeactivationRemovalTimer_);
+                this.fgDeactivationRemovalTimer_ = 0;
+                this.adapter_.removeClass(MDCRippleFoundation.cssClasses.FG_DEACTIVATION);
+            }
+            var _a = MDCRippleFoundation.cssClasses, ROOT_2 = _a.ROOT, UNBOUNDED_2 = _a.UNBOUNDED;
+            requestAnimationFrame(function () {
+                _this.adapter_.removeClass(ROOT_2);
+                _this.adapter_.removeClass(UNBOUNDED_2);
+                _this.removeCssVars_();
+            });
+        }
+        this.deregisterRootHandlers_();
+        this.deregisterDeactivationHandlers_();
+    };
+    /**
+     * @param evt Optional event containing position information.
+     */
+    MDCRippleFoundation.prototype.activate = function (evt) {
+        this.activate_(evt);
+    };
+    MDCRippleFoundation.prototype.deactivate = function () {
+        this.deactivate_();
+    };
+    MDCRippleFoundation.prototype.layout = function () {
+        var _this = this;
+        if (this.layoutFrame_) {
+            cancelAnimationFrame(this.layoutFrame_);
+        }
+        this.layoutFrame_ = requestAnimationFrame(function () {
+            _this.layoutInternal_();
+            _this.layoutFrame_ = 0;
+        });
+    };
+    MDCRippleFoundation.prototype.setUnbounded = function (unbounded) {
+        var UNBOUNDED = MDCRippleFoundation.cssClasses.UNBOUNDED;
+        if (unbounded) {
+            this.adapter_.addClass(UNBOUNDED);
+        }
+        else {
+            this.adapter_.removeClass(UNBOUNDED);
+        }
+    };
+    MDCRippleFoundation.prototype.handleFocus = function () {
+        var _this = this;
+        requestAnimationFrame(function () {
+            return _this.adapter_.addClass(MDCRippleFoundation.cssClasses.BG_FOCUSED);
+        });
+    };
+    MDCRippleFoundation.prototype.handleBlur = function () {
+        var _this = this;
+        requestAnimationFrame(function () {
+            return _this.adapter_.removeClass(MDCRippleFoundation.cssClasses.BG_FOCUSED);
+        });
+    };
+    /**
+     * We compute this property so that we are not querying information about the client
+     * until the point in time where the foundation requests it. This prevents scenarios where
+     * client-side feature-detection may happen too early, such as when components are rendered on the server
+     * and then initialized at mount time on the client.
+     */
+    MDCRippleFoundation.prototype.supportsPressRipple_ = function () {
+        return this.adapter_.browserSupportsCssVars();
+    };
+    MDCRippleFoundation.prototype.defaultActivationState_ = function () {
+        return {
+            activationEvent: undefined,
+            hasDeactivationUXRun: false,
+            isActivated: false,
+            isProgrammatic: false,
+            wasActivatedByPointer: false,
+            wasElementMadeActive: false,
+        };
+    };
+    /**
+     * supportsPressRipple Passed from init to save a redundant function call
+     */
+    MDCRippleFoundation.prototype.registerRootHandlers_ = function (supportsPressRipple) {
+        var _this = this;
+        if (supportsPressRipple) {
+            ACTIVATION_EVENT_TYPES.forEach(function (evtType) {
+                _this.adapter_.registerInteractionHandler(evtType, _this.activateHandler_);
+            });
+            if (this.adapter_.isUnbounded()) {
+                this.adapter_.registerResizeHandler(this.resizeHandler_);
+            }
+        }
+        this.adapter_.registerInteractionHandler('focus', this.focusHandler_);
+        this.adapter_.registerInteractionHandler('blur', this.blurHandler_);
+    };
+    MDCRippleFoundation.prototype.registerDeactivationHandlers_ = function (evt) {
+        var _this = this;
+        if (evt.type === 'keydown') {
+            this.adapter_.registerInteractionHandler('keyup', this.deactivateHandler_);
+        }
+        else {
+            POINTER_DEACTIVATION_EVENT_TYPES.forEach(function (evtType) {
+                _this.adapter_.registerDocumentInteractionHandler(evtType, _this.deactivateHandler_);
+            });
+        }
+    };
+    MDCRippleFoundation.prototype.deregisterRootHandlers_ = function () {
+        var _this = this;
+        ACTIVATION_EVENT_TYPES.forEach(function (evtType) {
+            _this.adapter_.deregisterInteractionHandler(evtType, _this.activateHandler_);
+        });
+        this.adapter_.deregisterInteractionHandler('focus', this.focusHandler_);
+        this.adapter_.deregisterInteractionHandler('blur', this.blurHandler_);
+        if (this.adapter_.isUnbounded()) {
+            this.adapter_.deregisterResizeHandler(this.resizeHandler_);
+        }
+    };
+    MDCRippleFoundation.prototype.deregisterDeactivationHandlers_ = function () {
+        var _this = this;
+        this.adapter_.deregisterInteractionHandler('keyup', this.deactivateHandler_);
+        POINTER_DEACTIVATION_EVENT_TYPES.forEach(function (evtType) {
+            _this.adapter_.deregisterDocumentInteractionHandler(evtType, _this.deactivateHandler_);
+        });
+    };
+    MDCRippleFoundation.prototype.removeCssVars_ = function () {
+        var _this = this;
+        var rippleStrings = MDCRippleFoundation.strings;
+        var keys = Object.keys(rippleStrings);
+        keys.forEach(function (key) {
+            if (key.indexOf('VAR_') === 0) {
+                _this.adapter_.updateCssVariable(rippleStrings[key], null);
+            }
+        });
+    };
+    MDCRippleFoundation.prototype.activate_ = function (evt) {
+        var _this = this;
+        if (this.adapter_.isSurfaceDisabled()) {
+            return;
+        }
+        var activationState = this.activationState_;
+        if (activationState.isActivated) {
+            return;
+        }
+        // Avoid reacting to follow-on events fired by touch device after an already-processed user interaction
+        var previousActivationEvent = this.previousActivationEvent_;
+        var isSameInteraction = previousActivationEvent && evt !== undefined && previousActivationEvent.type !== evt.type;
+        if (isSameInteraction) {
+            return;
+        }
+        activationState.isActivated = true;
+        activationState.isProgrammatic = evt === undefined;
+        activationState.activationEvent = evt;
+        activationState.wasActivatedByPointer = activationState.isProgrammatic ? false : evt !== undefined && (evt.type === 'mousedown' || evt.type === 'touchstart' || evt.type === 'pointerdown');
+        var hasActivatedChild = evt !== undefined && activatedTargets.length > 0 && activatedTargets.some(function (target) { return _this.adapter_.containsEventTarget(target); });
+        if (hasActivatedChild) {
+            // Immediately reset activation state, while preserving logic that prevents touch follow-on events
+            this.resetActivationState_();
+            return;
+        }
+        if (evt !== undefined) {
+            activatedTargets.push(evt.target);
+            this.registerDeactivationHandlers_(evt);
+        }
+        activationState.wasElementMadeActive = this.checkElementMadeActive_(evt);
+        if (activationState.wasElementMadeActive) {
+            this.animateActivation_();
+        }
+        requestAnimationFrame(function () {
+            // Reset array on next frame after the current event has had a chance to bubble to prevent ancestor ripples
+            activatedTargets = [];
+            if (!activationState.wasElementMadeActive
+                && evt !== undefined
+                && (evt.key === ' ' || evt.keyCode === 32)) {
+                // If space was pressed, try again within an rAF call to detect :active, because different UAs report
+                // active states inconsistently when they're called within event handling code:
+                // - https://bugs.chromium.org/p/chromium/issues/detail?id=635971
+                // - https://bugzilla.mozilla.org/show_bug.cgi?id=1293741
+                // We try first outside rAF to support Edge, which does not exhibit this problem, but will crash if a CSS
+                // variable is set within a rAF callback for a submit button interaction (#2241).
+                activationState.wasElementMadeActive = _this.checkElementMadeActive_(evt);
+                if (activationState.wasElementMadeActive) {
+                    _this.animateActivation_();
+                }
+            }
+            if (!activationState.wasElementMadeActive) {
+                // Reset activation state immediately if element was not made active.
+                _this.activationState_ = _this.defaultActivationState_();
+            }
+        });
+    };
+    MDCRippleFoundation.prototype.checkElementMadeActive_ = function (evt) {
+        return (evt !== undefined && evt.type === 'keydown') ? this.adapter_.isSurfaceActive() : true;
+    };
+    MDCRippleFoundation.prototype.animateActivation_ = function () {
+        var _this = this;
+        var _a = MDCRippleFoundation.strings, VAR_FG_TRANSLATE_START = _a.VAR_FG_TRANSLATE_START, VAR_FG_TRANSLATE_END = _a.VAR_FG_TRANSLATE_END;
+        var _b = MDCRippleFoundation.cssClasses, FG_DEACTIVATION = _b.FG_DEACTIVATION, FG_ACTIVATION = _b.FG_ACTIVATION;
+        var DEACTIVATION_TIMEOUT_MS = MDCRippleFoundation.numbers.DEACTIVATION_TIMEOUT_MS;
+        this.layoutInternal_();
+        var translateStart = '';
+        var translateEnd = '';
+        if (!this.adapter_.isUnbounded()) {
+            var _c = this.getFgTranslationCoordinates_(), startPoint = _c.startPoint, endPoint = _c.endPoint;
+            translateStart = startPoint.x + "px, " + startPoint.y + "px";
+            translateEnd = endPoint.x + "px, " + endPoint.y + "px";
+        }
+        this.adapter_.updateCssVariable(VAR_FG_TRANSLATE_START, translateStart);
+        this.adapter_.updateCssVariable(VAR_FG_TRANSLATE_END, translateEnd);
+        // Cancel any ongoing activation/deactivation animations
+        clearTimeout(this.activationTimer_);
+        clearTimeout(this.fgDeactivationRemovalTimer_);
+        this.rmBoundedActivationClasses_();
+        this.adapter_.removeClass(FG_DEACTIVATION);
+        // Force layout in order to re-trigger the animation.
+        this.adapter_.computeBoundingRect();
+        this.adapter_.addClass(FG_ACTIVATION);
+        this.activationTimer_ = setTimeout(function () { return _this.activationTimerCallback_(); }, DEACTIVATION_TIMEOUT_MS);
+    };
+    MDCRippleFoundation.prototype.getFgTranslationCoordinates_ = function () {
+        var _a = this.activationState_, activationEvent = _a.activationEvent, wasActivatedByPointer = _a.wasActivatedByPointer;
+        var startPoint;
+        if (wasActivatedByPointer) {
+            startPoint = getNormalizedEventCoords(activationEvent, this.adapter_.getWindowPageOffset(), this.adapter_.computeBoundingRect());
+        }
+        else {
+            startPoint = {
+                x: this.frame_.width / 2,
+                y: this.frame_.height / 2,
+            };
+        }
+        // Center the element around the start point.
+        startPoint = {
+            x: startPoint.x - (this.initialSize_ / 2),
+            y: startPoint.y - (this.initialSize_ / 2),
+        };
+        var endPoint = {
+            x: (this.frame_.width / 2) - (this.initialSize_ / 2),
+            y: (this.frame_.height / 2) - (this.initialSize_ / 2),
+        };
+        return { startPoint: startPoint, endPoint: endPoint };
+    };
+    MDCRippleFoundation.prototype.runDeactivationUXLogicIfReady_ = function () {
+        var _this = this;
+        // This method is called both when a pointing device is released, and when the activation animation ends.
+        // The deactivation animation should only run after both of those occur.
+        var FG_DEACTIVATION = MDCRippleFoundation.cssClasses.FG_DEACTIVATION;
+        var _a = this.activationState_, hasDeactivationUXRun = _a.hasDeactivationUXRun, isActivated = _a.isActivated;
+        var activationHasEnded = hasDeactivationUXRun || !isActivated;
+        if (activationHasEnded && this.activationAnimationHasEnded_) {
+            this.rmBoundedActivationClasses_();
+            this.adapter_.addClass(FG_DEACTIVATION);
+            this.fgDeactivationRemovalTimer_ = setTimeout(function () {
+                _this.adapter_.removeClass(FG_DEACTIVATION);
+            }, numbers$1.FG_DEACTIVATION_MS);
+        }
+    };
+    MDCRippleFoundation.prototype.rmBoundedActivationClasses_ = function () {
+        var FG_ACTIVATION = MDCRippleFoundation.cssClasses.FG_ACTIVATION;
+        this.adapter_.removeClass(FG_ACTIVATION);
+        this.activationAnimationHasEnded_ = false;
+        this.adapter_.computeBoundingRect();
+    };
+    MDCRippleFoundation.prototype.resetActivationState_ = function () {
+        var _this = this;
+        this.previousActivationEvent_ = this.activationState_.activationEvent;
+        this.activationState_ = this.defaultActivationState_();
+        // Touch devices may fire additional events for the same interaction within a short time.
+        // Store the previous event until it's safe to assume that subsequent events are for new interactions.
+        setTimeout(function () { return _this.previousActivationEvent_ = undefined; }, MDCRippleFoundation.numbers.TAP_DELAY_MS);
+    };
+    MDCRippleFoundation.prototype.deactivate_ = function () {
+        var _this = this;
+        var activationState = this.activationState_;
+        // This can happen in scenarios such as when you have a keyup event that blurs the element.
+        if (!activationState.isActivated) {
+            return;
+        }
+        var state = __assign({}, activationState);
+        if (activationState.isProgrammatic) {
+            requestAnimationFrame(function () { return _this.animateDeactivation_(state); });
+            this.resetActivationState_();
+        }
+        else {
+            this.deregisterDeactivationHandlers_();
+            requestAnimationFrame(function () {
+                _this.activationState_.hasDeactivationUXRun = true;
+                _this.animateDeactivation_(state);
+                _this.resetActivationState_();
+            });
+        }
+    };
+    MDCRippleFoundation.prototype.animateDeactivation_ = function (_a) {
+        var wasActivatedByPointer = _a.wasActivatedByPointer, wasElementMadeActive = _a.wasElementMadeActive;
+        if (wasActivatedByPointer || wasElementMadeActive) {
+            this.runDeactivationUXLogicIfReady_();
+        }
+    };
+    MDCRippleFoundation.prototype.layoutInternal_ = function () {
+        var _this = this;
+        this.frame_ = this.adapter_.computeBoundingRect();
+        var maxDim = Math.max(this.frame_.height, this.frame_.width);
+        // Surface diameter is treated differently for unbounded vs. bounded ripples.
+        // Unbounded ripple diameter is calculated smaller since the surface is expected to already be padded appropriately
+        // to extend the hitbox, and the ripple is expected to meet the edges of the padded hitbox (which is typically
+        // square). Bounded ripples, on the other hand, are fully expected to expand beyond the surface's longest diameter
+        // (calculated based on the diagonal plus a constant padding), and are clipped at the surface's border via
+        // `overflow: hidden`.
+        var getBoundedRadius = function () {
+            var hypotenuse = Math.sqrt(Math.pow(_this.frame_.width, 2) + Math.pow(_this.frame_.height, 2));
+            return hypotenuse + MDCRippleFoundation.numbers.PADDING;
+        };
+        this.maxRadius_ = this.adapter_.isUnbounded() ? maxDim : getBoundedRadius();
+        // Ripple is sized as a fraction of the largest dimension of the surface, then scales up using a CSS scale transform
+        this.initialSize_ = Math.floor(maxDim * MDCRippleFoundation.numbers.INITIAL_ORIGIN_SCALE);
+        this.fgScale_ = "" + this.maxRadius_ / this.initialSize_;
+        this.updateLayoutCssVars_();
+    };
+    MDCRippleFoundation.prototype.updateLayoutCssVars_ = function () {
+        var _a = MDCRippleFoundation.strings, VAR_FG_SIZE = _a.VAR_FG_SIZE, VAR_LEFT = _a.VAR_LEFT, VAR_TOP = _a.VAR_TOP, VAR_FG_SCALE = _a.VAR_FG_SCALE;
+        this.adapter_.updateCssVariable(VAR_FG_SIZE, this.initialSize_ + "px");
+        this.adapter_.updateCssVariable(VAR_FG_SCALE, this.fgScale_);
+        if (this.adapter_.isUnbounded()) {
+            this.unboundedCoords_ = {
+                left: Math.round((this.frame_.width / 2) - (this.initialSize_ / 2)),
+                top: Math.round((this.frame_.height / 2) - (this.initialSize_ / 2)),
+            };
+            this.adapter_.updateCssVariable(VAR_LEFT, this.unboundedCoords_.left + "px");
+            this.adapter_.updateCssVariable(VAR_TOP, this.unboundedCoords_.top + "px");
+        }
+    };
+    return MDCRippleFoundation;
+}(MDCFoundation));
+
+/**
+@license
+Copyright 2018 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+const style$2 = css$1 `/**
+@license
+Copyright 2018 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+@keyframes mdc-ripple-fg-radius-in {
+  from {
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1);
+  }
+  to {
+    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1));
+  }
+}
+@keyframes mdc-ripple-fg-opacity-in {
+  from {
+    animation-timing-function: linear;
+    opacity: 0;
+  }
+  to {
+    opacity: var(--mdc-ripple-fg-opacity, 0);
+  }
+}
+@keyframes mdc-ripple-fg-opacity-out {
+  from {
+    animation-timing-function: linear;
+    opacity: var(--mdc-ripple-fg-opacity, 0);
+  }
+  to {
+    opacity: 0;
+  }
+}`;
+
+/**
+@license
+Copyright 2018 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+const supportsCssVariables$1 = supportsCssVariables(window);
+// NOTE: This is a workaround for https://bugs.webkit.org/show_bug.cgi?id=173027.
+// Since keyframes on pseudo-elements (:after) are not supported in Shadow DOM,
+// we put the keyframe style into the <head> element.
+const isSafari = navigator.userAgent.match(/Safari/);
+let didApplyRippleStyle = false;
+const applyRippleStyle = () => {
+    didApplyRippleStyle = true;
+    const part = new NodePart$1({ templateFactory: templateFactory$1 });
+    part.appendInto(document.head);
+    part.setValue(style$2);
+    part.commit();
+};
+/**
+ * Applied a ripple to the node specified by {surfaceNode}.
+ * @param options {RippleNodeOptions}
+ */
+const rippleNode = (options) => {
+    if (isSafari && !didApplyRippleStyle) {
+        applyRippleStyle();
+    }
+    // TODO(sorvell): This directive requires bringing css yourself. We probably need to do this
+    // because of ShadyCSS, but on Safari, the keyframes styling must be window. Perhaps this
+    // directive could fix that.
+    const surfaceNode = options.surfaceNode;
+    const interactionNode = options.interactionNode || surfaceNode;
+    // only style interaction node if not in the same root
+    if (interactionNode.getRootNode() !== surfaceNode.getRootNode()) {
+        if (interactionNode.style.position === '') {
+            interactionNode.style.position = 'relative';
+        }
+    }
+    const adapter = Object.assign({ browserSupportsCssVars: () => supportsCssVariables$1, isUnbounded: () => options.unbounded === undefined ? true : options.unbounded, isSurfaceActive: () => matches(interactionNode, ':active'), isSurfaceDisabled: () => Boolean(options.disabled), addClass: (className) => surfaceNode.classList.add(className), removeClass: (className) => surfaceNode.classList.remove(className), containsEventTarget: (target) => interactionNode.contains(target), registerInteractionHandler: (type, handler) => interactionNode.addEventListener(type, handler, applyPassive$1()), deregisterInteractionHandler: (type, handler) => interactionNode.removeEventListener(type, handler, applyPassive$1()), registerDocumentInteractionHandler: (evtType, handler) => document.documentElement.addEventListener(evtType, handler, applyPassive$1()), deregisterDocumentInteractionHandler: (evtType, handler) => document.documentElement.removeEventListener(evtType, handler, applyPassive$1()), registerResizeHandler: (handler) => window.addEventListener('resize', handler), deregisterResizeHandler: (handler) => window.removeEventListener('resize', handler), updateCssVariable: (varName, value) => surfaceNode.style.setProperty(varName, value), computeBoundingRect: () => surfaceNode.getBoundingClientRect(), getWindowPageOffset: () => ({ x: window.pageXOffset, y: window.pageYOffset }) }, options.adapter);
+    const rippleFoundation = new MDCRippleFoundation(adapter);
+    rippleFoundation.init();
+    return rippleFoundation;
+};
+const rippleInteractionNodes = new WeakMap();
+/**
+ * A directive that applies a Material ripple to a part node. The directive
+ * should be applied to a PropertyPart.
+ * @param options {RippleOptions}
+ */
+const ripple = directive$1((options = {}) => (part) => {
+    const surfaceNode = part.committer.element;
+    const interactionNode = options.interactionNode || surfaceNode;
+    let rippleFoundation = part.value;
+    // if the interaction node changes, destroy and invalidate the foundation.
+    const existingInteractionNode = rippleInteractionNodes.get(rippleFoundation);
+    if (existingInteractionNode !== undefined && existingInteractionNode !== interactionNode) {
+        rippleFoundation.destroy();
+        rippleFoundation = noChange$1;
+    }
+    // make the ripple, if needed
+    if (rippleFoundation === noChange$1) {
+        rippleFoundation = rippleNode(Object.assign({}, options, { surfaceNode }));
+        rippleInteractionNodes.set(rippleFoundation, interactionNode);
+        part.setValue(rippleFoundation);
+        // otherwise update settings as needed.
+    }
+    else {
+        if (options.unbounded !== undefined) {
+            rippleFoundation.setUnbounded(options.unbounded);
+        }
+        if (options.disabled !== undefined) {
+            rippleFoundation.setUnbounded(options.disabled);
+        }
+    }
+    if (options.active === true) {
+        rippleFoundation.activate();
+    }
+    else if (options.active === false) {
+        rippleFoundation.deactivate();
+    }
+});
+
+/**
+@license
+Copyright 2018 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+const style$1$1 = css$1 `/**
+@license
+Copyright 2018 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+.mdc-card {
+  border-radius: 4px;
+  background-color: #fff;
+  /* @alternate */
+  background-color: var(--mdc-theme-surface, #fff);
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.mdc-card--outlined {
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12);
+  border-width: 1px;
+  border-style: solid;
+  border-color: #e0e0e0;
+}
+
+.mdc-card__media {
+  position: relative;
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.mdc-card__media::before {
+  display: block;
+  content: "";
+}
+
+.mdc-card__media:first-child {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+
+.mdc-card__media:last-child {
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+}
+
+.mdc-card__media--square::before {
+  margin-top: 100%;
+}
+
+.mdc-card__media--16-9::before {
+  margin-top: 56.25%;
+}
+
+.mdc-card__media-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+}
+
+.mdc-card__primary-action {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative;
+  outline: none;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.mdc-card__primary-action:first-child {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+
+.mdc-card__primary-action:last-child {
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+}
+
+.mdc-card__actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 52px;
+  padding: 8px;
+}
+
+.mdc-card__actions--full-bleed {
+  padding: 0;
+}
+
+.mdc-card__action-buttons,
+.mdc-card__action-icons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.mdc-card__action-icons {
+  color: rgba(0, 0, 0, 0.6);
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+
+.mdc-card__action-buttons + .mdc-card__action-icons {
+  /* @noflip */
+  margin-left: 16px;
+  /* @noflip */
+  margin-right: 0;
+}
+[dir=rtl] .mdc-card__action-buttons + .mdc-card__action-icons, .mdc-card__action-buttons + .mdc-card__action-icons[dir=rtl] {
+  /* @noflip */
+  margin-left: 0;
+  /* @noflip */
+  margin-right: 16px;
+}
+
+.mdc-card__action {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+.mdc-card__action:focus {
+  outline: none;
+}
+
+.mdc-card__action--button {
+  /* @noflip */
+  margin-left: 0;
+  /* @noflip */
+  margin-right: 8px;
+  padding: 0 8px;
+}
+[dir=rtl] .mdc-card__action--button, .mdc-card__action--button[dir=rtl] {
+  /* @noflip */
+  margin-left: 8px;
+  /* @noflip */
+  margin-right: 0;
+}
+.mdc-card__action--button:last-child {
+  /* @noflip */
+  margin-left: 0;
+  /* @noflip */
+  margin-right: 0;
+}
+[dir=rtl] .mdc-card__action--button:last-child, .mdc-card__action--button:last-child[dir=rtl] {
+  /* @noflip */
+  margin-left: 0;
+  /* @noflip */
+  margin-right: 0;
+}
+
+.mdc-card__actions--full-bleed .mdc-card__action--button {
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  margin: 0;
+  padding: 8px 16px;
+  /* @noflip */
+  text-align: left;
+}
+[dir=rtl] .mdc-card__actions--full-bleed .mdc-card__action--button, .mdc-card__actions--full-bleed .mdc-card__action--button[dir=rtl] {
+  /* @noflip */
+  text-align: right;
+}
+
+.mdc-card__action--icon {
+  margin: -6px 0;
+  padding: 12px;
+}
+
+.mdc-card__action--icon:not(:disabled) {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+@keyframes mdc-ripple-fg-radius-in {
+  from {
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1);
+  }
+  to {
+    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1));
+  }
+}
+@keyframes mdc-ripple-fg-opacity-in {
+  from {
+    animation-timing-function: linear;
+    opacity: 0;
+  }
+  to {
+    opacity: var(--mdc-ripple-fg-opacity, 0);
+  }
+}
+@keyframes mdc-ripple-fg-opacity-out {
+  from {
+    animation-timing-function: linear;
+    opacity: var(--mdc-ripple-fg-opacity, 0);
+  }
+  to {
+    opacity: 0;
+  }
+}
+.mdc-ripple-surface--test-edge-var-bug {
+  --mdc-ripple-surface-test-edge-var: 1px solid #000;
+  visibility: hidden;
+}
+.mdc-ripple-surface--test-edge-var-bug::before {
+  border: var(--mdc-ripple-surface-test-edge-var);
+}
+
+.mdc-card__primary-action {
+  --mdc-ripple-fg-size: 0;
+  --mdc-ripple-left: 0;
+  --mdc-ripple-top: 0;
+  --mdc-ripple-fg-scale: 1;
+  --mdc-ripple-fg-translate-end: 0;
+  --mdc-ripple-fg-translate-start: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.mdc-card__primary-action::before, .mdc-card__primary-action::after {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  content: "";
+}
+.mdc-card__primary-action::before {
+  transition: opacity 15ms linear, background-color 15ms linear;
+  z-index: 1;
+}
+.mdc-card__primary-action.mdc-ripple-upgraded::before {
+  transform: scale(var(--mdc-ripple-fg-scale, 1));
+}
+.mdc-card__primary-action.mdc-ripple-upgraded::after {
+  top: 0;
+  /* @noflip */
+  left: 0;
+  transform: scale(0);
+  transform-origin: center center;
+}
+.mdc-card__primary-action.mdc-ripple-upgraded--unbounded::after {
+  top: var(--mdc-ripple-top, 0);
+  /* @noflip */
+  left: var(--mdc-ripple-left, 0);
+}
+.mdc-card__primary-action.mdc-ripple-upgraded--foreground-activation::after {
+  animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards;
+}
+.mdc-card__primary-action.mdc-ripple-upgraded--foreground-deactivation::after {
+  animation: mdc-ripple-fg-opacity-out 150ms;
+  transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1));
+}
+.mdc-card__primary-action::before, .mdc-card__primary-action::after {
+  top: calc(50% - 100%);
+  /* @noflip */
+  left: calc(50% - 100%);
+  width: 200%;
+  height: 200%;
+}
+.mdc-card__primary-action.mdc-ripple-upgraded::after {
+  width: var(--mdc-ripple-fg-size, 100%);
+  height: var(--mdc-ripple-fg-size, 100%);
+}
+.mdc-card__primary-action::before, .mdc-card__primary-action::after {
+  background-color: #000;
+}
+.mdc-card__primary-action:hover::before {
+  opacity: 0.04;
+}
+.mdc-card__primary-action:not(.mdc-ripple-upgraded):focus::before, .mdc-card__primary-action.mdc-ripple-upgraded--background-focused::before {
+  transition-duration: 75ms;
+  opacity: 0.12;
+}
+.mdc-card__primary-action:not(.mdc-ripple-upgraded)::after {
+  transition: opacity 150ms linear;
+}
+.mdc-card__primary-action:not(.mdc-ripple-upgraded):active::after {
+  transition-duration: 75ms;
+  opacity: 0.12;
+}
+.mdc-card__primary-action.mdc-ripple-upgraded {
+  --mdc-ripple-fg-opacity: 0.12;
+}
+
+:host {
+  display: inline-block;
+  width: 344px;
+}
+
+.mdc-card {
+  height: 100%;
+}
+
+.mdc-card__primary-action {
+  flex-grow: 1;
+}
+.mdc-card__primary-action--empty {
+  display: none;
+}
+
+.mdc-card__actions--empty {
+  display: none;
+}
+.mdc-card__actions ::slotted(*) {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+.mdc-card__actions ::slotted(*):focus {
+  outline: none;
+}
+.mdc-card__actions ::slotted(mwc-button) {
+  /* @noflip */
+  margin-left: 0;
+  /* @noflip */
+  margin-right: 8px;
+}
+[dir=rtl] .mdc-card__actions ::slotted(mwc-button), .mdc-card__actions ::slotted(mwc-button)[dir=rtl] {
+  /* @noflip */
+  margin-left: 8px;
+  /* @noflip */
+  margin-right: 0;
+}
+.mdc-card__actions ::slotted(mwc-button):last-child {
+  /* @noflip */
+  margin-left: 0;
+  /* @noflip */
+  margin-right: 0;
+}
+[dir=rtl] .mdc-card__actions ::slotted(mwc-button):last-child, .mdc-card__actions ::slotted(mwc-button):last-child[dir=rtl] {
+  /* @noflip */
+  margin-left: 0;
+  /* @noflip */
+  margin-right: 0;
+}
+.mdc-card__actions ::slotted(mwc-icon-button) {
+  margin: -6px 0;
+}
+.mdc-card__actions ::slotted(mwc-icon-button:not(:disabled)) {
+  color: rgba(0, 0, 0, 0.6);
+}`;
+
+/**
+@license
+Copyright 2018 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+// load material icons font
+const fontEl = document.createElement('link');
+fontEl.rel = 'stylesheet';
+fontEl.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
+document.head.appendChild(fontEl);
+
+var __decorate$1 = function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+let Card = class Card extends LitElement$1 {
+    constructor() {
+        super(...arguments);
+        /**
+         * Optional. Default value is false. Removes the shadow and displays a hairline outline instead.
+         */
+        this.outlined = false;
+        /**
+         * Optional. Define the aspect ratio for the main image, it can be 'square' or '16-9'
+         */
+        this.aspectRatio = '';
+    }
+    get headerEls() {
+        return this.slotHeaderEl && findAssignedElements(this.slotHeaderEl, '*');
+    }
+    get mediaEls() {
+        return this.slotMediaEl && findAssignedElements(this.slotMediaEl, '*');
+    }
+    get contentEls() {
+        return this.slotContentEl && findAssignedElements(this.slotContentEl, '*');
+    }
+    get actionButtons() {
+        return this.slotActionButtonsEl && findAssignedElements(this.slotActionButtonsEl, 'mwc-button');
+    }
+    get actionIcons() {
+        return this.slotActionIconsEl && findAssignedElements(this.slotActionIconsEl, 'mwc-icon-button');
+    }
+    /**
+     * Used to render the lit-html TemplateResult to the element's DOM
+     */
+    render() {
+        const styles = {
+            'mdc-card': true,
+            'mdc-card--outlined': this.outlined
+        };
+        const mediaStyles = {
+            'mdc-card__media': true,
+            [`mdc-card__media--${this.aspectRatio}`]: this.aspectRatio !== '',
+        };
+        return html$1 `
+      <div class="${classMap$1(styles)}">
+        <div class="mdc-card__primary-action" tabindex="0" .ripple="${ripple({ unbounded: false })}">
+          <slot name="header"></slot>
+          
+          <div class="${classMap$1(mediaStyles)}">
+            <div class="mdc-card__media-content">
+              <slot name="media"></slot>
+            </div>
+          </div>
+
+          <slot name="content"></slot>
+        </div>
+
+        <slot></slot>
+
+        <div class="mdc-card__actions">
+          <div class="mdc-card__action-buttons">
+            <slot name="action-buttons"></slot>
+          </div>
+
+          <div class="mdc-card__action-icons">
+            <slot name="action-icons"></slot>
+          </div>
+        </div>
+      </div>
+    `;
+    }
+    /**
+     * This method is invoked whenever the card is updated
+     * @param _changedProperties Map of changed properties with old values
+     */
+    updated(_changedProperties) {
+        super.updated(_changedProperties);
+        const _hasHeaderEls = this.headerEls.length > 0;
+        const _hasMediaEls = this.mediaEls.length > 0;
+        const _hasContentEls = this.contentEls.length > 0;
+        const _hasPrimaryAction = _hasHeaderEls || _hasMediaEls || _hasContentEls;
+        const _hasActionButtons = this.actionButtons.length > 0;
+        const _hasActionIcons = this.actionIcons.length > 0;
+        const _hasActions = _hasActionButtons || _hasActionIcons;
+        this.primaryActionEl.classList.toggle('mdc-card__primary-action--empty', !_hasPrimaryAction);
+        this.actionButtonsEl.classList.toggle('mdc-card__action-buttons--empty', !_hasActionButtons);
+        this.actionIconsEl.classList.toggle('mdc-card__action-icons--empty', !_hasActionIcons);
+        this.actionsEl.classList.toggle('mdc-card__actions--empty', !_hasActions);
+    }
+};
+Card.styles = style$1$1;
+__decorate$1([
+    query$1('.mdc-card__primary-action')
+], Card.prototype, "primaryActionEl", void 0);
+__decorate$1([
+    query$1('.mdc-card__actions')
+], Card.prototype, "actionsEl", void 0);
+__decorate$1([
+    query$1('.mdc-card__action-buttons')
+], Card.prototype, "actionButtonsEl", void 0);
+__decorate$1([
+    query$1('.mdc-card__action-icons')
+], Card.prototype, "actionIconsEl", void 0);
+__decorate$1([
+    query$1('slot[name="header"]')
+], Card.prototype, "slotHeaderEl", void 0);
+__decorate$1([
+    query$1('slot[name="media"]')
+], Card.prototype, "slotMediaEl", void 0);
+__decorate$1([
+    query$1('slot[name="content"]')
+], Card.prototype, "slotContentEl", void 0);
+__decorate$1([
+    query$1('slot[name="action-buttons"]')
+], Card.prototype, "slotActionButtonsEl", void 0);
+__decorate$1([
+    query$1('slot[name="action-icons"]')
+], Card.prototype, "slotActionIconsEl", void 0);
+__decorate$1([
+    property$1({ type: Boolean })
+], Card.prototype, "outlined", void 0);
+__decorate$1([
+    property$1({ type: String })
+], Card.prototype, "aspectRatio", void 0);
+
+class Card$1 extends ScopedElementsMixin$1(Card) {
+}
+Card$1.styles = [
+    style$1$1,
+    css$1 `
+      :host {
+        width: auto;
+      }
+    `,
+];
 
 /**
  * @license
@@ -24033,9 +28221,9 @@ var numbers = {
  * THE SOFTWARE.
  */
 var MDCDialogFoundation = /** @class */ (function (_super) {
-    __extends$1(MDCDialogFoundation, _super);
+    __extends$2(MDCDialogFoundation, _super);
     function MDCDialogFoundation(adapter) {
-        var _this = _super.call(this, __assign$1(__assign$1({}, MDCDialogFoundation.defaultAdapter), adapter)) || this;
+        var _this = _super.call(this, __assign$2(__assign$2({}, MDCDialogFoundation.defaultAdapter), adapter)) || this;
         _this.isOpen_ = false;
         _this.animationFrame_ = 0;
         _this.animationTimer_ = 0;
@@ -24282,7 +28470,7 @@ var MDCDialogFoundation = /** @class */ (function (_super) {
         }
     };
     return MDCDialogFoundation;
-}(MDCFoundation$1));
+}(MDCFoundation$2));
 
 /**
  * @license
@@ -24418,7 +28606,7 @@ class DialogBase extends BaseElement$1 {
                 if (primary) {
                     primary.click();
                 }
-            }, eventTargetMatches: (target, selector) => target ? matches$1(target, selector) : false, getActionFromEvent: (e) => {
+            }, eventTargetMatches: (target, selector) => target ? matches$2(target, selector) : false, getActionFromEvent: (e) => {
                 if (!e.target) {
                     return '';
                 }
@@ -24589,49 +28777,49 @@ class DialogBase extends BaseElement$1 {
         this.open = true;
     }
 }
-__decorate$2([
+__decorate$3([
     query$1('.mdc-dialog')
 ], DialogBase.prototype, "mdcRoot", void 0);
-__decorate$2([
+__decorate$3([
     query$1('slot[name="primaryAction"]')
 ], DialogBase.prototype, "primarySlot", void 0);
-__decorate$2([
+__decorate$3([
     query$1('slot[name="secondaryAction"]')
 ], DialogBase.prototype, "secondarySlot", void 0);
-__decorate$2([
+__decorate$3([
     query$1('#contentSlot')
 ], DialogBase.prototype, "contentSlot", void 0);
-__decorate$2([
+__decorate$3([
     query$1('.mdc-dialog__content')
 ], DialogBase.prototype, "contentElement", void 0);
-__decorate$2([
+__decorate$3([
     query$1('.mdc-container')
 ], DialogBase.prototype, "conatinerElement", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], DialogBase.prototype, "hideActions", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean }),
     observer(function () {
         this.forceLayout();
     })
 ], DialogBase.prototype, "stacked", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String })
 ], DialogBase.prototype, "heading", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String }),
     observer(function (newAction) {
         this.mdcFoundation.setScrimClickAction(newAction);
     })
 ], DialogBase.prototype, "scrimClickAction", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String }),
     observer(function (newAction) {
         this.mdcFoundation.setEscapeKeyAction(newAction);
     })
 ], DialogBase.prototype, "escapeKeyAction", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean, reflect: true }),
     observer(function (isOpen) {
         // Check isConnected because we could have been disconnected before first
@@ -24651,13 +28839,13 @@ __decorate$2([
         }
     })
 ], DialogBase.prototype, "open", void 0);
-__decorate$2([
+__decorate$3([
     property$1()
 ], DialogBase.prototype, "defaultAction", void 0);
-__decorate$2([
+__decorate$3([
     property$1()
 ], DialogBase.prototype, "actionAttribute", void 0);
-__decorate$2([
+__decorate$3([
     property$1()
 ], DialogBase.prototype, "initialFocusAttribute", void 0);
 
@@ -24759,13 +28947,13 @@ class InstallDnaDialog extends BaseCompositoryService {
         return sharedStyles$2;
     }
 }
-__decorate$2([
+__decorate$3([
     property$1({ type: Object })
 ], InstallDnaDialog.prototype, "dnaBundle", void 0);
-__decorate$2([
+__decorate$3([
     query$1('#dialog')
 ], InstallDnaDialog.prototype, "_dialog", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String })
 ], InstallDnaDialog.prototype, "_dnaPath", void 0);
 
@@ -24858,7 +29046,7 @@ class ComposeZomes extends BaseCompositoryService {
         if (this._dnaTemplateToClone) {
             await this._compositoryService.publishInstantiatedDna({
                 dna_template_hash: this._dnaTemplateToClone,
-                instantiated_dna_hash: serializeHash$1(cellId[0]),
+                instantiated_dna_hash: serializeHash(cellId[0]),
                 properties: null,
                 uuid: '',
             });
@@ -24938,13 +29126,13 @@ class ComposeZomes extends BaseCompositoryService {
         };
     }
 }
-__decorate$2([
+__decorate$3([
     property$1()
 ], ComposeZomes.prototype, "zomeDefs", void 0);
-__decorate$2([
+__decorate$3([
     query$1('#install-dna-dialog')
 ], ComposeZomes.prototype, "_installDnaDialog", void 0);
-__decorate$2([
+__decorate$3([
     property$1()
 ], ComposeZomes.prototype, "_templateName", void 0);
 
@@ -32293,13 +36481,13 @@ class PublishZome extends BaseElement {
         return sharedStyles$2;
     }
 }
-__decorate$2([
+__decorate$3([
     query$1('#zome-name')
 ], PublishZome.prototype, "_nameField", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: String })
 ], PublishZome.prototype, "_zomeWasmHash", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], PublishZome.prototype, "_invalidUiBundle", void 0);
 
@@ -32313,7 +36501,7 @@ class DiscoverDnas extends BaseCompositoryService {
     }
     async firstUpdated() {
         const cellIds = await this._compositoryService.adminWebsocket.listCellIds();
-        const allInstalledDnaHashes = cellIds.map(cellId => serializeHash$1(cellId[0]));
+        const allInstalledDnaHashes = cellIds.map(cellId => serializeHash(cellId[0]));
         const allInstantiatedDnas = await this._compositoryService.getAllInstantiatedDnas();
         this._allInstantiatedDnasHashes = allInstantiatedDnas.filter(hash => !allInstalledDnaHashes.includes(hash));
         const promises = this._allInstantiatedDnasHashes.map(async (hash) => {
@@ -32437,13 +36625,13 @@ class DiscoverDnas extends BaseCompositoryService {
         };
     }
 }
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], DiscoverDnas.prototype, "_loading", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Array })
 ], DiscoverDnas.prototype, "_allInstantiatedDnasHashes", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Array })
 ], DiscoverDnas.prototype, "_dnaTemplates", void 0);
 
@@ -32456,12 +36644,12 @@ class InstalledCells extends BaseCompositoryService {
         this.loadCellsIds();
     }
     get compositoryDnaHash() {
-        return serializeHash$1(this._compositoryService.cellId[0]);
+        return serializeHash(this._compositoryService.cellId[0]);
     }
     async loadCellsIds() {
         const cellIds = await this._compositoryService.adminWebsocket.listCellIds();
         const instantiatedDnaHashes = cellIds
-            .map(cellId => serializeHash$1(cellId[0]))
+            .map(cellId => serializeHash(cellId[0]))
             .filter(hash => hash !== this.compositoryDnaHash);
         this._dnaTemplateNames = await this.fetchDnaTemplateNames(instantiatedDnaHashes);
         this._installedCellIds = cellIds;
@@ -32476,7 +36664,7 @@ class InstalledCells extends BaseCompositoryService {
         return names;
     }
     getNonCompositoryCellIds() {
-        return this._installedCellIds.filter(cellId => serializeHash$1(cellId[0]) !== this.compositoryDnaHash);
+        return this._installedCellIds.filter(cellId => serializeHash(cellId[0]) !== this.compositoryDnaHash);
     }
     render() {
         if (!this._installedCellIds)
@@ -32514,10 +36702,10 @@ class InstalledCells extends BaseCompositoryService {
                             twoline
                           >
                             <span
-                              >${this._dnaTemplateNames[serializeHash$1(cellId[0])]}</span
+                              >${this._dnaTemplateNames[serializeHash(cellId[0])]}</span
                             >
                             <span slot="secondary"
-                              >${serializeHash$1(cellId[0])}</span
+                              >${serializeHash(cellId[0])}</span
                             >
                           </mwc-list-item>`)}
                     </mwc-list>
@@ -32540,7 +36728,7 @@ class InstalledCells extends BaseCompositoryService {
         };
     }
 }
-__decorate$2([
+__decorate$3([
     property$1({ type: Array })
 ], InstalledCells.prototype, "_installedCellIds", void 0);
 
@@ -32568,19 +36756,19 @@ async function discoverEntryDetails(compositoryService, entryUri) {
     const [dnaHash, entryHash] = entryUri.split('://');
     // Find the cellId corresponding to the given dna
     const cellIds = await compositoryService.adminWebsocket.listCellIds();
-    let cellId = cellIds.find(cellId => serializeHash$1(cellId[0]) === dnaHash);
+    let cellId = cellIds.find(cellId => serializeHash(cellId[0]) === dnaHash);
     // Fetch information about the entry from its header
     return fetchZomeAndEntryIndexes(compositoryService.appWebsocket, cellId, entryHash);
 }
 
 async function fetchLensesForZome(compositoryService, cellId, zomeIndex) {
-    const dnaHash = serializeHash$1(cellId[0]);
+    const dnaHash = serializeHash(cellId[0]);
     const template = await compositoryService.getTemplateForDna(dnaHash);
     const zomeDefHash = template.dnaTemplate.zome_defs[zomeIndex].zome_def_hash;
     return internalFetchLensesForZome(compositoryService, zomeDefHash);
 }
 async function fetchLensesForAllZomes(compositoryService, cellId) {
-    const dnaHash = serializeHash$1(cellId[0]);
+    const dnaHash = serializeHash(cellId[0]);
     const template = await compositoryService.getTemplateForDna(dnaHash);
     const promises = template.dnaTemplate.zome_defs.map(zome_def => internalFetchLensesForZome(compositoryService, zome_def.zome_def_hash));
     return await Promise.all(promises);
@@ -32624,13 +36812,13 @@ class DiscoverEntry extends BaseCompositoryService {
         };
     }
 }
-__decorate$2([
+__decorate$3([
     property$1({ type: String })
 ], DiscoverEntry.prototype, "entryUri", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], DiscoverEntry.prototype, "_loading", void 0);
-__decorate$2([
+__decorate$3([
     query$1('#scope')
 ], DiscoverEntry.prototype, "_scope", void 0);
 
@@ -33029,27 +37217,24 @@ class DnaGrapes extends ScopedElementsMixin$1(LitElement$1) {
         ];
     }
 }
-__decorate$2([
+__decorate$3([
     property$1({ type: Array })
 ], DnaGrapes.prototype, "cellId", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], DnaGrapes.prototype, "_profilesZomeExistsInDna", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], DnaGrapes.prototype, "_profileAlreadyCreated", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], DnaGrapes.prototype, "_editing", void 0);
-__decorate$2([
+__decorate$3([
     property$1({ type: Boolean })
 ], DnaGrapes.prototype, "_loading", void 0);
-__decorate$2([
+__decorate$3([
     query$1('#grapes-container')
 ], DnaGrapes.prototype, "_grapesContainer", void 0);
-function serializeHash(arg0) {
-    throw new Error('Function not implemented.');
-}
 
 export { DnaGrapes, GrapesService };
 //# sourceMappingURL=index.js.map

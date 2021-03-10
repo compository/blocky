@@ -34,6 +34,7 @@ import grapesCss from 'grapesjs/dist/css/grapes.min.css';
 import { RenderTemplate } from '../types';
 import { esm } from '../utils';
 import { CellId } from '@holochain/conductor-api';
+import { serializeHash } from '@holochain-open-dev/core-types';
 
 export abstract class DnaGrapes extends Scoped(LitElement) {
   @property({ type: Array })
@@ -415,7 +416,4 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
       `,
     ];
   }
-}
-function serializeHash(arg0: Buffer): string {
-  throw new Error('Function not implemented.');
 }
