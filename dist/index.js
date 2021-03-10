@@ -32752,7 +32752,7 @@ class DnaGrapes extends ScopedElementsMixin$1(LitElement$1) {
         this._editor = undefined;
     }
     get _grapesService() {
-        return new GrapesService(this._compositoryService.appWebsocket, this.cellIdToDisplay);
+        return new GrapesService(this._compositoryService.appWebsocket, this.cellId);
     }
     updated(changedValues) {
         super.updated(changedValues);
@@ -33031,7 +33031,7 @@ class DnaGrapes extends ScopedElementsMixin$1(LitElement$1) {
 }
 __decorate$2([
     property$1({ type: Array })
-], DnaGrapes.prototype, "cellIdToDisplay", void 0);
+], DnaGrapes.prototype, "cellId", void 0);
 __decorate$2([
     property$1({ type: Boolean })
 ], DnaGrapes.prototype, "_profilesZomeExistsInDna", void 0);

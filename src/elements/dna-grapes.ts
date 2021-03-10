@@ -61,7 +61,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
   get _grapesService(): GrapesService {
     return new GrapesService(
       this._compositoryService.appWebsocket,
-      this.cellIdToDisplay
+      this.cellId
     );
   }
 
