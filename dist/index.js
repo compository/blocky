@@ -32661,6 +32661,31 @@ const sharedStyles = css$1 `
   }
 `;
 
+class GrapesService {
+    constructor(appWebsocket, cellId, zomeName = 'grapes') {
+        this.appWebsocket = appWebsocket;
+        this.cellId = cellId;
+        this.zomeName = zomeName;
+    }
+    saveRenderTemplate(renderTemplate) {
+        return this.callZome('save_render_template', renderTemplate);
+    }
+    async getAllRenderTemplates() {
+        const layouts = await this.callZome('get_all_render_templates', null);
+        return layouts;
+    }
+    callZome(fnName, payload) {
+        return this.appWebsocket.callZome({
+            cap: null,
+            cell_id: this.cellId,
+            fn_name: fnName,
+            payload: payload,
+            provenance: this.cellId[1],
+            zome_name: this.zomeName,
+        });
+    }
+}
+
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof window !== 'undefined' ? window : typeof self !== 'undefined' ? self : {};
 
 function getDefaultExportFromCjs (x) {
@@ -32725,6 +32750,9 @@ class DnaGrapes extends ScopedElementsMixin$1(LitElement$1) {
         this._loading = true;
         this._templateToRender = undefined;
         this._editor = undefined;
+    }
+    get _grapesService() {
+        return new GrapesService(this._compositoryService.appWebsocket, this.cellIdToDisplay);
     }
     updated(changedValues) {
         super.updated(changedValues);
@@ -33002,6 +33030,9 @@ class DnaGrapes extends ScopedElementsMixin$1(LitElement$1) {
     }
 }
 __decorate$2([
+    property$1({ type: Array })
+], DnaGrapes.prototype, "cellIdToDisplay", void 0);
+__decorate$2([
     property$1({ type: Boolean })
 ], DnaGrapes.prototype, "_profilesZomeExistsInDna", void 0);
 __decorate$2([
@@ -33018,31 +33049,6 @@ __decorate$2([
 ], DnaGrapes.prototype, "_grapesContainer", void 0);
 function serializeHash(arg0) {
     throw new Error('Function not implemented.');
-}
-
-class GrapesService {
-    constructor(appWebsocket, cellId, zomeName = 'grapes') {
-        this.appWebsocket = appWebsocket;
-        this.cellId = cellId;
-        this.zomeName = zomeName;
-    }
-    saveRenderTemplate(renderTemplate) {
-        return this.callZome('save_render_template', renderTemplate);
-    }
-    async getAllRenderTemplates() {
-        const layouts = await this.callZome('get_all_render_templates', null);
-        return layouts;
-    }
-    callZome(fnName, payload) {
-        return this.appWebsocket.callZome({
-            cap: null,
-            cell_id: this.cellId,
-            fn_name: fnName,
-            payload: payload,
-            provenance: this.cellId[1],
-            zome_name: this.zomeName,
-        });
-    }
 }
 
 export { DnaGrapes, GrapesService };

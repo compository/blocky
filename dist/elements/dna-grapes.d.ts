@@ -6,8 +6,10 @@ import { GrapesService } from '../grapes.service';
 import { CircularProgress } from 'scoped-material-components/mwc-circular-progress';
 import { Button } from 'scoped-material-components/mwc-button';
 import { RenderTemplate } from '../types';
+import { CellId } from '@holochain/conductor-api';
 declare const DnaGrapes_base: typeof LitElement & import("@open-wc/dedupe-mixin").Constructor<import("@open-wc/scoped-elements/types/src/types").ScopedElementsHost> & typeof import("@open-wc/scoped-elements/types/src/types").ScopedElementsHost;
 export declare abstract class DnaGrapes extends DnaGrapes_base {
+    cellIdToDisplay: CellId;
     _profilesZomeExistsInDna: boolean;
     _profileAlreadyCreated: boolean;
     _editing: boolean;
@@ -16,7 +18,7 @@ export declare abstract class DnaGrapes extends DnaGrapes_base {
     _zomeLenses: [ZomeDef, File][];
     _templateToRender: RenderTemplate | undefined;
     abstract get _compositoryService(): CompositoryService;
-    abstract get _grapesService(): GrapesService;
+    get _grapesService(): GrapesService;
     _editor: any | undefined;
     updated(changedValues: PropertyValues): void;
     firstUpdated(): Promise<void>;

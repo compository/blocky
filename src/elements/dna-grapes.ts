@@ -11,7 +11,10 @@ import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
 
 import { TopAppBar } from 'scoped-material-components/mwc-top-app-bar';
 import { IconButton } from 'scoped-material-components/mwc-icon-button';
-import { CreateProfileForm, ProfilesService } from '@holochain-open-dev/profiles';
+import {
+  CreateProfileForm,
+  ProfilesService,
+} from '@holochain-open-dev/profiles';
 import {
   CompositoryService,
   fetchLensesForAllZomes,
@@ -30,8 +33,12 @@ import webpagePreset from 'grapesjs-preset-webpage';
 import grapesCss from 'grapesjs/dist/css/grapes.min.css';
 import { RenderTemplate } from '../types';
 import { esm } from '../utils';
+import { CellId } from '@holochain/conductor-api';
 
 export abstract class DnaGrapes extends Scoped(LitElement) {
+  @property({ type: Array })
+  cellId!: CellId;
+
   @property({ type: Boolean })
   _profilesZomeExistsInDna = false;
   @property({ type: Boolean })
@@ -50,7 +57,13 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
   _templateToRender: RenderTemplate | undefined = undefined;
 
   abstract get _compositoryService(): CompositoryService;
-  abstract get _grapesService(): GrapesService;
+
+  get _grapesService(): GrapesService {
+    return new GrapesService(
+      this._compositoryService.appWebsocket,
+      this.cellIdToDisplay
+    );
+  }
 
   _editor: any | undefined = undefined;
 
@@ -406,4 +419,3 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
 function serializeHash(arg0: Buffer): string {
   throw new Error('Function not implemented.');
 }
-
