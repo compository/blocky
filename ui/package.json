@@ -9,7 +9,7 @@
   "scripts": {
     "start": "concurrently --kill-others \"npm:start-ui\" \"npm:start-holochain\"",
     "start-ui": "CONDUCTOR_URL=ws://localhost:8888 concurrently -k --names rollup -c rollup.config.js,dev-server \"npm run build-watch\" \"web-dev-server --config demo/web-dev-server.config.mjs\"",
-    "start-holochain": "RUST_LOG=warn holochain-run-dna ../zome/grapes.dna.gz",
+    "start-holochain": "cd .. && RUST_LOG=warn hc s generate -r=8888 zome/happ",
     "build": "rimraf dist && rollup -c rollup.config.js",
     "build-watch": "rollup -c rollup.config.js --watch",
     "test": "rollup -c rollup.config.js && web-test-runner --coverage --puppeteer",
@@ -37,7 +37,7 @@
     "lit-element": "^2.4.0",
     "lit-html": "^1.3.0",
     "npm": "^7.6.0",
-    "scoped-material-components": "^0.1.0"
+    "scoped-material-components": "^0.1.3"
   },
   "devDependencies": {
     "@holochain-open-dev/holochain-run-dna": "^0.2.11",
@@ -68,6 +68,7 @@
     "lint-staged": "^10.0.0",
     "postcss": "^8.1.9",
     "postcss-import": "12.0.1",
+    "postcss-url": "^10.1.1",
     "prettier": "^2.0.4",
     "rimraf": "^3.0.2",
     "rollup": "^2.39.1",

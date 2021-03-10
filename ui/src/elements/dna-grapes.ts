@@ -11,7 +11,11 @@ import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
 
 import { TopAppBar } from 'scoped-material-components/mwc-top-app-bar';
 import { IconButton } from 'scoped-material-components/mwc-icon-button';
-import { CreateProfileForm, ProfilesService } from '@holochain-open-dev/profiles';
+import {
+  CreateProfileForm,
+  ProfilesService,
+  ProfilesStore,
+} from '@holochain-open-dev/profiles';
 import {
   CompositoryService,
   fetchLensesForAllZomes,
@@ -28,10 +32,18 @@ import grapesjs from 'grapesjs';
 import webpagePreset from 'grapesjs-preset-webpage';
 // @ts-ignore
 import grapesCss from 'grapesjs/dist/css/grapes.min.css';
+// @ts-ignore
+import grapesPresetCss from 'grapesjs-preset-webpage/dist/grapesjs-preset-webpage.min.css';
 import { RenderTemplate } from '../types';
 import { esm } from '../utils';
+import { CellId } from '@holochain/conductor-api';
+import { BaseElement, connectStore } from '@holochain-open-dev/common';
+import { serializeHash } from '@holochain-open-dev/core-types';
 
-export abstract class DnaGrapes extends Scoped(LitElement) {
+export abstract class DnaGrapes extends BaseElement {
+  @property({ type: Array })
+  cellId!: CellId;
+
   @property({ type: Boolean })
   _profilesZomeExistsInDna = false;
   @property({ type: Boolean })
@@ -43,28 +55,36 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
   @property({ type: Boolean })
   _loading = true;
 
-  @query('#grapes-container')
-  _grapesContainer!: HTMLElement;
-
   _zomeLenses!: [ZomeDef, File][];
   _templateToRender: RenderTemplate | undefined = undefined;
 
   abstract get _compositoryService(): CompositoryService;
-  abstract get _grapesService(): GrapesService;
+
+  get _grapesService(): GrapesService {
+    return new GrapesService(
+      this._compositoryService.appWebsocket,
+      this.cellId
+    );
+  }
 
   _editor: any | undefined = undefined;
 
   updated(changedValues: PropertyValues) {
     super.updated(changedValues);
 
-    if (
-      (this._loading === false && changedValues.has('_editing')) ||
-      (changedValues.has('_loading') && this._loading === false)
-    ) {
-      if (this._editing) {
-        this.setupGrapes();
-      } else {
-        this.setupRenderIframe();
+    if (this._loading === false) {
+      if (
+        changedValues.has('_editing') ||
+        changedValues.has('_loading') ||
+        changedValues.has('_profileAlreadyCreated')
+      ) {
+        if (!this.showProfilePromt()) {
+          if (this._editing) {
+            this.setupGrapes();
+          } else {
+            this.setupRenderIframe();
+          }
+        }
       }
     }
   }
@@ -120,6 +140,11 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
       storageManager: false,
       height: 'auto',
       jsInHtml: false,
+      canvasCss: `
+        html,body {
+          font-family: Arial, Helvetica, sans-serif;
+        }
+      `,
 
       plugins: [webpagePreset],
       pluginsOpts: {
@@ -355,6 +380,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         rel="stylesheet"
       />
+      <style></style>
       <div class="column" style="flex: 1;">
         <mwc-top-app-bar>
           <mwc-icon-button
@@ -371,12 +397,19 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
     `;
   }
 
-  static get scopedElements() {
+  getScopedElements() {
+    const profile = new ProfilesStore(
+      new ProfilesService(
+        this._grapesService.appWebsocket,
+        this._grapesService.cellId
+      )
+    );
     return {
       'mwc-top-app-bar': TopAppBar,
       'mwc-icon-button': IconButton,
       'mwc-button': Button,
       'mwc-circular-progress': CircularProgress,
+      'create-profile-form': connectStore(CreateProfileForm, profile),
     };
   }
 
@@ -384,7 +417,16 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
     return [
       sharedStyles,
       grapesCss,
+      grapesPresetCss,
       css`
+        .gjs-block::before {
+          content: unset !important;
+        }
+
+        .gjs-block {
+          min-height: 30px;
+        }
+
         :host {
           display: flex;
           font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
@@ -403,7 +445,3 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
     ];
   }
 }
-function serializeHash(arg0: Buffer): string {
-  throw new Error('Function not implemented.');
-}
-

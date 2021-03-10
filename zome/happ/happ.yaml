@@ -1,0 +1,15 @@
+---
+manifest_version: "1"
+name: grapes-test
+description: ~
+slots:
+  - id: grapes-test
+    provisioning:
+      strategy: create
+      deferred: false
+    dna:
+      bundled: "../grapes.dna.workdir/grapes-test.dna"
+      properties: ~
+      uuid: ~
+      version: ~
+      clone_limit: 0
