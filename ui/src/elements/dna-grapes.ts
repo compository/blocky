@@ -11,7 +11,7 @@ import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
 
 import { TopAppBar } from 'scoped-material-components/mwc-top-app-bar';
 import { IconButton } from 'scoped-material-components/mwc-icon-button';
-import { CreateProfileForm } from '@holochain-open-dev/profiles';
+import { CreateProfileForm, ProfilesService } from '@holochain-open-dev/profiles';
 import {
   CompositoryService,
   fetchLensesForAllZomes,
@@ -244,8 +244,8 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
   }
 
   async loadProfilesExists() {
-    /*     const dnaTemplate = await this.compositoryService.getTemplateForDna(
-      serializeHash(this.cellIdToDisplay[0])
+    const dnaTemplate = await this._compositoryService.getTemplateForDna(
+      serializeHash(this._grapesService.cellId[0])
     );
     this._profilesZomeExistsInDna = !!dnaTemplate.dnaTemplate.zome_defs.find(
       zome => zome.name === 'profiles'
@@ -253,14 +253,13 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
 
     if (this._profilesZomeExistsInDna) {
       const profileService = new ProfilesService(
-        this.membraneContext.appWebsocket as AppWebsocket,
-        this.cellIdToDisplay
+        this._grapesService.appWebsocket,
+        this._grapesService.cellId
       );
 
       const myProfile = await profileService.getMyProfile();
       this._profileAlreadyCreated = !!myProfile;
     }
- */
   }
 
   async loadRenderers() {
@@ -404,3 +403,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
     ];
   }
 }
+function serializeHash(arg0: Buffer): string {
+  throw new Error('Function not implemented.');
+}
+
