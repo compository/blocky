@@ -14,6 +14,7 @@ import { IconButton } from 'scoped-material-components/mwc-icon-button';
 import {
   CreateProfileForm,
   ProfilesService,
+  ProfilesStore,
 } from '@holochain-open-dev/profiles';
 import {
   CompositoryService,
@@ -34,9 +35,10 @@ import grapesCss from 'grapesjs/dist/css/grapes.min.css';
 import { RenderTemplate } from '../types';
 import { esm } from '../utils';
 import { CellId } from '@holochain/conductor-api';
+import { BaseElement, connectStore } from '@holochain-open-dev/common';
 import { serializeHash } from '@holochain-open-dev/core-types';
 
-export abstract class DnaGrapes extends Scoped(LitElement) {
+export abstract class DnaGrapes extends BaseElement {
   @property({ type: Array })
   cellId!: CellId;
 
@@ -50,9 +52,6 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
 
   @property({ type: Boolean })
   _loading = true;
-
-  @query('#grapes-container')
-  _grapesContainer!: HTMLElement;
 
   _zomeLenses!: [ZomeDef, File][];
   _templateToRender: RenderTemplate | undefined = undefined;
@@ -71,14 +70,19 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
   updated(changedValues: PropertyValues) {
     super.updated(changedValues);
 
-    if (
-      (this._loading === false && changedValues.has('_editing')) ||
-      (changedValues.has('_loading') && this._loading === false)
-    ) {
-      if (this._editing) {
-        this.setupGrapes();
-      } else {
-        this.setupRenderIframe();
+    if (this._loading === false) {
+      if (
+        changedValues.has('_editing') ||
+        changedValues.has('_loading') ||
+        changedValues.has('_profileAlreadyCreated')
+      ) {
+        if (!this.showProfilePromt()) {
+          if (this._editing) {
+            this.setupGrapes();
+          } else {
+            this.setupRenderIframe();
+          }
+        }
       }
     }
   }
@@ -385,12 +389,19 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
     `;
   }
 
-  static get scopedElements() {
+  getScopedElements() {
+    const profile = new ProfilesStore(
+      new ProfilesService(
+        this._grapesService.appWebsocket,
+        this._grapesService.cellId
+      )
+    );
     return {
       'mwc-top-app-bar': TopAppBar,
       'mwc-icon-button': IconButton,
       'mwc-button': Button,
       'mwc-circular-progress': CircularProgress,
+      'create-profile-form': connectStore(CreateProfileForm, profile),
     };
   }
 

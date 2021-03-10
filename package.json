@@ -9,7 +9,7 @@
   "scripts": {
     "start": "concurrently --kill-others \"npm:start-ui\" \"npm:start-holochain\"",
     "start-ui": "CONDUCTOR_URL=ws://localhost:8888 concurrently -k --names rollup -c rollup.config.js,dev-server \"npm run build-watch\" \"web-dev-server --config demo/web-dev-server.config.mjs\"",
-    "start-holochain": "RUST_LOG=warn holochain-run-dna ../zome/grapes.dna.gz",
+    "start-holochain": "cd .. && RUST_LOG=warn hc s generate -r=8888 zome/happ",
     "build": "rimraf dist && rollup -c rollup.config.js",
     "build-watch": "rollup -c rollup.config.js --watch",
     "test": "rollup -c rollup.config.js && web-test-runner --coverage --puppeteer",

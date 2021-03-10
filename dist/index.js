@@ -2928,626 +2928,6 @@ LitElement$1['finalized'] = true;
  */
 LitElement$1.render = render$2;
 
-const appliedClassMixins$1 = new WeakMap();
-
-/** Vefify if the Mixin was previously applyed
- * @private
- * @param {function} mixin      Mixin being applyed
- * @param {object} superClass   Class receiving the new mixin
- * @returns {boolean}
- */
-function wasMixinPreviouslyApplied$1(mixin, superClass) {
-  let klass = superClass;
-  while (klass) {
-    if (appliedClassMixins$1.get(klass) === mixin) {
-      return true;
-    }
-    klass = Object.getPrototypeOf(klass);
-  }
-  return false;
-}
-
-/** Apply each mixin in the chain to make sure they are not applied more than once to the final class.
- * @export
- * @param {function} mixin      Mixin to be applyed
- * @returns {object}            Mixed class with mixin applied
- */
-function dedupeMixin$1(mixin) {
-  return superClass => {
-    if (wasMixinPreviouslyApplied$1(mixin, superClass)) {
-      return superClass;
-    }
-    const mixedClass = mixin(superClass);
-    appliedClassMixins$1.set(mixedClass, mixin);
-    return mixedClass;
-  };
-}
-
-/**
- * Cache class that allows to search in a cache hierarchy.
- * @template T, Q
- */
-class Cache$1 {
-  /**
-   * Creates a Cache instance
-   * @param {Cache} [parent]
-   */
-  constructor(parent) {
-    this._parent = parent;
-    this._cache = new Map();
-  }
-
-  /**
-   * Returns a boolean indicating whether an element with the specified key exists or not.
-   *
-   * @param {T} key - The key of the element to test for presence in the Cache object.
-   * @return {boolean}
-   */
-  has(key) {
-    return !!(this._cache.has(key) || (this._parent && this._parent._cache.has(key)));
-  }
-
-  /**
-   * Adds or updates an element with a specified key and a value to a Cache object.
-   *
-   * @param {T} key - The key of the element to add to the Cache object.
-   * @param {Q} value - The value of the element to add to the Cache object.
-   * @return {Cache<T, Q>} the cache object
-   */
-  set(key, value) {
-    this._cache.set(key, value);
-
-    return this;
-  }
-
-  /**
-   * Returns a specified element from a Map object. If the value that is associated to the provided key is an
-   * object, then you will get a reference to that object and any change made to that object will effectively modify
-   * it inside the Map object.
-   *
-   * @param {T} key - The key of the element to return from the Cache object.
-   * @return {Q}
-   */
-  get(key) {
-    return this._cache.get(key) || (this._parent && this._parent._cache.get(key));
-  }
-}
-
-/**
- * Global counter to scope the custom elements
- *
- * @type {number}
- */
-let counter$1 = Math.round(Math.random() * 100000);
-
-/**
- * Allowed tag name chars
- *
- * @type {string}
- */
-const chars$3 = `-|\\.|[0-9]|[a-z]`;
-
-/**
- * Regular expression to check if a value is a valid tag name
- *
- * @type {RegExp}
- */
-const tagRegExp$1 = new RegExp(`[a-z](${chars$3})*-(${chars$3})*`);
-
-/**
- * Checks if the tag name is valid
- *
- * @param {string} tag
- * @returns {boolean}
- */
-const isValid$2 = tag => tagRegExp$1.exec(tag) !== null;
-
-/**
- * Checks if the tag is already registered
- *
- * @param {string} name
- * @param {CustomElementRegistry} registry
- * @returns {boolean}
- */
-const isTagRegistered$2 = (name, registry) => !!registry.get(name);
-
-/**
- * Given a tag name scopes it with a number suffix
- *
- * @param {string} tagName
- * @param {CustomElementRegistry} registry
- * @returns {string} scoped tag name
- */
-const incrementTagName$1 = (tagName, registry) => {
-  const newTagName = `${tagName}-${(counter$1 += 1)}`;
-
-  if (isTagRegistered$2(newTagName, registry)) {
-    return incrementTagName$1(tagName, registry);
-  }
-
-  return newTagName;
-};
-
-/**
- * Creates a unique scoped tag name
- *
- * @exports
- * @param {string} tagName - tag name to scope
- * @param {CustomElementRegistry} registry
- * @returns {string} scoped tag name
- */
-function createUniqueTag$1(tagName, registry = customElements) {
-  if (!isValid$2(tagName)) {
-    throw new Error('tagName is invalid');
-  }
-
-  return incrementTagName$1(tagName, registry);
-}
-
-/**
- * The window cache for tag names
- *
- * @type {WeakMap<typeof HTMLElement, string>}
- */
-const globalTagsCache$1 = new WeakMap();
-
-/**
- * Adds a tag to the window tags cache
- *
- * @param {string} tag
- * @param {typeof HTMLElement} klass
- */
-const addToGlobalTagsCache$1 = (tag, klass) => globalTagsCache$1.set(klass, tag);
-
-/**
- * Gets a tag from the window tags cache
- *
- * @exports
- * @param {typeof HTMLElement} klass
- * @returns {undefined|string}
- */
-const getFromGlobalTagsCache$1 = klass => globalTagsCache$1.get(klass);
-
-/**
- * Checks if klass is a subclass of HTMLElement
- *
- * @param {typeof HTMLElement} klass
- * @returns {boolean}
- */
-const extendsHTMLElement$1 = klass => Object.prototype.isPrototypeOf.call(HTMLElement, klass);
-
-/**
- * Defines a custom element
- *
- * @param {string} tagName
- * @param {typeof HTMLElement} klass
- * @param {CustomElementRegistry} registry
- */
-const defineElement$1 = (tagName, klass, registry = customElements) => {
-  addToGlobalTagsCache$1(tagName, klass);
-  registry.define(tagName, class extends klass {});
-};
-
-/**
- * Stores a lazy element in the cache to be used in future
- *
- * @param {string} tagName
- * @param {CustomElementRegistry} registry
- * @param {import('./Cache.js').Cache<string, string>} tagsCache
- * @returns {string}
- */
-const storeLazyElementInCache$1 = (tagName, registry, tagsCache) => {
-  const tag = createUniqueTag$1(tagName, registry);
-
-  if (!tagsCache) {
-    throw new Error('Lazy scoped elements requires the use of tags cache');
-  }
-
-  tagsCache.set(tagName, tag);
-
-  return tag;
-};
-
-/**
- * Define a scoped custom element storing the scoped tag name in the cache
- *
- * @param {string} tagName
- * @param {typeof HTMLElement} klass
- * @param {import('./Cache.js').Cache<string, string>} tagsCache
- * @returns {string}
- */
-const defineElementAndStoreInCache$1 = (tagName, klass, tagsCache) => {
-  const registry = customElements;
-
-  if (!extendsHTMLElement$1(klass)) {
-    return storeLazyElementInCache$1(tagName, registry, tagsCache);
-  }
-
-  if (klass === customElements.get(tagName)) {
-    addToGlobalTagsCache$1(tagName, klass);
-
-    return tagName;
-  }
-
-  const tag = createUniqueTag$1(tagName, registry);
-  // @ts-ignore
-  // we extend it just in case the class has been defined manually
-  defineElement$1(tag, klass, registry);
-
-  return tag;
-};
-
-/**
- * Gets a scoped tag name from the cache or generates a new one and defines the element if needed
- *
- * @exports
- * @param {string} tagName
- * @param {typeof HTMLElement} klass
- * @param {import('./Cache.js').Cache<string, string>} tagsCache
- * @returns {string}
- */
-function registerElement$1(tagName, klass, tagsCache = undefined) {
-  const tag =
-    getFromGlobalTagsCache$1(klass) ||
-    (tagsCache && tagsCache.get(tagName)) ||
-    defineElementAndStoreInCache$1(tagName, klass, tagsCache);
-
-  return tag;
-}
-
-/**
- * Defines a lazy element
- *
- * @param {string} tagName
- * @param {typeof HTMLElement} klass
- * @param {import('./Cache.js').Cache<string, string>} tagsCache
- */
-function defineScopedElement$1(tagName, klass, tagsCache) {
-  const tag = tagsCache.get(tagName);
-
-  if (tag) {
-    if (customElements.get(tag) === undefined) {
-      defineElement$1(tag, klass, customElements);
-    }
-  } else {
-    tagsCache.set(tagName, registerElement$1(tagName, klass, tagsCache));
-  }
-}
-
-/**
- * @typedef {import('./types').ScopedElementsMap} ScopedElementsMap
- */
-
-/**
- * Allowed tag name chars
- *
- * @type {string}
- */
-const chars$2 = `-|\\.|[0-9]|[a-z]`;
-
-/**
- * Regular Expression to find a custom element tag
- *
- * @type {RegExp}
- */
-const re$1 = new RegExp(`<\\/?([a-z](${chars$2})*-(${chars$2})*)`, 'g');
-
-/**
- * The window cache of processed string arrays
- *
- * @type {Cache<TemplateStringsArray, TemplateStringsArray>}
- */
-const globalCache$1 = new Cache$1();
-
-/**
- * Find custom element tags in the string
- *
- * @param {string} str
- * @returns {RegExpExecArray[]}
- */
-const matchAll$1 = str => {
-  const matches = [];
-  let result;
-  // eslint-disable-next-line no-cond-assign
-  while ((result = re$1.exec(str)) !== null) {
-    matches.push(result);
-  }
-
-  return matches;
-};
-
-/**
- * Transforms a string array into another one with resolved scoped elements and caches it for future references
- *
- * @param {TemplateStringsArray} strings
- * @param {ScopedElementsMap} scopedElements
- * @param {Cache<TemplateStringsArray, TemplateStringsArray>} templateCache
- * @param {Cache<string, string>} tagsCache
- * @returns {TemplateStringsArray}
- */
-const transformTemplate$3 = (strings, scopedElements, templateCache, tagsCache) => {
-  const transformedStrings = strings.map(str => {
-    let acc = str;
-    const matches = matchAll$1(str);
-
-    for (let i = matches.length - 1; i >= 0; i -= 1) {
-      const item = matches[i];
-      const [block, tagName] = item;
-      const tag = registerElement$1(tagName, scopedElements[tagName], tagsCache);
-      const start = item.index + block.length - tagName.length;
-      const end = start + tagName.length;
-      const isClosingTag = block.indexOf('</') === 0;
-
-      acc =
-        acc.slice(0, start) +
-        (isClosingTag ? tag : `${tag} data-tag-name="${tagName}"`) +
-        acc.slice(end);
-    }
-
-    return acc;
-  });
-
-  // @ts-ignore
-  // noinspection JSCheckFunctionSignatures
-  templateCache.set(strings, transformedStrings);
-
-  // @ts-ignore
-  // noinspection JSValidateTypes
-  return transformedStrings;
-};
-
-/**
- * Obtains the cached strings array with resolved scoped elements or creates it
- *
- * @exports
- * @param {TemplateStringsArray} strings
- * @param {ScopedElementsMap} scopedElements
- * @param {import('./Cache.js').Cache<TemplateStringsArray, TemplateStringsArray>} templateCache
- * @param {import('./Cache.js').Cache<string, string>} tagsCache
- * @returns {TemplateStringsArray}
- */
-function transform$1(strings, scopedElements, templateCache = globalCache$1, tagsCache) {
-  return (
-    templateCache.get(strings) ||
-    transformTemplate$3(strings, scopedElements, templateCache, tagsCache)
-  );
-}
-
-const getTemplateCacheKey$2 = (type, scopeName) => `${type}--${scopeName}`;
-
-let compatibleShadyCSSVersion$2 = true;
-
-// @ts-ignore
-const { ShadyCSS: ShadyCSS$1 } = window;
-
-if (typeof ShadyCSS$1 === 'undefined') {
-  compatibleShadyCSSVersion$2 = false;
-} else if (typeof ShadyCSS$1.prepareTemplateDom === 'undefined') {
-  compatibleShadyCSSVersion$2 = false;
-}
-
-/**
- * Template factory which scopes template DOM using ShadyCSS.
- * @param scopeName {string}
- */
-const shadyTemplateFactory$2 = scopeName => result => {
-  const cacheKey = getTemplateCacheKey$2(result.type, scopeName);
-  let templateCache = templateCaches$3.get(cacheKey);
-  if (templateCache === undefined) {
-    templateCache = {
-      stringsArray: new WeakMap(),
-      keyString: new Map(),
-    };
-    templateCaches$3.set(cacheKey, templateCache);
-  }
-  let template = templateCache.stringsArray.get(result.strings);
-  if (template !== undefined) {
-    return template;
-  }
-  const key = result.strings.join(marker$1);
-  template = templateCache.keyString.get(key);
-  if (template === undefined) {
-    const element = result.getTemplateElement();
-    if (compatibleShadyCSSVersion$2) {
-      ShadyCSS$1.prepareTemplateDom(element, scopeName);
-    }
-    template = new Template$1(result, element);
-    templateCache.keyString.set(key, template);
-  }
-  templateCache.stringsArray.set(result.strings, template);
-  return template;
-};
-
-/* eslint-disable no-use-before-define */
-
-/**
- * @typedef {import('./types').ScopedElementsMixin} ScopedElementsMixin
- * @typedef {import('./types').ScopedElementsMap} ScopedElementsMap
- * @typedef {import("lit-element").LitElement} LitElement
- * @typedef {import('lit-html/lib/shady-render').ShadyRenderOptions} ShadyRenderOptions
- * @typedef {function(TemplateResult, Element|DocumentFragment|ShadowRoot, ShadyRenderOptions): void} RenderFunction
- */
-
-/**
- * Template caches
- *
- * @type {WeakMap<Function, Cache<TemplateStringsArray, TemplateStringsArray>>}
- */
-const templateCaches$2 = new WeakMap();
-
-/**
- * Retrieves or creates a templateCache for a specific key
- *
- * @param {Function} key
- * @returns {Cache<TemplateStringsArray, TemplateStringsArray>}
- */
-const getTemplateCache$1 = key => {
-  if (!templateCaches$2.has(key)) {
-    // @ts-ignore
-    templateCaches$2.set(key, new Cache$1(templateCaches$2.get(key.constructor)));
-  }
-
-  return templateCaches$2.get(key);
-};
-
-/**
- * Tags caches
- *
- * @type {WeakMap<object, Cache<string, string>>}
- */
-const tagsCaches$1 = new WeakMap();
-
-/**
- * Retrieves or creates a tagsCache for a specific key
- * @param {object} key
- * @returns {Cache<string, string>}
- */
-const getTagsCache$1 = key => {
-  if (!tagsCaches$1.has(key)) {
-    tagsCaches$1.set(key, new Cache$1(tagsCaches$1.get(key.constructor)));
-  }
-
-  return tagsCaches$1.get(key);
-};
-
-/**
- * Transforms an array of TemplateResults or arrays into another one with resolved scoped elements
- *
- * @param {ReadonlyArray} items
- * @param {ScopedElementsMap} scopedElements
- * @param {Cache<TemplateStringsArray, TemplateStringsArray>} templateCache
- * @param {Cache<string, string>} tagsCache
- * @returns {ReadonlyArray}
- */
-const transformArray$1 = (items, scopedElements, templateCache, tagsCache) =>
-  items.map(value => {
-    if (value instanceof TemplateResult$1) {
-      return transformTemplate$2(value, scopedElements, templateCache, tagsCache);
-    }
-
-    if (Array.isArray(value)) {
-      return transformArray$1(value, scopedElements, templateCache, tagsCache);
-    }
-
-    return value;
-  });
-
-/**
- * Transforms a TemplateResult into another one with resolved scoped elements
- *
- * @param {TemplateResult} template
- * @param {ScopedElementsMap} scopedElements
- * @param {Cache<TemplateStringsArray, TemplateStringsArray>} templateCache
- * @param {Cache<string, string>} tagsCache
- * @returns {TemplateResult}
- */
-const transformTemplate$2 = (template, scopedElements, templateCache, tagsCache) =>
-  new TemplateResult$1(
-    transform$1(template.strings, scopedElements, templateCache, tagsCache),
-    transformArray$1(template.values, scopedElements, templateCache, tagsCache),
-    template.type,
-    template.processor,
-  );
-
-/**
- * Gets an instance of the ScopedElementsTemplateFactory
- *
- * @param {string} scopeName
- * @param {ScopedElementsMap} scopedElements
- * @param {Cache<TemplateStringsArray, TemplateStringsArray>} templateCache
- * @param {Cache<string, string>} tagsCache
- * @returns {function(any): any}
- */
-const scopedElementsTemplateFactory$1 = (
-  scopeName,
-  scopedElements,
-  templateCache,
-  tagsCache,
-) => template => {
-  const newTemplate = transformTemplate$2(template, scopedElements, templateCache, tagsCache);
-
-  return shadyTemplateFactory$2(scopeName)(newTemplate);
-};
-
-/** @type {ScopedElementsMixin} */
-const ScopedElementsMixinImplementation$1 = superclass =>
-  class ScopedElementsHost extends superclass {
-    /**
-     * Obtains the scoped elements definitions map
-     *
-     * @returns {ScopedElementsMap}
-     */
-    static get scopedElements() {
-      return {};
-    }
-
-    /** @override */
-    static render(template, container, options) {
-      if (!options || typeof options !== 'object' || !options.scopeName) {
-        throw new Error('The `scopeName` option is required.');
-      }
-      const { scopeName, eventContext } = options;
-
-      const templateCache = getTemplateCache$1(eventContext);
-      const tagsCache = getTagsCache$1(eventContext);
-      const { scopedElements } = this;
-
-      return super.render(template, container, {
-        ...options,
-        templateFactory: scopedElementsTemplateFactory$1(
-          scopeName,
-          scopedElements,
-          templateCache,
-          tagsCache,
-        ),
-      });
-    }
-
-    /**
-     * Defines a scoped element
-     *
-     * @param {string} tagName
-     * @param {typeof HTMLElement} klass
-     */
-    defineScopedElement(tagName, klass) {
-      return defineScopedElement$1(tagName, klass, getTagsCache$1(this));
-    }
-
-    /**
-     * Returns a scoped tag name
-     *
-     * @deprecated Please, use the instance method instead of the static one. This static method is not able to
-     * obtain the tagName of lazy defined elements, while the instance one is.
-     * @param {string} tagName
-     * @returns {string|undefined}
-     */
-    static getScopedTagName(tagName) {
-      // @ts-ignore
-      const klass = this.scopedElements[tagName];
-
-      return klass
-        ? registerElement$1(tagName, klass, getTagsCache$1(this))
-        : getTagsCache$1(this).get(tagName);
-    }
-
-    /**
-     * Returns a scoped tag name
-     *
-     * @param {string} tagName
-     * @returns {string|undefined}
-     */
-    getScopedTagName(tagName) {
-      // @ts-ignore
-      const klass = this.constructor.scopedElements[tagName];
-
-      return klass
-        ? registerElement$1(tagName, klass, getTagsCache$1(this))
-        : getTagsCache$1(this).get(tagName);
-    }
-  };
-
-const ScopedElementsMixin$1 = dedupeMixin$1(ScopedElementsMixinImplementation$1);
-
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -4444,6 +3824,626 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 const style$o = css$1 `.material-icons{font-family:var(--mdc-icon-font, "Material Icons");font-weight:normal;font-style:normal;font-size:var(--mdc-icon-size, 24px);line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale;font-feature-settings:"liga"}.mdc-icon-button{display:inline-block;position:relative;box-sizing:border-box;border:none;outline:none;background-color:transparent;fill:currentColor;color:inherit;font-size:24px;text-decoration:none;cursor:pointer;user-select:none;width:48px;height:48px;padding:12px}.mdc-icon-button svg,.mdc-icon-button img{width:24px;height:24px}.mdc-icon-button:disabled{color:rgba(0, 0, 0, 0.38);color:var(--mdc-theme-text-disabled-on-light, rgba(0, 0, 0, 0.38))}.mdc-icon-button:disabled{cursor:default;pointer-events:none}.mdc-icon-button__icon{display:inline-block}.mdc-icon-button__icon.mdc-icon-button__icon--on{display:none}.mdc-icon-button--on .mdc-icon-button__icon{display:none}.mdc-icon-button--on .mdc-icon-button__icon.mdc-icon-button__icon--on{display:inline-block}:host{display:inline-block;outline:none;--mdc-ripple-color: currentcolor;-webkit-tap-highlight-color:transparent}:host([disabled]){pointer-events:none}:host,.mdc-icon-button{vertical-align:top}.mdc-icon-button{width:var(--mdc-icon-button-size, 48px);height:var(--mdc-icon-button-size, 48px);padding:calc( (var(--mdc-icon-button-size, 48px) - var(--mdc-icon-size, 24px)) / 2 )}.mdc-icon-button>i{position:absolute;top:0;padding-top:inherit}.mdc-icon-button i,.mdc-icon-button svg,.mdc-icon-button img,.mdc-icon-button ::slotted(*){display:block;width:var(--mdc-icon-size, 24px);height:var(--mdc-icon-size, 24px)}`;
+
+const appliedClassMixins$1 = new WeakMap();
+
+/** Vefify if the Mixin was previously applyed
+ * @private
+ * @param {function} mixin      Mixin being applyed
+ * @param {object} superClass   Class receiving the new mixin
+ * @returns {boolean}
+ */
+function wasMixinPreviouslyApplied$1(mixin, superClass) {
+  let klass = superClass;
+  while (klass) {
+    if (appliedClassMixins$1.get(klass) === mixin) {
+      return true;
+    }
+    klass = Object.getPrototypeOf(klass);
+  }
+  return false;
+}
+
+/** Apply each mixin in the chain to make sure they are not applied more than once to the final class.
+ * @export
+ * @param {function} mixin      Mixin to be applyed
+ * @returns {object}            Mixed class with mixin applied
+ */
+function dedupeMixin$1(mixin) {
+  return superClass => {
+    if (wasMixinPreviouslyApplied$1(mixin, superClass)) {
+      return superClass;
+    }
+    const mixedClass = mixin(superClass);
+    appliedClassMixins$1.set(mixedClass, mixin);
+    return mixedClass;
+  };
+}
+
+/**
+ * Cache class that allows to search in a cache hierarchy.
+ * @template T, Q
+ */
+class Cache$1 {
+  /**
+   * Creates a Cache instance
+   * @param {Cache} [parent]
+   */
+  constructor(parent) {
+    this._parent = parent;
+    this._cache = new Map();
+  }
+
+  /**
+   * Returns a boolean indicating whether an element with the specified key exists or not.
+   *
+   * @param {T} key - The key of the element to test for presence in the Cache object.
+   * @return {boolean}
+   */
+  has(key) {
+    return !!(this._cache.has(key) || (this._parent && this._parent._cache.has(key)));
+  }
+
+  /**
+   * Adds or updates an element with a specified key and a value to a Cache object.
+   *
+   * @param {T} key - The key of the element to add to the Cache object.
+   * @param {Q} value - The value of the element to add to the Cache object.
+   * @return {Cache<T, Q>} the cache object
+   */
+  set(key, value) {
+    this._cache.set(key, value);
+
+    return this;
+  }
+
+  /**
+   * Returns a specified element from a Map object. If the value that is associated to the provided key is an
+   * object, then you will get a reference to that object and any change made to that object will effectively modify
+   * it inside the Map object.
+   *
+   * @param {T} key - The key of the element to return from the Cache object.
+   * @return {Q}
+   */
+  get(key) {
+    return this._cache.get(key) || (this._parent && this._parent._cache.get(key));
+  }
+}
+
+/**
+ * Global counter to scope the custom elements
+ *
+ * @type {number}
+ */
+let counter$1 = Math.round(Math.random() * 100000);
+
+/**
+ * Allowed tag name chars
+ *
+ * @type {string}
+ */
+const chars$3 = `-|\\.|[0-9]|[a-z]`;
+
+/**
+ * Regular expression to check if a value is a valid tag name
+ *
+ * @type {RegExp}
+ */
+const tagRegExp$1 = new RegExp(`[a-z](${chars$3})*-(${chars$3})*`);
+
+/**
+ * Checks if the tag name is valid
+ *
+ * @param {string} tag
+ * @returns {boolean}
+ */
+const isValid$2 = tag => tagRegExp$1.exec(tag) !== null;
+
+/**
+ * Checks if the tag is already registered
+ *
+ * @param {string} name
+ * @param {CustomElementRegistry} registry
+ * @returns {boolean}
+ */
+const isTagRegistered$2 = (name, registry) => !!registry.get(name);
+
+/**
+ * Given a tag name scopes it with a number suffix
+ *
+ * @param {string} tagName
+ * @param {CustomElementRegistry} registry
+ * @returns {string} scoped tag name
+ */
+const incrementTagName$1 = (tagName, registry) => {
+  const newTagName = `${tagName}-${(counter$1 += 1)}`;
+
+  if (isTagRegistered$2(newTagName, registry)) {
+    return incrementTagName$1(tagName, registry);
+  }
+
+  return newTagName;
+};
+
+/**
+ * Creates a unique scoped tag name
+ *
+ * @exports
+ * @param {string} tagName - tag name to scope
+ * @param {CustomElementRegistry} registry
+ * @returns {string} scoped tag name
+ */
+function createUniqueTag$1(tagName, registry = customElements) {
+  if (!isValid$2(tagName)) {
+    throw new Error('tagName is invalid');
+  }
+
+  return incrementTagName$1(tagName, registry);
+}
+
+/**
+ * The window cache for tag names
+ *
+ * @type {WeakMap<typeof HTMLElement, string>}
+ */
+const globalTagsCache$1 = new WeakMap();
+
+/**
+ * Adds a tag to the window tags cache
+ *
+ * @param {string} tag
+ * @param {typeof HTMLElement} klass
+ */
+const addToGlobalTagsCache$1 = (tag, klass) => globalTagsCache$1.set(klass, tag);
+
+/**
+ * Gets a tag from the window tags cache
+ *
+ * @exports
+ * @param {typeof HTMLElement} klass
+ * @returns {undefined|string}
+ */
+const getFromGlobalTagsCache$1 = klass => globalTagsCache$1.get(klass);
+
+/**
+ * Checks if klass is a subclass of HTMLElement
+ *
+ * @param {typeof HTMLElement} klass
+ * @returns {boolean}
+ */
+const extendsHTMLElement$1 = klass => Object.prototype.isPrototypeOf.call(HTMLElement, klass);
+
+/**
+ * Defines a custom element
+ *
+ * @param {string} tagName
+ * @param {typeof HTMLElement} klass
+ * @param {CustomElementRegistry} registry
+ */
+const defineElement$1 = (tagName, klass, registry = customElements) => {
+  addToGlobalTagsCache$1(tagName, klass);
+  registry.define(tagName, class extends klass {});
+};
+
+/**
+ * Stores a lazy element in the cache to be used in future
+ *
+ * @param {string} tagName
+ * @param {CustomElementRegistry} registry
+ * @param {import('./Cache.js').Cache<string, string>} tagsCache
+ * @returns {string}
+ */
+const storeLazyElementInCache$1 = (tagName, registry, tagsCache) => {
+  const tag = createUniqueTag$1(tagName, registry);
+
+  if (!tagsCache) {
+    throw new Error('Lazy scoped elements requires the use of tags cache');
+  }
+
+  tagsCache.set(tagName, tag);
+
+  return tag;
+};
+
+/**
+ * Define a scoped custom element storing the scoped tag name in the cache
+ *
+ * @param {string} tagName
+ * @param {typeof HTMLElement} klass
+ * @param {import('./Cache.js').Cache<string, string>} tagsCache
+ * @returns {string}
+ */
+const defineElementAndStoreInCache$1 = (tagName, klass, tagsCache) => {
+  const registry = customElements;
+
+  if (!extendsHTMLElement$1(klass)) {
+    return storeLazyElementInCache$1(tagName, registry, tagsCache);
+  }
+
+  if (klass === customElements.get(tagName)) {
+    addToGlobalTagsCache$1(tagName, klass);
+
+    return tagName;
+  }
+
+  const tag = createUniqueTag$1(tagName, registry);
+  // @ts-ignore
+  // we extend it just in case the class has been defined manually
+  defineElement$1(tag, klass, registry);
+
+  return tag;
+};
+
+/**
+ * Gets a scoped tag name from the cache or generates a new one and defines the element if needed
+ *
+ * @exports
+ * @param {string} tagName
+ * @param {typeof HTMLElement} klass
+ * @param {import('./Cache.js').Cache<string, string>} tagsCache
+ * @returns {string}
+ */
+function registerElement$1(tagName, klass, tagsCache = undefined) {
+  const tag =
+    getFromGlobalTagsCache$1(klass) ||
+    (tagsCache && tagsCache.get(tagName)) ||
+    defineElementAndStoreInCache$1(tagName, klass, tagsCache);
+
+  return tag;
+}
+
+/**
+ * Defines a lazy element
+ *
+ * @param {string} tagName
+ * @param {typeof HTMLElement} klass
+ * @param {import('./Cache.js').Cache<string, string>} tagsCache
+ */
+function defineScopedElement$1(tagName, klass, tagsCache) {
+  const tag = tagsCache.get(tagName);
+
+  if (tag) {
+    if (customElements.get(tag) === undefined) {
+      defineElement$1(tag, klass, customElements);
+    }
+  } else {
+    tagsCache.set(tagName, registerElement$1(tagName, klass, tagsCache));
+  }
+}
+
+/**
+ * @typedef {import('./types').ScopedElementsMap} ScopedElementsMap
+ */
+
+/**
+ * Allowed tag name chars
+ *
+ * @type {string}
+ */
+const chars$2 = `-|\\.|[0-9]|[a-z]`;
+
+/**
+ * Regular Expression to find a custom element tag
+ *
+ * @type {RegExp}
+ */
+const re$1 = new RegExp(`<\\/?([a-z](${chars$2})*-(${chars$2})*)`, 'g');
+
+/**
+ * The window cache of processed string arrays
+ *
+ * @type {Cache<TemplateStringsArray, TemplateStringsArray>}
+ */
+const globalCache$1 = new Cache$1();
+
+/**
+ * Find custom element tags in the string
+ *
+ * @param {string} str
+ * @returns {RegExpExecArray[]}
+ */
+const matchAll$1 = str => {
+  const matches = [];
+  let result;
+  // eslint-disable-next-line no-cond-assign
+  while ((result = re$1.exec(str)) !== null) {
+    matches.push(result);
+  }
+
+  return matches;
+};
+
+/**
+ * Transforms a string array into another one with resolved scoped elements and caches it for future references
+ *
+ * @param {TemplateStringsArray} strings
+ * @param {ScopedElementsMap} scopedElements
+ * @param {Cache<TemplateStringsArray, TemplateStringsArray>} templateCache
+ * @param {Cache<string, string>} tagsCache
+ * @returns {TemplateStringsArray}
+ */
+const transformTemplate$3 = (strings, scopedElements, templateCache, tagsCache) => {
+  const transformedStrings = strings.map(str => {
+    let acc = str;
+    const matches = matchAll$1(str);
+
+    for (let i = matches.length - 1; i >= 0; i -= 1) {
+      const item = matches[i];
+      const [block, tagName] = item;
+      const tag = registerElement$1(tagName, scopedElements[tagName], tagsCache);
+      const start = item.index + block.length - tagName.length;
+      const end = start + tagName.length;
+      const isClosingTag = block.indexOf('</') === 0;
+
+      acc =
+        acc.slice(0, start) +
+        (isClosingTag ? tag : `${tag} data-tag-name="${tagName}"`) +
+        acc.slice(end);
+    }
+
+    return acc;
+  });
+
+  // @ts-ignore
+  // noinspection JSCheckFunctionSignatures
+  templateCache.set(strings, transformedStrings);
+
+  // @ts-ignore
+  // noinspection JSValidateTypes
+  return transformedStrings;
+};
+
+/**
+ * Obtains the cached strings array with resolved scoped elements or creates it
+ *
+ * @exports
+ * @param {TemplateStringsArray} strings
+ * @param {ScopedElementsMap} scopedElements
+ * @param {import('./Cache.js').Cache<TemplateStringsArray, TemplateStringsArray>} templateCache
+ * @param {import('./Cache.js').Cache<string, string>} tagsCache
+ * @returns {TemplateStringsArray}
+ */
+function transform$1(strings, scopedElements, templateCache = globalCache$1, tagsCache) {
+  return (
+    templateCache.get(strings) ||
+    transformTemplate$3(strings, scopedElements, templateCache, tagsCache)
+  );
+}
+
+const getTemplateCacheKey$2 = (type, scopeName) => `${type}--${scopeName}`;
+
+let compatibleShadyCSSVersion$2 = true;
+
+// @ts-ignore
+const { ShadyCSS: ShadyCSS$1 } = window;
+
+if (typeof ShadyCSS$1 === 'undefined') {
+  compatibleShadyCSSVersion$2 = false;
+} else if (typeof ShadyCSS$1.prepareTemplateDom === 'undefined') {
+  compatibleShadyCSSVersion$2 = false;
+}
+
+/**
+ * Template factory which scopes template DOM using ShadyCSS.
+ * @param scopeName {string}
+ */
+const shadyTemplateFactory$2 = scopeName => result => {
+  const cacheKey = getTemplateCacheKey$2(result.type, scopeName);
+  let templateCache = templateCaches$3.get(cacheKey);
+  if (templateCache === undefined) {
+    templateCache = {
+      stringsArray: new WeakMap(),
+      keyString: new Map(),
+    };
+    templateCaches$3.set(cacheKey, templateCache);
+  }
+  let template = templateCache.stringsArray.get(result.strings);
+  if (template !== undefined) {
+    return template;
+  }
+  const key = result.strings.join(marker$1);
+  template = templateCache.keyString.get(key);
+  if (template === undefined) {
+    const element = result.getTemplateElement();
+    if (compatibleShadyCSSVersion$2) {
+      ShadyCSS$1.prepareTemplateDom(element, scopeName);
+    }
+    template = new Template$1(result, element);
+    templateCache.keyString.set(key, template);
+  }
+  templateCache.stringsArray.set(result.strings, template);
+  return template;
+};
+
+/* eslint-disable no-use-before-define */
+
+/**
+ * @typedef {import('./types').ScopedElementsMixin} ScopedElementsMixin
+ * @typedef {import('./types').ScopedElementsMap} ScopedElementsMap
+ * @typedef {import("lit-element").LitElement} LitElement
+ * @typedef {import('lit-html/lib/shady-render').ShadyRenderOptions} ShadyRenderOptions
+ * @typedef {function(TemplateResult, Element|DocumentFragment|ShadowRoot, ShadyRenderOptions): void} RenderFunction
+ */
+
+/**
+ * Template caches
+ *
+ * @type {WeakMap<Function, Cache<TemplateStringsArray, TemplateStringsArray>>}
+ */
+const templateCaches$2 = new WeakMap();
+
+/**
+ * Retrieves or creates a templateCache for a specific key
+ *
+ * @param {Function} key
+ * @returns {Cache<TemplateStringsArray, TemplateStringsArray>}
+ */
+const getTemplateCache$1 = key => {
+  if (!templateCaches$2.has(key)) {
+    // @ts-ignore
+    templateCaches$2.set(key, new Cache$1(templateCaches$2.get(key.constructor)));
+  }
+
+  return templateCaches$2.get(key);
+};
+
+/**
+ * Tags caches
+ *
+ * @type {WeakMap<object, Cache<string, string>>}
+ */
+const tagsCaches$1 = new WeakMap();
+
+/**
+ * Retrieves or creates a tagsCache for a specific key
+ * @param {object} key
+ * @returns {Cache<string, string>}
+ */
+const getTagsCache$1 = key => {
+  if (!tagsCaches$1.has(key)) {
+    tagsCaches$1.set(key, new Cache$1(tagsCaches$1.get(key.constructor)));
+  }
+
+  return tagsCaches$1.get(key);
+};
+
+/**
+ * Transforms an array of TemplateResults or arrays into another one with resolved scoped elements
+ *
+ * @param {ReadonlyArray} items
+ * @param {ScopedElementsMap} scopedElements
+ * @param {Cache<TemplateStringsArray, TemplateStringsArray>} templateCache
+ * @param {Cache<string, string>} tagsCache
+ * @returns {ReadonlyArray}
+ */
+const transformArray$1 = (items, scopedElements, templateCache, tagsCache) =>
+  items.map(value => {
+    if (value instanceof TemplateResult$1) {
+      return transformTemplate$2(value, scopedElements, templateCache, tagsCache);
+    }
+
+    if (Array.isArray(value)) {
+      return transformArray$1(value, scopedElements, templateCache, tagsCache);
+    }
+
+    return value;
+  });
+
+/**
+ * Transforms a TemplateResult into another one with resolved scoped elements
+ *
+ * @param {TemplateResult} template
+ * @param {ScopedElementsMap} scopedElements
+ * @param {Cache<TemplateStringsArray, TemplateStringsArray>} templateCache
+ * @param {Cache<string, string>} tagsCache
+ * @returns {TemplateResult}
+ */
+const transformTemplate$2 = (template, scopedElements, templateCache, tagsCache) =>
+  new TemplateResult$1(
+    transform$1(template.strings, scopedElements, templateCache, tagsCache),
+    transformArray$1(template.values, scopedElements, templateCache, tagsCache),
+    template.type,
+    template.processor,
+  );
+
+/**
+ * Gets an instance of the ScopedElementsTemplateFactory
+ *
+ * @param {string} scopeName
+ * @param {ScopedElementsMap} scopedElements
+ * @param {Cache<TemplateStringsArray, TemplateStringsArray>} templateCache
+ * @param {Cache<string, string>} tagsCache
+ * @returns {function(any): any}
+ */
+const scopedElementsTemplateFactory$1 = (
+  scopeName,
+  scopedElements,
+  templateCache,
+  tagsCache,
+) => template => {
+  const newTemplate = transformTemplate$2(template, scopedElements, templateCache, tagsCache);
+
+  return shadyTemplateFactory$2(scopeName)(newTemplate);
+};
+
+/** @type {ScopedElementsMixin} */
+const ScopedElementsMixinImplementation$1 = superclass =>
+  class ScopedElementsHost extends superclass {
+    /**
+     * Obtains the scoped elements definitions map
+     *
+     * @returns {ScopedElementsMap}
+     */
+    static get scopedElements() {
+      return {};
+    }
+
+    /** @override */
+    static render(template, container, options) {
+      if (!options || typeof options !== 'object' || !options.scopeName) {
+        throw new Error('The `scopeName` option is required.');
+      }
+      const { scopeName, eventContext } = options;
+
+      const templateCache = getTemplateCache$1(eventContext);
+      const tagsCache = getTagsCache$1(eventContext);
+      const { scopedElements } = this;
+
+      return super.render(template, container, {
+        ...options,
+        templateFactory: scopedElementsTemplateFactory$1(
+          scopeName,
+          scopedElements,
+          templateCache,
+          tagsCache,
+        ),
+      });
+    }
+
+    /**
+     * Defines a scoped element
+     *
+     * @param {string} tagName
+     * @param {typeof HTMLElement} klass
+     */
+    defineScopedElement(tagName, klass) {
+      return defineScopedElement$1(tagName, klass, getTagsCache$1(this));
+    }
+
+    /**
+     * Returns a scoped tag name
+     *
+     * @deprecated Please, use the instance method instead of the static one. This static method is not able to
+     * obtain the tagName of lazy defined elements, while the instance one is.
+     * @param {string} tagName
+     * @returns {string|undefined}
+     */
+    static getScopedTagName(tagName) {
+      // @ts-ignore
+      const klass = this.scopedElements[tagName];
+
+      return klass
+        ? registerElement$1(tagName, klass, getTagsCache$1(this))
+        : getTagsCache$1(this).get(tagName);
+    }
+
+    /**
+     * Returns a scoped tag name
+     *
+     * @param {string} tagName
+     * @returns {string|undefined}
+     */
+    getScopedTagName(tagName) {
+      // @ts-ignore
+      const klass = this.constructor.scopedElements[tagName];
+
+      return klass
+        ? registerElement$1(tagName, klass, getTagsCache$1(this))
+        : getTagsCache$1(this).get(tagName);
+    }
+  };
+
+const ScopedElementsMixin$1 = dedupeMixin$1(ScopedElementsMixinImplementation$1);
 
 /**
  * @license
@@ -36929,7 +36929,7 @@ function esm(js) {
     return 'data:text/javascript;charset=utf-8,' + encodeURIComponent(js);
 }
 
-class DnaGrapes extends ScopedElementsMixin$1(LitElement$1) {
+class DnaGrapes extends BaseElement {
     constructor() {
         super(...arguments);
         this._profilesZomeExistsInDna = false;
@@ -36944,13 +36944,18 @@ class DnaGrapes extends ScopedElementsMixin$1(LitElement$1) {
     }
     updated(changedValues) {
         super.updated(changedValues);
-        if ((this._loading === false && changedValues.has('_editing')) ||
-            (changedValues.has('_loading') && this._loading === false)) {
-            if (this._editing) {
-                this.setupGrapes();
-            }
-            else {
-                this.setupRenderIframe();
+        if (this._loading === false) {
+            if (changedValues.has('_editing') ||
+                changedValues.has('_loading') ||
+                changedValues.has('_profileAlreadyCreated')) {
+                if (!this.showProfilePromt()) {
+                    if (this._editing) {
+                        this.setupGrapes();
+                    }
+                    else {
+                        this.setupRenderIframe();
+                    }
+                }
             }
         }
     }
@@ -37186,12 +37191,14 @@ class DnaGrapes extends ScopedElementsMixin$1(LitElement$1) {
       </div>
     `;
     }
-    static get scopedElements() {
+    getScopedElements() {
+        const profile = new ProfilesStore(new ProfilesService(this._grapesService.appWebsocket, this._grapesService.cellId));
         return {
             'mwc-top-app-bar': TopAppBar,
             'mwc-icon-button': IconButton,
             'mwc-button': Button,
             'mwc-circular-progress': CircularProgress,
+            'create-profile-form': connectStore(CreateProfileForm, profile),
         };
     }
     static get styles() {
@@ -37232,9 +37239,6 @@ __decorate$3([
 __decorate$3([
     property$1({ type: Boolean })
 ], DnaGrapes.prototype, "_loading", void 0);
-__decorate$3([
-    query$1('#grapes-container')
-], DnaGrapes.prototype, "_grapesContainer", void 0);
 
 export { DnaGrapes, GrapesService };
 //# sourceMappingURL=index.js.map
