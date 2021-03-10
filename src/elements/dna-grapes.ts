@@ -32,6 +32,8 @@ import grapesjs from 'grapesjs';
 import webpagePreset from 'grapesjs-preset-webpage';
 // @ts-ignore
 import grapesCss from 'grapesjs/dist/css/grapes.min.css';
+// @ts-ignore
+import grapesPresetCss from 'grapesjs-preset-webpage/dist/grapesjs-preset-webpage.min.css';
 import { RenderTemplate } from '../types';
 import { esm } from '../utils';
 import { CellId } from '@holochain/conductor-api';
@@ -138,6 +140,11 @@ export abstract class DnaGrapes extends BaseElement {
       storageManager: false,
       height: 'auto',
       jsInHtml: false,
+      canvasCss: `
+        html,body {
+          font-family: Arial, Helvetica, sans-serif;
+        }
+      `,
 
       plugins: [webpagePreset],
       pluginsOpts: {
@@ -373,6 +380,7 @@ export abstract class DnaGrapes extends BaseElement {
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         rel="stylesheet"
       />
+      <style></style>
       <div class="column" style="flex: 1;">
         <mwc-top-app-bar>
           <mwc-icon-button
@@ -409,7 +417,16 @@ export abstract class DnaGrapes extends BaseElement {
     return [
       sharedStyles,
       grapesCss,
+      grapesPresetCss,
       css`
+        .gjs-block::before {
+          content: unset !important;
+        }
+
+        .gjs-block {
+          min-height: 30px;
+        }
+
         :host {
           display: flex;
           font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,

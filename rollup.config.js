@@ -5,6 +5,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
 import builtins from 'rollup-plugin-node-builtins';
+import url from 'postcss-url';
 
 const pkg = require('./package.json');
 
@@ -15,6 +16,9 @@ export default {
   watch: {
     include: 'src/**',
   },
+  external: [
+    Object.keys(pkg.dependencies).filter(key => !key.includes('grapesjs')),
+  ],
   plugins: [
     replace({
       global: 'window',
@@ -25,6 +29,11 @@ export default {
     }),
     postcss({
       inject: false,
+      plugins: [
+        url({
+          url: 'inline', // enable inline assets using base64 encoding
+        }),
+      ],
     }),
     postcssLit(),
     typescript({}),
