@@ -1,4 +1,4 @@
-import { AppWebsocket, CellId } from '@holochain/conductor-api';
+import { AdminWebsocket, AppWebsocket, CellId } from '@holochain/conductor-api';
 import { FileStorageService } from '@holochain-open-dev/file-storage';
 import { DnaTemplate, PublishInstantiatedDnaInput, ZomeDef } from '../types/dnas';
 import { HoloHashed } from '@holochain-open-dev/core-types';
@@ -8,9 +8,10 @@ export interface GetTemplateForDnaOutput {
     uuid: string;
 }
 export declare class CompositoryService extends FileStorageService {
+    adminWebsocket: AdminWebsocket;
     appWebsocket: AppWebsocket;
-    protected compositoryCellId: CellId;
-    constructor(appWebsocket: AppWebsocket, compositoryCellId: CellId);
+    cellId: CellId;
+    constructor(adminWebsocket: AdminWebsocket, appWebsocket: AppWebsocket, cellId: CellId);
     /** Getters */
     getTemplateForDna(dnaHash: string): Promise<GetTemplateForDnaOutput>;
     getZomeDef(zomeDefHash: string): Promise<ZomeDef>;
@@ -18,6 +19,7 @@ export declare class CompositoryService extends FileStorageService {
     getAllZomeDefs(): Promise<Array<HoloHashed<ZomeDef>>>;
     getAllInstantiatedDnas(): Promise<Array<string>>;
     /** Creators */
+    publishZome(zomeDef: ZomeDef): Promise<string>;
     publishDnaTemplate(dnaTemplate: DnaTemplate): Promise<string>;
     publishInstantiatedDna(input: PublishInstantiatedDnaInput): Promise<string>;
     private callZome;

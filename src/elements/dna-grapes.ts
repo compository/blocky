@@ -4,22 +4,18 @@ import {
   html,
   LitElement,
   property,
+  PropertyValues,
   query,
 } from 'lit-element';
 import { ScopedElementsMixin as Scoped } from '@open-wc/scoped-elements';
 
-import { AppWebsocket, CellId } from '@holochain/conductor-api';
-import { serializeHash } from '@holochain-open-dev/core-types';
-import { styleMap } from 'lit-html/directives/style-map';
 import { TopAppBar } from 'scoped-material-components/mwc-top-app-bar';
 import { IconButton } from 'scoped-material-components/mwc-icon-button';
-import { CreateProfileForm } from '@holochain-open-dev/profiles';
+import { CreateProfileForm, ProfilesService } from '@holochain-open-dev/profiles';
 import {
   CompositoryService,
-  esm,
   fetchLensesForAllZomes,
   Lenses,
-  SetupLenses,
   ZomeDef,
 } from '@compository/lib';
 import { sharedStyles } from '../sharedStyles';
@@ -28,218 +24,173 @@ import { CircularProgress } from 'scoped-material-components/mwc-circular-progre
 import { Button } from 'scoped-material-components/mwc-button';
 //@ts-ignore
 import grapesjs from 'grapesjs';
+//@ts-ignore
+import webpagePreset from 'grapesjs-preset-webpage';
 // @ts-ignore
 import grapesCss from 'grapesjs/dist/css/grapes.min.css';
+import { RenderTemplate } from '../types';
+import { esm } from '../utils';
 
 export abstract class DnaGrapes extends Scoped(LitElement) {
-  @property({ type: Array })
-  cellId!: CellId;
-
   @property({ type: Boolean })
   _profilesZomeExistsInDna = false;
   @property({ type: Boolean })
   _profileAlreadyCreated = false;
 
   @property({ type: Boolean })
-  _editing = false;
+  _editing = true;
 
   @property({ type: Boolean })
   _loading = true;
 
-  // Grapes sub-elements
   @query('#grapes-container')
   _grapesContainer!: HTMLElement;
-  @query('#block-manager')
-  _blockManager!: HTMLElement;
-  @query('#panel-top')
-  _panelTop!: HTMLElement;
-  @query('#panel-switcher')
-  _panelSwitcher!: HTMLElement;
-  @query('#styles-container')
-  _stylesContainer!: HTMLElement;
-  @query('#editor-row')
-  _editorRow!: HTMLElement;
 
-  _editor!: any;
-
-  @property({ type: String })
-  _activePanel: 'styles' | 'blocks' = 'blocks';
+  _zomeLenses!: [ZomeDef, File][];
+  _templateToRender: RenderTemplate | undefined = undefined;
 
   abstract get _compositoryService(): CompositoryService;
+  abstract get _grapesService(): GrapesService;
+
+  _editor: any | undefined = undefined;
+
+  updated(changedValues: PropertyValues) {
+    super.updated(changedValues);
+
+    if (
+      (this._loading === false && changedValues.has('_editing')) ||
+      (changedValues.has('_loading') && this._loading === false)
+    ) {
+      if (this._editing) {
+        this.setupGrapes();
+      } else {
+        this.setupRenderIframe();
+      }
+    }
+  }
 
   async firstUpdated() {
-    await this.loadProfilesExists();
-
-    await this.loadSavedNodes();
-
-    const renderers = await this.loadRenderers();
+    await Promise.all([
+      this.loadProfilesExists(),
+      this.loadRenderTemplate(),
+      this.loadRenderers(),
+    ]);
 
     this._loading = false;
+  }
 
+  async setupRenderIframe() {
+    const iframe = this.shadowRoot?.getElementById(
+      'render-iframe'
+    ) as HTMLIFrameElement;
+
+    this.setupIframe(iframe);
+
+    const promises = this._zomeLenses.map(
+      async ([zomeDef, setupLensesFile]) => {
+        const text = await setupLensesFile.text();
+
+        this.addZomeLensesToIframe(zomeDef, text, iframe);
+      }
+    );
+
+    await Promise.all(promises);
+
+    if (this._templateToRender) {
+      const innerDocument = iframe.contentDocument as Document;
+
+      const styleEl = innerDocument.createElement('style');
+
+      styleEl.innerHTML = this._templateToRender.css;
+      innerDocument.body.innerHTML = this._templateToRender.html;
+      innerDocument.body.appendChild(styleEl);
+      setTimeout(() => this.addRenderTemplateJs(iframe));
+    }
+  }
+
+  async setupGrapes() {
     this._editor = grapesjs.init({
-      container: this._grapesContainer,
+      container: this.shadowRoot?.getElementById('grapes-container'),
+      components: this._templateToRender ? this._templateToRender.html : null,
+      style: this._templateToRender ? this._templateToRender.css : null,
       // Get the content for the canvas directly from the element
       // As an alternative we could use: `components: '<h1>Hello World Component!</h1>'`,
       fromElement: false,
       // Disable the storage manager for the moment
       storageManager: false,
       height: 'auto',
-      /*
-      width: 'auto', */
-      panels: {
-        defaults: [
-          {
-            id: 'panel-switcher',
-            el: this._panelSwitcher,
-            buttons: [
-              {
-                id: 'show-style',
-                label: 'Styles',
-                command: 'show-styles',
-                togglable: false,
-              },
-              {
-                id: 'show-blocks',
-                active: true,
-                label: 'Blocks',
-                command: 'show-blocks',
-                togglable: false,
-              },
-            ],
-          },
-        ],
-      },
-      blockManager: {
-        appendTo: this._blockManager,
-        blocks: [
-          {
-            id: 'section', // id is mandatory
-            label: '<b>Section</b>', // You can use HTML/SVG inside labels
-            attributes: { class: 'gjs-block-section' },
-            content: `<section>
-              <h1>This is a simple title</h1>
-              <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
-            </section>`,
-          },
-        ],
-      },
-      selectorManager: {
-        appendTo: this._stylesContainer,
-      },
-      styleManager: {
-        appendTo: this._stylesContainer,
-        sectors: [
-          {
-            name: 'Dimension',
-            open: false,
-            // Use built-in properties
-            buildProps: ['width', 'min-height', 'padding'],
-            // Use `properties` to define/override single property
-            properties: [
-              {
-                // Type of the input,
-                // options: integer | radio | select | color | slider | file | composite | stack
-                type: 'integer',
-                name: 'The width', // Label for the property
-                property: 'width', // CSS property (if buildProps contains it will be extended)
-                units: ['px', '%'], // Units, available only for 'integer' types
-                defaults: 'auto', // Default value
-                min: 0, // Min value, available only for 'integer' types
-              },
-            ],
-          },
-          {
-            name: 'Extra',
-            open: false,
-            buildProps: ['background-color', 'box-shadow', 'custom-prop'],
-            properties: [
-              {
-                id: 'custom-prop',
-                name: 'Custom Label',
-                property: 'font-size',
-                type: 'select',
-                defaults: '32px',
-                // List of options, available only for 'select' and 'radio'  types
-                options: [
-                  { value: '12px', name: 'Tiny' },
-                  { value: '18px', name: 'Medium' },
-                  { value: '32px', name: 'Big' },
-                ],
-              },
-            ],
-          },
-        ],
+      jsInHtml: false,
+
+      plugins: [webpagePreset],
+      pluginsOpts: {
+        [webpagePreset]: {
+          navbarOpts: false,
+          formsOpts: false,
+          exportOpts: false,
+          countdownOpts: false,
+        },
       },
     });
 
-    this._editor.Panels.addPanel({
-      id: 'panel-top',
-      el: this._panelTop,
-    });
-    this._editor.Commands.add('show-styles', {
-      run: (editor: any, sender: any) => {
-        this._activePanel = 'styles';
-      },
-    });
-    this._editor.Commands.add('show-blocks', {
-      run: (editor: any, sender: any) => {
-        this._activePanel = 'blocks';
-      },
-    });
+    this._editor.Canvas.getFrameEl().addEventListener('load', async () => {
+      const iframe = this._editor.Canvas.getFrameEl();
+      this.setupIframe(iframe);
 
-    const innerWindow = this._editor.Canvas.getWindow();
-    innerWindow.appWebsocket = this._compositoryService.appWebsocket;
-    innerWindow.cellId = this.cellId;
-    innerWindow.zomes = {};
+      const promises = this._zomeLenses.map(([zomeDef, setupLensesFile]) =>
+        this.addZomeLensesToGrapes(zomeDef, setupLensesFile, this._editor)
+      );
+      await Promise.all(promises);
 
-    const promises = renderers.map(([zomeDef, setupLensesFile]) =>
-      this.addZomeLenses(zomeDef, setupLensesFile)
-    );
-
-    await Promise.all(promises);
+      this.addRenderTemplateJs(iframe);
+    });
   }
 
-  esm(js: string) {
-    return 'data:text/javascript;charset=utf-8,' + encodeURIComponent(js);
+  setupIframe(iframe: HTMLIFrameElement) {
+    const innerWindow = iframe.contentWindow as Window;
+    (innerWindow as any).appWebsocket = this._compositoryService.appWebsocket;
+    (innerWindow as any).cellId = this._grapesService.cellId;
+    (innerWindow as any).zomes = {};
   }
-  async addZomeLenses(zomeDef: ZomeDef, setupLensesFile: File) {
-    // prettier-ignore
-    //eslint-disable-next-line
+
+  addRenderTemplateJs(iframe: HTMLIFrameElement) {
+    const innerWindow = iframe.contentWindow as Window;
+
+    if (this._templateToRender) {
+      const s = innerWindow.document.createElement('script');
+      s.innerHTML = this._templateToRender.js;
+      innerWindow.document.body.appendChild(s);
+    }
+  }
+
+  async addZomeLensesToGrapes(
+    zomeDef: ZomeDef,
+    setupLensesFile: File,
+    editor: any
+  ) {
     const text = await setupLensesFile.text();
 
-    // prettier-ignore
-    const lensesModule = await import(this.esm(text));
+    const iframeEl = editor.Canvas.getFrameEl();
+    await this.addZomeLensesToIframe(zomeDef, text, iframeEl);
+
+    const lensesModule = await import(esm(text));
     const lenses: Lenses = lensesModule.default(
       this._compositoryService.appWebsocket,
-      this.cellId
+      this._grapesService.cellId
     );
 
     for (let i = 0; i < lenses.standalone.length; i++) {
       const lens = lenses.standalone[i];
 
-      this._editor.Canvas.getWindow().zomes[zomeDef.name].code = text;
       // prettier-ignore
-      const script = await import(this.esm(`
+      const script = await import(esm(`
         export default function render() {
-          function esm(js) {
-            return 'data:text/javascript;charset=utf-8,' + encodeURIComponent(js);
-          }
-      
-          async function setupLenses() {
-            if (window.zomes.${zomeDef.name}.lenses) return;
-            const mod = await import(esm(window.zomes.${zomeDef.name}.code));
-            window.zomes.${zomeDef.name}.lenses = mod.default(window.appWebsocket, window.cellId);
-          }
-          
-          setupLenses().then(()=> {
             window.zomes.${zomeDef.name}.lenses.standalone[${i}].render(this)
-          });
         }`
       ));
 
       const componentName = `${zomeDef.name}: ${lens.name}`;
 
-      this._editor.Components.addType(componentName, {
+      editor.Components.addType(componentName, {
         model: {
           defaults: {
             script: script.default,
@@ -247,8 +198,12 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
         },
       });
 
-      this._editor.BlockManager.add(`block-${zomeDef.name}-${lens.name}`, {
+      editor.BlockManager.add(`block-${zomeDef.name}-${lens.name}`, {
         label: lens.name,
+        attributes: {
+          class: 'gjs-block fa fa-slideshare',
+        },
+        category: zomeDef.name,
         content: {
           type: componentName,
         },
@@ -256,23 +211,41 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
     }
   }
 
-  async loadSavedNodes() {
-    /*     const myNodes = await this.grapesService.getMyBoardNodes();
+  async addZomeLensesToIframe(
+    zomeDef: ZomeDef,
+    setupLensesFileText: string,
+    iframe: HTMLIFrameElement
+  ) {
+    const innerWindow = iframe.contentWindow as Window;
+    const innerDocument = iframe.contentDocument as Document;
+    (innerWindow as any).zomes[zomeDef.name] = { code: setupLensesFileText };
 
-    if (myNodes.length === 0) {
-      const allNodes = await this.grapesService.getAllBoardNodes();
-      this._savedBlockNode = allNodes[0];
-    } else {
-      this._savedBlockNode = myNodes[0];
+    const s = innerDocument.createElement('script');
+    s.innerHTML = `function esm(js) {
+      return 'data:text/javascript;charset=utf-8,' + encodeURIComponent(js);
+    }
+    async function setupLenses() {
+      if (window.zomes.${zomeDef.name}.lenses) return;
+      const mod = await import(esm(window.zomes.${zomeDef.name}.code));
+      window.zomes.${zomeDef.name}.lenses = mod.default(window.appWebsocket, window.cellId);
+    }
+    setupLenses()`;
+    innerDocument.body.appendChild(s);
+  }
+
+  async loadRenderTemplate() {
+    const templates = await this._grapesService.getAllRenderTemplates();
+
+    if (Object.values(templates).length > 0) {
+      this._templateToRender = Object.values(templates)[0];
     }
 
-    this._editing = !this._savedBlockNode;
- */
+    this._editing = !this._templateToRender;
   }
 
   async loadProfilesExists() {
-    /*     const dnaTemplate = await this.compositoryService.getTemplateForDna(
-      serializeHash(this.cellIdToDisplay[0])
+    const dnaTemplate = await this._compositoryService.getTemplateForDna(
+      serializeHash(this._grapesService.cellId[0])
     );
     this._profilesZomeExistsInDna = !!dnaTemplate.dnaTemplate.zome_defs.find(
       zome => zome.name === 'profiles'
@@ -280,37 +253,25 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
 
     if (this._profilesZomeExistsInDna) {
       const profileService = new ProfilesService(
-        this.membraneContext.appWebsocket as AppWebsocket,
-        this.cellIdToDisplay
+        this._grapesService.appWebsocket,
+        this._grapesService.cellId
       );
 
       const myProfile = await profileService.getMyProfile();
       this._profileAlreadyCreated = !!myProfile;
     }
- */
   }
 
   async loadRenderers() {
     // Get the renderers for each of the zomes
     const zomeLenses = await fetchLensesForAllZomes(
       this._compositoryService,
-      this.cellId
+      this._grapesService.cellId
     );
 
-    const blocks = zomeLenses.filter(
+    this._zomeLenses = zomeLenses.filter(
       ([def, setupLenses]) => setupLenses !== undefined
     ) as [ZomeDef, File][];
-
-    return blocks;
-  }
-
-  async createBoard() {
-    /*     this._editing = false;
-    if (JSON.stringify(this._savedBlockNode) !== JSON.stringify(layout)) {
-      this._savedBlockNode = layout;
-      await this.grapesService.createBoardNode(layout);
-    }
- */
   }
 
   showProfilePromt() {
@@ -322,12 +283,12 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
   }
 
   renderBarItems() {
-    /* if (this._loading || this.showProfilePromt()) */ return html``;
-    /*     if (!this._editing)
+    if (this._loading || this.showProfilePromt()) return html``;
+    if (!this._editing)
       return html` <mwc-button
         icon="edit"
         slot="actionItems"
-        label="Edit Layout"
+        label="Edit App Layout"
         class="white-button"
         @click=${() => {
           this._editing = true;
@@ -337,15 +298,23 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
       return html`<mwc-button
           icon="save"
           slot="actionItems"
-          label="Save Layout"
-          .disabled=${!this.board || this.board.isEditingLayoutEmpty()}
+          label="Save App Layout"
           class="white-button"
-          @click=${() => {
-            const newLayout = this.board.save();
-            this.createBoard(newLayout);
+          @click=${async () => {
+            const editor = this._editor;
+
+            const css = editor.getCss();
+            const js = editor.getJs();
+            const html = editor.getHtml();
+
+            const template = { css, js, html };
+
+            await this._grapesService.saveRenderTemplate(template);
+            this._templateToRender = template;
+            this._editing = false;
           }}
         ></mwc-button>
-        ${this._savedBlockNode
+        ${this._templateToRender
           ? html`
               <mwc-button
                 icon="close"
@@ -359,41 +328,10 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
             `
           : html``} `;
     }
- */
-  }
-
-  renderActivePanel() {
-    return html` <div
-        id="styles-container"
-        style=${styleMap({
-          display: this._activePanel === 'styles' ? 'block' : 'none',
-        })}
-      ></div>
-      <div
-        id="block-manager"
-        style=${styleMap({
-          display: this._activePanel === 'blocks' ? 'block' : 'none',
-        })}
-      ></div>`;
   }
 
   renderContent() {
-    return html`
-      <div class="column" style="flex: 1;">
-        <div class="panel__top" id="panel-top">
-          <div class="panel__basic-actions"></div>
-          <div class="panel__switcher" id="panel-switcher"></div>
-        </div>
-        <div id="editor-row">
-          <div id="editor-canvas">
-            <div id="grapes-container"></div>
-          </div>
-          <div class="panel__right">${this.renderActivePanel()}</div>
-        </div>
-      </div>
-    `;
-
-    /*     if (this._loading)
+    if (this._loading)
       return html`<div class="fill center-content">
         <mwc-circular-progress indeterminate></mwc-circular-progress>
       </div>`;
@@ -407,17 +345,8 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
           ></create-profile-form>
         </div>
       `;
-    else
-      return html`
-        <block-board
-          id="board"
-          style="flex: 1;"
-          .editing=${this._editing}
-          .blockSets=${this._blockSets}
-          .initialBlockLayout=${this._savedBlockNode}
-          @layout-updated=${() => this.requestUpdate()}
-        ></block-board>
-      `; */
+    else if (this._editing) return html` <div id="grapes-container"></div> `;
+    else return html` <iframe id="render-iframe" style="flex: 1;"></iframe> `;
   }
 
   render() {
@@ -446,6 +375,7 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
     return {
       'mwc-top-app-bar': TopAppBar,
       'mwc-icon-button': IconButton,
+      'mwc-button': Button,
       'mwc-circular-progress': CircularProgress,
     };
   }
@@ -457,6 +387,9 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
       css`
         :host {
           display: flex;
+          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+            sans-serif;
         }
         .white-button {
           --mdc-button-disabled-ink-color: rgba(255, 255, 255, 0.5);
@@ -464,55 +397,13 @@ export abstract class DnaGrapes extends Scoped(LitElement) {
         }
         /* Let's highlight canvas boundaries */
         #grapes-container {
-          border: 3px solid #444;
           flex: 1;
-        }
-        #editor-row {
-          display: flex;
-          justify-content: flex-start;
-          align-items: stretch;
-          flex-wrap: nowrap;
-          flex: 1;
-        }
-
-        #editor-canvas {
-          flex-grow: 1;
-          display: flex;
-        }
-
-        /* Reset some default styling */
-        .gjs-cv-canvas {
-          top: 0;
-          width: 100%;
-          height: 100%;
-        }
-
-        .gjs-block {
-          width: auto;
-          height: auto;
-          min-height: auto;
-        }
-        .panel__switcher {
-          position: initial;
-        }
-        .panel__right {
-          flex-basis: 230px;
-          position: relative;
-          overflow-y: auto;
-        }
-
-        .panel__top {
-          padding: 0;
-          width: 100%;
-          display: flex;
-          position: initial;
-          justify-content: center;
-          justify-content: space-between;
-        }
-        .panel__basic-actions {
-          position: initial;
         }
       `,
     ];
   }
 }
+function serializeHash(arg0: Buffer): string {
+  throw new Error('Function not implemented.');
+}
+

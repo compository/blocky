@@ -39,7 +39,6 @@ async function fetchZomeAndEntryIndexes(
 }
 
 export async function discoverEntryDetails(
-  adminWebsocket: AdminWebsocket,
   compositoryService: CompositoryService,
   entryUri: string
 ): Promise<EntryDefLocator> {
@@ -47,7 +46,7 @@ export async function discoverEntryDetails(
   const [dnaHash, entryHash] = entryUri.split('://');
 
   // Find the cellId corresponding to the given dna
-  const cellIds = await adminWebsocket.listCellIds();
+  const cellIds = await compositoryService.adminWebsocket.listCellIds();
   let cellId = cellIds.find(cellId => serializeHash(cellId[0]) === dnaHash);
 
   // If we don't have the dna installed, install it

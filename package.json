@@ -28,11 +28,15 @@
   "dependencies": {
     "@compository/lib": "git+https://github.com/compository/lib.git#build",
     "@holochain-open-dev/profiles": "git+https://github.com/holochain-open-dev/profiles.git#ui-build",
-    "@holochain/conductor-api": "0.0.1-dev.16",
+    "@holochain/conductor-api": "git+https://github.com/holochain/holochain-conductor-api.git",
     "@open-wc/scoped-elements": "^1.3.3",
     "grapesjs": "^0.16.41",
+    "grapesjs-blocks-basic": "^0.1.8",
+    "grapesjs-preset-webpage": "^0.1.11",
+    "i": "^0.3.6",
     "lit-element": "^2.4.0",
     "lit-html": "^1.3.0",
+    "npm": "^7.6.0",
     "scoped-material-components": "^0.1.0"
   },
   "devDependencies": {

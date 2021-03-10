@@ -1,4 +1,6 @@
+import { Dictionary } from '@holochain-open-dev/profiles';
 import { AppWebsocket, CellId } from '@holochain/conductor-api';
+import { RenderTemplate } from './types';
 
 export class GrapesService {
   constructor(
@@ -6,22 +8,16 @@ export class GrapesService {
     public cellId: CellId,
     public zomeName: string = 'grapes'
   ) {}
-/* 
-  createBoardNode(layout: BlockNode): Promise<string> {
-    return this.callZome('create_block_node', JSON.stringify(layout));
+
+  saveRenderTemplate(renderTemplate: RenderTemplate): Promise<string> {
+    return this.callZome('save_render_template', renderTemplate);
   }
 
-  async getAllBoardNodes(): Promise<Array<BlockNode>> {
-    const layouts = await this.callZome('get_all_block_nodes', null);
+  async getAllRenderTemplates(): Promise<Dictionary<RenderTemplate>> {
+    const layouts = await this.callZome('get_all_render_templates', null);
 
-    return layouts.map(([_, l]: [string, string]) => JSON.parse(l));
+    return layouts;
   }
-
-  async getMyBoardNodes(): Promise<Array<BlockNode>> {
-    const layouts = await this.callZome('get_my_block_nodes', null);
-
-    return layouts.map(([_, l]: [string, string]) => JSON.parse(l));
-  } */
 
   private callZome(fnName: string, payload: any) {
     return this.appWebsocket.callZome({

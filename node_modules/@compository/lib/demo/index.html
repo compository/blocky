@@ -9,17 +9,23 @@
     </style>
   </head>
   <body>
-    <holochain-membrane-context id="context"> </holochain-membrane-context>
+    <compose-zomes> </compose-zomes>
+    <publish-zome> </publish-zome>
 
     <script type="module">
-      import { CompositoryService, CompositoryScope } from '../dist';
+      import {
+        CompositoryService,
+        CompositoryScope,
+        ComposeZomes,
+        PublishZome,
+        connectService,
+      } from '../dist';
       import ConductorApi from '@holochain/conductor-api';
       import { serializeHash } from '@holochain-open-dev/core-types';
-      import { MembraneContextProvider } from '@holochain-open-dev/membrane-context';
 
       (async function () {
         const admin = await ConductorApi.AdminWebsocket.connect(
-          'ws://localhost:1234'
+          'ws://localhost:9000'
         );
         const app = await ConductorApi.AppWebsocket.connect(
           'ws://localhost:8888'
@@ -28,24 +34,21 @@
         const cellIds = await admin.listCellIds();
 
         const compositoryHash =
-          'uhC0k3d_GWtAki1I9l6DTAoLnwfWlVR74MHrndcVmhILLREaNX-VN';
+          'uhC0kFz1Nk6gCq-V2VKMwGvQndD15l2vuzhOu7XSW701VP80F13Vp';
         const compositoryCellId = cellIds.find(
           cellId => serializeHash(cellId[0]) === compositoryHash
         );
 
-        customElements.define(
-          'compository-compose-zomes',
-          CompositoryComposeZomes
-        );
-        customElements.define(
-          'holochain-membrane-context',
-          HolochainMembraneContext
-        );
+        const service = new CompositoryService(admin, app, compositoryCellId);
 
-        const membraneContext = document.getElementById('context');
-        membraneContext.cellId = compositoryCellId;
-        membraneContext.appWebsocket = app;
-        membraneContext.adminWebsocket = admin;
+        customElements.define(
+          'compose-zomes',
+          connectService(ComposeZomes, service)
+        );
+        customElements.define(
+          'publish-zome',
+          connectService(PublishZome, service)
+        );
       })();
     </script>
   </body>

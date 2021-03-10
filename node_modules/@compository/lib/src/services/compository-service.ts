@@ -1,4 +1,4 @@
-import { AppWebsocket, CellId } from '@holochain/conductor-api';
+import { AdminWebsocket, AppWebsocket, CellId } from '@holochain/conductor-api';
 import { FileStorageService } from '@holochain-open-dev/file-storage';
 import {
   DnaTemplate,
@@ -15,10 +15,11 @@ export interface GetTemplateForDnaOutput {
 
 export class CompositoryService extends FileStorageService {
   constructor(
+    public adminWebsocket: AdminWebsocket,
     public appWebsocket: AppWebsocket,
-    protected compositoryCellId: CellId
+    public cellId: CellId
   ) {
-    super(appWebsocket, compositoryCellId, 'file_storage');
+    super(appWebsocket, cellId, 'file_storage');
   }
 
   /** Getters */
@@ -50,6 +51,9 @@ export class CompositoryService extends FileStorageService {
 
   /** Creators */
 
+  async publishZome(zomeDef: ZomeDef): Promise<string> {
+    return this.callZome('compository', 'publish_zome', zomeDef);
+  }
   async publishDnaTemplate(dnaTemplate: DnaTemplate): Promise<string> {
     return this.callZome('compository', 'publish_dna_template', dnaTemplate);
   }
@@ -62,10 +66,10 @@ export class CompositoryService extends FileStorageService {
   private callZome(zome: string, fnName: string, payload: any) {
     return this.appWebsocket.callZome({
       cap: null,
-      cell_id: this.compositoryCellId,
+      cell_id: this.cellId,
       fn_name: fnName,
       payload: payload,
-      provenance: this.compositoryCellId[1],
+      provenance: this.cellId[1],
       zome_name: zome,
     });
   }

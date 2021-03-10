@@ -14,7 +14,7 @@ export interface ZomeDef {
   name: string;
   wasm_file: string;
   components_bundle_file: string | undefined;
-  wasm_hash: string;
+  wasm_hash: string | undefined;
   entry_defs: Array<string>;
   required_properties: Array<string>; // TODO: change to map, with property types
   required_membrane_proof: boolean;

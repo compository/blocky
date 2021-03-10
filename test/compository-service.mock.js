@@ -21,19 +21,32 @@ export class CompositoryServiceMock {
     };
   }
   async downloadFile(hash) {
-    return new File([
-      `
+    return new File(
+      [
+        `
       export default function lenses(app, cellId) {
+          customElements.define('sample-element', class extends HTMLElement {
+            connectedCallback() {
+              this.innerHTML =  'haha'
+            }
+          })
           return {
               standalone: [{
-                  name: \`sample element\`,
-                  render: (root) => {
-                    root.innerHTML = 'haha'
-                  }
-              }]
+                name: \`sample element\`,
+                render: (root) => {
+                  root.innerHTML = '<sample-element/>'
+                }
+            },{
+              name: \`sample element2\`,
+              render: (root) => {
+                root.innerHTML = '<sample-element/>'
+              }
+          }]
           }
       }
       `,
-    ], 'mock.txt');
+      ],
+      'mock.txt'
+    );
   }
 }
