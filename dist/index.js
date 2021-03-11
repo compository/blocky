@@ -36993,7 +36993,14 @@ class DnaGrapes extends BaseElement {
         this._editor = grapesjs.init({
             container: (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.getElementById('grapes-container'),
             components: this._templateToRender ? this._templateToRender.html : null,
-            style: this._templateToRender ? this._templateToRender.css : null,
+            style: this._templateToRender
+                ? this._templateToRender.css
+                : `
+        html,body {
+          font-family: Arial, Helvetica, sans-serif;
+        }
+      `,
+            noticeOnUnload: false,
             // Get the content for the canvas directly from the element
             // As an alternative we could use: `components: '<h1>Hello World Component!</h1>'`,
             fromElement: false,
@@ -37002,9 +37009,9 @@ class DnaGrapes extends BaseElement {
             height: 'auto',
             jsInHtml: false,
             canvasCss: `
-        html,body {
-          font-family: Arial, Helvetica, sans-serif;
-        }
+      .lens-block {
+        pointer-events: none;
+      }
       `,
             plugins: [webpagePreset],
             pluginsOpts: {
@@ -37065,9 +37072,7 @@ class DnaGrapes extends BaseElement {
                     class: 'gjs-block fa fa-slideshare',
                 },
                 category: zomeDef.name,
-                content: {
-                    type: componentName,
-                },
+                content: `<div data-gjs-type="${componentName}" class="lens-block"></div>`,
             });
         }
     }
