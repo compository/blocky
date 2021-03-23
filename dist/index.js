@@ -36973,20 +36973,25 @@ class DnaGrapes extends BaseElement {
     async setupRenderIframe() {
         var _a;
         const iframe = (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.getElementById('render-iframe');
-        this.setupIframe(iframe);
-        const promises = this._zomeLenses.map(async ([zomeDef, setupLensesFile]) => {
-            const text = await setupLensesFile.text();
-            this.addZomeLensesToIframe(zomeDef, text, iframe);
-        });
-        await Promise.all(promises);
-        if (this._templateToRender) {
-            const innerDocument = iframe.contentDocument;
-            const styleEl = innerDocument.createElement('style');
-            styleEl.innerHTML = this._templateToRender.css;
-            innerDocument.body.innerHTML = this._templateToRender.html;
-            innerDocument.body.appendChild(styleEl);
-            setTimeout(() => this.addRenderTemplateJs(iframe));
-        }
+        iframe.onload = async () => {
+            this.setupIframe(iframe);
+            const promises = this._zomeLenses.map(async ([zomeDef, setupLensesFile]) => {
+                const text = await setupLensesFile.text();
+                this.addZomeLensesToIframe(zomeDef, text, iframe);
+            });
+            await Promise.all(promises);
+            if (this._templateToRender) {
+                const innerDocument = iframe.contentDocument;
+                const styleEl = innerDocument.createElement('style');
+                styleEl.innerHTML = this._templateToRender.css;
+                innerDocument.body.appendChild(styleEl);
+                const htmlEl = innerDocument.createElement('div');
+                htmlEl.innerHTML = this._templateToRender.html;
+                htmlEl.setAttribute('style', 'display: contents');
+                innerDocument.body.appendChild(htmlEl);
+                setTimeout(() => this.addRenderTemplateJs(iframe), 50);
+            }
+        };
     }
     async setupGrapes() {
         var _a;
@@ -37056,7 +37061,7 @@ class DnaGrapes extends BaseElement {
             // prettier-ignore
             const script = await import(esm(`
         export default function render() {
-            window.zomes.${zomeDef.name}.lenses.standalone[${i}].render(this)
+            window.zomes["${zomeDef.name}"].lenses.standalone[${i}].render(this)
         }`));
             const componentName = `${zomeDef.name}: ${lens.name}`;
             editor.Components.addType(componentName, {
@@ -37085,9 +37090,9 @@ class DnaGrapes extends BaseElement {
       return 'data:text/javascript;charset=utf-8,' + encodeURIComponent(js);
     }
     async function setupLenses() {
-      if (window.zomes.${zomeDef.name}.lenses) return;
-      const mod = await import(esm(window.zomes.${zomeDef.name}.code));
-      window.zomes.${zomeDef.name}.lenses = mod.default(window.appWebsocket, window.cellId);
+      if (window.zomes["${zomeDef.name}"].lenses) return;
+      const mod = await import(esm(window.zomes["${zomeDef.name}"].code));
+      window.zomes["${zomeDef.name}"].lenses = mod.default(window.appWebsocket, window.cellId);
     }
     setupLenses()`;
         innerDocument.body.appendChild(s);
